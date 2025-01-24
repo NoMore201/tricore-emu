@@ -27,6 +27,9 @@ private:
 
     static constexpr usize register_count = 16;
 
+    // Instruction handlers
+    void insn_movha();
+
     // CPU registers
     std::array<u32, register_count> m_data_registers{};
     std::array<u32, register_count> m_address_registers{};

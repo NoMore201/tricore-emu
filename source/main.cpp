@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
 
             Tricore::Machine machine{};
             machine.init(elf_file, Tricore::Machine::Family::TC33X);
+            machine.start();
         }
     }
 

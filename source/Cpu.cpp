@@ -1,8 +1,15 @@
 #include "Cpu.hpp"
 #include "Memory.hpp"
-#include <stdexcept>
+#include "Error.hpp"
 
+#include <fmt/base.h>
 #include <fmt/core.h>
+
+namespace {
+
+constexpr std::byte insn_movha_id = std::byte{0x91};
+
+} // anonymous namespace
 
 Tricore::Cpu Tricore::Cpu::create_tc33x() {
     Cpu cpu{};
@@ -46,5 +53,21 @@ void Tricore::Cpu::init(Elf &elf_file) {
 }
 
 void Tricore::Cpu::start() {
-    throw std::runtime_error("Not implemented error");
+    for (;;) {
+        switch (m_memory.peek_at(m_program_counter)) {
+            case insn_movha_id:
+                insn_movha();
+                break;
+            default:
+                throw Exception{"Instruction not implemented"};
+        }
+    }
+}
+
+
+void Tricore::Cpu::insn_movha() {
+    u32 insn{};
+    m_memory.read(reinterpret_cast<std::byte*>(&insn), m_program_counter, 4);
+    fmt::print("Cpu: MOVH.A 0x{:08X}\n", insn);
+    m_program_counter += 4;
 }

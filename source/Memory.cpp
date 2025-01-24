@@ -44,6 +44,12 @@ void Tricore::Memory::add_memory_region(Layout layout,
                         std::vector<std::byte>{layout.size, std::byte{0}});
 }
 
+std::byte Tricore::Memory::peek_at(u32 address) {
+    auto &memory = get_corresponding_buffer(address);
+    const auto offset = memory.offset_into_buffer(address);
+    return memory.buffer.at(offset);
+}
+
 Tricore::Memory::MemBuffer &
 Tricore::Memory::get_corresponding_buffer(u32 address) {
     for (auto &memory : m_data) {

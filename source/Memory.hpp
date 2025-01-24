@@ -30,6 +30,8 @@ public:
     void add_memory_region(Layout layout,
                            std::optional<u32> mirror_address = {});
 
+    std::byte peek_at(u32 address);
+
 private:
     struct MemBuffer {
         u32 start_address;
