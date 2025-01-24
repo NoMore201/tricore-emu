@@ -3,11 +3,15 @@
 
 #include "Types.hpp"
 
-#include <initializer_list>
 #include <optional>
+#include <stdexcept>
 #include <vector>
 
 namespace Tricore {
+
+struct InvalidMemoryAccess : public std::runtime_error {
+    using std::runtime_error::runtime_error;
+};
 
 class Memory {
 
@@ -17,27 +21,27 @@ public:
         u32 address;
     };
 
-    enum class Error : u8 { InvalidAddress };
+    Memory();
 
-    explicit Memory(Layout layout, std::initializer_list<u32> aliases = {});
+    void read(std::byte *buffer_out, u32 address, usize length);
 
-    std::optional<Error> read(std::byte *buffer_out, u32 address, usize length) const;
+    void write(const std::byte *buffer_in, u32 address, usize length);
 
-    std::optional<Error> write(const std::byte *buffer_in, u32 address,
-                               usize length);
-
-    usize size() const noexcept { return m_data.size(); }
-
-    u32 address() const noexcept { return m_address; }
-
-    bool is_address_valid(u32 address) const;
+    void add_memory_region(Layout layout,
+                           std::optional<u32> mirror_address = {});
 
 private:
-    std::optional<u32> convert_address_to_offset(u32 address) const;
+    struct MemBuffer {
+        u32 start_address;
+        std::optional<u32> mirror_start_address;
+        std::vector<std::byte> buffer;
 
-    u32 m_address{};
-    std::vector<std::byte> m_data;
-    std::vector<u32> m_aliases;
+        u32 offset_into_buffer(u32 address);
+    };
+
+    MemBuffer &get_corresponding_buffer(u32 address);
+
+    std::vector<MemBuffer> m_data;
 };
 
 } // namespace Tricore

@@ -19,8 +19,6 @@ public:
 
     void init(Elf& elf_file);
 
-    void add_memory(Memory mem) { m_memories.push_back(std::move(mem)); }
-
     void set_program_counter(u32 address) noexcept { m_program_counter = address; }
 
     void start();
@@ -36,7 +34,7 @@ private:
     // TODO add all registers
 
     // Memory
-    std::vector<Memory> m_memories;
+    Memory m_memory;
 };
 
 } // namespace Tricore
