@@ -34,7 +34,8 @@ std::vector<Tricore::Elf::SectionHeaderWithName> Tricore::Elf::get_section_heade
     std::vector<Tricore::Elf::SectionHeaderWithName> section_list{};
     section_list.reserve(m_header.e_shnum);
 
-    for (u32 pos = m_header.e_shoff; pos < m_header.e_shoff + (m_header.e_shnum * m_header.e_shentsize);
+    // skip first entry since it's reserved
+    for (u32 pos = m_header.e_shoff + m_header.e_shentsize; pos < m_header.e_shoff + (m_header.e_shnum * m_header.e_shentsize);
          pos += m_header.e_shentsize) {
         SectionHeader section_header{};
         m_file.seekg(pos);

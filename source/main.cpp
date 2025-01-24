@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
             fmt::print("Entrypoint: {:x}\n", elf_file.entrypoint());
 
             Tricore::Machine machine{};
-            machine.init(elf_file);
+            machine.init(elf_file, Tricore::Machine::Family::TC33X);
         }
     }
 
