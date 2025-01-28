@@ -44,7 +44,7 @@ add_library(
   OBJECT
   source/Cpu.cpp
   source/Elf.cpp
-  source/Machine.cpp
+  source/Tc33x.cpp
   source/Memory.cpp
 )
 

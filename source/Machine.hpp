@@ -1,28 +1,18 @@
 #ifndef TRICORE_EMU_MACHINE_HPP
 #define TRICORE_EMU_MACHINE_HPP
 
-#include "Elf.hpp"
-#include "Cpu.hpp"
-
 namespace Tricore {
+
+class Elf;
 
 class Machine {
 
 public:
 
-    enum class Family : u8 {
-        TC33X
-    };
+    virtual void init(Elf& elf_file) = 0;
 
-    Machine() = default;
+    virtual void start() = 0;
 
-    void init(Elf& elf_file, Family family);
-
-    void start();
-
-private:
-
-    Cpu m_cpu;
 };
 
 } // namespace Tricore
