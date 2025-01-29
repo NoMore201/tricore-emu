@@ -10,7 +10,7 @@
 namespace Tricore::Utils {
 
 template <std::unsigned_integral U>
-constexpr auto unsigned_abs_diff(U lhs, U rhs) {
+static constexpr auto unsigned_abs_diff(U lhs, U rhs) {
     if (lhs > rhs) {
         return lhs - rhs;
     }
@@ -19,14 +19,14 @@ constexpr auto unsigned_abs_diff(U lhs, U rhs) {
 }
 
 template <std::signed_integral T, usize B>
-constexpr inline T sign_extend(const T input) {
+static constexpr inline T sign_extend(const T input) {
     struct {
         T x : B;
     } to_extend = {.x = input};
     return to_extend.x;
 }
 
-static inline u32 extract32(u32 data, u32 offset, u32 length) {
+static constexpr inline u32 extract32(u32 data, u32 offset, u32 length) {
     Expects(offset < 32U && length <= 32U - offset);
     return (data >> offset) & (~0U >> (32U - length));
 }

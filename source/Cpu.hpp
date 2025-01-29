@@ -29,6 +29,7 @@ private:
 
     // Instruction handlers
     void insn_movha();
+    void insn_mov_rlc();
     void insn_lea_bol();
     void insn_ji_sr();
 
