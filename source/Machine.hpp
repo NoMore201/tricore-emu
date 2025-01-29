@@ -9,6 +9,8 @@ class Machine {
 
 public:
 
+    virtual ~Machine() = default;
+
     virtual void init(Elf& elf_file) = 0;
 
     virtual void start() = 0;

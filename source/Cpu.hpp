@@ -30,9 +30,11 @@ private:
     // Instruction handlers
     void insn_movha();
     void insn_lea_bol();
+    void insn_ji_sr();
 
     // Helpers
     u32 read_32(u32 address);
+    u16 read_16(u32 address);
 
     // CPU registers
     std::array<u32, register_count> m_data_registers{};

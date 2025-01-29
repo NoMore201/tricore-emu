@@ -9,12 +9,21 @@
 
 namespace Tricore::Utils {
 
-template <std::unsigned_integral U> auto unsigned_abs_diff(U lhs, U rhs) {
+template <std::unsigned_integral U>
+constexpr auto unsigned_abs_diff(U lhs, U rhs) {
     if (lhs > rhs) {
         return lhs - rhs;
     }
 
     return rhs - lhs;
+}
+
+template <std::signed_integral T, usize B>
+constexpr inline T sign_extend(const T input) {
+    struct {
+        T x : B;
+    } to_extend = {.x = input};
+    return to_extend.x;
 }
 
 static inline u32 extract32(u32 data, u32 offset, u32 length) {
