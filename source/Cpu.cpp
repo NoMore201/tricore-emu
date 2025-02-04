@@ -110,8 +110,7 @@ void Tricore::Cpu::insn_lea_bol() {
     u32 off16 = Utils::extract32(insn, 16, 6);
     off16 |= Utils::extract32(insn, 28, 4) << 6U;
     off16 |= Utils::extract32(insn, 22, 6) << 10U;
-    i32 sign_extended_off16 = Utils::sign_extend<i32, 32>(static_cast<i32>(off16));
-    fmt::print("Cpu: LEA sign extended off16 0x{:08X}\n", static_cast<u32>(sign_extended_off16));
+    i32 sign_extended_off16 = Utils::sign_extend<i32, 16>(static_cast<i32>(off16));
     // EA = A[b] + sign_ext(off16)
     const u32 effective_address = m_address_registers.at(addr_index_b) + static_cast<u32>(sign_extended_off16);
     // A[a] = EA[31:0]
