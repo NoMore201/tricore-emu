@@ -3,6 +3,7 @@
 #include "Types.hpp"
 #include "Utils.hpp"
 
+#include <fmt/format.h>
 #include <gsl/assert>
 
 #include <algorithm>
@@ -59,5 +60,6 @@ Tricore::Memory::get_corresponding_buffer(u32 address) {
         } catch (InvalidMemoryAccess &) {
         }
     }
-    throw InvalidMemoryAccess{"Memory address is not handled"};
+    throw InvalidMemoryAccess{
+        fmt::format("Address 0x{:08X} not mapped in memory layout", address)};
 }

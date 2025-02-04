@@ -1,10 +1,13 @@
 #include "Elf.hpp"
 #include "Tc33x.hpp"
 
-#include <fmt/base.h>
-#include <fmt/core.h>
+#include <spdlog/common.h>
+#include <spdlog/spdlog.h>
 
 int main(int argc, char *argv[]) {
+
+    // TODO: handle with parameters
+    spdlog::set_level(spdlog::level::debug);
 
     if (argc > 1) {
         Tricore::Elf elf_file;
@@ -13,15 +16,13 @@ int main(int argc, char *argv[]) {
         if (result) {
             switch (result.value()) {
             case Tricore::Elf::Error::ReadError:
-                fmt::print("Error while reading ELF file\n");
+                spdlog::info("Error while reading ELF file");
                 break;
             case Tricore::Elf::Error::InvalidFile:
-                fmt::print("Provided file is not ELF\n");
+                spdlog::info("Provided file is not ELF");
                 break;
             }
         } else {
-            fmt::print("Entrypoint: {:x}\n", elf_file.entrypoint());
-
             Tricore::Tc33x machine{};
             machine.init(elf_file);
             machine.start();

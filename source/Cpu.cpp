@@ -4,8 +4,7 @@
 #include "Types.hpp"
 #include "Utils.hpp"
 
-#include <fmt/base.h>
-#include <fmt/core.h>
+#include <spdlog/spdlog.h>
 
 namespace {
 
@@ -46,12 +45,13 @@ void Tricore::Cpu::init(Elf &elf_file) {
         const auto data = elf_file.get_section_data(section);
         try {
             m_memory.write(data.data(), section.sh_addr, section.sh_size);
-            fmt::print("Cpu: initializing memory with content of section {} at "
-                       "address 0x{:02X}\n",
-                       name, section.sh_addr);
+            spdlog::debug(
+                "Cpu: initializing memory with content of section {} at "
+                "address 0x{:02X}",
+                name, section.sh_addr);
         } catch (InvalidMemoryAccess &) {
-            fmt::print(
-                "Cpu: ignoring section {}, address 0x{:02X} not handled\n",
+            spdlog::debug(
+                "Cpu: ignoring section {}, address 0x{:02X} not handled",
                 name, section.sh_addr);
         }
     }
@@ -84,80 +84,92 @@ void Tricore::Cpu::start() {
 
 void Tricore::Cpu::insn_movha() {
     u32 insn = read_32(m_program_counter);
-    fmt::print("Cpu: MOVH.A 0x{:08X}\n", insn);
+    spdlog::debug("Cpu: MOVH.A 0x{:08X}", insn);
     const auto addr_register_index = Utils::extract32(insn, 28, 4);
     const auto msb_half_word = Utils::extract32(insn, 12, 16);
     m_address_registers.at(addr_register_index) = 0U | (msb_half_word << 16U);
+    spdlog::debug("==> Cpu: MOVH.A value 0x{:08X} to A[{}]", insn,
+                  addr_register_index);
     m_program_counter += 4;
 }
 
 void Tricore::Cpu::insn_mov_rlc() {
     u32 insn = read_32(m_program_counter);
-    fmt::print("Cpu: MOV 0x{:08X}\n", insn);
+    spdlog::debug("Cpu: MOV 0x{:08X}", insn);
     const auto data_register_index = Utils::extract32(insn, 28, 4);
     const u32 const16 = Utils::extract32(insn, 12, 16);
-    auto sign_ext_const16 = Utils::sign_extend<i32, 32>(static_cast<i32>(const16));
-    m_data_registers.at(data_register_index) = static_cast<u32>(sign_ext_const16);
-    fmt::print("Cpu: MOV final value 0x{:08X}\n", m_data_registers.at(data_register_index));
+    auto sign_ext_const16 =
+        Utils::sign_extend<i32, 32>(static_cast<i32>(const16));
+    m_data_registers.at(data_register_index) =
+        static_cast<u32>(sign_ext_const16);
+    spdlog::debug("==> Cpu: MOV final value 0x{:08X} to D[{}]",
+                  m_data_registers.at(data_register_index),
+                  data_register_index);
     m_program_counter += 4;
 }
 
 void Tricore::Cpu::insn_lea_bol() {
     u32 insn = read_32(m_program_counter);
-    fmt::print("Cpu: LEA 0x{:08X}\n", insn);
+    spdlog::debug("Cpu: LEA 0x{:08X}", insn);
     const auto addr_index_a = Utils::extract32(insn, 8, 4);
     const auto addr_index_b = Utils::extract32(insn, 12, 4);
     u32 off16 = Utils::extract32(insn, 16, 6);
     off16 |= Utils::extract32(insn, 28, 4) << 6U;
     off16 |= Utils::extract32(insn, 22, 6) << 10U;
-    i32 sign_extended_off16 = Utils::sign_extend<i32, 16>(static_cast<i32>(off16));
+    i32 sign_extended_off16 =
+        Utils::sign_extend<i32, 16>(static_cast<i32>(off16));
     // EA = A[b] + sign_ext(off16)
-    const u32 effective_address = m_address_registers.at(addr_index_b) + static_cast<u32>(sign_extended_off16);
+    const u32 effective_address = m_address_registers.at(addr_index_b) +
+                                  static_cast<u32>(sign_extended_off16);
     // A[a] = EA[31:0]
     m_address_registers.at(addr_index_a) = effective_address;
-    fmt::print("Cpu: LEA final address is 0x{:08X}\n", effective_address);
+    spdlog::debug("==> Cpu: LEA final address 0x{:08X} to A[{}]",
+                  effective_address, addr_index_a);
     m_program_counter += 4;
 }
 
 void Tricore::Cpu::insn_ji_sr() {
     const auto insn = read_16(m_program_counter);
-    fmt::print("Cpu: JI 0x{:08X}\n", insn);
+    spdlog::debug("Cpu: JI 0x{:08X}", insn);
     const auto addr_index = Utils::extract32(insn, 8, 4);
-    const auto final_address = m_address_registers.at(addr_index) & ((~0U) - 1U);
-    fmt::print("Cpu: JI final address 0x{:08X}\n", final_address);
+    const auto final_address =
+        m_address_registers.at(addr_index) & ((~0U) - 1U);
+    spdlog::debug("Cpu: JI final address 0x{:08X}", final_address);
     m_program_counter = final_address;
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {
     u32 data{};
 
-    for (auto* client : m_bus_clients) {
+    for (auto *client : m_bus_clients) {
         try {
             client->read(reinterpret_cast<std::byte *>(&data), address, 4);
             return data;
-        } catch(InvalidMemoryAccess&) {
+        } catch (InvalidMemoryAccess &) {
             // this client does not handle input address, continue
             continue;
         }
     }
 
     // Address not handled by any peripherals, re-throw error
-    throw InvalidMemoryAccess{fmt::format("Address 0x{:08X} not handled by CPU", address)};
+    throw InvalidMemoryAccess{
+        fmt::format("Address 0x{:08X} not handled by CPU", address)};
 }
 
 u16 Tricore::Cpu::read_16(u32 address) {
     u16 data{};
-    
-    for (auto* client : m_bus_clients) {
+
+    for (auto *client : m_bus_clients) {
         try {
             client->read(reinterpret_cast<std::byte *>(&data), address, 2);
             return data;
-        } catch(InvalidMemoryAccess&) {
+        } catch (InvalidMemoryAccess &) {
             // this client does not handle input address, continue
             continue;
         }
     }
 
     // Address not handled by any peripherals, re-throw error
-    throw InvalidMemoryAccess{fmt::format("Address 0x{:08X} not handled by CPU", address)};
+    throw InvalidMemoryAccess{
+        fmt::format("Address 0x{:08X} not handled by CPU", address)};
 }

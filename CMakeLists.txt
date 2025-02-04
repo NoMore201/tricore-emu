@@ -54,8 +54,9 @@ target_compile_features(tricore_emu_lib PUBLIC cxx_std_20)
 
 find_package(Microsoft.GSL CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
+find_package(spdlog CONFIG REQUIRED)
 
-target_link_libraries(tricore_emu_lib PUBLIC Microsoft.GSL::GSL fmt::fmt)
+target_link_libraries(tricore_emu_lib PUBLIC Microsoft.GSL::GSL fmt::fmt spdlog::spdlog)
 
 # ---- Declare executable ----
 
