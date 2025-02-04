@@ -1,11 +1,13 @@
 #ifndef TRICORE_EMU_CPU_HPP
 #define TRICORE_EMU_CPU_HPP
 
+#include "BusClient.hpp"
 #include "Types.hpp"
 #include "Memory.hpp"
 #include "Elf.hpp"
 
 #include <array>
+#include <vector>
 
 namespace Tricore {
 
@@ -43,7 +45,8 @@ private:
     u32 m_program_counter{};
     // TODO add all registers
 
-    // Memory
+    // Devices
+    std::vector<BusClient*> m_bus_clients;
     Memory m_memory;
 };
 

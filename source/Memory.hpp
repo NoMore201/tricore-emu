@@ -1,19 +1,15 @@
 #ifndef TRICORE_EMU_MEMORY_HPP
 #define TRICORE_EMU_MEMORY_HPP
 
+#include "BusClient.hpp"
 #include "Types.hpp"
 
 #include <optional>
-#include <stdexcept>
 #include <vector>
 
 namespace Tricore {
 
-struct InvalidMemoryAccess : public std::runtime_error {
-    using std::runtime_error::runtime_error;
-};
-
-class Memory {
+class Memory  : public BusClient {
 
 public:
     struct Layout {
@@ -23,9 +19,9 @@ public:
 
     Memory();
 
-    void read(std::byte *buffer_out, u32 address, usize length);
+    void read(std::byte *buffer_out, u32 address, usize length) override;
 
-    void write(const std::byte *buffer_in, u32 address, usize length);
+    void write(const std::byte *buffer_in, u32 address, usize length) override;
 
     void add_memory_region(Layout layout,
                            std::optional<u32> mirror_address = {});

@@ -9,8 +9,6 @@
 
 namespace {
 
-constexpr u32 peripherals_start_address = 0xF0000000U;
-
 constexpr std::byte bytecode_movha_id = std::byte{0x91};
 constexpr std::byte bytecode_mov_rlc = std::byte{0x3B};
 constexpr std::byte bytecode_lea_bol = std::byte{0xD9};
@@ -57,6 +55,10 @@ void Tricore::Cpu::init(Elf &elf_file) {
                 name, section.sh_addr);
         }
     }
+
+    m_bus_clients.push_back(&m_memory);
+
+    // TODO: register other peripherals as bus clients
 }
 
 void Tricore::Cpu::start() {
@@ -129,12 +131,34 @@ void Tricore::Cpu::insn_ji_sr() {
 
 u32 Tricore::Cpu::read_32(u32 address) {
     u32 data{};
-    m_memory.read(reinterpret_cast<std::byte *>(&data), address, 4);
-    return data;
+
+    for (auto* client : m_bus_clients) {
+        try {
+            client->read(reinterpret_cast<std::byte *>(&data), address, 4);
+            return data;
+        } catch(InvalidMemoryAccess&) {
+            // this client does not handle input address, continue
+            continue;
+        }
+    }
+
+    // Address not handled by any peripherals, re-throw error
+    throw InvalidMemoryAccess{fmt::format("Address 0x{:08X} not handled by CPU", address)};
 }
 
 u16 Tricore::Cpu::read_16(u32 address) {
     u16 data{};
-    m_memory.read(reinterpret_cast<std::byte *>(&data), address, 2);
-    return data;
+    
+    for (auto* client : m_bus_clients) {
+        try {
+            client->read(reinterpret_cast<std::byte *>(&data), address, 2);
+            return data;
+        } catch(InvalidMemoryAccess&) {
+            // this client does not handle input address, continue
+            continue;
+        }
+    }
+
+    // Address not handled by any peripherals, re-throw error
+    throw InvalidMemoryAccess{fmt::format("Address 0x{:08X} not handled by CPU", address)};
 }
