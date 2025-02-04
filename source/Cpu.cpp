@@ -12,8 +12,26 @@ constexpr std::byte bytecode_movha_id = std::byte{0x91};
 constexpr std::byte bytecode_mov_rlc = std::byte{0x3B};
 constexpr std::byte bytecode_lea_bol = std::byte{0xD9};
 constexpr std::byte bytecode_ji_sr = std::byte{0xDC};
+constexpr std::byte bytecode_mtcr = std::byte{0xCD};
+constexpr std::byte bytecode_isync = std::byte{0x0D};
 
 } // anonymous namespace
+
+u32 &Tricore::Cpu::CoreRegisters::operator[](usize offset) {
+    switch (offset) {
+    case 0xFE00U:
+        return pcxi;
+    case 0xFE04U:
+        return psw;
+    case 0xFE08U:
+        return pc;
+    case 0xFE14U:
+        return syscon;
+    default:
+        throw InvalidCoreRegisterOffset{
+            fmt::format("Core register offset 0x{:04X} not handled", offset)};
+    }
+}
 
 Tricore::Cpu Tricore::Cpu::create_tc33x() {
     Cpu cpu{};
@@ -51,8 +69,8 @@ void Tricore::Cpu::init(Elf &elf_file) {
                 name, section.sh_addr);
         } catch (InvalidMemoryAccess &) {
             spdlog::debug(
-                "Cpu: ignoring section {}, address 0x{:02X} not handled",
-                name, section.sh_addr);
+                "Cpu: ignoring section {}, address 0x{:02X} not handled", name,
+                section.sh_addr);
         }
     }
 
@@ -63,7 +81,7 @@ void Tricore::Cpu::init(Elf &elf_file) {
 
 void Tricore::Cpu::start() {
     for (;;) {
-        switch (m_memory.peek_at(m_program_counter)) {
+        switch (m_memory.peek_at(m_core_registers.pc)) {
         case bytecode_lea_bol:
             insn_lea_bol();
             break;
@@ -76,6 +94,12 @@ void Tricore::Cpu::start() {
         case bytecode_mov_rlc:
             insn_mov_rlc();
             break;
+        case bytecode_mtcr:
+            insn_mtcr();
+            break;
+        case bytecode_isync:
+            insn_isync();
+            break;
         default:
             throw Exception{"Instruction not implemented"};
         }
@@ -83,18 +107,18 @@ void Tricore::Cpu::start() {
 }
 
 void Tricore::Cpu::insn_movha() {
-    u32 insn = read_32(m_program_counter);
+    u32 insn = read_32(m_core_registers.pc);
     spdlog::debug("Cpu: MOVH.A 0x{:08X}", insn);
     const auto addr_register_index = Utils::extract32(insn, 28, 4);
     const auto msb_half_word = Utils::extract32(insn, 12, 16);
     m_address_registers.at(addr_register_index) = 0U | (msb_half_word << 16U);
     spdlog::debug("==> Cpu: MOVH.A value 0x{:08X} to A[{}]", insn,
                   addr_register_index);
-    m_program_counter += 4;
+    m_core_registers.pc += 4;
 }
 
 void Tricore::Cpu::insn_mov_rlc() {
-    u32 insn = read_32(m_program_counter);
+    u32 insn = read_32(m_core_registers.pc);
     spdlog::debug("Cpu: MOV 0x{:08X}", insn);
     const auto data_register_index = Utils::extract32(insn, 28, 4);
     const u32 const16 = Utils::extract32(insn, 12, 16);
@@ -105,11 +129,11 @@ void Tricore::Cpu::insn_mov_rlc() {
     spdlog::debug("==> Cpu: MOV final value 0x{:08X} to D[{}]",
                   m_data_registers.at(data_register_index),
                   data_register_index);
-    m_program_counter += 4;
+    m_core_registers.pc += 4;
 }
 
 void Tricore::Cpu::insn_lea_bol() {
-    u32 insn = read_32(m_program_counter);
+    u32 insn = read_32(m_core_registers.pc);
     spdlog::debug("Cpu: LEA 0x{:08X}", insn);
     const auto addr_index_a = Utils::extract32(insn, 8, 4);
     const auto addr_index_b = Utils::extract32(insn, 12, 4);
@@ -125,17 +149,32 @@ void Tricore::Cpu::insn_lea_bol() {
     m_address_registers.at(addr_index_a) = effective_address;
     spdlog::debug("==> Cpu: LEA final address 0x{:08X} to A[{}]",
                   effective_address, addr_index_a);
-    m_program_counter += 4;
+    m_core_registers.pc += 4;
 }
 
 void Tricore::Cpu::insn_ji_sr() {
-    const auto insn = read_16(m_program_counter);
+    const auto insn = read_16(m_core_registers.pc);
     spdlog::debug("Cpu: JI 0x{:08X}", insn);
     const auto addr_index = Utils::extract32(insn, 8, 4);
     const auto final_address =
         m_address_registers.at(addr_index) & ((~0U) - 1U);
     spdlog::debug("Cpu: JI final address 0x{:08X}", final_address);
-    m_program_counter = final_address;
+    m_core_registers.pc = final_address;
+}
+
+void Tricore::Cpu::insn_mtcr() {
+    const auto insn = read_32(m_core_registers.pc);
+    spdlog::debug("Cpu: MTCR 0x{:08X}", insn);
+    const auto data_index = Utils::extract32(insn, 8, 4);
+    const auto const16 = Utils::extract32(insn, 12, 16);
+    m_core_registers[const16] = m_data_registers.at(data_index);
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_isync() {
+    spdlog::debug("Cpu: ISYNC");
+    // do nothing
+    m_core_registers.pc += 4;
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {
