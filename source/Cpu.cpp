@@ -15,6 +15,7 @@ constexpr std::byte bytecode_ji_sr = std::byte{0xDC};
 constexpr std::byte bytecode_mtcr = std::byte{0xCD};
 constexpr std::byte bytecode_isync = std::byte{0x0D};
 constexpr std::byte bytecode_ldw_slr = std::byte{0x54};
+constexpr std::byte bytecode_add_c2 = std::byte{0xC2};
 
 } // anonymous namespace
 
@@ -110,6 +111,9 @@ void Tricore::Cpu::start() {
         case bytecode_ldw_slr:
             insn_ldw_slr();
             break;
+        case bytecode_add_c2:
+            insn_add_c2();
+            break;
         default:
             throw Exception{
                 fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -167,7 +171,7 @@ void Tricore::Cpu::insn_lea_bol() {
 
 void Tricore::Cpu::insn_ji_sr() {
     const auto insn = read_16(m_core_registers.pc);
-    spdlog::debug("Cpu: JI 0x{:08X}", insn);
+    spdlog::debug("Cpu: JI 0x{:04X}", insn);
     const auto addr_index = Utils::extract32(insn, 8, 4);
     const auto final_address =
         m_address_registers.at(addr_index) & ((~0U) - 1U);
@@ -192,7 +196,7 @@ void Tricore::Cpu::insn_isync() {
 
 void Tricore::Cpu::insn_ldw_slr() {
     const auto insn = read_16(m_core_registers.pc);
-    spdlog::debug("Cpu: LD.W 0x{:08X}", insn);
+    spdlog::debug("Cpu: LD.W 0x{:04X}", insn);
     const auto addr_index_b = Utils::extract32(insn, 12, 4);
     const auto data_index_c = Utils::extract32(insn, 8, 4);
     m_data_registers.at(data_index_c) =
@@ -201,6 +205,19 @@ void Tricore::Cpu::insn_ldw_slr() {
         "==> Cpu: LD.W loaded data 0x{:08X} from address 0x{:08X} into D[{}]",
         m_data_registers.at(data_index_c), m_address_registers.at(addr_index_b),
         data_index_c);
+    m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_add_c2() {
+    const auto insn = read_16(m_core_registers.pc);
+    spdlog::debug("Cpu: ADD 0x{:04X}", insn);
+    const auto const4 = Utils::extract32(insn, 12, 4);
+    const auto data_index_a = Utils::extract32(insn, 8, 4);
+    const auto sign_extended_const4 =
+        Utils::sign_extend<i32, 4>(static_cast<i32>(const4));
+    m_data_registers.at(data_index_a) += static_cast<u32>(sign_extended_const4);
+    spdlog::debug("==> Cpu: ADD write value 0x{:08X} in D[{}]",
+                  m_data_registers.at(data_index_a), data_index_a);
     m_core_registers.pc += 2;
 }
 
