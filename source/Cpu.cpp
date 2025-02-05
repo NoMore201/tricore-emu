@@ -87,7 +87,8 @@ void Tricore::Cpu::init(Elf &elf_file) {
 
 void Tricore::Cpu::start() {
     for (;;) {
-        switch (m_memory.peek_at(m_core_registers.pc)) {
+        auto insn_opcode = m_memory.peek_at(m_core_registers.pc);
+        switch (insn_opcode) {
         case bytecode_lea_bol:
             insn_lea_bol();
             break;
@@ -110,7 +111,9 @@ void Tricore::Cpu::start() {
             insn_ldw_slr();
             break;
         default:
-            throw Exception{"Instruction not implemented"};
+            throw Exception{
+                fmt::format("Instruction with opcode 0x{:02X} not implemented",
+                            insn_opcode)};
         }
     }
 }
@@ -121,7 +124,8 @@ void Tricore::Cpu::insn_movha() {
     const auto addr_register_index = Utils::extract32(insn, 28, 4);
     const auto msb_half_word = Utils::extract32(insn, 12, 16);
     m_address_registers.at(addr_register_index) = 0U | (msb_half_word << 16U);
-    spdlog::debug("==> Cpu: MOVH.A value 0x{:08X} to A[{}]", insn,
+    spdlog::debug("==> Cpu: MOVH.A value 0x{:08X} to A[{}]",
+                  m_address_registers.at(addr_register_index),
                   addr_register_index);
     m_core_registers.pc += 4;
 }
