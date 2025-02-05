@@ -14,6 +14,7 @@ constexpr std::byte bytecode_lea_bol = std::byte{0xD9};
 constexpr std::byte bytecode_ji_sr = std::byte{0xDC};
 constexpr std::byte bytecode_mtcr = std::byte{0xCD};
 constexpr std::byte bytecode_isync = std::byte{0x0D};
+constexpr std::byte bytecode_ldw_slr = std::byte{0x54};
 
 } // anonymous namespace
 
@@ -105,6 +106,9 @@ void Tricore::Cpu::start() {
         case bytecode_isync:
             insn_isync();
             break;
+        case bytecode_ldw_slr:
+            insn_ldw_slr();
+            break;
         default:
             throw Exception{"Instruction not implemented"};
         }
@@ -163,7 +167,7 @@ void Tricore::Cpu::insn_ji_sr() {
     const auto addr_index = Utils::extract32(insn, 8, 4);
     const auto final_address =
         m_address_registers.at(addr_index) & ((~0U) - 1U);
-    spdlog::debug("Cpu: JI final address 0x{:08X}", final_address);
+    spdlog::debug("==> Cpu: JI final address 0x{:08X}", final_address);
     m_core_registers.pc = final_address;
 }
 
@@ -180,6 +184,20 @@ void Tricore::Cpu::insn_isync() {
     spdlog::debug("Cpu: ISYNC");
     // do nothing
     m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_ldw_slr() {
+    const auto insn = read_16(m_core_registers.pc);
+    spdlog::debug("Cpu: LD.W 0x{:08X}", insn);
+    const auto addr_index_b = Utils::extract32(insn, 12, 4);
+    const auto data_index_c = Utils::extract32(insn, 8, 4);
+    m_data_registers.at(data_index_c) =
+        read_32(m_address_registers.at(addr_index_b));
+    spdlog::debug(
+        "==> Cpu: LD.W loaded data 0x{:08X} from address 0x{:08X} into D[{}]",
+        m_data_registers.at(data_index_c), m_address_registers.at(addr_index_b),
+        data_index_c);
+    m_core_registers.pc += 2;
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {

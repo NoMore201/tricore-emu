@@ -42,6 +42,7 @@ private:
     void insn_ji_sr();
     void insn_mtcr();
     void insn_isync();
+    void insn_ldw_slr();
 
     // Helpers
     u32 read_32(u32 address);
