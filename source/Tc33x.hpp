@@ -10,7 +10,7 @@ class Tc33x : public Machine {
 public:
     Tc33x();
 
-    virtual ~Tc33x();
+     ~Tc33x() override;
 
     void init(Elf &elf_file) override;
 

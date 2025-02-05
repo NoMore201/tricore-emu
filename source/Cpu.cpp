@@ -62,11 +62,16 @@ void Tricore::Cpu::init(Elf &elf_file) {
     for (const auto &[section, name] : sections) {
         const auto data = elf_file.get_section_data(section);
         try {
-            m_memory.write(data.data(), section.sh_addr, section.sh_size);
-            spdlog::debug(
-                "Cpu: initializing memory with content of section {} at "
-                "address 0x{:02X}",
-                name, section.sh_addr);
+            if (section.sh_type == Elf::elf_sht_progbits) {
+                m_memory.write(data.data(), section.sh_addr, section.sh_size);
+                spdlog::debug(
+                    "Cpu: initializing memory with content of section {} at "
+                    "address 0x{:02X}",
+                    name, section.sh_addr);
+            } else {
+                spdlog::debug(
+                    "Section {} is not relevant or has type SHT_NOBITS", name);
+            }
         } catch (InvalidMemoryAccess &) {
             spdlog::debug(
                 "Cpu: ignoring section {}, address 0x{:02X} not handled", name,

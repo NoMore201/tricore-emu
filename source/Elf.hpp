@@ -18,6 +18,8 @@ class Elf {
 public:
     static constexpr std::size_t n_ident_size = 16;
 
+    static constexpr u32 elf_sht_progbits = 1;
+
     struct ProgramHeader {
         u32 p_type;
         u32 p_offset;
