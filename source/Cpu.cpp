@@ -124,11 +124,11 @@ void Tricore::Cpu::start() {
 
 void Tricore::Cpu::insn_movha() {
     u32 insn = read_32(m_core_registers.pc);
-    spdlog::debug("Cpu: MOVH.A 0x{:08X}", insn);
+    spdlog::trace("Cpu: MOVH.A 0x{:08X}", insn);
     const auto addr_register_index = Utils::extract32(insn, 28, 4);
     const auto msb_half_word = Utils::extract32(insn, 12, 16);
     m_address_registers.at(addr_register_index) = 0U | (msb_half_word << 16U);
-    spdlog::debug("==> Cpu: MOVH.A value 0x{:08X} to A[{}]",
+    spdlog::trace("==> Cpu: MOVH.A value 0x{:08X} to A[{}]",
                   m_address_registers.at(addr_register_index),
                   addr_register_index);
     m_core_registers.pc += 4;
@@ -136,14 +136,14 @@ void Tricore::Cpu::insn_movha() {
 
 void Tricore::Cpu::insn_mov_rlc() {
     u32 insn = read_32(m_core_registers.pc);
-    spdlog::debug("Cpu: MOV 0x{:08X}", insn);
+    spdlog::trace("Cpu: MOV 0x{:08X}", insn);
     const auto data_register_index = Utils::extract32(insn, 28, 4);
     const u32 const16 = Utils::extract32(insn, 12, 16);
     auto sign_ext_const16 =
         Utils::sign_extend<i32, 32>(static_cast<i32>(const16));
     m_data_registers.at(data_register_index) =
         static_cast<u32>(sign_ext_const16);
-    spdlog::debug("==> Cpu: MOV final value 0x{:08X} to D[{}]",
+    spdlog::trace("==> Cpu: MOV final value 0x{:08X} to D[{}]",
                   m_data_registers.at(data_register_index),
                   data_register_index);
     m_core_registers.pc += 4;
@@ -151,7 +151,7 @@ void Tricore::Cpu::insn_mov_rlc() {
 
 void Tricore::Cpu::insn_lea_bol() {
     u32 insn = read_32(m_core_registers.pc);
-    spdlog::debug("Cpu: LEA 0x{:08X}", insn);
+    spdlog::trace("Cpu: LEA 0x{:08X}", insn);
     const auto addr_index_a = Utils::extract32(insn, 8, 4);
     const auto addr_index_b = Utils::extract32(insn, 12, 4);
     u32 off16 = Utils::extract32(insn, 16, 6);
@@ -164,24 +164,24 @@ void Tricore::Cpu::insn_lea_bol() {
                                   static_cast<u32>(sign_extended_off16);
     // A[a] = EA[31:0]
     m_address_registers.at(addr_index_a) = effective_address;
-    spdlog::debug("==> Cpu: LEA final address 0x{:08X} to A[{}]",
+    spdlog::trace("==> Cpu: LEA final address 0x{:08X} to A[{}]",
                   effective_address, addr_index_a);
     m_core_registers.pc += 4;
 }
 
 void Tricore::Cpu::insn_ji_sr() {
     const auto insn = read_16(m_core_registers.pc);
-    spdlog::debug("Cpu: JI 0x{:04X}", insn);
+    spdlog::trace("Cpu: JI 0x{:04X}", insn);
     const auto addr_index = Utils::extract32(insn, 8, 4);
     const auto final_address =
         m_address_registers.at(addr_index) & ((~0U) - 1U);
-    spdlog::debug("==> Cpu: JI final address 0x{:08X}", final_address);
+    spdlog::trace("==> Cpu: JI final address 0x{:08X}", final_address);
     m_core_registers.pc = final_address;
 }
 
 void Tricore::Cpu::insn_mtcr() {
     const auto insn = read_32(m_core_registers.pc);
-    spdlog::debug("Cpu: MTCR 0x{:08X}", insn);
+    spdlog::trace("Cpu: MTCR 0x{:08X}", insn);
     const auto data_index = Utils::extract32(insn, 8, 4);
     const auto const16 = Utils::extract32(insn, 12, 16);
     m_core_registers[const16] = m_data_registers.at(data_index);
@@ -189,19 +189,19 @@ void Tricore::Cpu::insn_mtcr() {
 }
 
 void Tricore::Cpu::insn_isync() {
-    spdlog::debug("Cpu: ISYNC");
+    spdlog::trace("Cpu: ISYNC");
     // do nothing
     m_core_registers.pc += 4;
 }
 
 void Tricore::Cpu::insn_ldw_slr() {
     const auto insn = read_16(m_core_registers.pc);
-    spdlog::debug("Cpu: LD.W 0x{:04X}", insn);
+    spdlog::trace("Cpu: LD.W 0x{:04X}", insn);
     const auto addr_index_b = Utils::extract32(insn, 12, 4);
     const auto data_index_c = Utils::extract32(insn, 8, 4);
     m_data_registers.at(data_index_c) =
         read_32(m_address_registers.at(addr_index_b));
-    spdlog::debug(
+    spdlog::trace(
         "==> Cpu: LD.W loaded data 0x{:08X} from address 0x{:08X} into D[{}]",
         m_data_registers.at(data_index_c), m_address_registers.at(addr_index_b),
         data_index_c);
@@ -210,13 +210,13 @@ void Tricore::Cpu::insn_ldw_slr() {
 
 void Tricore::Cpu::insn_add_c2() {
     const auto insn = read_16(m_core_registers.pc);
-    spdlog::debug("Cpu: ADD 0x{:04X}", insn);
+    spdlog::trace("Cpu: ADD 0x{:04X}", insn);
     const auto const4 = Utils::extract32(insn, 12, 4);
     const auto data_index_a = Utils::extract32(insn, 8, 4);
     const auto sign_extended_const4 =
         Utils::sign_extend<i32, 4>(static_cast<i32>(const4));
     m_data_registers.at(data_index_a) += static_cast<u32>(sign_extended_const4);
-    spdlog::debug("==> Cpu: ADD write value 0x{:08X} in D[{}]",
+    spdlog::trace("==> Cpu: ADD write value 0x{:08X} in D[{}]",
                   m_data_registers.at(data_index_a), data_index_a);
     m_core_registers.pc += 2;
 }

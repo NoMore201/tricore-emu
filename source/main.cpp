@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]) {
 
     // TODO: handle with parameters
-    spdlog::set_level(spdlog::level::debug);
+    spdlog::set_level(spdlog::level::trace);
 
     if (argc > 1) {
         Tricore::Elf elf_file;
