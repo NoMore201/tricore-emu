@@ -47,6 +47,8 @@ private:
     void insn_add_c2();
     void insn_movh();
     void insn_and_srr();
+    void insn_jne_brc();
+    void insn_suba_rr();
 
     // Helpers
     u32 read_32(u32 address);

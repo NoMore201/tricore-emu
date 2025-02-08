@@ -19,6 +19,8 @@ constexpr std::byte bytecode_ldw_bol = std::byte{0x19};
 constexpr std::byte bytecode_add_c2 = std::byte{0xC2};
 constexpr std::byte bytecode_movh = std::byte{0x7B};
 constexpr std::byte bytecode_and_srr = std::byte{0x26};
+constexpr std::byte bytecode_jne_brc = std::byte{0xDF};
+constexpr std::byte bytecode_suba_rr = std::byte{0x01};
 
 } // anonymous namespace
 
@@ -125,6 +127,12 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_and_srr:
             insn_and_srr();
+            break;
+        case bytecode_jne_brc:
+            insn_jne_brc();
+            break;
+        case bytecode_suba_rr:
+            insn_suba_rr();
             break;
         default:
             throw Exception{
@@ -276,6 +284,44 @@ void Tricore::Cpu::insn_and_srr() {
     spdlog::trace("==> Cpu: AND write value 0x{:08X} in D[{}]",
                   m_data_registers.at(data_index_a), data_index_a);
     m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_jne_brc() {
+    // if (D[a] != sign_ext(const4)) then PC = PC + sign_ext(disp15) * 2
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: JNE 0x{:08X}", insn);
+    const auto data_register_a = Utils::extract<u32>(insn, 8, 4);
+    const auto const4 = Utils::extract<u32>(insn, 12, 4);
+    const auto disp15 = Utils::extract<u32>(insn, 16, 15);
+    i32 sign_extended_const4 =
+        Utils::sign_extend<i32, 4>(static_cast<i32>(const4));
+    i32 sign_extended_disp15 =
+        Utils::sign_extend<i32, 15>(static_cast<i32>(disp15));
+    if (m_data_registers.at(data_register_a) !=
+        static_cast<u32>(sign_extended_const4)) {
+        m_core_registers.pc += sign_extended_disp15 * 2;
+        spdlog::trace("==> Cpu: JNE branch taken PC=0x{:08X}",
+                      m_core_registers.pc);
+    } else {
+        m_core_registers.pc += 4;
+        spdlog::trace("==> Cpu: JNE branch NOT taken PC=0x{:08X}",
+                      m_core_registers.pc);
+    }
+}
+
+void Tricore::Cpu::insn_suba_rr() {
+    // A[c] = A[a] - A[b]
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: SUB.A 0x{:08X}", insn);
+    const auto addr_register_a = Utils::extract<u32>(insn, 8, 4);
+    const auto addr_register_b = Utils::extract<u32>(insn, 12, 4);
+    const auto addr_register_c = Utils::extract<u32>(insn, 28, 4);
+    m_address_registers.at(addr_register_c) =
+        m_address_registers.at(addr_register_a) -
+        m_address_registers.at(addr_register_b);
+    spdlog::trace("==> Cpu: SUB.A writing value 0x{:08X} in A[{}]",
+                  m_address_registers.at(addr_register_c), addr_register_c);
+    m_core_registers.pc += 4;
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {
