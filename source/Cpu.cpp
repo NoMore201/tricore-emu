@@ -21,6 +21,7 @@ constexpr std::byte bytecode_movh = std::byte{0x7B};
 constexpr std::byte bytecode_and_srr = std::byte{0x26};
 constexpr std::byte bytecode_jne_brc = std::byte{0xDF};
 constexpr std::byte bytecode_suba_rr = std::byte{0x01};
+constexpr std::byte bytecode_movd_srr = std::byte{0x80};
 
 } // anonymous namespace
 
@@ -133,6 +134,9 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_suba_rr:
             insn_suba_rr();
+            break;
+        case bytecode_movd_srr:
+            insn_movd_srr();
             break;
         default:
             throw Exception{
@@ -322,6 +326,18 @@ void Tricore::Cpu::insn_suba_rr() {
     spdlog::trace("==> Cpu: SUB.A writing value 0x{:08X} in A[{}]",
                   m_address_registers.at(addr_register_c), addr_register_c);
     m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_movd_srr() {
+    // D[a] = A[b]
+    const auto insn = read_16(m_core_registers.pc);
+    spdlog::trace("Cpu: MOV.D 0x{:04X}", insn);
+    const auto data_index_a = Utils::extract<u32>(insn, 8, 4);
+    const auto addr_index_b = Utils::extract<u32>(insn, 12, 4);
+    m_data_registers.at(data_index_a) &= m_address_registers.at(addr_index_b);
+    spdlog::trace("==> Cpu: MOV.D write value 0x{:08X} in A[{}]",
+                  m_data_registers.at(data_index_a), addr_index_b);
+    m_core_registers.pc += 2;
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {
