@@ -20,15 +20,18 @@ static constexpr auto unsigned_abs_diff(U lhs, U rhs) {
 
 template <std::signed_integral T, usize B>
 static constexpr inline T sign_extend(const T input) {
+    static_assert(B <= 64);
     struct {
         T x : B;
     } to_extend = {.x = input};
     return to_extend.x;
 }
 
-static constexpr inline u32 extract32(u32 data, u32 offset, u32 length) {
-    Expects(offset < 32U && length <= 32U - offset);
-    return (data >> offset) & (~0U >> (32U - length));
+template <std::unsigned_integral T>
+static constexpr inline T extract(T data, T offset, T length) {
+    constexpr T num_of_bits = sizeof(T) * 8;
+    Expects(offset < num_of_bits && length <= num_of_bits - offset);
+    return (data >> offset) & (static_cast<T>(~0U) >> (num_of_bits - length));
 }
 
 } // namespace Tricore::Utils
