@@ -43,20 +43,20 @@ u32 &Tricore::Cpu::CoreRegisters::operator[](usize offset) {
 Tricore::Cpu Tricore::Cpu::create_tc33x() {
     Cpu cpu{};
     // pflash0
-    cpu.m_memory.add_memory_region(Memory::Layout{2ULL * MiB, 0xA0000000U},
+    cpu.m_memory.add_memory_region(Memory::Layout{.size=2ULL * MiB, .address=0xA0000000U},
                                    {0x80000000U});
     // dflash0
-    cpu.m_memory.add_memory_region(Memory::Layout{128ULL * KiB, 0xAF000000U});
+    cpu.m_memory.add_memory_region(Memory::Layout{.size=128ULL * KiB, .address=0xAF000000U});
     // dsram0
-    cpu.m_memory.add_memory_region(Memory::Layout{192ULL * KiB, 0x70000000U},
+    cpu.m_memory.add_memory_region(Memory::Layout{.size=192ULL * KiB, .address=0x70000000U},
                                    {0xD0000000U});
     // psram0
-    cpu.m_memory.add_memory_region(Memory::Layout{8ULL * KiB, 0x70100000U},
+    cpu.m_memory.add_memory_region(Memory::Layout{.size=8ULL * KiB, .address=0x70100000U},
                                    {0xC0000000U});
     // ucb
-    cpu.m_memory.add_memory_region(Memory::Layout{24ULL * KiB, 0xAF400000U});
+    cpu.m_memory.add_memory_region(Memory::Layout{.size=24ULL * KiB, .address=0xAF400000U});
     // xram
-    cpu.m_memory.add_memory_region(Memory::Layout{8ULL * KiB, 0xF0240000U});
+    cpu.m_memory.add_memory_region(Memory::Layout{.size=8ULL * KiB, .address=0xF0240000U});
 
     return cpu;
 }
@@ -262,7 +262,7 @@ void Tricore::Cpu::insn_add_c2() {
 }
 
 void Tricore::Cpu::insn_movh() {
-    // D[c] = {const16, 16’h0000}
+    // D[c] = {const16, 16 h0000}
     u32 insn = read_32(m_core_registers.pc);
     spdlog::trace("Cpu: MOVH 0x{:08X}", insn);
     const auto data_register_index = Utils::extract<u32>(insn, 28, 4);
@@ -299,7 +299,7 @@ void Tricore::Cpu::insn_jne_brc() {
         Utils::sign_extend<i32, 15>(static_cast<i32>(disp15));
     if (m_data_registers.at(data_register_a) !=
         static_cast<u32>(sign_extended_const4)) {
-        m_core_registers.pc += sign_extended_disp15 * 2;
+        m_core_registers.pc += static_cast<u32>(sign_extended_disp15) * 2U;
         spdlog::trace("==> Cpu: JNE branch taken PC=0x{:08X}",
                       m_core_registers.pc);
     } else {
