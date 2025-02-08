@@ -68,6 +68,7 @@
         "cacheVariables": {
             "CMAKE_BUILD_TYPE": "RelWithDebInfo",
             "BUILD_TESTING": "ON",
+            "ENABLE_SANITIZERS": "ON",
             "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
             "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
             "VCPKG_MANIFEST_FEATURES": "test"
