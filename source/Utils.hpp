@@ -20,11 +20,10 @@ static constexpr auto unsigned_abs_diff(U lhs, U rhs) {
 
 template <std::signed_integral T, usize B>
 static constexpr inline T sign_extend(const T input) {
-    static_assert(B <= 64);
-    struct {
-        T x : B;
-    } to_extend = {.x = input};
-    return to_extend.x;
+    constexpr auto number_of_bits = sizeof(T) * 8;
+    static_assert(B <= number_of_bits);
+    constexpr auto remaining_bits = number_of_bits - B;
+    return (input << remaining_bits) >> remaining_bits;
 }
 
 template <std::unsigned_integral T>
