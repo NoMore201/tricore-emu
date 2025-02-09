@@ -23,6 +23,23 @@ constexpr std::byte bytecode_jne_brc = std::byte{0xDF};
 constexpr std::byte bytecode_suba_rr = std::byte{0x01};
 constexpr std::byte bytecode_movd_srr = std::byte{0x80};
 
+struct BolFormatParser {
+    u32 insn{};
+
+    template<typename F>
+    void parse(F&& callback) {
+        namespace Utils = Tricore::Utils;
+        const auto index_a = Utils::extract<u32>(insn, 8, 4);
+        const auto index_b = Utils::extract<u32>(insn, 12, 4);
+        u32 off16 = Utils::extract<u32>(insn, 16, 6);
+        off16 |= Utils::extract<u32>(insn, 28, 4) << 6U;
+        off16 |= Utils::extract<u32>(insn, 22, 6) << 10U;
+        i32 sign_extended_off16 =
+            Utils::sign_extend<i32, 16>(static_cast<i32>(off16));
+        callback(index_a, index_b, static_cast<u32>(sign_extended_off16));
+    }
+};
+
 } // anonymous namespace
 
 u32 &Tricore::Cpu::CoreRegisters::operator[](usize offset) {
@@ -44,20 +61,26 @@ u32 &Tricore::Cpu::CoreRegisters::operator[](usize offset) {
 Tricore::Cpu Tricore::Cpu::create_tc33x() {
     Cpu cpu{};
     // pflash0
-    cpu.m_memory.add_memory_region(Memory::Layout{.size=2ULL * MiB, .address=0xA0000000U},
-                                   {0x80000000U});
+    cpu.m_memory.add_memory_region(
+        Memory::Layout{.size = 2ULL * MiB, .address = 0xA0000000U},
+        {0x80000000U});
     // dflash0
-    cpu.m_memory.add_memory_region(Memory::Layout{.size=128ULL * KiB, .address=0xAF000000U});
+    cpu.m_memory.add_memory_region(
+        Memory::Layout{.size = 128ULL * KiB, .address = 0xAF000000U});
     // dsram0
-    cpu.m_memory.add_memory_region(Memory::Layout{.size=192ULL * KiB, .address=0x70000000U},
-                                   {0xD0000000U});
+    cpu.m_memory.add_memory_region(
+        Memory::Layout{.size = 192ULL * KiB, .address = 0x70000000U},
+        {0xD0000000U});
     // psram0
-    cpu.m_memory.add_memory_region(Memory::Layout{.size=8ULL * KiB, .address=0x70100000U},
-                                   {0xC0000000U});
+    cpu.m_memory.add_memory_region(
+        Memory::Layout{.size = 8ULL * KiB, .address = 0x70100000U},
+        {0xC0000000U});
     // ucb
-    cpu.m_memory.add_memory_region(Memory::Layout{.size=24ULL * KiB, .address=0xAF400000U});
+    cpu.m_memory.add_memory_region(
+        Memory::Layout{.size = 24ULL * KiB, .address = 0xAF400000U});
     // xram
-    cpu.m_memory.add_memory_region(Memory::Layout{.size=8ULL * KiB, .address=0xF0240000U});
+    cpu.m_memory.add_memory_region(
+        Memory::Layout{.size = 8ULL * KiB, .address = 0xF0240000U});
 
     return cpu;
 }
@@ -176,20 +199,17 @@ void Tricore::Cpu::insn_mov_rlc() {
 void Tricore::Cpu::insn_lea_bol() {
     u32 insn = read_32(m_core_registers.pc);
     spdlog::trace("Cpu: LEA 0x{:08X}", insn);
-    const auto addr_index_a = Utils::extract<u32>(insn, 8, 4);
-    const auto addr_index_b = Utils::extract<u32>(insn, 12, 4);
-    u32 off16 = Utils::extract<u32>(insn, 16, 6);
-    off16 |= Utils::extract<u32>(insn, 28, 4) << 6U;
-    off16 |= Utils::extract<u32>(insn, 22, 6) << 10U;
-    i32 sign_extended_off16 =
-        Utils::sign_extend<i32, 16>(static_cast<i32>(off16));
-    // EA = A[b] + sign_ext(off16)
-    const u32 effective_address = m_address_registers.at(addr_index_b) +
-                                  static_cast<u32>(sign_extended_off16);
-    // A[a] = EA[31:0]
-    m_address_registers.at(addr_index_a) = effective_address;
-    spdlog::trace("==> Cpu: LEA final address 0x{:08X} to A[{}]",
-                  effective_address, addr_index_a);
+
+    BolFormatParser{insn}.parse(
+        [this](u32 addr_index_a, u32 addr_index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16)
+        const u32 effective_address =
+            m_address_registers.at(addr_index_b) + static_cast<u32>(off16);
+        // A[a] = EA[31:0]
+        m_address_registers.at(addr_index_a) = effective_address;
+        spdlog::trace("==> Cpu: LEA final address 0x{:08X} to A[{}]",
+                      effective_address, addr_index_a);
+    });
     m_core_registers.pc += 4;
 }
 
@@ -235,20 +255,18 @@ void Tricore::Cpu::insn_ldw_slr() {
 void Tricore::Cpu::insn_ldw_bol() {
     u32 insn = read_32(m_core_registers.pc);
     spdlog::trace("Cpu: LD.W 0x{:08X}", insn);
-    const auto data_index_a = Utils::extract<u32>(insn, 8, 4);
-    const auto addr_index_b = Utils::extract<u32>(insn, 12, 4);
-    u32 off16 = Utils::extract<u32>(insn, 16, 6);
-    off16 |= Utils::extract<u32>(insn, 28, 4) << 6U;
-    off16 |= Utils::extract<u32>(insn, 22, 6) << 10U;
-    i32 sign_extended_off16 =
-        Utils::sign_extend<i32, 16>(static_cast<i32>(off16));
-    // EA = A[b] + sign_ext(off16)
-    const u32 effective_address = m_address_registers.at(addr_index_b) +
-                                  static_cast<u32>(sign_extended_off16);
-    // D[a] = M(EA, word)
-    m_data_registers.at(data_index_a) = effective_address;
-    spdlog::trace("==> Cpu: LD.W final value 0x{:08X} to D[{}]",
-                  effective_address, data_index_a);
+
+    BolFormatParser{insn}.parse(
+        [this](u32 data_index_a, u32 addr_index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16)
+        const u32 effective_address =
+            m_address_registers.at(addr_index_b) + off16;
+        // D[a] = M(EA, word)
+        m_data_registers.at(data_index_a) = effective_address;
+        spdlog::trace("==> Cpu: LD.W final value 0x{:08X} to D[{}]",
+                      effective_address, data_index_a);
+    });
+
     m_core_registers.pc += 4;
 }
 
