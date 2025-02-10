@@ -32,6 +32,7 @@ constexpr std::byte bytecode_stb_bol = std::byte{0xE9};
 constexpr std::byte bytecode_jne_brr = std::byte{0x5F};
 constexpr std::byte bytecode_jltu_brc = std::byte{0xBF};
 constexpr std::byte bytecode_nop = std::byte{0x00};
+constexpr std::byte bytecode_j_b = std::byte{0x1D};
 
 struct BolFormatParser {
     u32 insn{};
@@ -113,6 +114,19 @@ struct BrrFormatParser {
 };
 
 using BrcFormatParser = BrrFormatParser;
+
+struct BFormatParser {
+    u32 insn{};
+
+    template <typename F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        u32 disp24 = Utils::extract<u32>(insn, 16, 16);
+        disp24 |= Utils::extract<u32>(insn, 8, 8) << 16U;
+        i32 sign_extended_disp24 =
+            Utils::sign_extend<i32, 24>(static_cast<i32>(disp24));
+        callback(static_cast<u32>(sign_extended_disp24));
+    }
+};
 
 } // anonymous namespace
 
@@ -262,6 +276,9 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_nop:
             insn_nop();
+            break;
+        case bytecode_j_b:
+            insn_j_b();
             break;
         default:
             throw Exception{
@@ -505,7 +522,7 @@ void Tricore::Cpu::insn_jnzt_brn() {
                       index_a, disp15, bit_n);
         if ((data & (1U << bit_n)) != 0U) {
             m_core_registers.pc += disp15 * 2U;
-            spdlog::trace("==> Cpu: JNZ.T branc taken, address 0x{:08X}",
+            spdlog::trace("==> Cpu: JNZ.T branch taken, address 0x{:08X}",
                           m_core_registers.pc);
         } else {
             spdlog::trace("==> Cpu: JNZ.T branch NOT taken");
@@ -595,6 +612,17 @@ void Tricore::Cpu::insn_jltu_brc() {
             m_core_registers.pc += 4U;
             spdlog::trace("==> Cpu: JLT.U branch NOT taken");
         }
+    });
+}
+
+void Tricore::Cpu::insn_j_b() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: J 0x{:08X}", insn);
+
+    BFormatParser{insn}.parse([this](u32 disp24) {
+        // PC = PC + sign_ext(disp24) * 2
+        m_core_registers.pc += disp24 * 2U;
+        spdlog::trace("==> Cpu: J uncoditional to address 0x{:08X}", m_core_registers.pc);
     });
 }
 
