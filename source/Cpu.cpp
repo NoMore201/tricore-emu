@@ -381,7 +381,7 @@ void Tricore::Cpu::insn_ldw_bol() {
         const u32 effective_address =
             m_address_registers.at(addr_index_b) + off16;
         // D[a] = M(EA, word)
-        m_data_registers.at(data_index_a) = effective_address;
+        m_data_registers.at(data_index_a) = read_32(effective_address);
         spdlog::trace("==> Cpu: LD.W final value 0x{:08X} to D[{}]",
                       effective_address, data_index_a);
     });
@@ -539,7 +539,7 @@ void Tricore::Cpu::insn_ldbu_bol() {
         // EA = A[b] + sign_ext(off16)
         const u32 effective_address = m_address_registers.at(index_b) + off16;
         // D[a] = zero_ext(M(EA, byte))
-        m_data_registers.at(index_a) = effective_address & 0xFFU;
+        m_data_registers.at(index_a) = read_32(effective_address) & 0xFFU;
         spdlog::trace("==> Cpu: LD.BU load value 0x{:08X} into D[{}]",
                       m_data_registers.at(index_a), index_a);
     });
