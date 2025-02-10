@@ -28,6 +28,10 @@ constexpr std::byte bytecode_jnzt_brn = std::byte{0x6F};
 constexpr std::byte bytecode_jnzt_brn_2 = std::byte{0xEF};
 constexpr std::byte bytecode_ldbu_bol = std::byte{0x39};
 constexpr std::byte bytecode_or_rc = std::byte{0x8F};
+constexpr std::byte bytecode_stb_bol = std::byte{0xE9};
+constexpr std::byte bytecode_jne_brr = std::byte{0x5F};
+constexpr std::byte bytecode_jltu_brc = std::byte{0xBF};
+constexpr std::byte bytecode_nop = std::byte{0x00};
 
 struct BolFormatParser {
     u32 insn{};
@@ -93,6 +97,22 @@ struct SrrFormatParser {
         callback(index_a, index_b);
     }
 };
+
+struct BrrFormatParser {
+    u32 insn{};
+
+    template <typename F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        const auto index_a = Utils::extract<u32>(insn, 8, 4);
+        const auto index_b = Utils::extract<u32>(insn, 12, 4);
+        const auto disp15 = Utils::extract<u32>(insn, 16, 15);
+        i32 sign_extended_disp15 =
+            Utils::sign_extend<i32, 15>(static_cast<i32>(disp15));
+        callback(index_a, index_b, static_cast<u32>(sign_extended_disp15));
+    }
+};
+
+using BrcFormatParser = BrrFormatParser;
 
 } // anonymous namespace
 
@@ -230,6 +250,18 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_or_rc:
             insn_or_rc();
+            break;
+        case bytecode_stb_bol:
+            insn_stb_bol();
+            break;
+        case bytecode_jne_brr:
+            insn_jne_brr();
+            break;
+        case bytecode_jltu_brc:
+            insn_jltu_brc();
+            break;
+        case bytecode_nop:
+            insn_nop();
             break;
         default:
             throw Exception{
@@ -442,8 +474,8 @@ void Tricore::Cpu::insn_stw_bol() {
         const u32 data = m_data_registers.at(index_a);
         m_memory.write(reinterpret_cast<const std::byte *>(&data),
                        effective_address, 4);
-        spdlog::trace("==> Cpu: ST.W store value of D[{}] to address 0x{:08X}",
-                      index_a, effective_address);
+        spdlog::trace("==> Cpu: ST.W store word 0x{:08X} to address 0x{:08X}",
+                      data, effective_address);
     });
 
     m_core_registers.pc += 4;
@@ -510,6 +542,65 @@ void Tricore::Cpu::insn_or_rc() {
     });
 
     m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_stb_bol() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: ST.B 0x{:08X}", insn);
+
+    BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16)
+        const u32 effective_address = m_address_registers.at(index_b) + off16;
+        // M(EA, byte) = D[a][7:0]
+        const u32 data = m_data_registers.at(index_a) & 0xFFU;
+        m_memory.write(reinterpret_cast<const std::byte *>(&data),
+                       effective_address, 1);
+        spdlog::trace("==> Cpu: ST.B store byte 0x{:02X} to address 0x{:08X}",
+                      data, effective_address);
+    });
+
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_jne_brr() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: JNE 0x{:08X}", insn);
+
+    BrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 disp15) {
+        // if (D[a] != D[b]) then PC = PC + sign_ext(disp15) * 2
+        if (m_data_registers.at(index_a) != m_data_registers.at(index_b)) {
+            m_core_registers.pc += disp15 * 2U;
+            spdlog::trace("==> Cpu: JNE branch taken, address 0x{:08X}",
+                          m_core_registers.pc);
+        } else {
+            m_core_registers.pc += 4U;
+            spdlog::trace("==> Cpu: JNE branch NOT taken");
+        }
+    });
+}
+
+void Tricore::Cpu::insn_jltu_brc() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: JLT.U 0x{:08X}", insn);
+
+    BrcFormatParser{insn}.parse([this](u32 index_a, u32 const4, u32 disp15) {
+        // if (D[a] < zero_ext(const4)) then { // unsigned comparison
+        //   PC = PC + sign_ext(disp15) * 2;
+        // }
+        if (m_data_registers.at(index_a) < const4) {
+            m_core_registers.pc += disp15 * 2U;
+            spdlog::trace("==> Cpu: JLT.U branch taken, address 0x{:08X}",
+                          m_core_registers.pc);
+        } else {
+            m_core_registers.pc += 4U;
+            spdlog::trace("==> Cpu: JLT.U branch NOT taken");
+        }
+    });
+}
+
+void Tricore::Cpu::insn_nop() {
+    spdlog::trace("Cpu: NOP");
+    m_core_registers.pc += 2;
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {

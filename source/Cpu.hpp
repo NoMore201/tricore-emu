@@ -55,6 +55,10 @@ private:
     void insn_jnzt_brn();
     void insn_ldbu_bol();
     void insn_or_rc();
+    void insn_stb_bol();
+    void insn_jne_brr();
+    void insn_jltu_brc();
+    void insn_nop();
 
     // Helpers
     u32 read_32(u32 address);
