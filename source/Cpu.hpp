@@ -52,6 +52,9 @@ private:
     void insn_movd_srr();
     void insn_stw_bol();
     void insn_jli();
+    void insn_jnzt_brn();
+    void insn_ldbu_bol();
+    void insn_or_rc();
 
     // Helpers
     u32 read_32(u32 address);

@@ -24,6 +24,10 @@ constexpr std::byte bytecode_suba_rr = std::byte{0x01};
 constexpr std::byte bytecode_movd_srr = std::byte{0x80};
 constexpr std::byte bytecode_stw_bol = std::byte{0x59};
 constexpr std::byte bytecode_jli = std::byte{0x2D};
+constexpr std::byte bytecode_jnzt_brn = std::byte{0x6F};
+constexpr std::byte bytecode_jnzt_brn_2 = std::byte{0xEF};
+constexpr std::byte bytecode_ldbu_bol = std::byte{0x39};
+constexpr std::byte bytecode_or_rc = std::byte{0x8F};
 
 struct BolFormatParser {
     u32 insn{};
@@ -50,6 +54,32 @@ struct RrFormatParser {
         const auto index_b = Utils::extract<u32>(insn, 12, 4);
         const auto index_c = Utils::extract<u32>(insn, 28, 4);
         callback(index_a, index_b, index_c);
+    }
+};
+
+struct BrnFormatParser {
+    u32 insn{};
+
+    template <typename F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        const auto index_a = Utils::extract<u32>(insn, 8, 4);
+        const auto bit_n = Utils::extract<u32>(insn, 12, 4);
+        const auto disp15 = Utils::extract<u32>(insn, 16, 15);
+        i32 sign_extended_disp15 =
+            Utils::sign_extend<i32, 15>(static_cast<i32>(disp15));
+        callback(index_a, static_cast<u32>(sign_extended_disp15), bit_n);
+    }
+};
+
+struct RcFormatParser {
+    u32 insn{};
+
+    template <typename F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        const auto index_a = Utils::extract<u32>(insn, 8, 4);
+        const auto index_c = Utils::extract<u32>(insn, 28, 4);
+        const auto const9 = Utils::extract<u32>(insn, 12, 9);
+        callback(index_a, index_c, const9);
     }
 };
 
@@ -179,6 +209,16 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_jli:
             insn_jli();
+            break;
+        case bytecode_jnzt_brn:
+        case bytecode_jnzt_brn_2:
+            insn_jnzt_brn();
+            break;
+        case bytecode_ldbu_bol:
+            insn_ldbu_bol();
+            break;
+        case bytecode_or_rc:
+            insn_or_rc();
             break;
         default:
             throw Exception{
@@ -406,6 +446,55 @@ void Tricore::Cpu::insn_jli() {
         spdlog::trace("==> Cpu: JLI jump to address 0x{:08X}",
                       m_core_registers.pc);
     });
+}
+
+void Tricore::Cpu::insn_jnzt_brn() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: JNZ.T 0x{:08X}", insn);
+
+    BrnFormatParser{insn}.parse([this](u32 index_a, u32 disp15, u32 bit_n) {
+        const u32 data = m_data_registers.at(index_a);
+        spdlog::trace("==> Cpu: JNZ.T index_a={}, disp15=0x{:08X}, bit_n={}",
+                      index_a, disp15, bit_n);
+        if ((data & (1U << bit_n)) != 0U) {
+            m_core_registers.pc += disp15 * 2U;
+            spdlog::trace("==> Cpu: JNZ.T branc taken, address 0x{:08X}",
+                          m_core_registers.pc);
+        } else {
+            spdlog::trace("==> Cpu: JNZ.T branch NOT taken");
+            m_core_registers.pc += 4;
+        }
+    });
+}
+
+void Tricore::Cpu::insn_ldbu_bol() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: LD.BU 0x{:08X}", insn);
+
+    BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16)
+        const u32 effective_address = m_address_registers.at(index_b) + off16;
+        // D[a] = zero_ext(M(EA, byte))
+        m_data_registers.at(index_a) = effective_address & 0xFFU;
+        spdlog::trace("==> Cpu: LD.BU load value 0x{:08X} into D[{}]",
+                      m_data_registers.at(index_a), index_a);
+    });
+
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_or_rc() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: OR 0x{:08X}", insn);
+
+    RcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const9) {
+        // D[c] = D[a] | zero_ext(const9)
+        m_data_registers.at(index_c) = m_data_registers.at(index_a) | const9;
+        spdlog::trace("==> Cpu: OR store result 0x{:08X} into D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+
+    m_core_registers.pc += 4;
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {
