@@ -22,12 +22,13 @@ constexpr std::byte bytecode_and_srr = std::byte{0x26};
 constexpr std::byte bytecode_jne_brc = std::byte{0xDF};
 constexpr std::byte bytecode_suba_rr = std::byte{0x01};
 constexpr std::byte bytecode_movd_srr = std::byte{0x80};
+constexpr std::byte bytecode_stw_bol = std::byte{0x59};
+constexpr std::byte bytecode_jli = std::byte{0x2D};
 
 struct BolFormatParser {
     u32 insn{};
 
-    template<typename F>
-    void parse(F&& callback) {
+    template <typename F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract<u32>(insn, 8, 4);
         const auto index_b = Utils::extract<u32>(insn, 12, 4);
@@ -37,6 +38,18 @@ struct BolFormatParser {
         i32 sign_extended_off16 =
             Utils::sign_extend<i32, 16>(static_cast<i32>(off16));
         callback(index_a, index_b, static_cast<u32>(sign_extended_off16));
+    }
+};
+
+struct RrFormatParser {
+    u32 insn{};
+
+    template <typename F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        const auto index_a = Utils::extract<u32>(insn, 8, 4);
+        const auto index_b = Utils::extract<u32>(insn, 12, 4);
+        const auto index_c = Utils::extract<u32>(insn, 28, 4);
+        callback(index_a, index_b, index_c);
     }
 };
 
@@ -160,6 +173,12 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_movd_srr:
             insn_movd_srr();
+            break;
+        case bytecode_stw_bol:
+            insn_stw_bol();
+            break;
+        case bytecode_jli:
+            insn_jli();
             break;
         default:
             throw Exception{
@@ -332,17 +351,16 @@ void Tricore::Cpu::insn_jne_brc() {
 }
 
 void Tricore::Cpu::insn_suba_rr() {
-    // A[c] = A[a] - A[b]
     u32 insn = read_32(m_core_registers.pc);
     spdlog::trace("Cpu: SUB.A 0x{:08X}", insn);
-    const auto addr_register_a = Utils::extract<u32>(insn, 8, 4);
-    const auto addr_register_b = Utils::extract<u32>(insn, 12, 4);
-    const auto addr_register_c = Utils::extract<u32>(insn, 28, 4);
-    m_address_registers.at(addr_register_c) =
-        m_address_registers.at(addr_register_a) -
-        m_address_registers.at(addr_register_b);
-    spdlog::trace("==> Cpu: SUB.A writing value 0x{:08X} in A[{}]",
-                  m_address_registers.at(addr_register_c), addr_register_c);
+
+    RrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 index_c) {
+        // A[c] = A[a] - A[b]
+        m_address_registers.at(index_c) =
+            m_address_registers.at(index_a) - m_address_registers.at(index_b);
+        spdlog::trace("==> Cpu: SUB.A writing value 0x{:08X} in A[{}]",
+                      m_address_registers.at(index_c), index_c);
+    });
     m_core_registers.pc += 4;
 }
 
@@ -356,6 +374,38 @@ void Tricore::Cpu::insn_movd_srr() {
     spdlog::trace("==> Cpu: MOV.D write value 0x{:08X} in A[{}]",
                   m_data_registers.at(data_index_a), addr_index_b);
     m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_stw_bol() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: ST.W 0x{:08X}", insn);
+
+    BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16)
+        const u32 effective_address = m_address_registers.at(index_b) + off16;
+        // M(EA, word) = D[a]
+        const u32 data = m_data_registers.at(index_a);
+        m_memory.write(reinterpret_cast<const std::byte *>(&data),
+                       effective_address, 4);
+        spdlog::trace("==> Cpu: ST.W store value of D[{}] to address 0x{:08X}",
+                      index_a, effective_address);
+    });
+
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_jli() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: JLI 0x{:08X}", insn);
+
+    RrFormatParser{insn}.parse([this](u32 index_a, u32, u32) {
+        // A[11] = PC + 4
+        m_address_registers.at(11) = m_core_registers.pc + 4;
+        // PC = {A[a][31:1], 1b0}
+        m_core_registers.pc = m_address_registers.at(index_a) & ~0x1U;
+        spdlog::trace("==> Cpu: JLI jump to address 0x{:08X}",
+                      m_core_registers.pc);
+    });
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {

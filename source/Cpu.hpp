@@ -50,6 +50,8 @@ private:
     void insn_jne_brc();
     void insn_suba_rr();
     void insn_movd_srr();
+    void insn_stw_bol();
+    void insn_jli();
 
     // Helpers
     u32 read_32(u32 address);
