@@ -19,7 +19,10 @@ constexpr u32 rststat_reset_value = 0x40010000U;
 constexpr u32 lbistctrl0_reset_value = 0x10000000U;
 
 // Reset value:
-// LBISTDONE set to 1 to simulate successful LBIST
+// ENDINIT set to 0
+// LCK set to 1
+// PW set to 0x3
+// REL set to 0xFFFC
 constexpr u32 wdts_con0_reset_value = 0xFFFC000EU;
 
 constexpr u32 scu_memory_start_address = 0xF0036000U;
