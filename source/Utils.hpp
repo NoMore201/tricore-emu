@@ -10,7 +10,7 @@
 namespace Tricore::Utils {
 
 template <std::unsigned_integral U>
-static constexpr auto unsigned_abs_diff(U lhs, U rhs) {
+static constexpr U unsigned_abs_diff(U lhs, U rhs) {
     if (lhs > rhs) {
         return lhs - rhs;
     }
@@ -26,11 +26,25 @@ static constexpr inline T sign_extend(const T input) {
     return (input << remaining_bits) >> remaining_bits;
 }
 
+static inline u32 extract32(u32 data, u32 offset, u32 length) {
+    constexpr u32 num_of_bits = 32;
+    Expects(offset < num_of_bits && length <= num_of_bits - offset);
+    return (data >> offset) & ((~0U) >> (num_of_bits - length));
+}
+
+static inline u16 extract16(u16 data, u32 offset, u32 length) {
+    constexpr u32 num_of_bits = 16;
+    Expects(offset < num_of_bits && length <= num_of_bits - offset);
+    return static_cast<u16>(extract32(data, offset, length));
+}
+
 template <std::unsigned_integral T>
-static constexpr inline T extract(T data, T offset, T length) {
+static constexpr inline T deposit(T value, T offset, T length, T data) {
     constexpr T num_of_bits = sizeof(T) * 8;
     Expects(offset < num_of_bits && length <= num_of_bits - offset);
-    return (data >> offset) & (static_cast<T>(~0U) >> (num_of_bits - length));
+    T mask = (~0U >> (32 - length)) << offset;
+    return (data & ~mask) | ((value << offset) & mask);
+
 }
 
 } // namespace Tricore::Utils

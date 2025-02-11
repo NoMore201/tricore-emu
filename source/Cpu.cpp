@@ -36,17 +36,18 @@ constexpr std::byte bytecode_j_b = std::byte{0x1D};
 constexpr std::byte bytecode_jgeu_brc = std::byte{0xFF};
 constexpr std::byte bytecode_extru_rrpw = std::byte{0x37};
 constexpr std::byte bytecode_sh_src = std::byte{0x06};
+constexpr std::byte bytecode_insert_rcpw = std::byte{0xB7};
 
 struct BolFormatParser {
     u32 insn{};
 
     template <typename F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract<u32>(insn, 8, 4);
-        const auto index_b = Utils::extract<u32>(insn, 12, 4);
-        u32 off16 = Utils::extract<u32>(insn, 16, 6);
-        off16 |= Utils::extract<u32>(insn, 28, 4) << 6U;
-        off16 |= Utils::extract<u32>(insn, 22, 6) << 10U;
+        const auto index_a = Utils::extract32(insn, 8, 4);
+        const auto index_b = Utils::extract32(insn, 12, 4);
+        u32 off16 = Utils::extract32(insn, 16, 6);
+        off16 |= Utils::extract32(insn, 28, 4) << 6U;
+        off16 |= Utils::extract32(insn, 22, 6) << 10U;
         i32 sign_extended_off16 =
             Utils::sign_extend<i32, 16>(static_cast<i32>(off16));
         callback(index_a, index_b, static_cast<u32>(sign_extended_off16));
@@ -58,9 +59,9 @@ struct RrFormatParser {
 
     template <typename F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract<u32>(insn, 8, 4);
-        const auto index_b = Utils::extract<u32>(insn, 12, 4);
-        const auto index_c = Utils::extract<u32>(insn, 28, 4);
+        const auto index_a = Utils::extract32(insn, 8, 4);
+        const auto index_b = Utils::extract32(insn, 12, 4);
+        const auto index_c = Utils::extract32(insn, 28, 4);
         callback(index_a, index_b, index_c);
     }
 };
@@ -70,9 +71,9 @@ struct BrnFormatParser {
 
     template <typename F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract<u32>(insn, 8, 4);
-        const auto bit_n = Utils::extract<u32>(insn, 12, 4);
-        const auto disp15 = Utils::extract<u32>(insn, 16, 15);
+        const auto index_a = Utils::extract32(insn, 8, 4);
+        const auto bit_n = Utils::extract32(insn, 12, 4);
+        const auto disp15 = Utils::extract32(insn, 16, 15);
         i32 sign_extended_disp15 =
             Utils::sign_extend<i32, 15>(static_cast<i32>(disp15));
         callback(index_a, static_cast<u32>(sign_extended_disp15), bit_n);
@@ -84,9 +85,9 @@ struct RcFormatParser {
 
     template <typename F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract<u32>(insn, 8, 4);
-        const auto index_c = Utils::extract<u32>(insn, 28, 4);
-        const auto const9 = Utils::extract<u32>(insn, 12, 9);
+        const auto index_a = Utils::extract32(insn, 8, 4);
+        const auto index_c = Utils::extract32(insn, 28, 4);
+        const auto const9 = Utils::extract32(insn, 12, 9);
         callback(index_a, index_c, const9);
     }
 };
@@ -96,8 +97,8 @@ struct SrrFormatParser {
 
     template <typename F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract<u32>(insn, 8, 4);
-        const auto index_b = Utils::extract<u32>(insn, 12, 4);
+        const auto index_a = Utils::extract16(insn, 8, 4);
+        const auto index_b = Utils::extract16(insn, 12, 4);
         callback(index_a, index_b);
     }
 };
@@ -109,9 +110,9 @@ struct BrrFormatParser {
 
     template <typename F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract<u32>(insn, 8, 4);
-        const auto index_b = Utils::extract<u32>(insn, 12, 4);
-        const auto disp15 = Utils::extract<u32>(insn, 16, 15);
+        const auto index_a = Utils::extract32(insn, 8, 4);
+        const auto index_b = Utils::extract32(insn, 12, 4);
+        const auto disp15 = Utils::extract32(insn, 16, 15);
         i32 sign_extended_disp15 =
             Utils::sign_extend<i32, 15>(static_cast<i32>(disp15));
         callback(index_a, index_b, static_cast<u32>(sign_extended_disp15));
@@ -125,8 +126,8 @@ struct BFormatParser {
 
     template <typename F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
-        u32 disp24 = Utils::extract<u32>(insn, 16, 16);
-        disp24 |= Utils::extract<u32>(insn, 8, 8) << 16U;
+        u32 disp24 = Utils::extract32(insn, 16, 16);
+        disp24 |= Utils::extract32(insn, 8, 8) << 16U;
         i32 sign_extended_disp24 =
             Utils::sign_extend<i32, 24>(static_cast<i32>(disp24));
         callback(static_cast<u32>(sign_extended_disp24));
@@ -138,11 +139,25 @@ struct RrpwFormatParser {
 
     template <typename F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
-        u32 index_a = Utils::extract<u32>(insn, 8, 4);
-        u32 width = Utils::extract<u32>(insn, 16, 5);
-        u32 pos = Utils::extract<u32>(insn, 23, 5);
-        u32 index_c = Utils::extract<u32>(insn, 28, 4);
+        u32 index_a = Utils::extract32(insn, 8, 4);
+        u32 width = Utils::extract32(insn, 16, 5);
+        u32 pos = Utils::extract32(insn, 23, 5);
+        u32 index_c = Utils::extract32(insn, 28, 4);
         callback(index_a, width, pos, index_c);
+    }
+};
+
+struct RcpwFormatParser {
+    u32 insn{};
+
+    template <typename F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        u32 index_a = Utils::extract32(insn, 8, 4);
+        u32 const4 = Utils::extract32(insn, 12, 4);
+        u32 width = Utils::extract32(insn, 16, 5);
+        u32 pos = Utils::extract32(insn, 23, 5);
+        u32 index_c = Utils::extract32(insn, 28, 4);
+        callback(index_a, const4, width, pos, index_c);
     }
 };
 
@@ -281,8 +296,20 @@ void Tricore::Cpu::start() {
         case bytecode_ldbu_bol:
             insn_ldbu_bol();
             break;
-        case bytecode_or_rc:
-            insn_or_rc();
+        case bytecode_or_rc: {
+            u32 insn = read_32(m_core_registers.pc);
+            const u32 identifier = Utils::extract32(insn, 21U, 7U);
+            switch (identifier) {
+                case 0x0AU:
+                    insn_or_rc();
+                    break;
+                case 0x0CU:
+                    insn_xor_rc();
+                    break;
+                default:
+                    throw Exception{fmt::format("OR instructon with identifier 0x{:02X} not implemented", identifier)};
+            }
+        }
             break;
         case bytecode_stb_bol:
             insn_stb_bol();
@@ -308,6 +335,9 @@ void Tricore::Cpu::start() {
         case bytecode_sh_src:
             insn_sh_src();
             break;
+        case bytecode_insert_rcpw:
+            insn_insert_rcpw();
+            break;
         default:
             throw Exception{
                 fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -319,8 +349,8 @@ void Tricore::Cpu::start() {
 void Tricore::Cpu::insn_movha() {
     u32 insn = read_32(m_core_registers.pc);
     spdlog::trace("Cpu: MOVH.A 0x{:08X}", insn);
-    const auto addr_register_index = Utils::extract<u32>(insn, 28, 4);
-    const auto msb_half_word = Utils::extract<u32>(insn, 12, 16);
+    const auto addr_register_index = Utils::extract32(insn, 28, 4);
+    const auto msb_half_word = Utils::extract32(insn, 12, 16);
     m_address_registers.at(addr_register_index) = 0U | (msb_half_word << 16U);
     spdlog::trace("==> Cpu: MOVH.A value 0x{:08X} to A[{}]",
                   m_address_registers.at(addr_register_index),
@@ -331,8 +361,8 @@ void Tricore::Cpu::insn_movha() {
 void Tricore::Cpu::insn_mov_rlc() {
     u32 insn = read_32(m_core_registers.pc);
     spdlog::trace("Cpu: MOV 0x{:08X}", insn);
-    const auto data_register_index = Utils::extract<u32>(insn, 28, 4);
-    const u32 const16 = Utils::extract<u32>(insn, 12, 16);
+    const auto data_register_index = Utils::extract32(insn, 28, 4);
+    const u32 const16 = Utils::extract32(insn, 12, 16);
     auto sign_ext_const16 =
         Utils::sign_extend<i32, 32>(static_cast<i32>(const16));
     m_data_registers.at(data_register_index) =
@@ -363,7 +393,7 @@ void Tricore::Cpu::insn_lea_bol() {
 void Tricore::Cpu::insn_ji_sr() {
     const auto insn = read_16(m_core_registers.pc);
     spdlog::trace("Cpu: JI 0x{:04X}", insn);
-    const auto addr_index = Utils::extract<u32>(insn, 8, 4);
+    const auto addr_index = Utils::extract32(insn, 8, 4);
     const auto final_address =
         m_address_registers.at(addr_index) & ((~0U) - 1U);
     spdlog::trace("==> Cpu: JI final address 0x{:08X}", final_address);
@@ -373,8 +403,8 @@ void Tricore::Cpu::insn_ji_sr() {
 void Tricore::Cpu::insn_mtcr() {
     const auto insn = read_32(m_core_registers.pc);
     spdlog::trace("Cpu: MTCR 0x{:08X}", insn);
-    const auto data_index = Utils::extract<u32>(insn, 8, 4);
-    const auto const16 = Utils::extract<u32>(insn, 12, 16);
+    const auto data_index = Utils::extract32(insn, 8, 4);
+    const auto const16 = Utils::extract32(insn, 12, 16);
     m_core_registers[const16] = m_data_registers.at(data_index);
     m_core_registers.pc += 4;
 }
@@ -388,8 +418,8 @@ void Tricore::Cpu::insn_isync() {
 void Tricore::Cpu::insn_ldw_slr() {
     const auto insn = read_16(m_core_registers.pc);
     spdlog::trace("Cpu: LD.W 0x{:04X}", insn);
-    const auto addr_index_b = Utils::extract<u32>(insn, 12, 4);
-    const auto data_index_c = Utils::extract<u32>(insn, 8, 4);
+    const auto addr_index_b = Utils::extract32(insn, 12, 4);
+    const auto data_index_c = Utils::extract32(insn, 8, 4);
     m_data_registers.at(data_index_c) =
         read_32(m_address_registers.at(addr_index_b));
     spdlog::trace(
@@ -420,8 +450,8 @@ void Tricore::Cpu::insn_ldw_bol() {
 void Tricore::Cpu::insn_add_c2() {
     const auto insn = read_16(m_core_registers.pc);
     spdlog::trace("Cpu: ADD 0x{:04X}", insn);
-    const auto const4 = Utils::extract<u32>(insn, 12, 4);
-    const auto data_index_a = Utils::extract<u32>(insn, 8, 4);
+    const auto const4 = Utils::extract32(insn, 12, 4);
+    const auto data_index_a = Utils::extract32(insn, 8, 4);
     const auto sign_extended_const4 =
         Utils::sign_extend<i32, 4>(static_cast<i32>(const4));
     m_data_registers.at(data_index_a) += static_cast<u32>(sign_extended_const4);
@@ -434,8 +464,8 @@ void Tricore::Cpu::insn_movh() {
     // D[c] = {const16, 16 h0000}
     u32 insn = read_32(m_core_registers.pc);
     spdlog::trace("Cpu: MOVH 0x{:08X}", insn);
-    const auto data_register_index = Utils::extract<u32>(insn, 28, 4);
-    const auto msb_half_word = Utils::extract<u32>(insn, 12, 16);
+    const auto data_register_index = Utils::extract32(insn, 28, 4);
+    const auto msb_half_word = Utils::extract32(insn, 12, 16);
     m_data_registers.at(data_register_index) = 0U | (msb_half_word << 16U);
     spdlog::trace("==> Cpu: MOVH value 0x{:08X} to D[{}]",
                   m_data_registers.at(data_register_index),
@@ -681,7 +711,7 @@ void Tricore::Cpu::insn_extru_rrpw() {
         // D[c] = zero_ext((D[a] >> pos)[width-1:0]);
         // If pos + width > 32 or if width = 0, then the results are undefined.
         const u32 result =
-            Utils::extract<u32>(m_data_registers.at(index_a), pos, width);
+            Utils::extract32(m_data_registers.at(index_a), pos, width);
         m_data_registers.at(index_c) = result;
         spdlog::trace("==> Cpu: EXTR.U extracted value 0x{:08X} from D[{}]",
                       m_data_registers.at(index_c), index_a);
@@ -708,6 +738,38 @@ void Tricore::Cpu::insn_sh_src() {
     });
 
     m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_xor_rc() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: XOR 0x{:08X}", insn);
+
+    RcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const9) {
+        // D[c] = D[a] ^ zero_ext(const9)
+        m_data_registers.at(index_c) = m_data_registers.at(index_a) ^ const9;
+        spdlog::trace("==> Cpu: XOR store result 0x{:08X} into D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_insert_rcpw() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: INSERT.U 0x{:08X}", insn);
+
+    RcpwFormatParser{insn}.parse(
+        [this](u32 index_a, u32 const4, u32 width, u32 pos, u32 index_c) {
+        // mask = (2width -1) << pos;
+        // D[c] = (D[a] & ~mask) | ((zero_ext(const4) << pos) & mask);
+        // If pos + width > 32, then the result is undefined.
+        // TODO
+        //m_data_registers.at(index_c) = ;
+        spdlog::trace("==> Cpu: EXTR.U extracted value 0x{:08X} from D[{}]",
+                      m_data_registers.at(index_c), index_a);
+    });
+
+    m_core_registers.pc += 4U;
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {

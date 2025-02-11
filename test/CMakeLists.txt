@@ -15,6 +15,7 @@ add_executable(
   tricore_emu_test
   source/elf_test.cpp
   source/memory_test.cpp
+  source/utils_test.cpp
 )
 target_link_libraries(
   tricore_emu_test PRIVATE
