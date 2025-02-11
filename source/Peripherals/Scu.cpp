@@ -56,7 +56,7 @@ void Tricore::Scu::read(std::byte *buffer_out, u32 address, usize length) {
     } break;
     case 0x2A8U: {
         spdlog::debug("Scu: accessing SCU.WDTS_CON0 in read mode");
-        const auto *range_start = reinterpret_cast<std::byte *>(&m_lbistctrl0);
+        const auto *range_start = reinterpret_cast<std::byte *>(&m_wdts_con0);
         std::ranges::copy(range_start, range_start + length, buffer_out);
     } break;
     default:
@@ -81,10 +81,15 @@ void Tricore::Scu::write(const std::byte *buffer_in, u32 address,
         std::ranges::copy(buffer_in, buffer_in + length,
                           reinterpret_cast<std::byte *>(&m_rststat));
     } break;
-    case 0x164: {
+    case 0x164U: {
         spdlog::debug("Scu: accessing SCU.LBISTCTRL0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
                           reinterpret_cast<std::byte *>(&m_lbistctrl0));
+    } break;
+    case 0x2A8U: {
+        spdlog::debug("Scu: accessing SCU.WDTS_CON0 in write mode");
+        std::ranges::copy(buffer_in, buffer_in + length,
+                          reinterpret_cast<std::byte *>(&m_wdts_con0));
     } break;
     default:
         spdlog::warn("Address 0x{:08X} not yet handled by SCU peripheral",
