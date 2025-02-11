@@ -9,12 +9,27 @@
 
 namespace {
 
+// Reset value:
+// LBTERM set to 1 to simulate successful LBIST
+// PORST set to 1
+constexpr u32 rststat_reset_value = 0x40010000U;
+
+// Reset value:
+// LBISTDONE set to 1 to simulate successful LBIST
+constexpr u32 lbistctrl0_reset_value = 0x10000000U;
+
 constexpr u32 scu_memory_start_address = 0xF0036000U;
 constexpr u32 scu_memory_size = 1U * KiB;
 constexpr u32 scu_memory_end_address =
     scu_memory_start_address + scu_memory_size;
 
 } // anonymous namespace
+
+
+Tricore::Scu::Scu()
+    : m_rststat(rststat_reset_value)
+    , m_lbistctrl0(lbistctrl0_reset_value)
+{}
 
 void Tricore::Scu::read(std::byte *buffer_out, u32 address, usize length) {
     if (address < scu_memory_start_address ||
