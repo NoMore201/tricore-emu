@@ -199,6 +199,7 @@ void Tricore::Cpu::init(Elf &elf_file) {
     }
 
     m_bus_clients.push_back(&m_memory);
+    m_bus_clients.push_back(&m_scu);
 
     // TODO: register other peripherals as bus clients
 }
@@ -518,8 +519,6 @@ void Tricore::Cpu::insn_jnzt_brn() {
 
     BrnFormatParser{insn}.parse([this](u32 index_a, u32 disp15, u32 bit_n) {
         const u32 data = m_data_registers.at(index_a);
-        spdlog::trace("==> Cpu: JNZ.T index_a={}, disp15=0x{:08X}, bit_n={}",
-                      index_a, disp15, bit_n);
         if ((data & (1U << bit_n)) != 0U) {
             m_core_registers.pc += disp15 * 2U;
             spdlog::trace("==> Cpu: JNZ.T branch taken, address 0x{:08X}",

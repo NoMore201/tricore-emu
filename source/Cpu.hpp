@@ -5,6 +5,7 @@
 #include "Elf.hpp"
 #include "Memory.hpp"
 #include "Types.hpp"
+#include "Peripherals/Scu.hpp"
 
 #include <array>
 #include <fmt/format.h>
@@ -85,11 +86,11 @@ private:
         u32 &operator[](usize offset);
 
     } m_core_registers;
-    // TODO add all registers
 
-    // Devices
+    // Peripherals
     std::vector<BusClient *> m_bus_clients;
     Memory m_memory;
+    Scu m_scu;
 };
 
 } // namespace Tricore
