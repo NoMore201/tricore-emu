@@ -18,6 +18,10 @@ constexpr u32 rststat_reset_value = 0x40010000U;
 // LBISTDONE set to 1 to simulate successful LBIST
 constexpr u32 lbistctrl0_reset_value = 0x10000000U;
 
+// Reset value:
+// LBISTDONE set to 1 to simulate successful LBIST
+constexpr u32 wdts_con0_reset_value = 0xFFFC000EU;
+
 constexpr u32 scu_memory_start_address = 0xF0036000U;
 constexpr u32 scu_memory_size = 1U * KiB;
 constexpr u32 scu_memory_end_address =
@@ -29,6 +33,7 @@ constexpr u32 scu_memory_end_address =
 Tricore::Scu::Scu()
     : m_rststat(rststat_reset_value)
     , m_lbistctrl0(lbistctrl0_reset_value)
+    , m_wdts_con0(wdts_con0_reset_value)
 {}
 
 void Tricore::Scu::read(std::byte *buffer_out, u32 address, usize length) {
@@ -46,6 +51,11 @@ void Tricore::Scu::read(std::byte *buffer_out, u32 address, usize length) {
     } break;
     case 0x164U: {
         spdlog::debug("Scu: accessing SCU.LBISTCTRL0 in read mode");
+        const auto *range_start = reinterpret_cast<std::byte *>(&m_lbistctrl0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
+    case 0x2A8U: {
+        spdlog::debug("Scu: accessing SCU.WDTS_CON0 in read mode");
         const auto *range_start = reinterpret_cast<std::byte *>(&m_lbistctrl0);
         std::ranges::copy(range_start, range_start + length, buffer_out);
     } break;

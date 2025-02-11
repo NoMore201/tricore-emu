@@ -19,6 +19,7 @@ private:
 
     u32 m_rststat;
     u32 m_lbistctrl0;
+    u32 m_wdts_con0;
 
 };
 
