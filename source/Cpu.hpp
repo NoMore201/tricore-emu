@@ -61,6 +61,7 @@ private:
     void insn_jltu_brc();
     void insn_nop();
     void insn_j_b();
+    void insn_jgeu_brc();
 
     // Helpers
     u32 read_32(u32 address);

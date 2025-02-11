@@ -33,6 +33,7 @@ constexpr std::byte bytecode_jne_brr = std::byte{0x5F};
 constexpr std::byte bytecode_jltu_brc = std::byte{0xBF};
 constexpr std::byte bytecode_nop = std::byte{0x00};
 constexpr std::byte bytecode_j_b = std::byte{0x1D};
+constexpr std::byte bytecode_jgeu_brc = std::byte{0xFF};
 
 struct BolFormatParser {
     u32 insn{};
@@ -281,6 +282,9 @@ void Tricore::Cpu::start() {
         case bytecode_j_b:
             insn_j_b();
             break;
+        case bytecode_jgeu_brc:
+            insn_jgeu_brc();
+            break;
         default:
             throw Exception{
                 fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -417,11 +421,11 @@ void Tricore::Cpu::insn_movh() {
 }
 
 void Tricore::Cpu::insn_and_srr() {
-    // D[a] = D[a] & D[b]
     const auto insn = read_16(m_core_registers.pc);
     spdlog::trace("Cpu: AND 0x{:04X}", insn);
 
     SrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
+        // D[a] = D[a] & D[b]
         m_data_registers.at(index_a) &= m_data_registers.at(index_b);
         spdlog::trace("==> Cpu: AND write value 0x{:08X} in D[{}]",
                       m_data_registers.at(index_a), index_a);
@@ -431,26 +435,21 @@ void Tricore::Cpu::insn_and_srr() {
 }
 
 void Tricore::Cpu::insn_jne_brc() {
-    // if (D[a] != sign_ext(const4)) then PC = PC + sign_ext(disp15) * 2
     u32 insn = read_32(m_core_registers.pc);
     spdlog::trace("Cpu: JNE 0x{:08X}", insn);
-    const auto data_register_a = Utils::extract<u32>(insn, 8, 4);
-    const auto const4 = Utils::extract<u32>(insn, 12, 4);
-    const auto disp15 = Utils::extract<u32>(insn, 16, 15);
-    i32 sign_extended_const4 =
-        Utils::sign_extend<i32, 4>(static_cast<i32>(const4));
-    i32 sign_extended_disp15 =
-        Utils::sign_extend<i32, 15>(static_cast<i32>(disp15));
-    if (m_data_registers.at(data_register_a) !=
-        static_cast<u32>(sign_extended_const4)) {
-        m_core_registers.pc += static_cast<u32>(sign_extended_disp15) * 2U;
-        spdlog::trace("==> Cpu: JNE branch taken PC=0x{:08X}",
-                      m_core_registers.pc);
-    } else {
-        m_core_registers.pc += 4;
-        spdlog::trace("==> Cpu: JNE branch NOT taken PC=0x{:08X}",
-                      m_core_registers.pc);
-    }
+
+    BrcFormatParser{insn}.parse([this](u32 index_a, u32 const4, u32 disp15) {
+        // if (D[a] != sign_ext(const4)) then PC = PC + sign_ext(disp15) * 2
+        if (m_data_registers.at(index_a) != const4) {
+            m_core_registers.pc += disp15 * 2U;
+            spdlog::trace("==> Cpu: JNE branch taken PC=0x{:08X}",
+                          m_core_registers.pc);
+        } else {
+            m_core_registers.pc += 4;
+            spdlog::trace("==> Cpu: JNE branch NOT taken PC=0x{:08X}",
+                          m_core_registers.pc);
+        }
+    });
 }
 
 void Tricore::Cpu::insn_suba_rr() {
@@ -621,13 +620,33 @@ void Tricore::Cpu::insn_j_b() {
     BFormatParser{insn}.parse([this](u32 disp24) {
         // PC = PC + sign_ext(disp24) * 2
         m_core_registers.pc += disp24 * 2U;
-        spdlog::trace("==> Cpu: J uncoditional to address 0x{:08X}", m_core_registers.pc);
+        spdlog::trace("==> Cpu: J uncoditional to address 0x{:08X}",
+                      m_core_registers.pc);
     });
 }
 
 void Tricore::Cpu::insn_nop() {
     spdlog::trace("Cpu: NOP");
     m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_jgeu_brc() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: JGE.U 0x{:08X}", insn);
+
+    BrcFormatParser{insn}.parse([this](u32 index_a, u32 const4, u32 disp15) {
+        // if (D[a] >= zero_ext(const4)) then { // unsigned comparison
+        // PC = PC + sign_ext(disp15) * 2;
+        // }
+        if (m_data_registers.at(index_a) >= const4) {
+            m_core_registers.pc += disp15 * 2U;
+            spdlog::trace("==> Cpu: JGE.U branch taken, address 0x{:08X}",
+                          m_core_registers.pc);
+        } else {
+            m_core_registers.pc += 4U;
+            spdlog::trace("==> Cpu: JGE.U branch NOT taken");
+        }
+    });
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {
