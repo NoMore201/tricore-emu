@@ -62,6 +62,8 @@ private:
     void insn_nop();
     void insn_j_b();
     void insn_jgeu_brc();
+    void insn_extru_rrpw();
+    void insn_sh_src();
 
     // Helpers
     u32 read_32(u32 address);

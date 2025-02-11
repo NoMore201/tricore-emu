@@ -34,6 +34,8 @@ constexpr std::byte bytecode_jltu_brc = std::byte{0xBF};
 constexpr std::byte bytecode_nop = std::byte{0x00};
 constexpr std::byte bytecode_j_b = std::byte{0x1D};
 constexpr std::byte bytecode_jgeu_brc = std::byte{0xFF};
+constexpr std::byte bytecode_extru_rrpw = std::byte{0x37};
+constexpr std::byte bytecode_sh_src = std::byte{0x06};
 
 struct BolFormatParser {
     u32 insn{};
@@ -100,6 +102,8 @@ struct SrrFormatParser {
     }
 };
 
+using SrcFormatParser = SrrFormatParser;
+
 struct BrrFormatParser {
     u32 insn{};
 
@@ -126,6 +130,19 @@ struct BFormatParser {
         i32 sign_extended_disp24 =
             Utils::sign_extend<i32, 24>(static_cast<i32>(disp24));
         callback(static_cast<u32>(sign_extended_disp24));
+    }
+};
+
+struct RrpwFormatParser {
+    u32 insn{};
+
+    template <typename F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        u32 index_a = Utils::extract<u32>(insn, 8, 4);
+        u32 width = Utils::extract<u32>(insn, 16, 5);
+        u32 pos = Utils::extract<u32>(insn, 23, 5);
+        u32 index_c = Utils::extract<u32>(insn, 28, 4);
+        callback(index_a, width, pos, index_c);
     }
 };
 
@@ -284,6 +301,12 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_jgeu_brc:
             insn_jgeu_brc();
+            break;
+        case bytecode_extru_rrpw:
+            insn_extru_rrpw();
+            break;
+        case bytecode_sh_src:
+            insn_sh_src();
             break;
         default:
             throw Exception{
@@ -647,6 +670,44 @@ void Tricore::Cpu::insn_jgeu_brc() {
             spdlog::trace("==> Cpu: JGE.U branch NOT taken");
         }
     });
+}
+
+void Tricore::Cpu::insn_extru_rrpw() {
+    u32 insn = read_32(m_core_registers.pc);
+    spdlog::trace("Cpu: EXTR.U 0x{:08X}", insn);
+
+    RrpwFormatParser{insn}.parse(
+        [this](u32 index_a, u32 width, u32 pos, u32 index_c) {
+        // D[c] = zero_ext((D[a] >> pos)[width-1:0]);
+        // If pos + width > 32 or if width = 0, then the results are undefined.
+        const u32 result =
+            Utils::extract<u32>(m_data_registers.at(index_a), pos, width);
+        m_data_registers.at(index_c) = result;
+        spdlog::trace("==> Cpu: EXTR.U extracted value 0x{:08X} from D[{}]",
+                      m_data_registers.at(index_c), index_a);
+    });
+
+    m_core_registers.pc += 4U;
+}
+
+void Tricore::Cpu::insn_sh_src() {
+    u16 insn = read_16(m_core_registers.pc);
+    spdlog::trace("Cpu: SH 0x{:04X}", insn);
+
+    SrcFormatParser{insn}.parse([this](u32 index_a, u32 const4){
+        // shift_count = sign_ext(const4[3:0]);
+        // D[a] = (shift_count >= 0) ? D[a] << shift_count : D[a] >> (-shift_count);
+        i32 sign_extended_const4 = Utils::sign_extend<i32, 4>(static_cast<i32>(const4));
+        if (sign_extended_const4 >= 0) {
+            spdlog::trace("==> Cpu: SH shift left by {} value 0x{:08X}", sign_extended_const4, m_data_registers.at(index_a));
+            m_data_registers.at(index_a) = m_data_registers.at(index_a) << static_cast<u32>(sign_extended_const4);
+        } else {
+            spdlog::trace("==> Cpu: SH shift right by {} value 0x{:08X}", -sign_extended_const4, m_data_registers.at(index_a));
+            m_data_registers.at(index_a) = m_data_registers.at(index_a) >> static_cast<u32>(-sign_extended_const4);
+        }
+    });
+
+    m_core_registers.pc += 2;
 }
 
 u32 Tricore::Cpu::read_32(u32 address) {
