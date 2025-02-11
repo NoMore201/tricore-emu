@@ -756,17 +756,17 @@ void Tricore::Cpu::insn_xor_rc() {
 
 void Tricore::Cpu::insn_insert_rcpw() {
     u32 insn = read_32(m_core_registers.pc);
-    spdlog::trace("Cpu: INSERT.U 0x{:08X}", insn);
+    spdlog::trace("Cpu: INSERT 0x{:08X}", insn);
 
     RcpwFormatParser{insn}.parse(
         [this](u32 index_a, u32 const4, u32 width, u32 pos, u32 index_c) {
         // mask = (2width -1) << pos;
         // D[c] = (D[a] & ~mask) | ((zero_ext(const4) << pos) & mask);
         // If pos + width > 32, then the result is undefined.
-        // TODO
-        //m_data_registers.at(index_c) = ;
-        spdlog::trace("==> Cpu: EXTR.U extracted value 0x{:08X} from D[{}]",
-                      m_data_registers.at(index_c), index_a);
+
+        spdlog::trace("==> Cpu: INSERT value 0x{:02X} at position {} with length {} into D[{}]",
+                      const4, pos, width, index_c);
+        m_data_registers.at(index_c) = Utils::deposit32(const4, pos, width, m_data_registers.at(index_a));
     });
 
     m_core_registers.pc += 4U;
