@@ -66,10 +66,14 @@ private:
     void insn_sh_src();
     void insn_xor_rc();
     void insn_insert_rcpw();
+    void insn_or_srr();
+    void insn_stw_ssr();
 
     // Helpers
     u32 read_32(u32 address);
     u16 read_16(u32 address);
+    void write_32(u32 address, u32 value);
+    void write_8(u32 address, u32 value);
 
     // CPU registers
     std::array<u32, register_count> m_data_registers{};

@@ -37,6 +37,8 @@ constexpr std::byte bytecode_jgeu_brc = std::byte{0xFF};
 constexpr std::byte bytecode_extru_rrpw = std::byte{0x37};
 constexpr std::byte bytecode_sh_src = std::byte{0x06};
 constexpr std::byte bytecode_insert_rcpw = std::byte{0xB7};
+constexpr std::byte bytecode_or_srr = std::byte{0xA6};
+constexpr std::byte bytecode_stw_ssr = std::byte{0x74};
 
 struct BolFormatParser {
     u32 insn{};
@@ -102,6 +104,7 @@ struct SrrFormatParser {
 };
 
 using SrcFormatParser = SrrFormatParser;
+using SsrFormatParser = SrrFormatParser;
 
 struct BrrFormatParser {
     u32 insn{};
@@ -335,6 +338,12 @@ void Tricore::Cpu::start() {
         case bytecode_insert_rcpw:
             insn_insert_rcpw();
             break;
+        case bytecode_or_srr:
+            insn_or_srr();
+            break;
+        case bytecode_stw_ssr:
+            insn_stw_ssr();
+            break;
         default:
             throw Exception{
                 fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -536,8 +545,7 @@ void Tricore::Cpu::insn_stw_bol() {
         const u32 effective_address = m_address_registers.at(index_b) + off16;
         // M(EA, word) = D[a]
         const u32 data = m_data_registers.at(index_a);
-        m_memory.write(reinterpret_cast<const std::byte *>(&data),
-                       effective_address, 4);
+        write_32(effective_address, data);
         spdlog::trace("==> Cpu: ST.W store word 0x{:08X} to address 0x{:08X}",
                       data, effective_address);
     });
@@ -615,8 +623,7 @@ void Tricore::Cpu::insn_stb_bol() {
         const u32 effective_address = m_address_registers.at(index_b) + off16;
         // M(EA, byte) = D[a][7:0]
         const u32 data = m_data_registers.at(index_a) & 0xFFU;
-        m_memory.write(reinterpret_cast<const std::byte *>(&data),
-                       effective_address, 1);
+        write_8(effective_address, data);
         spdlog::trace("==> Cpu: ST.B store byte 0x{:02X} to address 0x{:08X}",
                       data, effective_address);
     });
@@ -776,6 +783,35 @@ void Tricore::Cpu::insn_insert_rcpw() {
     m_core_registers.pc += 4U;
 }
 
+void Tricore::Cpu::insn_or_srr() {
+    const auto insn = read_16(m_core_registers.pc);
+    spdlog::trace("Cpu: OR 0x{:04X}", insn);
+
+    SrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
+        // D[a] = D[a] | D[b]
+        m_data_registers.at(index_a) |= m_data_registers.at(index_b);
+        spdlog::trace("==> Cpu: OR write value 0x{:08X} in D[{}]",
+                      m_data_registers.at(index_a), index_a);
+    });
+
+    m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_stw_ssr() {
+    const auto insn = read_16(m_core_registers.pc);
+    spdlog::trace("Cpu: ST.W 0x{:04X}", insn);
+
+    SsrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
+        //  M(A[b], word) = D[a]
+        u32 output = m_data_registers.at(index_a);
+        write_32(m_address_registers.at(index_b), output);
+        spdlog::trace("==> Cpu: ST.W store value 0x{:08X} at address 0x{:08X}",
+                      output, m_address_registers.at(index_b));
+    });
+
+    m_core_registers.pc += 2;
+}
+
 u32 Tricore::Cpu::read_32(u32 address) {
     u32 data{};
 
@@ -801,6 +837,42 @@ u16 Tricore::Cpu::read_16(u32 address) {
         try {
             client->read(reinterpret_cast<std::byte *>(&data), address, 2);
             return data;
+        } catch (InvalidMemoryAccess &) {
+            // this client does not handle input address, continue
+            continue;
+        }
+    }
+
+    // Address not handled by any peripherals, re-throw error
+    throw InvalidMemoryAccess{
+        fmt::format("Address 0x{:08X} not handled by CPU", address)};
+}
+
+void Tricore::Cpu::write_32(u32 address, u32 value) {
+    u32 data = value;
+
+    for (auto *client : m_bus_clients) {
+        try {
+            client->write(reinterpret_cast<std::byte *>(&data), address, 4);
+            return;
+        } catch (InvalidMemoryAccess &) {
+            // this client does not handle input address, continue
+            continue;
+        }
+    }
+
+    // Address not handled by any peripherals, re-throw error
+    throw InvalidMemoryAccess{
+        fmt::format("Address 0x{:08X} not handled by CPU", address)};
+}
+
+void Tricore::Cpu::write_8(u32 address, u32 value) {
+    u32 data = value;
+
+    for (auto *client : m_bus_clients) {
+        try {
+            client->write(reinterpret_cast<std::byte *>(&data), address, 1);
+            return;
         } catch (InvalidMemoryAccess &) {
             // this client does not handle input address, continue
             continue;
