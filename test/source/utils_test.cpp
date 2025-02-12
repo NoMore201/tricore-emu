@@ -29,3 +29,11 @@ TEST(UtilsTest, Deposit32) {
     EXPECT_DEATH(Tricore::Utils::deposit32(0xFU, 34U, 2U, 0x12344321U), "");
     EXPECT_DEATH(Tricore::Utils::deposit32(0xFU, 18U, 16U, 0x12344321U), "");
 }
+
+TEST(UtilsTest, SignExtend32) {
+    EXPECT_EQ(0xFFFFFFFFU, Tricore::Utils::sign_extend32<4>(0xFU));
+    EXPECT_EQ(static_cast<u32>(-8), Tricore::Utils::sign_extend32<5>(0x18));
+    EXPECT_EQ(0x1U, Tricore::Utils::sign_extend32<31>(0x1U));
+    EXPECT_DEATH(Tricore::Utils::sign_extend32<60>(0xFAFAFAFAU), "");
+    EXPECT_DEATH(Tricore::Utils::sign_extend32<0>(0xFAFAFAFAU), "");
+}

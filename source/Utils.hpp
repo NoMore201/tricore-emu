@@ -18,12 +18,12 @@ static constexpr U unsigned_abs_diff(U lhs, U rhs) {
     return rhs - lhs;
 }
 
-template <std::signed_integral T, usize B>
-static constexpr inline T sign_extend(const T input) {
-    constexpr auto number_of_bits = sizeof(T) * 8;
-    static_assert(B <= number_of_bits);
-    constexpr auto remaining_bits = number_of_bits - B;
-    return (input << remaining_bits) >> remaining_bits;
+template <usize B> static inline u32 sign_extend32(const u32 input) {
+    Expects(B != 0 && B < 32);
+    // clear uppermost bits
+    u32 cleared_input = input & ((1U << B) - 1U);
+    u32 sign_bit_mask = (1U << (B - 1U));
+    return (cleared_input ^ sign_bit_mask) - sign_bit_mask;
 }
 
 static inline u32 extract32(u32 data, u32 offset, u32 length) {
@@ -38,12 +38,12 @@ static inline u16 extract16(u16 data, u32 offset, u32 length) {
     return static_cast<u16>(extract32(data, offset, length));
 }
 
-static inline u32 deposit32(u32 field, u32 offset, u32 length, u32 output_value) {
+static inline u32 deposit32(u32 field, u32 offset, u32 length,
+                            u32 output_value) {
     constexpr u32 num_of_bits = 32;
     Expects(offset < num_of_bits && length <= num_of_bits - offset);
     u32 mask = (~0U >> (num_of_bits - length)) << offset;
     return (output_value & ~mask) | ((field << offset) & mask);
-
 }
 
 } // namespace Tricore::Utils

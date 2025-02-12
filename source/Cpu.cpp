@@ -48,9 +48,8 @@ struct BolFormatParser {
         u32 off16 = Utils::extract32(insn, 16, 6);
         off16 |= Utils::extract32(insn, 28, 4) << 6U;
         off16 |= Utils::extract32(insn, 22, 6) << 10U;
-        i32 sign_extended_off16 =
-            Utils::sign_extend<i32, 16>(static_cast<i32>(off16));
-        callback(index_a, index_b, static_cast<u32>(sign_extended_off16));
+        u32 sign_extended_off16 = Utils::sign_extend32<16>(off16);
+        callback(index_a, index_b, sign_extended_off16);
     }
 };
 
@@ -74,9 +73,8 @@ struct BrnFormatParser {
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto bit_n = Utils::extract32(insn, 12, 4);
         const auto disp15 = Utils::extract32(insn, 16, 15);
-        i32 sign_extended_disp15 =
-            Utils::sign_extend<i32, 15>(static_cast<i32>(disp15));
-        callback(index_a, static_cast<u32>(sign_extended_disp15), bit_n);
+        u32 sign_extended_disp15 = Utils::sign_extend32<15>(disp15);
+        callback(index_a, sign_extended_disp15, bit_n);
     }
 };
 
@@ -113,9 +111,8 @@ struct BrrFormatParser {
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto index_b = Utils::extract32(insn, 12, 4);
         const auto disp15 = Utils::extract32(insn, 16, 15);
-        i32 sign_extended_disp15 =
-            Utils::sign_extend<i32, 15>(static_cast<i32>(disp15));
-        callback(index_a, index_b, static_cast<u32>(sign_extended_disp15));
+        u32 sign_extended_disp15 = Utils::sign_extend32<15>(disp15);
+        callback(index_a, index_b, sign_extended_disp15);
     }
 };
 
@@ -128,9 +125,8 @@ struct BFormatParser {
         namespace Utils = Tricore::Utils;
         u32 disp24 = Utils::extract32(insn, 16, 16);
         disp24 |= Utils::extract32(insn, 8, 8) << 16U;
-        i32 sign_extended_disp24 =
-            Utils::sign_extend<i32, 24>(static_cast<i32>(disp24));
-        callback(static_cast<u32>(sign_extended_disp24));
+        u32 sign_extended_disp24 = Utils::sign_extend32<24>(disp24);
+        callback(sign_extended_disp24);
     }
 };
 
@@ -300,17 +296,18 @@ void Tricore::Cpu::start() {
             u32 insn = read_32(m_core_registers.pc);
             const u32 identifier = Utils::extract32(insn, 21U, 7U);
             switch (identifier) {
-                case 0x0AU:
-                    insn_or_rc();
-                    break;
-                case 0x0CU:
-                    insn_xor_rc();
-                    break;
-                default:
-                    throw Exception{fmt::format("OR instructon with identifier 0x{:02X} not implemented", identifier)};
+            case 0x0AU:
+                insn_or_rc();
+                break;
+            case 0x0CU:
+                insn_xor_rc();
+                break;
+            default:
+                throw Exception{fmt::format(
+                    "OR instructon with identifier 0x{:02X} not implemented",
+                    identifier)};
             }
-        }
-            break;
+        } break;
         case bytecode_stb_bol:
             insn_stb_bol();
             break;
@@ -363,10 +360,8 @@ void Tricore::Cpu::insn_mov_rlc() {
     spdlog::trace("Cpu: MOV 0x{:08X}", insn);
     const auto data_register_index = Utils::extract32(insn, 28, 4);
     const u32 const16 = Utils::extract32(insn, 12, 16);
-    auto sign_ext_const16 =
-        Utils::sign_extend<i32, 32>(static_cast<i32>(const16));
-    m_data_registers.at(data_register_index) =
-        static_cast<u32>(sign_ext_const16);
+    const u32 sign_ext_const16 = Utils::sign_extend32<16>(const16);
+    m_data_registers.at(data_register_index) = sign_ext_const16;
     spdlog::trace("==> Cpu: MOV final value 0x{:08X} to D[{}]",
                   m_data_registers.at(data_register_index),
                   data_register_index);
@@ -452,9 +447,8 @@ void Tricore::Cpu::insn_add_c2() {
     spdlog::trace("Cpu: ADD 0x{:04X}", insn);
     const auto const4 = Utils::extract32(insn, 12, 4);
     const auto data_index_a = Utils::extract32(insn, 8, 4);
-    const auto sign_extended_const4 =
-        Utils::sign_extend<i32, 4>(static_cast<i32>(const4));
-    m_data_registers.at(data_index_a) += static_cast<u32>(sign_extended_const4);
+    const u32 sign_extended_const4 = Utils::sign_extend32<4>(const4);
+    m_data_registers.at(data_index_a) += sign_extended_const4;
     spdlog::trace("==> Cpu: ADD write value 0x{:08X} in D[{}]",
                   m_data_registers.at(data_index_a), data_index_a);
     m_core_registers.pc += 2;
@@ -724,16 +718,24 @@ void Tricore::Cpu::insn_sh_src() {
     u16 insn = read_16(m_core_registers.pc);
     spdlog::trace("Cpu: SH 0x{:04X}", insn);
 
-    SrcFormatParser{insn}.parse([this](u32 index_a, u32 const4){
+    SrcFormatParser{insn}.parse([this](u32 index_a, u32 const4) {
         // shift_count = sign_ext(const4[3:0]);
-        // D[a] = (shift_count >= 0) ? D[a] << shift_count : D[a] >> (-shift_count);
-        i32 sign_extended_const4 = Utils::sign_extend<i32, 4>(static_cast<i32>(const4));
+        // D[a] = (shift_count >= 0) ? D[a] << shift_count : D[a] >>
+        // (-shift_count);
+        const i32 sign_extended_const4 =
+            static_cast<i32>(Utils::sign_extend32<4>(const4));
         if (sign_extended_const4 >= 0) {
-            spdlog::trace("==> Cpu: SH shift left by {} value 0x{:08X}", sign_extended_const4, m_data_registers.at(index_a));
-            m_data_registers.at(index_a) = m_data_registers.at(index_a) << static_cast<u32>(sign_extended_const4);
+            spdlog::trace("==> Cpu: SH shift left by {} value 0x{:08X}",
+                          sign_extended_const4, m_data_registers.at(index_a));
+            m_data_registers.at(index_a) =
+                m_data_registers.at(index_a)
+                << static_cast<u32>(sign_extended_const4);
         } else {
-            spdlog::trace("==> Cpu: SH shift right by {} value 0x{:08X}", -sign_extended_const4, m_data_registers.at(index_a));
-            m_data_registers.at(index_a) = m_data_registers.at(index_a) >> static_cast<u32>(-sign_extended_const4);
+            spdlog::trace("==> Cpu: SH shift right by {} value 0x{:08X}",
+                          -sign_extended_const4, m_data_registers.at(index_a));
+            m_data_registers.at(index_a) =
+                m_data_registers.at(index_a) >>
+                static_cast<u32>(-sign_extended_const4);
         }
     });
 
@@ -764,9 +766,11 @@ void Tricore::Cpu::insn_insert_rcpw() {
         // D[c] = (D[a] & ~mask) | ((zero_ext(const4) << pos) & mask);
         // If pos + width > 32, then the result is undefined.
 
-        spdlog::trace("==> Cpu: INSERT value 0x{:02X} at position {} with length {} into D[{}]",
+        spdlog::trace("==> Cpu: INSERT value 0x{:02X} at position {} with "
+                      "length {} into D[{}]",
                       const4, pos, width, index_c);
-        m_data_registers.at(index_c) = Utils::deposit32(const4, pos, width, m_data_registers.at(index_a));
+        m_data_registers.at(index_c) =
+            Utils::deposit32(const4, pos, width, m_data_registers.at(index_a));
     });
 
     m_core_registers.pc += 4U;
