@@ -70,6 +70,7 @@ private:
     void insn_insert_rcpw();
     void insn_or_srr();
     void insn_stw_ssr();
+    void insn_lha_abs();
 
     // Helpers
 

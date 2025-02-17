@@ -39,6 +39,7 @@ constexpr std::byte bytecode_sh_src = std::byte{0x06};
 constexpr std::byte bytecode_insert_rcpw = std::byte{0xB7};
 constexpr std::byte bytecode_or_srr = std::byte{0xA6};
 constexpr std::byte bytecode_stw_ssr = std::byte{0x74};
+constexpr std::byte bytecode_lha_abs = std::byte{0xC5};
 
 struct BolFormatParser {
     u32 insn{};
@@ -157,6 +158,20 @@ struct RcpwFormatParser {
         u32 pos = Utils::extract32(insn, 23, 5);
         u32 index_c = Utils::extract32(insn, 28, 4);
         callback(index_a, const4, width, pos, index_c);
+    }
+};
+
+struct AbsFormatParser {
+    u32 insn{};
+
+    template <typename F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        u32 index_a = Utils::extract32(insn, 8, 4);
+        u32 offset = Utils::extract32(insn, 16, 6);
+        offset |= Utils::extract32(insn, 28, 4) << 6U;
+        offset |= Utils::extract32(insn, 22, 4) << 10U;
+        offset |= Utils::extract32(insn, 12, 4) << 14U;
+        callback(index_a, offset);
     }
 };
 
@@ -343,6 +358,9 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_stw_ssr:
             insn_stw_ssr();
+            break;
+        case bytecode_lha_abs:
+            insn_lha_abs();
             break;
         default:
             throw Exception{
@@ -810,4 +828,21 @@ void Tricore::Cpu::insn_stw_ssr() {
     });
 
     m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_lha_abs() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: LHA 0x{:08X}", insn);
+
+    AbsFormatParser{insn}.parse(
+        [this](u32 index_a, u32 offset) {
+        // EA = {off18[17:0], 14b'0};
+        // A[a] = EA[31:0];
+
+        const u32 effective_address = (offset & 0x3FFFFU) << 14U;
+        spdlog::trace("==> Cpu: LHA loaded address 0x{:08X} into A[{}]", effective_address, index_a);
+        m_address_registers.at(index_a) = effective_address;
+    });
+
+    m_core_registers.pc += 4U;
 }
