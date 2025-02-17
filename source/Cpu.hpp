@@ -72,6 +72,8 @@ private:
     void insn_or_srr();
     void insn_stw_ssr();
     void insn_lha_abs();
+    void insn_ne_rc();
+    void insn_andne_rr();
 
     // Helpers
 

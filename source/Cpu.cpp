@@ -40,6 +40,8 @@ constexpr std::byte bytecode_insert_rcpw = std::byte{0xB7};
 constexpr std::byte bytecode_or_srr = std::byte{0xA6};
 constexpr std::byte bytecode_stw_ssr = std::byte{0x74};
 constexpr std::byte bytecode_lha_abs = std::byte{0xC5};
+constexpr std::byte bytecode_ne_rc = std::byte{0x8B};
+constexpr std::byte bytecode_ne_rr = std::byte{0x0B};
 
 struct BolFormatParser {
     u32 insn{};
@@ -323,7 +325,7 @@ void Tricore::Cpu::start() {
                 break;
             default:
                 throw Exception{fmt::format(
-                    "OR instructon with identifier 0x{:02X} not implemented",
+                    "OR instruction with identifier 0x{:02X} not implemented",
                     identifier)};
             }
         } break;
@@ -363,6 +365,40 @@ void Tricore::Cpu::start() {
         case bytecode_lha_abs:
             insn_lha_abs();
             break;
+        case bytecode_ne_rc: {
+            const u32 insn = read<u32>(m_core_registers.pc);
+            const u32 identifier = Utils::extract32(insn, 21U, 7U);
+            switch (identifier) {
+            case 0x11U:
+                insn_ne_rc();
+                break;
+            case 0x21U:
+                // insn_andne_rc();
+                break;
+            default:
+                throw Exception{
+                    fmt::format("NE (RC) instruction with identifier 0x{:02X} "
+                                "not implemented",
+                                identifier)};
+            }
+        } break;
+        case bytecode_ne_rr: {
+            const u32 insn = read<u32>(m_core_registers.pc);
+            const u32 identifier = Utils::extract32(insn, 20U, 8U);
+            switch (identifier) {
+            case 0x11U:
+                // insn_ne_rr();
+                break;
+            case 0x21U:
+                insn_andne_rr();
+                break;
+            default:
+                throw Exception{
+                    fmt::format("NE (RR) instruction with identifier 0x{:02X} "
+                                "not implemented",
+                                identifier)};
+            }
+        } break;
         default:
             throw Exception{
                 fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -835,15 +871,53 @@ void Tricore::Cpu::insn_lha_abs() {
     u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: LHA 0x{:08X}", insn);
 
-    AbsFormatParser{insn}.parse(
-        [this](u32 index_a, u32 offset) {
+    AbsFormatParser{insn}.parse([this](u32 index_a, u32 offset) {
         // EA = {off18[17:0], 14b'0};
         // A[a] = EA[31:0];
 
         const u32 effective_address = (offset & 0x3FFFFU) << 14U;
-        spdlog::trace("==> Cpu: LHA loaded address 0x{:08X} into A[{}]", effective_address, index_a);
+        spdlog::trace("==> Cpu: LHA loaded address 0x{:08X} into A[{}]",
+                      effective_address, index_a);
         m_address_registers.at(index_a) = effective_address;
     });
 
     m_core_registers.pc += 4U;
+}
+
+void Tricore::Cpu::insn_ne_rc() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: NE 0x{:08X}", insn);
+
+    RcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const9) {
+        // result = (D[a] != sign_ext(const9));
+        // D[c] = zero_ext(result);
+        m_data_registers.at(index_c) = m_data_registers.at(index_a) | const9;
+        const u32 sign_extended_const9 = Utils::sign_extend32<9>(const9);
+        if (m_data_registers.at(index_a) != sign_extended_const9) {
+            m_data_registers.at(index_c) = 0x1U;
+        } else {
+            m_data_registers.at(index_c) = 0;
+        }
+        spdlog::trace("==> Cpu: NE store result 0x{:08X} into D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_andne_rr() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: AND.NE 0x{:08X}", insn);
+
+    RrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 index_c) {
+        // D[c] = {D[c][31:1], D[c][0] AND (D[a] != D[b])};
+        if (m_data_registers.at(index_a) != m_data_registers.at(index_b)) {
+            m_data_registers.at(index_c) |= 0x1U;
+        } else {
+            m_data_registers.at(index_c) &= ~1U;
+        }
+        spdlog::trace("==> Cpu: AND.NE writing value 0x{:08X} in D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+    m_core_registers.pc += 4;
 }
