@@ -296,7 +296,7 @@ void Tricore::Cpu::start() {
             insn_ldbu_bol();
             break;
         case bytecode_or_rc: {
-            u32 insn = read_32(m_core_registers.pc);
+            u32 insn = read<u32>(m_core_registers.pc);
             const u32 identifier = Utils::extract32(insn, 21U, 7U);
             switch (identifier) {
             case 0x0AU:
@@ -353,7 +353,7 @@ void Tricore::Cpu::start() {
 }
 
 void Tricore::Cpu::insn_movha() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: MOVH.A 0x{:08X}", insn);
     const auto addr_register_index = Utils::extract32(insn, 28, 4);
     const auto msb_half_word = Utils::extract32(insn, 12, 16);
@@ -365,7 +365,7 @@ void Tricore::Cpu::insn_movha() {
 }
 
 void Tricore::Cpu::insn_mov_rlc() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: MOV 0x{:08X}", insn);
     const auto data_register_index = Utils::extract32(insn, 28, 4);
     const u32 const16 = Utils::extract32(insn, 12, 16);
@@ -378,7 +378,7 @@ void Tricore::Cpu::insn_mov_rlc() {
 }
 
 void Tricore::Cpu::insn_lea_bol() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: LEA 0x{:08X}", insn);
 
     BolFormatParser{insn}.parse(
@@ -395,7 +395,7 @@ void Tricore::Cpu::insn_lea_bol() {
 }
 
 void Tricore::Cpu::insn_ji_sr() {
-    const auto insn = read_16(m_core_registers.pc);
+    const auto insn = read<u16>(m_core_registers.pc);
     spdlog::trace("Cpu: JI 0x{:04X}", insn);
     const auto addr_index = Utils::extract32(insn, 8, 4);
     const auto final_address =
@@ -405,7 +405,7 @@ void Tricore::Cpu::insn_ji_sr() {
 }
 
 void Tricore::Cpu::insn_mtcr() {
-    const auto insn = read_32(m_core_registers.pc);
+    const auto insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: MTCR 0x{:08X}", insn);
     const auto data_index = Utils::extract32(insn, 8, 4);
     const auto const16 = Utils::extract32(insn, 12, 16);
@@ -420,12 +420,12 @@ void Tricore::Cpu::insn_isync() {
 }
 
 void Tricore::Cpu::insn_ldw_slr() {
-    const auto insn = read_16(m_core_registers.pc);
+    const auto insn = read<u16>(m_core_registers.pc);
     spdlog::trace("Cpu: LD.W 0x{:04X}", insn);
     const auto addr_index_b = Utils::extract32(insn, 12, 4);
     const auto data_index_c = Utils::extract32(insn, 8, 4);
     m_data_registers.at(data_index_c) =
-        read_32(m_address_registers.at(addr_index_b));
+        read<u32>(m_address_registers.at(addr_index_b));
     spdlog::trace(
         "==> Cpu: LD.W loaded data 0x{:08X} from address 0x{:08X} into D[{}]",
         m_data_registers.at(data_index_c), m_address_registers.at(addr_index_b),
@@ -434,7 +434,7 @@ void Tricore::Cpu::insn_ldw_slr() {
 }
 
 void Tricore::Cpu::insn_ldw_bol() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: LD.W 0x{:08X}", insn);
 
     BolFormatParser{insn}.parse(
@@ -443,7 +443,7 @@ void Tricore::Cpu::insn_ldw_bol() {
         const u32 effective_address =
             m_address_registers.at(addr_index_b) + off16;
         // D[a] = M(EA, word)
-        m_data_registers.at(data_index_a) = read_32(effective_address);
+        m_data_registers.at(data_index_a) = read<u32>(effective_address);
         spdlog::trace("==> Cpu: LD.W final value 0x{:08X} to D[{}]",
                       effective_address, data_index_a);
     });
@@ -452,7 +452,7 @@ void Tricore::Cpu::insn_ldw_bol() {
 }
 
 void Tricore::Cpu::insn_add_c2() {
-    const auto insn = read_16(m_core_registers.pc);
+    const auto insn = read<u16>(m_core_registers.pc);
     spdlog::trace("Cpu: ADD 0x{:04X}", insn);
     const auto const4 = Utils::extract32(insn, 12, 4);
     const auto data_index_a = Utils::extract32(insn, 8, 4);
@@ -465,7 +465,7 @@ void Tricore::Cpu::insn_add_c2() {
 
 void Tricore::Cpu::insn_movh() {
     // D[c] = {const16, 16 h0000}
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: MOVH 0x{:08X}", insn);
     const auto data_register_index = Utils::extract32(insn, 28, 4);
     const auto msb_half_word = Utils::extract32(insn, 12, 16);
@@ -477,7 +477,7 @@ void Tricore::Cpu::insn_movh() {
 }
 
 void Tricore::Cpu::insn_and_srr() {
-    const auto insn = read_16(m_core_registers.pc);
+    const auto insn = read<u16>(m_core_registers.pc);
     spdlog::trace("Cpu: AND 0x{:04X}", insn);
 
     SrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
@@ -491,7 +491,7 @@ void Tricore::Cpu::insn_and_srr() {
 }
 
 void Tricore::Cpu::insn_jne_brc() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: JNE 0x{:08X}", insn);
 
     BrcFormatParser{insn}.parse([this](u32 index_a, u32 const4, u32 disp15) {
@@ -509,7 +509,7 @@ void Tricore::Cpu::insn_jne_brc() {
 }
 
 void Tricore::Cpu::insn_suba_rr() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: SUB.A 0x{:08X}", insn);
 
     RrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 index_c) {
@@ -524,7 +524,7 @@ void Tricore::Cpu::insn_suba_rr() {
 
 void Tricore::Cpu::insn_movd_srr() {
     // D[a] = A[b]
-    const auto insn = read_16(m_core_registers.pc);
+    const auto insn = read<u16>(m_core_registers.pc);
     spdlog::trace("Cpu: MOV.D 0x{:04X}", insn);
 
     SrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
@@ -537,7 +537,7 @@ void Tricore::Cpu::insn_movd_srr() {
 }
 
 void Tricore::Cpu::insn_stw_bol() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: ST.W 0x{:08X}", insn);
 
     BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
@@ -545,7 +545,7 @@ void Tricore::Cpu::insn_stw_bol() {
         const u32 effective_address = m_address_registers.at(index_b) + off16;
         // M(EA, word) = D[a]
         const u32 data = m_data_registers.at(index_a);
-        write_32(effective_address, data);
+        write<u32>(effective_address, data);
         spdlog::trace("==> Cpu: ST.W store word 0x{:08X} to address 0x{:08X}",
                       data, effective_address);
     });
@@ -554,7 +554,7 @@ void Tricore::Cpu::insn_stw_bol() {
 }
 
 void Tricore::Cpu::insn_jli() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: JLI 0x{:08X}", insn);
 
     RrFormatParser{insn}.parse([this](u32 index_a, u32, u32) {
@@ -568,7 +568,7 @@ void Tricore::Cpu::insn_jli() {
 }
 
 void Tricore::Cpu::insn_jnzt_brn() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: JNZ.T 0x{:08X}", insn);
 
     BrnFormatParser{insn}.parse([this](u32 index_a, u32 disp15, u32 bit_n) {
@@ -585,14 +585,14 @@ void Tricore::Cpu::insn_jnzt_brn() {
 }
 
 void Tricore::Cpu::insn_ldbu_bol() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: LD.BU 0x{:08X}", insn);
 
     BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
         // EA = A[b] + sign_ext(off16)
         const u32 effective_address = m_address_registers.at(index_b) + off16;
         // D[a] = zero_ext(M(EA, byte))
-        m_data_registers.at(index_a) = read_32(effective_address) & 0xFFU;
+        m_data_registers.at(index_a) = read<u32>(effective_address) & 0xFFU;
         spdlog::trace("==> Cpu: LD.BU load value 0x{:08X} into D[{}]",
                       m_data_registers.at(index_a), index_a);
     });
@@ -601,7 +601,7 @@ void Tricore::Cpu::insn_ldbu_bol() {
 }
 
 void Tricore::Cpu::insn_or_rc() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: OR 0x{:08X}", insn);
 
     RcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const9) {
@@ -615,7 +615,7 @@ void Tricore::Cpu::insn_or_rc() {
 }
 
 void Tricore::Cpu::insn_stb_bol() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: ST.B 0x{:08X}", insn);
 
     BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
@@ -623,7 +623,7 @@ void Tricore::Cpu::insn_stb_bol() {
         const u32 effective_address = m_address_registers.at(index_b) + off16;
         // M(EA, byte) = D[a][7:0]
         const u32 data = m_data_registers.at(index_a) & 0xFFU;
-        write_8(effective_address, data);
+        write<u8>(effective_address, static_cast<u8>(data));
         spdlog::trace("==> Cpu: ST.B store byte 0x{:02X} to address 0x{:08X}",
                       data, effective_address);
     });
@@ -632,7 +632,7 @@ void Tricore::Cpu::insn_stb_bol() {
 }
 
 void Tricore::Cpu::insn_jne_brr() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: JNE 0x{:08X}", insn);
 
     BrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 disp15) {
@@ -649,7 +649,7 @@ void Tricore::Cpu::insn_jne_brr() {
 }
 
 void Tricore::Cpu::insn_jltu_brc() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: JLT.U 0x{:08X}", insn);
 
     BrcFormatParser{insn}.parse([this](u32 index_a, u32 const4, u32 disp15) {
@@ -668,7 +668,7 @@ void Tricore::Cpu::insn_jltu_brc() {
 }
 
 void Tricore::Cpu::insn_j_b() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: J 0x{:08X}", insn);
 
     BFormatParser{insn}.parse([this](u32 disp24) {
@@ -685,7 +685,7 @@ void Tricore::Cpu::insn_nop() {
 }
 
 void Tricore::Cpu::insn_jgeu_brc() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: JGE.U 0x{:08X}", insn);
 
     BrcFormatParser{insn}.parse([this](u32 index_a, u32 const4, u32 disp15) {
@@ -704,7 +704,7 @@ void Tricore::Cpu::insn_jgeu_brc() {
 }
 
 void Tricore::Cpu::insn_extru_rrpw() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: EXTR.U 0x{:08X}", insn);
 
     RrpwFormatParser{insn}.parse(
@@ -722,7 +722,7 @@ void Tricore::Cpu::insn_extru_rrpw() {
 }
 
 void Tricore::Cpu::insn_sh_src() {
-    u16 insn = read_16(m_core_registers.pc);
+    u16 insn = read<u16>(m_core_registers.pc);
     spdlog::trace("Cpu: SH 0x{:04X}", insn);
 
     SrcFormatParser{insn}.parse([this](u32 index_a, u32 const4) {
@@ -750,7 +750,7 @@ void Tricore::Cpu::insn_sh_src() {
 }
 
 void Tricore::Cpu::insn_xor_rc() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: XOR 0x{:08X}", insn);
 
     RcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const9) {
@@ -764,7 +764,7 @@ void Tricore::Cpu::insn_xor_rc() {
 }
 
 void Tricore::Cpu::insn_insert_rcpw() {
-    u32 insn = read_32(m_core_registers.pc);
+    u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: INSERT 0x{:08X}", insn);
 
     RcpwFormatParser{insn}.parse(
@@ -784,7 +784,7 @@ void Tricore::Cpu::insn_insert_rcpw() {
 }
 
 void Tricore::Cpu::insn_or_srr() {
-    const auto insn = read_16(m_core_registers.pc);
+    const auto insn = read<u16>(m_core_registers.pc);
     spdlog::trace("Cpu: OR 0x{:04X}", insn);
 
     SrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
@@ -798,88 +798,16 @@ void Tricore::Cpu::insn_or_srr() {
 }
 
 void Tricore::Cpu::insn_stw_ssr() {
-    const auto insn = read_16(m_core_registers.pc);
+    const auto insn = read<u16>(m_core_registers.pc);
     spdlog::trace("Cpu: ST.W 0x{:04X}", insn);
 
     SsrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
         //  M(A[b], word) = D[a]
         u32 output = m_data_registers.at(index_a);
-        write_32(m_address_registers.at(index_b), output);
+        write<u32>(m_address_registers.at(index_b), output);
         spdlog::trace("==> Cpu: ST.W store value 0x{:08X} at address 0x{:08X}",
                       output, m_address_registers.at(index_b));
     });
 
     m_core_registers.pc += 2;
-}
-
-u32 Tricore::Cpu::read_32(u32 address) {
-    u32 data{};
-
-    for (auto *client : m_bus_clients) {
-        try {
-            client->read(reinterpret_cast<std::byte *>(&data), address, 4);
-            return data;
-        } catch (InvalidMemoryAccess &) {
-            // this client does not handle input address, continue
-            continue;
-        }
-    }
-
-    // Address not handled by any peripherals, re-throw error
-    throw InvalidMemoryAccess{
-        fmt::format("Address 0x{:08X} not handled by CPU", address)};
-}
-
-u16 Tricore::Cpu::read_16(u32 address) {
-    u16 data{};
-
-    for (auto *client : m_bus_clients) {
-        try {
-            client->read(reinterpret_cast<std::byte *>(&data), address, 2);
-            return data;
-        } catch (InvalidMemoryAccess &) {
-            // this client does not handle input address, continue
-            continue;
-        }
-    }
-
-    // Address not handled by any peripherals, re-throw error
-    throw InvalidMemoryAccess{
-        fmt::format("Address 0x{:08X} not handled by CPU", address)};
-}
-
-void Tricore::Cpu::write_32(u32 address, u32 value) {
-    u32 data = value;
-
-    for (auto *client : m_bus_clients) {
-        try {
-            client->write(reinterpret_cast<std::byte *>(&data), address, 4);
-            return;
-        } catch (InvalidMemoryAccess &) {
-            // this client does not handle input address, continue
-            continue;
-        }
-    }
-
-    // Address not handled by any peripherals, re-throw error
-    throw InvalidMemoryAccess{
-        fmt::format("Address 0x{:08X} not handled by CPU", address)};
-}
-
-void Tricore::Cpu::write_8(u32 address, u32 value) {
-    u32 data = value;
-
-    for (auto *client : m_bus_clients) {
-        try {
-            client->write(reinterpret_cast<std::byte *>(&data), address, 1);
-            return;
-        } catch (InvalidMemoryAccess &) {
-            // this client does not handle input address, continue
-            continue;
-        }
-    }
-
-    // Address not handled by any peripherals, re-throw error
-    throw InvalidMemoryAccess{
-        fmt::format("Address 0x{:08X} not handled by CPU", address)};
 }

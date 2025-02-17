@@ -7,8 +7,10 @@
 #include "Types.hpp"
 #include "Peripherals/Scu.hpp"
 
-#include <array>
 #include <fmt/format.h>
+
+#include <array>
+#include <concepts>
 #include <stdexcept>
 #include <vector>
 
@@ -70,10 +72,48 @@ private:
     void insn_stw_ssr();
 
     // Helpers
-    u32 read_32(u32 address);
-    u16 read_16(u32 address);
-    void write_32(u32 address, u32 value);
-    void write_8(u32 address, u32 value);
+
+    template <std::unsigned_integral T>
+    T read(u32 address) {
+        constexpr auto read_length = sizeof(T);
+
+        T data{};
+
+        for (auto *client : m_bus_clients) {
+            try {
+                client->read(reinterpret_cast<std::byte *>(&data), address, read_length);
+                return data;
+            } catch (InvalidMemoryAccess &) {
+                // this client does not handle input address, continue
+                continue;
+            }
+        }
+
+        // Address not handled by any peripherals, re-throw error
+        throw InvalidMemoryAccess{
+            fmt::format("Address 0x{:08X} not handled by CPU", address)};
+    }
+
+    template <std::unsigned_integral T>
+    void write(u32 address, T value) {
+        constexpr auto write_length = sizeof(T);
+        T data = value;
+
+        for (auto *client : m_bus_clients) {
+            try {
+                client->write(reinterpret_cast<std::byte *>(&data), address, write_length);
+                return;
+            } catch (InvalidMemoryAccess &) {
+                // this client does not handle input address, continue
+                continue;
+            }
+        }
+
+        // Address not handled by any peripherals, re-throw error
+        throw InvalidMemoryAccess{
+            fmt::format("Address 0x{:08X} not handled by CPU", address)};
+    }
+
 
     // CPU registers
     std::array<u32, register_count> m_data_registers{};
