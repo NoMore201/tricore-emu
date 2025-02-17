@@ -42,6 +42,7 @@ constexpr std::byte bytecode_stw_ssr = std::byte{0x74};
 constexpr std::byte bytecode_lha_abs = std::byte{0xC5};
 constexpr std::byte bytecode_ne_rc = std::byte{0x8B};
 constexpr std::byte bytecode_ne_rr = std::byte{0x0B};
+constexpr std::byte bytecode_addi_rlc = std::byte{0x1B};
 
 struct BolFormatParser {
     u32 insn{};
@@ -174,6 +175,18 @@ struct AbsFormatParser {
         offset |= Utils::extract32(insn, 22, 4) << 10U;
         offset |= Utils::extract32(insn, 12, 4) << 14U;
         callback(index_a, offset);
+    }
+};
+
+struct RlcFormatParser {
+    u32 insn{};
+
+    template <typename F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        const auto index_a = Utils::extract32(insn, 8, 4);
+        const auto index_c = Utils::extract32(insn, 28, 4);
+        const auto const16 = Utils::extract32(insn, 12, 16);
+        callback(index_a, index_c, const16);
     }
 };
 
@@ -399,6 +412,9 @@ void Tricore::Cpu::start() {
                                 identifier)};
             }
         } break;
+        case bytecode_addi_rlc:
+            insn_addi_rlc();
+            break;
         default:
             throw Exception{
                 fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -422,13 +438,15 @@ void Tricore::Cpu::insn_movha() {
 void Tricore::Cpu::insn_mov_rlc() {
     u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: MOV 0x{:08X}", insn);
-    const auto data_register_index = Utils::extract32(insn, 28, 4);
-    const u32 const16 = Utils::extract32(insn, 12, 16);
-    const u32 sign_ext_const16 = Utils::sign_extend32<16>(const16);
-    m_data_registers.at(data_register_index) = sign_ext_const16;
-    spdlog::trace("==> Cpu: MOV final value 0x{:08X} to D[{}]",
-                  m_data_registers.at(data_register_index),
-                  data_register_index);
+
+    RlcFormatParser{insn}.parse([this](u32, u32 index_c, u32 const16){
+        const u32 sign_ext_const16 = Utils::sign_extend32<16>(const16);
+        m_data_registers.at(index_c) = sign_ext_const16;
+        spdlog::trace("==> Cpu: MOV final value 0x{:08X} to D[{}]",
+                    m_data_registers.at(index_c),
+                    index_c);
+    });
+
     m_core_registers.pc += 4;
 }
 
@@ -919,5 +937,22 @@ void Tricore::Cpu::insn_andne_rr() {
         spdlog::trace("==> Cpu: AND.NE writing value 0x{:08X} in D[{}]",
                       m_data_registers.at(index_c), index_c);
     });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_addi_rlc() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: ADDI 0x{:08X}", insn);
+
+    RlcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const16){
+        // result = D[a] + sign_ext(const16);
+        // D[c] = result[31:0];
+        const u32 sign_ext_const16 = Utils::sign_extend32<16>(const16);
+        m_data_registers.at(index_c) = m_data_registers.at(index_a) + sign_ext_const16;
+        spdlog::trace("==> Cpu: ADDI final value 0x{:08X} to D[{}]",
+                    m_data_registers.at(index_c),
+                    index_c);
+    });
+
     m_core_registers.pc += 4;
 }
