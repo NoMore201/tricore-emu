@@ -5,6 +5,7 @@
 #include "Elf.hpp"
 #include "Memory.hpp"
 #include "Types.hpp"
+#include "Peripherals/Pms.hpp"
 #include "Peripherals/Scu.hpp"
 
 #include <fmt/format.h>
@@ -141,6 +142,7 @@ private:
     std::vector<BusClient *> m_bus_clients;
     Memory m_memory;
     Scu m_scu;
+    Pms m_pms;
 };
 
 } // namespace Tricore

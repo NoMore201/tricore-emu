@@ -47,6 +47,7 @@ add_library(
   source/Tc33x.cpp
   source/Memory.cpp
   source/Peripherals/Scu.cpp
+  source/Peripherals/Pms.cpp
 )
 
 target_include_directories(tricore_emu_lib PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source>")
