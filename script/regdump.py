@@ -13,7 +13,8 @@ from clang.cindex import CursorKind
 
 MODULE_HEADER_REGEXP_STR = r"Ifx(\w+)_reg.h"
 
-HEADER_TEMPLATE = string.Template("""#pragma once
+HEADER_TEMPLATE = string.Template(
+    """#pragma once
 
 #include "BusClient.hpp"
 #include "Types.hpp"
@@ -37,7 +38,44 @@ $member_list
 };
 
 } // namespace Tricore
-""")
+"""
+)
+
+SOURCE_TEMPLATE = string.Template(
+    """#include "Peripherals/$module_name.hpp"
+#include "BusClient.hpp"
+
+#include <fmt/core.h>
+#include <spdlog/spdlog.h>
+
+#include <algorithm>
+
+namespace {
+
+$register_reset_constants
+
+constexpr u32 $module_name_memory_start_address = 0xF0036000U;
+constexpr u32 $module_name_memory_size = 1U * KiB;
+constexpr u32 $module_name_memory_end_address = $module_name_memory_start_address + $module_name_memory_size;
+
+} // anonymous namespace
+
+
+Tricore::Scu::Scu()
+    : $register_initialization_list
+{}
+
+void Tricore::Scu::read(std::byte *buffer_out, u32 address, usize length) {
+
+}
+
+void Tricore::Scu::write(const std::byte *buffer_in, u32 address,
+                         usize length) {
+
+}
+"""
+)
+
 
 class Module:
     """Object representing CPU peripheral"""
@@ -85,14 +123,15 @@ class Module:
                     continue
                 name_fields = child.spelling.split("_")
                 if (
-                    len(name_fields) == 3
+                    len(name_fields) in [3, 4]
                     and child.kind == CursorKind.TYPEDEF_DECL
                     and (
                         name_fields[1] == self.name.upper()
                         or name_fields[1][0].lower() == self.name[0].lower()
                     )
+                    and name_fields[-1] != "Bits"
                 ):
-                    register_name = child.spelling.split("_")[2]
+                    register_name = "_".join(name_fields[2:])
                     register_list.append(register_name)
 
         return register_list
@@ -133,9 +172,14 @@ def parse_illd(path: str | Path):
         regs = module.get_registers()
         member_list = [f"    u32 m_{reg.lower()};" for reg in regs]
         member_list = "\n".join(member_list)
-        final_string = HEADER_TEMPLATE.substitute(module_name=module.name, member_list=member_list)
-        final_header_path = base_folder / "source" / "Peripherals" / f"{module.name}.hpp"
+        final_string = HEADER_TEMPLATE.substitute(
+            module_name=module.name, member_list=member_list
+        )
+        final_header_path = (
+            base_folder / "source" / "Peripherals" / f"{module.name}.hpp"
+        )
         final_header_path.write_text(final_string)
+
 
 def main():
     """Main function"""
