@@ -42,7 +42,7 @@ $member_list
 )
 
 SOURCE_TEMPLATE = string.Template(
-    """#include "Peripherals/$module_name.hpp"
+    """#include "Peripherals/$module_name_camel.hpp"
 #include "BusClient.hpp"
 
 #include <fmt/core.h>
@@ -54,22 +54,22 @@ namespace {
 
 $register_reset_constants
 
-constexpr u32 $module_name_memory_start_address = 0xF0036000U;
-constexpr u32 $module_name_memory_size = 1U * KiB;
-constexpr u32 $module_name_memory_end_address = $module_name_memory_start_address + $module_name_memory_size;
+constexpr u32 ${module_name_lower}_memory_start_address = 0; // TODO: update according manual
+constexpr u32 ${module_name_lower}_memory_size = 0; // TODO: update according manual1U * KiB;
+constexpr u32 ${module_name_lower}_memory_end_address = ${module_name_lower}_memory_start_address + ${module_name_lower}_memory_size;
 
 } // anonymous namespace
 
 
-Tricore::Scu::Scu()
+Tricore::${module_name_camel}::${module_name_camel}()
     : $register_initialization_list
 {}
 
-void Tricore::Scu::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::${module_name_camel}::read(std::byte *buffer_out, u32 address, usize length) {
 
 }
 
-void Tricore::Scu::write(const std::byte *buffer_in, u32 address,
+void Tricore::${module_name_camel}::write(const std::byte *buffer_in, u32 address,
                          usize length) {
 
 }
@@ -142,6 +142,40 @@ def get_repo_path() -> Path:
     return Path(__file__).parent.parent.resolve()
 
 
+def write_header_file(module: Module):
+    regs = module.get_registers()
+    member_list = [f"    u32 m_{reg.lower()};" for reg in regs]
+    member_list = "\n".join(member_list)
+    final_string = HEADER_TEMPLATE.substitute(
+        module_name=module.name, member_list=member_list
+    )
+    final_header_path = (
+        get_repo_path() / "source" / "Peripherals" / f"{module.name}.hpp"
+    )
+    final_header_path.write_text(final_string)
+
+
+def write_source_file(module: Module):
+    regs = module.get_registers()
+    constants_list = [
+        f"constexpr u32 {reg.lower()}_reset_value = 0; // TODO: change according manual"
+        for reg in regs
+    ]
+    initializer_list = [f"m_{reg.lower()}({reg.lower()}_reset_value)" for reg in regs]
+    initializer_list = "\n    , ".join(initializer_list)
+    constants_list = "\n".join(constants_list)
+    final_string = SOURCE_TEMPLATE.substitute(
+        module_name_lower=module.name.lower(),
+        module_name_camel=module.name,
+        register_reset_constants=constants_list,
+        register_initialization_list=initializer_list
+    )
+    final_source_path = (
+        get_repo_path() / "source" / "Peripherals" / f"{module.name}.cpp"
+    )
+    final_source_path.write_text(final_string)
+
+
 def parse_illd(path: str | Path):
     """Parse modules from infineon iLLD header and generate source code"""
 
@@ -152,7 +186,6 @@ def parse_illd(path: str | Path):
     file_list = illd_path.glob("*_reg.h")
 
     module_list: List[Module] = []
-    base_folder = get_repo_path()
 
     # remove some unnecessary headers
     filtered_list = [
@@ -169,16 +202,8 @@ def parse_illd(path: str | Path):
             module_list.append(Module(module_name, file_list))
 
     for module in module_list:
-        regs = module.get_registers()
-        member_list = [f"    u32 m_{reg.lower()};" for reg in regs]
-        member_list = "\n".join(member_list)
-        final_string = HEADER_TEMPLATE.substitute(
-            module_name=module.name, member_list=member_list
-        )
-        final_header_path = (
-            base_folder / "source" / "Peripherals" / f"{module.name}.hpp"
-        )
-        final_header_path.write_text(final_string)
+        write_header_file(module)
+        write_source_file(module)
 
 
 def main():
