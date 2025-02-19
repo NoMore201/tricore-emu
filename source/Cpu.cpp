@@ -387,7 +387,6 @@ void Tricore::Cpu::start() {
                 break;
             case 0x21U:
                 // insn_andne_rc();
-                break;
             default:
                 throw Exception{
                     fmt::format("NE (RC) instruction with identifier 0x{:02X} "
@@ -399,12 +398,11 @@ void Tricore::Cpu::start() {
             const u32 insn = read<u32>(m_core_registers.pc);
             const u32 identifier = Utils::extract32(insn, 20U, 8U);
             switch (identifier) {
-            case 0x11U:
-                // insn_ne_rr();
-                break;
             case 0x21U:
                 insn_andne_rr();
                 break;
+            case 0x11U:
+                // insn_ne_rr();
             default:
                 throw Exception{
                     fmt::format("NE (RR) instruction with identifier 0x{:02X} "
@@ -439,12 +437,11 @@ void Tricore::Cpu::insn_mov_rlc() {
     u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: MOV 0x{:08X}", insn);
 
-    RlcFormatParser{insn}.parse([this](u32, u32 index_c, u32 const16){
+    RlcFormatParser{insn}.parse([this](u32, u32 index_c, u32 const16) {
         const u32 sign_ext_const16 = Utils::sign_extend32<16>(const16);
         m_data_registers.at(index_c) = sign_ext_const16;
         spdlog::trace("==> Cpu: MOV final value 0x{:08X} to D[{}]",
-                    m_data_registers.at(index_c),
-                    index_c);
+                      m_data_registers.at(index_c), index_c);
     });
 
     m_core_registers.pc += 4;
@@ -944,14 +941,14 @@ void Tricore::Cpu::insn_addi_rlc() {
     u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: ADDI 0x{:08X}", insn);
 
-    RlcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const16){
+    RlcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const16) {
         // result = D[a] + sign_ext(const16);
         // D[c] = result[31:0];
         const u32 sign_ext_const16 = Utils::sign_extend32<16>(const16);
-        m_data_registers.at(index_c) = m_data_registers.at(index_a) + sign_ext_const16;
+        m_data_registers.at(index_c) =
+            m_data_registers.at(index_a) + sign_ext_const16;
         spdlog::trace("==> Cpu: ADDI final value 0x{:08X} to D[{}]",
-                    m_data_registers.at(index_c),
-                    index_c);
+                      m_data_registers.at(index_c), index_c);
     });
 
     m_core_registers.pc += 4;
