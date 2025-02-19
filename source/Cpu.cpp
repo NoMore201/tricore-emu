@@ -27,7 +27,7 @@ constexpr std::byte bytecode_jli = std::byte{0x2D};
 constexpr std::byte bytecode_jnzt_brn = std::byte{0x6F};
 constexpr std::byte bytecode_jnzt_brn_2 = std::byte{0xEF};
 constexpr std::byte bytecode_ldbu_bol = std::byte{0x39};
-constexpr std::byte bytecode_or_rc = std::byte{0x8F};
+constexpr std::byte bytecode_8f_rc = std::byte{0x8F};
 constexpr std::byte bytecode_stb_bol = std::byte{0xE9};
 constexpr std::byte bytecode_jne_brr = std::byte{0x5F};
 constexpr std::byte bytecode_jltu_brc = std::byte{0xBF};
@@ -43,6 +43,7 @@ constexpr std::byte bytecode_lha_abs = std::byte{0xC5};
 constexpr std::byte bytecode_ne_rc = std::byte{0x8B};
 constexpr std::byte bytecode_ne_rr = std::byte{0x0B};
 constexpr std::byte bytecode_addi_rlc = std::byte{0x1B};
+constexpr std::byte bytecode_mov_src = std::byte{0x82};
 
 struct BolFormatParser {
     u32 insn{};
@@ -326,7 +327,7 @@ void Tricore::Cpu::start() {
         case bytecode_ldbu_bol:
             insn_ldbu_bol();
             break;
-        case bytecode_or_rc: {
+        case bytecode_8f_rc: {
             u32 insn = read<u32>(m_core_registers.pc);
             const u32 identifier = Utils::extract32(insn, 21U, 7U);
             switch (identifier) {
@@ -336,9 +337,12 @@ void Tricore::Cpu::start() {
             case 0x0CU:
                 insn_xor_rc();
                 break;
+            case 0x0U:
+                insn_sh_rc();
+                break;
             default:
                 throw Exception{fmt::format(
-                    "OR instruction with identifier 0x{:02X} not implemented",
+                    "0x8F opcode with identifier 0x{:02X} not implemented",
                     identifier)};
             }
         } break;
@@ -386,7 +390,8 @@ void Tricore::Cpu::start() {
                 insn_ne_rc();
                 break;
             case 0x21U:
-                // insn_andne_rc();
+                insn_andne_rc();
+                break;
             default:
                 throw Exception{
                     fmt::format("NE (RC) instruction with identifier 0x{:02X} "
@@ -402,7 +407,8 @@ void Tricore::Cpu::start() {
                 insn_andne_rr();
                 break;
             case 0x11U:
-                // insn_ne_rr();
+                insn_ne_rr();
+                break;
             default:
                 throw Exception{
                     fmt::format("NE (RR) instruction with identifier 0x{:02X} "
@@ -412,6 +418,9 @@ void Tricore::Cpu::start() {
         } break;
         case bytecode_addi_rlc:
             insn_addi_rlc();
+            break;
+        case bytecode_mov_src:
+            insn_mov_src();
             break;
         default:
             throw Exception{
@@ -948,6 +957,87 @@ void Tricore::Cpu::insn_addi_rlc() {
         m_data_registers.at(index_c) =
             m_data_registers.at(index_a) + sign_ext_const16;
         spdlog::trace("==> Cpu: ADDI final value 0x{:08X} to D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_ne_rr() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: NE 0x{:08X}", insn);
+
+    RrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 index_c) {
+        // result = (D[a] != D[b]);
+        // D[c] = zero_ext(result);
+        if (m_data_registers.at(index_a) != m_data_registers.at(index_b)) {
+            m_data_registers.at(index_c) = 1U;
+        } else {
+            m_data_registers.at(index_c) = 0U;
+        }
+        spdlog::trace("==> Cpu: NE writing value 0x{:08X} in D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_andne_rc() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: AND.NE 0x{:08X}", insn);
+
+    RcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const9) {
+        // D[c] = {D[c][31:1], D[c][0] AND (D[a] != sign_ext(const9))};
+        const u32 sign_extended_const9 = Utils::sign_extend32<9>(const9);
+        if (m_data_registers.at(index_a) != sign_extended_const9) {
+            m_data_registers.at(index_c) |= 0x1U;
+        } else {
+            m_data_registers.at(index_c) &= ~1U;
+        }
+        spdlog::trace("==> Cpu: AND.NE store result 0x{:08X} into D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_mov_src() {
+    u16 insn = read<u16>(m_core_registers.pc);
+    spdlog::trace("Cpu: MOV 0x{:04X}", insn);
+
+    SrcFormatParser{insn}.parse([this](u32 index_a, u32 const4) {
+        // D[a] = sign_ext(const4);
+        const u32 sign_extended_const4 = Utils::sign_extend32<4>(const4);
+        spdlog::trace("==> Cpu: MOV value 0x{:08X} into D[{}]",
+                      sign_extended_const4, index_a);
+        m_data_registers.at(index_a) = sign_extended_const4;
+    });
+
+    m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_sh_rc() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: SH 0x{:08X}", insn);
+
+    RcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const9) {
+        // D[c] = (const9[5:0] >= 0) ? D[a] << const9[5:0] : D[a] >>
+        // (-const9[5:0]);
+        const u32 const9_subset = Utils::extract32(const9, 0, 6);
+        const i32 sign_extended_const9 =
+            static_cast<i32>(Utils::sign_extend32<6>(const9_subset));
+        if (sign_extended_const9 >= 0) {
+            spdlog::trace("==> Cpu: SH left right of {}", sign_extended_const9);
+            m_data_registers.at(index_c) =
+                m_data_registers.at(index_a)
+                << static_cast<u32>(sign_extended_const9);
+        } else {
+            spdlog::trace("==> Cpu: SH shift right of {}", -sign_extended_const9);
+            m_data_registers.at(index_c) =
+                m_data_registers.at(index_a) >>
+                static_cast<u32>(-sign_extended_const9);
+        }
+        m_data_registers.at(index_c) = m_data_registers.at(index_a) | const9;
+        spdlog::trace("==> Cpu: SH store result 0x{:08X} into D[{}]",
                       m_data_registers.at(index_c), index_c);
     });
 

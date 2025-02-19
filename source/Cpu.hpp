@@ -73,8 +73,12 @@ private:
     void insn_stw_ssr();
     void insn_lha_abs();
     void insn_ne_rc();
+    void insn_ne_rr();
     void insn_andne_rr();
+    void insn_andne_rc();
     void insn_addi_rlc();
+    void insn_mov_src();
+    void insn_sh_rc();
 
     // Helpers
 

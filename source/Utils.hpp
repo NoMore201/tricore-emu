@@ -19,7 +19,7 @@ static constexpr U unsigned_abs_diff(U lhs, U rhs) {
 }
 
 template <usize B> static inline u32 sign_extend32(const u32 input) {
-    Expects(B != 0 && B < 32);
+    static_assert(B != 0 && B < 32);
     // clear uppermost bits
     u32 cleared_input = input & ((1U << B) - 1U);
     u32 sign_bit_mask = (1U << (B - 1U));
