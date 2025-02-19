@@ -6,15 +6,23 @@ import argparse
 import re
 import string
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from clang import cindex
 from clang.cindex import CursorKind
 
 MODULE_HEADER_REGEXP_STR = r"Ifx(\w+)_reg.h"
+HEX_CONSTANT_REGEXP_STR = r".*(0x\w+)u.*"
 
 HEADER_TEMPLATE = string.Template(
-    """#pragma once
+    """
+/**
+ * @brief Module header for ${module_name} peripheral
+ *
+ * Automatically generated from regdump.py script and Infineon iLLD
+ * iLLD_1_0_1_15_0__TC33A source code
+ */
+#pragma once
 
 #include "BusClient.hpp"
 #include "Types.hpp"
@@ -42,7 +50,15 @@ $member_list
 )
 
 SOURCE_TEMPLATE = string.Template(
-    """#include "Peripherals/$module_name_camel.hpp"
+    """
+/**
+ * @brief Module source for ${module_name_camel} peripheral
+ *
+ * Automatically generated from regdump.py script and Infineon iLLD
+ * iLLD_1_0_1_15_0__TC33A source code
+ */
+
+#include "Peripherals/$module_name_camel.hpp"
 #include "BusClient.hpp"
 
 #include <fmt/core.h>
@@ -54,8 +70,8 @@ namespace {
 
 $register_reset_constants
 
-constexpr u32 ${module_name_lower}_memory_start_address = 0; // TODO: update according manual
-constexpr u32 ${module_name_lower}_memory_size = 0; // TODO: update according manual1U * KiB;
+constexpr u32 ${module_name_lower}_memory_start_address = ${module_start_address}U;
+constexpr u32 ${module_name_lower}_memory_size = 0; // TODO: update according manual;
 constexpr u32 ${module_name_lower}_memory_end_address = ${module_name_lower}_memory_start_address + ${module_name_lower}_memory_size;
 
 } // anonymous namespace
@@ -66,12 +82,36 @@ Tricore::${module_name_camel}::${module_name_camel}()
 {}
 
 void Tricore::${module_name_camel}::read(std::byte *buffer_out, u32 address, usize length) {
-
+    if (address < ${module_name_lower}_memory_start_address ||
+        address >= ${module_name_lower}_memory_end_address) {
+        throw InvalidMemoryAccess{fmt::format(
+            "Address 0x{:08X} not handled by ${module_name_camel} peripheral", address)};
+    }
+    const u32 offset = address - ${module_name_lower}_memory_start_address;
+    switch (offset) {
+${read_switch_cases}
+    default:
+        spdlog::warn("Address 0x{:08X} not yet handled by ${module_name_camel} peripheral",
+                     address);
+        break;
+    }
 }
 
 void Tricore::${module_name_camel}::write(const std::byte *buffer_in, u32 address,
                          usize length) {
-
+    if (address < ${module_name_lower}_memory_start_address ||
+        address >= ${module_name_lower}_memory_end_address) {
+        throw InvalidMemoryAccess{fmt::format(
+            "Address 0x{:08X} not handled by ${module_name_camel} peripheral", address)};
+    }
+    const u32 offset = address - ${module_name_lower}_memory_start_address;
+    switch (offset) {
+${write_switch_cases}
+    default:
+        spdlog::warn("Address 0x{:08X} not yet handled by ${module_name_camel} peripheral",
+                     address);
+        break;
+    }
 }
 """
 )
@@ -136,6 +176,43 @@ class Module:
 
         return register_list
 
+    def get_module_start_address(self) -> int:
+        reg_file = self.get_reg_file()
+        if reg_file is not None:
+            content = reg_file.read_text()
+            for line in content.splitlines():
+                if self.name == "Port":
+                    compare_string = "MODULE_P00"
+                elif self.name == "Converter":
+                    compare_string = "MODULE_CONVCTRL"
+                else:
+                    compare_string = f"MODULE_{self.name.upper()}"
+                if compare_string in line:
+                    re_matches = re.search(HEX_CONSTANT_REGEXP_STR, line)
+                    if re_matches is not None:
+                        return int(re_matches.group(1), 16)
+
+        return 0
+
+    def get_registers_with_address(self) -> List[Tuple[str, int]]:
+        regs = self.get_registers()
+        reg_file = self.get_reg_file()
+        final_list = []
+        if reg_file is not None:
+            content = reg_file.read_text()
+            for line in content.splitlines():
+                if len(line) == 0:
+                    continue
+                matches = [
+                    reg for reg in regs if f"{self.name.upper()}_{reg.upper()}" in line
+                ]
+                if len(matches) > 0:
+                    re_matches = re.search(HEX_CONSTANT_REGEXP_STR, line)
+                    if re_matches is not None:
+                        final_list.append((matches[0], int(re_matches.group(1), 16)))
+
+        return final_list
+
 
 def get_repo_path() -> Path:
     """Returns this repository absolute path, e.g. /home/abc/tricore_emu"""
@@ -161,14 +238,33 @@ def write_source_file(module: Module):
         f"constexpr u32 {reg.lower()}_reset_value = 0; // TODO: change according manual"
         for reg in regs
     ]
+    constants_list = "\n".join(constants_list)
     initializer_list = [f"m_{reg.lower()}({reg.lower()}_reset_value)" for reg in regs]
     initializer_list = "\n    , ".join(initializer_list)
-    constants_list = "\n".join(constants_list)
+
+    module_start_address = module.get_module_start_address()
+
+    read_switch_cases = []
+    for reg in regs:
+        template = """    case 0: // TODO: change according to manual
+        spdlog::debug("{module_upper}: accessing {module_upper}.{reg_upper} in read mode");
+        const auto *range_start = reinterpret_cast<std::byte *>(&m_{reg_lower});
+        std::ranges::copy(range_start, range_start + length, buffer_out);""".format(
+            module_upper=module.name.upper(),
+            reg_upper=reg.upper(),
+            reg_lower=reg.lower(),
+        )
+        read_switch_cases.append(template)
+    read_switch_cases = "\n".join(read_switch_cases)
+
     final_string = SOURCE_TEMPLATE.substitute(
         module_name_lower=module.name.lower(),
         module_name_camel=module.name,
         register_reset_constants=constants_list,
-        register_initialization_list=initializer_list
+        register_initialization_list=initializer_list,
+        read_switch_cases=read_switch_cases,
+        write_switch_cases="",
+        module_start_address=hex(module_start_address)
     )
     final_source_path = (
         get_repo_path() / "source" / "Peripherals" / f"{module.name}.cpp"
