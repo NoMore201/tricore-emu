@@ -10,7 +10,7 @@
 #include "BusClient.hpp"
 #include "Types.hpp"
 
-namespace Tricore {
+namespace Tricore::Peripherals {
 
 class Mtu : public BusClient {
 

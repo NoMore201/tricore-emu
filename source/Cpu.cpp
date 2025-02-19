@@ -264,6 +264,9 @@ void Tricore::Cpu::init(Elf &elf_file) {
     m_bus_clients.push_back(&m_memory);
     m_bus_clients.push_back(&m_scu);
     m_bus_clients.push_back(&m_pms);
+    m_bus_clients.push_back(&m_cpu);
+    m_bus_clients.push_back(&m_stm);
+    m_bus_clients.push_back(&m_mtu);
 
     // TODO: register other peripherals as bus clients
 }

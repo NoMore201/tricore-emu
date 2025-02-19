@@ -5,8 +5,11 @@
 #include "Elf.hpp"
 #include "Memory.hpp"
 #include "Types.hpp"
+#include "Peripherals/Cpu.hpp"
+#include "Peripherals/Mtu.hpp"
 #include "Peripherals/Pms.hpp"
 #include "Peripherals/Scu.hpp"
+#include "Peripherals/Stm.hpp"
 
 #include <fmt/format.h>
 
@@ -148,8 +151,11 @@ private:
     // Peripherals
     std::vector<BusClient *> m_bus_clients;
     Memory m_memory;
-    Scu m_scu;
-    Pms m_pms;
+    Peripherals::Scu m_scu;
+    Peripherals::Pms m_pms;
+    Peripherals::Cpu m_cpu;
+    Peripherals::Mtu m_mtu;
+    Peripherals::Stm m_stm;
 };
 
 } // namespace Tricore

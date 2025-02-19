@@ -202,7 +202,7 @@ constexpr u32 reg_pms_accen1_offset = reg_pms_accen1_address - pms_memory_start_
 } // anonymous namespace
 
 
-Tricore::Pms::Pms()
+Tricore::Peripherals::Pms::Pms()
     : m_pms_id(pms_id_reset_value)
     , m_pms_evrstat(pms_evrstat_reset_value)
     , m_pms_evradcstat(pms_evradcstat_reset_value)
@@ -266,7 +266,7 @@ Tricore::Pms::Pms()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Pms::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Pms::read(std::byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - pms_memory_start_address;
     switch (offset) {
     case reg_pms_id_offset: {
@@ -571,7 +571,7 @@ void Tricore::Pms::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Pms::write(const std::byte *buffer_in, u32 address,
+void Tricore::Peripherals::Pms::write(const std::byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - pms_memory_start_address;
     switch (offset) {

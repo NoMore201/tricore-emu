@@ -88,7 +88,7 @@ constexpr u32 reg_stm0_accen0_offset = reg_stm0_accen0_address - stm_memory_star
 } // anonymous namespace
 
 
-Tricore::Stm::Stm()
+Tricore::Peripherals::Stm::Stm()
     : m_stm0_clc(stm0_clc_reset_value)
     , m_stm0_id(stm0_id_reset_value)
     , m_stm0_tim0(stm0_tim0_reset_value)
@@ -114,7 +114,7 @@ Tricore::Stm::Stm()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Stm::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Stm::read(std::byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - stm_memory_start_address;
     switch (offset) {
     case reg_stm0_clc_offset: {
@@ -229,7 +229,7 @@ void Tricore::Stm::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Stm::write(const std::byte *buffer_in, u32 address,
+void Tricore::Peripherals::Stm::write(const std::byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - stm_memory_start_address;
     switch (offset) {

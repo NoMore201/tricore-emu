@@ -298,7 +298,7 @@ constexpr u32 reg_scu_accen00_offset = reg_scu_accen00_address - scu_memory_star
 } // anonymous namespace
 
 
-Tricore::Scu::Scu()
+Tricore::Peripherals::Scu::Scu()
     : m_scu_id(scu_id_reset_value)
     , m_scu_osccon(scu_osccon_reset_value)
     , m_scu_syspllstat(scu_syspllstat_reset_value)
@@ -394,7 +394,7 @@ Tricore::Scu::Scu()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Scu::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Scu::read(std::byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - scu_memory_start_address;
     switch (offset) {
     case reg_scu_id_offset: {
@@ -859,7 +859,7 @@ void Tricore::Scu::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Scu::write(const std::byte *buffer_in, u32 address,
+void Tricore::Peripherals::Scu::write(const std::byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - scu_memory_start_address;
     switch (offset) {

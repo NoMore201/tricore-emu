@@ -196,7 +196,7 @@ constexpr u32 reg_cpu0_cus_id_offset = reg_cpu0_cus_id_address - cpu_memory_star
 } // anonymous namespace
 
 
-Tricore::Cpu::Cpu()
+Tricore::Peripherals::Cpu::Cpu()
     : m_cpu0_flashcon0(cpu0_flashcon0_reset_value)
     , m_cpu0_flashcon1(cpu0_flashcon1_reset_value)
     , m_cpu0_flashcon2(cpu0_flashcon2_reset_value)
@@ -258,7 +258,7 @@ Tricore::Cpu::Cpu()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Cpu::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Cpu::read(std::byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - cpu_memory_start_address;
     switch (offset) {
     case reg_cpu0_flashcon0_offset: {
@@ -553,7 +553,7 @@ void Tricore::Cpu::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Cpu::write(const std::byte *buffer_in, u32 address,
+void Tricore::Peripherals::Cpu::write(const std::byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - cpu_memory_start_address;
     switch (offset) {

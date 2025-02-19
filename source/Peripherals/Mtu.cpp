@@ -76,7 +76,7 @@ constexpr u32 reg_mtu_accen0_offset = reg_mtu_accen0_address - mtu_memory_start_
 } // anonymous namespace
 
 
-Tricore::Mtu::Mtu()
+Tricore::Peripherals::Mtu::Mtu()
     : m_mtu_clc(mtu_clc_reset_value)
     , m_mtu_id(mtu_id_reset_value)
     , m_mtu_memtest0(mtu_memtest0_reset_value)
@@ -98,7 +98,7 @@ Tricore::Mtu::Mtu()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Mtu::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Mtu::read(std::byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - mtu_memory_start_address;
     switch (offset) {
     case reg_mtu_clc_offset: {
@@ -193,7 +193,7 @@ void Tricore::Mtu::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Mtu::write(const std::byte *buffer_in, u32 address,
+void Tricore::Peripherals::Mtu::write(const std::byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - mtu_memory_start_address;
     switch (offset) {
