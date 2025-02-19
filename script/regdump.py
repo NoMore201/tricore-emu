@@ -74,6 +74,8 @@ constexpr u32 ${module_name_lower}_memory_start_address = ${module_start_address
 constexpr u32 ${module_name_lower}_memory_size = 0; // TODO: update according manual;
 constexpr u32 ${module_name_lower}_memory_end_address = ${module_name_lower}_memory_start_address + ${module_name_lower}_memory_size;
 
+$register_address_list
+
 } // anonymous namespace
 
 
@@ -81,40 +83,46 @@ Tricore::${module_name_camel}::${module_name_camel}()
     : $register_initialization_list
 {}
 
+// NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
+
 void Tricore::${module_name_camel}::read(std::byte *buffer_out, u32 address, usize length) {
-    if (address < ${module_name_lower}_memory_start_address ||
-        address >= ${module_name_lower}_memory_end_address) {
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by ${module_name_camel} peripheral", address)};
-    }
     const u32 offset = address - ${module_name_lower}_memory_start_address;
     switch (offset) {
 ${read_switch_cases}
     default:
-        spdlog::warn("Address 0x{:08X} not yet handled by ${module_name_camel} peripheral",
-                     address);
+        throw InvalidMemoryAccess{fmt::format(
+            "Address 0x{:08X} not handled by ${module_name_camel} peripheral", address)};
         break;
     }
 }
 
 void Tricore::${module_name_camel}::write(const std::byte *buffer_in, u32 address,
                          usize length) {
-    if (address < ${module_name_lower}_memory_start_address ||
-        address >= ${module_name_lower}_memory_end_address) {
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by ${module_name_camel} peripheral", address)};
-    }
     const u32 offset = address - ${module_name_lower}_memory_start_address;
     switch (offset) {
 ${write_switch_cases}
     default:
-        spdlog::warn("Address 0x{:08X} not yet handled by ${module_name_camel} peripheral",
-                     address);
+        throw InvalidMemoryAccess{fmt::format(
+            "Address 0x{:08X} not handled by ${module_name_camel} peripheral", address)};
         break;
     }
 }
+
+// NOLINTEND(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 """
 )
+
+READ_SWITCH_CASE_TEMPLATE = """    case reg_{reg_lower}_offset: {{
+            spdlog::debug("{module_upper}: accessing {module_upper}.{reg_upper} in read mode");
+            const auto *range_start = reinterpret_cast<std::byte *>(&m_{reg_lower});
+            std::ranges::copy(range_start, range_start + length, buffer_out);
+        }} break;"""
+
+WRITE_SWITCH_CASE_TEMPLATE = """    case reg_{reg_lower}_offset: {{
+        spdlog::debug("{module_upper}: accessing {module_upper}.{reg_upper} in write mode");
+        std::ranges::copy(buffer_in, buffer_in + length,
+                          reinterpret_cast<std::byte *>(&m_{reg_lower}));
+    }} break;"""
 
 
 class Module:
@@ -141,7 +149,7 @@ class Module:
         """Add file to internal list"""
         self.file_list.append(Path(file_path))
 
-    def get_registers(self) -> List[str]:
+    def get_registers_from_typedefs(self) -> List[str]:
         """Get list of registers associated with this peripheral"""
 
         reg_file = self.get_reg_file()
@@ -195,7 +203,7 @@ class Module:
         return 0
 
     def get_registers_with_address(self) -> List[Tuple[str, int]]:
-        regs = self.get_registers()
+        regs = self.get_registers_from_typedefs()
         reg_file = self.get_reg_file()
         final_list = []
         if reg_file is not None:
@@ -203,13 +211,37 @@ class Module:
             for line in content.splitlines():
                 if len(line) == 0:
                     continue
+                if self.name == "Converter":
+                    register_macro_prefix = "CONVCTRL"
+                elif self.name == "Port":
+                    register_macro_prefix = "P"
+                else:
+                    register_macro_prefix = self.name.upper()
                 matches = [
-                    reg for reg in regs if f"{self.name.upper()}_{reg.upper()}" in line
+                    f"{self.name.lower()}_{reg}" for reg in regs if f"{register_macro_prefix}_{reg.upper()} " in line
                 ]
-                if len(matches) > 0:
+                for index in range(0, 10):
+                    matches.extend(
+                        [
+                            f"{register_macro_prefix}{index}_{reg}"
+                            for reg in regs
+                            if f"{register_macro_prefix}{index}_{reg.upper()} " in line
+                        ]
+                    )
+                if self.name == "Port":
+                    for decimal in range(0, 10):
+                        for unit in range(0, 10):
+                            matches.extend(
+                                [
+                                    f"{register_macro_prefix}{decimal}{unit}_{reg}"
+                                    for reg in regs
+                                    if f"{register_macro_prefix}{decimal}{unit}_{reg.upper()} " in line
+                                ]
+                            )
+                for match in matches:
                     re_matches = re.search(HEX_CONSTANT_REGEXP_STR, line)
                     if re_matches is not None:
-                        final_list.append((matches[0], int(re_matches.group(1), 16)))
+                        final_list.append((match, int(re_matches.group(1), 16)))
 
         return final_list
 
@@ -220,8 +252,8 @@ def get_repo_path() -> Path:
 
 
 def write_header_file(module: Module):
-    regs = module.get_registers()
-    member_list = [f"    u32 m_{reg.lower()};" for reg in regs]
+    regs = module.get_registers_with_address()
+    member_list = [f"    u32 m_{reg.lower()};" for reg, _ in regs]
     member_list = "\n".join(member_list)
     final_string = HEADER_TEMPLATE.substitute(
         module_name=module.name, member_list=member_list
@@ -233,29 +265,44 @@ def write_header_file(module: Module):
 
 
 def write_source_file(module: Module):
-    regs = module.get_registers()
+    regs = module.get_registers_with_address()
     constants_list = [
         f"constexpr u32 {reg.lower()}_reset_value = 0; // TODO: change according manual"
-        for reg in regs
+        for reg, _ in regs
     ]
     constants_list = "\n".join(constants_list)
-    initializer_list = [f"m_{reg.lower()}({reg.lower()}_reset_value)" for reg in regs]
+    initializer_list = [
+        f"m_{reg.lower()}({reg.lower()}_reset_value)" for reg, _ in regs
+    ]
     initializer_list = "\n    , ".join(initializer_list)
 
     module_start_address = module.get_module_start_address()
 
+    register_address_list = []
+    for reg, address in regs:
+        line = f"constexpr u32 reg_{reg.lower()}_address = {hex(address)};"
+        register_address_list.append(line)
+        line = f"constexpr u32 reg_{reg.lower()}_offset = reg_{reg.lower()}_address - {module.name.lower()}_memory_start_address;"
+        register_address_list.append(line)
+    register_address_list = "\n".join(register_address_list)
+
     read_switch_cases = []
-    for reg in regs:
-        template = """    case 0: // TODO: change according to manual
-        spdlog::debug("{module_upper}: accessing {module_upper}.{reg_upper} in read mode");
-        const auto *range_start = reinterpret_cast<std::byte *>(&m_{reg_lower});
-        std::ranges::copy(range_start, range_start + length, buffer_out);""".format(
+    write_switch_cases = []
+    for reg, _ in regs:
+        template = READ_SWITCH_CASE_TEMPLATE.format(
             module_upper=module.name.upper(),
             reg_upper=reg.upper(),
             reg_lower=reg.lower(),
         )
         read_switch_cases.append(template)
+        template = WRITE_SWITCH_CASE_TEMPLATE.format(
+            module_upper=module.name.upper(),
+            reg_upper=reg.upper(),
+            reg_lower=reg.lower(),
+        )
+        write_switch_cases.append(template)
     read_switch_cases = "\n".join(read_switch_cases)
+    write_switch_cases = "\n".join(write_switch_cases)
 
     final_string = SOURCE_TEMPLATE.substitute(
         module_name_lower=module.name.lower(),
@@ -263,8 +310,9 @@ def write_source_file(module: Module):
         register_reset_constants=constants_list,
         register_initialization_list=initializer_list,
         read_switch_cases=read_switch_cases,
-        write_switch_cases="",
-        module_start_address=hex(module_start_address)
+        write_switch_cases=write_switch_cases,
+        module_start_address=hex(module_start_address),
+        register_address_list=register_address_list,
     )
     final_source_path = (
         get_repo_path() / "source" / "Peripherals" / f"{module.name}.cpp"

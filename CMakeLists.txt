@@ -34,7 +34,9 @@ else()
   add_compile_options(-Wsign-conversion -Wcast-qual -Wformat=2 -Wundef -Werror=float-equal)
   add_compile_options(-Wshadow -Wcast-align -Wunused -Wnull-dereference -Wdouble-promotion)
   add_compile_options(-Wimplicit-fallthrough -Wextra-semi -Woverloaded-virtual -Wnon-virtual-dtor -Wold-style-cast)
-
+  if(ENABLE_SANITIZERS)
+    add_compile_options(-fsanitize=address,undefined)
+  endif()
 endif()
 
 # ---- Declare library ----
@@ -46,8 +48,35 @@ add_library(
   source/Elf.cpp
   source/Tc33x.cpp
   source/Memory.cpp
-  source/Peripherals/Scu.cpp
+  source/Peripherals/Asclin.cpp
+  source/Peripherals/Can.cpp
+  source/Peripherals/Cbs.cpp
+  source/Peripherals/Ccu6.cpp
+  source/Peripherals/Converter.cpp
+  source/Peripherals/Cpu.cpp
+  source/Peripherals/Dma.cpp
+  source/Peripherals/Dmu.cpp
+  source/Peripherals/Dom.cpp
+  source/Peripherals/Eray.cpp
+  source/Peripherals/Evadc.cpp
+  source/Peripherals/Fce.cpp
+  source/Peripherals/Fsi.cpp
+  source/Peripherals/Gpt12.cpp
+  source/Peripherals/Gtm.cpp
+  source/Peripherals/Int.cpp
+  source/Peripherals/Iom.cpp
+  source/Peripherals/Mtu.cpp
+  source/Peripherals/Pfi.cpp
   source/Peripherals/Pms.cpp
+  source/Peripherals/Pmu.cpp
+  source/Peripherals/Port.cpp
+  source/Peripherals/Qspi.cpp
+  source/Peripherals/Sbcu.cpp
+  source/Peripherals/Scu.cpp
+  source/Peripherals/Sent.cpp
+  source/Peripherals/Smu.cpp
+#  source/Peripherals/Src.cpp
+  source/Peripherals/Stm.cpp
 )
 
 target_include_directories(tricore_emu_lib PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source>")
