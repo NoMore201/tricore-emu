@@ -87,6 +87,7 @@ private:
     void insn_mova_src();
     void insn_call_32();
     void insn_jeq_brc();
+    void insn_mova_srr();
 
     // Helpers
 

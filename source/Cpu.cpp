@@ -24,7 +24,7 @@ constexpr std::byte bytecode_add_c2 = std::byte{0xC2};
 constexpr std::byte bytecode_movh = std::byte{0x7B};
 constexpr std::byte bytecode_and_srr = std::byte{0x26};
 constexpr std::byte bytecode_jne_brc = std::byte{0xDF};
-constexpr std::byte bytecode_suba_rr = std::byte{0x01};
+constexpr std::byte bytecode_01 = std::byte{0x01};
 constexpr std::byte bytecode_movd_srr = std::byte{0x80};
 constexpr std::byte bytecode_stw_bol = std::byte{0x59};
 constexpr std::byte bytecode_jli = std::byte{0x2D};
@@ -50,6 +50,7 @@ constexpr std::byte bytecode_addi_rlc = std::byte{0x1B};
 constexpr std::byte bytecode_mov_src = std::byte{0x82};
 constexpr std::byte bytecode_mova_src = std::byte{0xA0};
 constexpr std::byte bytecode_call_32 = std::byte{0x6D};
+constexpr std::byte bytecode_mova_srr = std::byte{0x60};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -212,6 +213,10 @@ u32 &Tricore::Cpu::CoreRegisters::operator[](usize offset) {
         return pc;
     case 0xFE14U:
         return syscon;
+    case 0xFE38U:
+        return fcx;
+    case 0xFE3CU:
+        return lcx;
     default:
         throw InvalidCoreRegisterOffset{
             fmt::format("Core register offset 0x{:04X} not handled", offset)};
@@ -311,8 +316,8 @@ void Tricore::Cpu::start() {
                 break;
             default:
                 fail(fmt::format(
-                    "0x0D opcode with identifier 0x{:02X} not implemented",
-                    identifier));
+                    "0x{:02X} opcode with identifier 0x{:02X} not implemented",
+                    insn, identifier));
             }
         } break;
         case bytecode_ldw_slr:
@@ -342,13 +347,27 @@ void Tricore::Cpu::start() {
                 break;
             default:
                 fail(fmt::format(
-                    "0x8F opcode with identifier 0x{:02X} not implemented",
-                    identifier));
+                    "0x{:02X} opcode with identifier 0x{:02X} not implemented",
+                    bytecode_jne_brc, identifier));
             }
         } break;
-        case bytecode_suba_rr:
-            insn_suba_rr();
-            break;
+        case bytecode_01: {
+            u32 insn = read<u32>(m_core_registers.pc);
+            const u32 identifier = Utils::extract32(insn, 20U, 8U);
+            switch (identifier) {
+            case 0x02U:
+                insn_suba_rr();
+                break;
+            case 0x01U:
+                // ADD.A (RR)
+            case 0x60U:
+                // ADDSC.A (RR)
+            default:
+                fail(fmt::format(
+                    "0x{:02X} opcode with identifier 0x{:02X} not implemented",
+                    bytecode_01, identifier));
+            }
+        } break;
         case bytecode_movd_srr:
             insn_movd_srr();
             break;
@@ -380,8 +399,8 @@ void Tricore::Cpu::start() {
                 break;
             default:
                 fail(fmt::format(
-                    "0x8F opcode with identifier 0x{:02X} not implemented",
-                    identifier));
+                    "0x{:02X} opcode with identifier 0x{:02X} not implemented",
+                    bytecode_8f_rc, identifier));
             }
         } break;
         case bytecode_stb_bol:
@@ -463,6 +482,9 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_call_32:
             insn_call_32();
+            break;
+        case bytecode_mova_srr:
+            insn_mova_srr();
             break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -672,9 +694,9 @@ void Tricore::Cpu::insn_movd_srr() {
     spdlog::trace("Cpu: MOV.D 0x{:04X}", insn);
 
     SrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
-        m_data_registers.at(index_a) &= m_address_registers.at(index_b);
-        spdlog::trace("==> Cpu: MOV.D write value 0x{:08X} in A[{}]",
-                      m_data_registers.at(index_a), index_b);
+        m_data_registers.at(index_a) = m_address_registers.at(index_b);
+        spdlog::trace("==> Cpu: MOV.D write value 0x{:08X} in D[{}]",
+                      m_data_registers.at(index_a), index_a);
     });
 
     m_core_registers.pc += 2;
@@ -1166,6 +1188,20 @@ void Tricore::Cpu::insn_call_32() {
     }
 
     fail("CALL Not implemented!!");
+}
+
+void Tricore::Cpu::insn_mova_srr() {
+    // A[a] = D[b]
+    const auto insn = read<u16>(m_core_registers.pc);
+    spdlog::trace("Cpu: MOV.A 0x{:04X}", insn);
+
+    SrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
+        m_address_registers.at(index_a) = m_data_registers.at(index_b);
+        spdlog::trace("==> Cpu: MOV.A write value 0x{:08X} in A[{}]",
+                      m_address_registers.at(index_a), index_a);
+    });
+
+    m_core_registers.pc += 2;
 }
 
 void Tricore::Cpu::print_cpu_status() {
