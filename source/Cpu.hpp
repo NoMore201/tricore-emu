@@ -11,7 +11,6 @@
 #include "Peripherals/Stm.hpp"
 #include "Types.hpp"
 
-
 #include <fmt/format.h>
 
 #include <array>
@@ -90,6 +89,7 @@ private:
     void insn_jeq_brc();
     void insn_mova_srr();
     void insn_addsca_rr();
+    void insn_jeq_brr();
 
     // Helpers
 
@@ -113,8 +113,7 @@ private:
         }
 
         // Address not handled by any peripherals, re-throw error
-        throw InvalidMemoryAccess{
-            fmt::format("Address 0x{:08X} not handled by CPU", address)};
+        fail(fmt::format("Address 0x{:08X} not handled by CPU", address));
     }
 
     template <std::unsigned_integral T> void write(u32 address, T value) {
@@ -133,8 +132,7 @@ private:
         }
 
         // Address not handled by any peripherals, re-throw error
-        throw InvalidMemoryAccess{
-            fmt::format("Address 0x{:08X} not handled by CPU", address)};
+        fail(fmt::format("Address 0x{:08X} not handled by CPU", address));
     }
 
     // CPU registers

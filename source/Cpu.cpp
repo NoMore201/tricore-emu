@@ -23,7 +23,7 @@ constexpr std::byte bytecode_ldw_bol = std::byte{0x19};
 constexpr std::byte bytecode_add_c2 = std::byte{0xC2};
 constexpr std::byte bytecode_movh = std::byte{0x7B};
 constexpr std::byte bytecode_and_srr = std::byte{0x26};
-constexpr std::byte bytecode_jne_brc = std::byte{0xDF};
+constexpr std::byte bytecode_jump_df = std::byte{0xDF};
 constexpr std::byte bytecode_01 = std::byte{0x01};
 constexpr std::byte bytecode_movd_srr = std::byte{0x80};
 constexpr std::byte bytecode_stw_bol = std::byte{0x59};
@@ -33,7 +33,7 @@ constexpr std::byte bytecode_jnzt_brn_2 = std::byte{0xEF};
 constexpr std::byte bytecode_ldbu_bol = std::byte{0x39};
 constexpr std::byte bytecode_8f_rc = std::byte{0x8F};
 constexpr std::byte bytecode_stb_bol = std::byte{0xE9};
-constexpr std::byte bytecode_jne_brr = std::byte{0x5F};
+constexpr std::byte bytecode_jump_5f = std::byte{0x5F};
 constexpr std::byte bytecode_jltu_brc = std::byte{0xBF};
 constexpr std::byte bytecode_nop = std::byte{0x00};
 constexpr std::byte bytecode_j_b = std::byte{0x1D};
@@ -335,7 +335,7 @@ void Tricore::Cpu::start() {
         case bytecode_and_srr:
             insn_and_srr();
             break;
-        case bytecode_jne_brc: {
+        case bytecode_jump_df: {
             u32 insn = read<u32>(m_core_registers.pc);
             const u32 identifier = Utils::extract32(insn, 31U, 1U);
             switch (identifier) {
@@ -348,7 +348,7 @@ void Tricore::Cpu::start() {
             default:
                 fail(fmt::format(
                     "0x{:02X} opcode with identifier 0x{:02X} not implemented",
-                    bytecode_jne_brc, identifier));
+                    bytecode_jump_df, identifier));
             }
         } break;
         case bytecode_01: {
@@ -407,9 +407,22 @@ void Tricore::Cpu::start() {
         case bytecode_stb_bol:
             insn_stb_bol();
             break;
-        case bytecode_jne_brr:
-            insn_jne_brr();
-            break;
+        case bytecode_jump_5f: {
+            u32 insn = read<u32>(m_core_registers.pc);
+            const u32 identifier = Utils::extract32(insn, 31U, 1U);
+            switch (identifier) {
+            case 0x0U:
+                insn_jeq_brr();
+                break;
+            case 0x1U:
+                insn_jne_brr();
+                break;
+            default:
+                fail(fmt::format(
+                    "0x{:02X} opcode with identifier 0x{:02X} not implemented",
+                    bytecode_jump_5f, identifier));
+            }
+        } break;
         case bytecode_jltu_brc:
             insn_jltu_brc();
             break;
@@ -761,10 +774,11 @@ void Tricore::Cpu::insn_jnzt_brn() {
         const u32 data = m_data_registers.at(index_a);
         if ((data & (1U << bit_n)) != 0U) {
             m_core_registers.pc += disp15 * 2U;
-            spdlog::trace("==> Cpu: JNZ.T branch taken, address 0x{:08X}",
+            spdlog::trace("==> Cpu: JNZ.T branch taken PC=0x{:08X}",
                           m_core_registers.pc);
         } else {
-            spdlog::trace("==> Cpu: JNZ.T branch NOT taken");
+            spdlog::trace("==> Cpu: JNZ.T branch NOT taken PC=0x{:08X}",
+                          m_core_registers.pc);
             m_core_registers.pc += 4;
         }
     });
@@ -825,11 +839,30 @@ void Tricore::Cpu::insn_jne_brr() {
         // if (D[a] != D[b]) then PC = PC + sign_ext(disp15) * 2
         if (m_data_registers.at(index_a) != m_data_registers.at(index_b)) {
             m_core_registers.pc += disp15 * 2U;
-            spdlog::trace("==> Cpu: JNE branch taken, address 0x{:08X}",
+            spdlog::trace("==> Cpu: JNE branch taken PC=0x{:08X}",
                           m_core_registers.pc);
         } else {
             m_core_registers.pc += 4U;
-            spdlog::trace("==> Cpu: JNE branch NOT taken");
+            spdlog::trace("==> Cpu: JNE branch NOT taken PC=0x{:08X}",
+                          m_core_registers.pc);
+        }
+    });
+}
+
+void Tricore::Cpu::insn_jeq_brr() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: JEQ 0x{:08X}", insn);
+
+    BrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 disp15) {
+        // if (D[a] == D[b]) then PC = PC + sign_ext(disp15) * 2
+        if (m_data_registers.at(index_a) == m_data_registers.at(index_b)) {
+            m_core_registers.pc += disp15 * 2U;
+            spdlog::trace("==> Cpu: JEQ branch taken PC=0x{:08X}",
+                          m_core_registers.pc);
+        } else {
+            m_core_registers.pc += 4U;
+            spdlog::trace("==> Cpu: JEQ branch NOT taken PC=0x{:08X}",
+                          m_core_registers.pc);
         }
     });
 }
@@ -844,11 +877,12 @@ void Tricore::Cpu::insn_jltu_brc() {
         // }
         if (m_data_registers.at(index_a) < const4) {
             m_core_registers.pc += disp15 * 2U;
-            spdlog::trace("==> Cpu: JLT.U branch taken, address 0x{:08X}",
+            spdlog::trace("==> Cpu: JLT.U branch taken PC=0x{:08X}",
                           m_core_registers.pc);
         } else {
             m_core_registers.pc += 4U;
-            spdlog::trace("==> Cpu: JLT.U branch NOT taken");
+            spdlog::trace("==> Cpu: JLT.U branch NOT taken PC=0x{:08X}",
+                          m_core_registers.pc);
         }
     });
 }
