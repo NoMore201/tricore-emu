@@ -49,6 +49,7 @@ private:
     void insn_ji_sr();
     void insn_mtcr();
     void insn_isync();
+    void insn_dsync();
     void insn_ldw_slr();
     void insn_ldw_bol();
     void insn_add_c2();
@@ -82,6 +83,7 @@ private:
     void insn_addi_rlc();
     void insn_mov_src();
     void insn_sh_rc();
+    void insn_mova_src();
 
     // Helpers
 

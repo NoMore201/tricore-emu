@@ -6,6 +6,8 @@
 
 #include <spdlog/spdlog.h>
 
+#include <concepts>
+
 namespace {
 
 constexpr std::byte bytecode_movha_id = std::byte{0x91};
@@ -13,7 +15,7 @@ constexpr std::byte bytecode_mov_rlc = std::byte{0x3B};
 constexpr std::byte bytecode_lea_bol = std::byte{0xD9};
 constexpr std::byte bytecode_ji_sr = std::byte{0xDC};
 constexpr std::byte bytecode_mtcr = std::byte{0xCD};
-constexpr std::byte bytecode_isync = std::byte{0x0D};
+constexpr std::byte bytecode_sync = std::byte{0x0D};
 constexpr std::byte bytecode_ldw_slr = std::byte{0x54};
 constexpr std::byte bytecode_ldw_bol = std::byte{0x19};
 constexpr std::byte bytecode_add_c2 = std::byte{0xC2};
@@ -44,11 +46,12 @@ constexpr std::byte bytecode_ne_rc = std::byte{0x8B};
 constexpr std::byte bytecode_ne_rr = std::byte{0x0B};
 constexpr std::byte bytecode_addi_rlc = std::byte{0x1B};
 constexpr std::byte bytecode_mov_src = std::byte{0x82};
+constexpr std::byte bytecode_mova_src = std::byte{0xA0};
 
 struct BolFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto index_b = Utils::extract32(insn, 12, 4);
@@ -63,7 +66,7 @@ struct BolFormatParser {
 struct RrFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto index_b = Utils::extract32(insn, 12, 4);
@@ -75,7 +78,7 @@ struct RrFormatParser {
 struct BrnFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto bit_n = Utils::extract32(insn, 12, 4);
@@ -88,7 +91,7 @@ struct BrnFormatParser {
 struct RcFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto index_c = Utils::extract32(insn, 28, 4);
@@ -100,7 +103,7 @@ struct RcFormatParser {
 struct SrrFormatParser {
     u16 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract16(insn, 8, 4);
         const auto index_b = Utils::extract16(insn, 12, 4);
@@ -114,7 +117,7 @@ using SsrFormatParser = SrrFormatParser;
 struct BrrFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto index_b = Utils::extract32(insn, 12, 4);
@@ -129,7 +132,7 @@ using BrcFormatParser = BrrFormatParser;
 struct BFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         u32 disp24 = Utils::extract32(insn, 16, 16);
         disp24 |= Utils::extract32(insn, 8, 8) << 16U;
@@ -141,7 +144,7 @@ struct BFormatParser {
 struct RrpwFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32, u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         u32 index_a = Utils::extract32(insn, 8, 4);
         u32 width = Utils::extract32(insn, 16, 5);
@@ -154,7 +157,7 @@ struct RrpwFormatParser {
 struct RcpwFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32, u32, u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         u32 index_a = Utils::extract32(insn, 8, 4);
         u32 const4 = Utils::extract32(insn, 12, 4);
@@ -168,7 +171,7 @@ struct RcpwFormatParser {
 struct AbsFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         u32 index_a = Utils::extract32(insn, 8, 4);
         u32 offset = Utils::extract32(insn, 16, 6);
@@ -182,7 +185,7 @@ struct AbsFormatParser {
 struct RlcFormatParser {
     u32 insn{};
 
-    template <typename F> void parse(F &&callback) {
+    template <std::invocable<u32, u32, u32> F> void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto index_c = Utils::extract32(insn, 28, 4);
@@ -290,9 +293,22 @@ void Tricore::Cpu::start() {
         case bytecode_mtcr:
             insn_mtcr();
             break;
-        case bytecode_isync:
-            insn_isync();
-            break;
+        case bytecode_sync: {
+            const u32 insn = read<u32>(m_core_registers.pc);
+            const u32 identifier = Utils::extract32(insn, 22, 6);
+            switch (identifier) {
+            case 0x12U:
+                insn_dsync();
+                break;
+            case 0x13U:
+                insn_isync();
+                break;
+            default:
+                throw Exception{fmt::format(
+                    "0x0D opcode with identifier 0x{:02X} not implemented",
+                    identifier)};
+            }
+        } break;
         case bytecode_ldw_slr:
             insn_ldw_slr();
             break;
@@ -425,6 +441,9 @@ void Tricore::Cpu::start() {
         case bytecode_mov_src:
             insn_mov_src();
             break;
+        case bytecode_mova_src:
+            insn_mova_src();
+            break;
         default:
             throw Exception{
                 fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -497,6 +516,12 @@ void Tricore::Cpu::insn_mtcr() {
 
 void Tricore::Cpu::insn_isync() {
     spdlog::trace("Cpu: ISYNC");
+    // do nothing
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_dsync() {
+    spdlog::trace("Cpu: DSYNC");
     // do nothing
     m_core_registers.pc += 4;
 }
@@ -1034,7 +1059,8 @@ void Tricore::Cpu::insn_sh_rc() {
                 m_data_registers.at(index_a)
                 << static_cast<u32>(sign_extended_const9);
         } else {
-            spdlog::trace("==> Cpu: SH shift right of {}", -sign_extended_const9);
+            spdlog::trace("==> Cpu: SH shift right of {}",
+                          -sign_extended_const9);
             m_data_registers.at(index_c) =
                 m_data_registers.at(index_a) >>
                 static_cast<u32>(-sign_extended_const9);
@@ -1045,4 +1071,18 @@ void Tricore::Cpu::insn_sh_rc() {
     });
 
     m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_mova_src() {
+    u16 insn = read<u16>(m_core_registers.pc);
+    spdlog::trace("Cpu: MOV.A 0x{:04X}", insn);
+
+    SrcFormatParser{insn}.parse([this](u32 index_a, u32 const4) {
+        // D[a] = zero_ext(const4);
+        spdlog::trace("==> Cpu: MOV.A value 0x{:08X} into D[{}]",
+                      const4, index_a);
+        m_data_registers.at(index_a) = const4;
+    });
+
+    m_core_registers.pc += 2;
 }
