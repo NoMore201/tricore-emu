@@ -51,6 +51,7 @@ constexpr std::byte bytecode_mov_src = std::byte{0x82};
 constexpr std::byte bytecode_mova_src = std::byte{0xA0};
 constexpr std::byte bytecode_call_32 = std::byte{0x6D};
 constexpr std::byte bytecode_mova_srr = std::byte{0x60};
+constexpr std::byte bytecode_mov_srr = std::byte{0x02};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -499,6 +500,9 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_mova_srr:
             insn_mova_srr();
+            break;
+        case bytecode_mov_srr:
+            insn_mov_srr();
             break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -1253,6 +1257,20 @@ void Tricore::Cpu::insn_mova_srr() {
         m_address_registers.at(index_a) = m_data_registers.at(index_b);
         spdlog::trace("==> Cpu: MOV.A write value 0x{:08X} in A[{}]",
                       m_address_registers.at(index_a), index_a);
+    });
+
+    m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_mov_srr() {
+    // D[a] = D[b]
+    const auto insn = read<u16>(m_core_registers.pc);
+    spdlog::trace("Cpu: MOV 0x{:04X}", insn);
+
+    SrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
+        m_data_registers.at(index_a) = m_data_registers.at(index_b);
+        spdlog::trace("==> Cpu: MOV write value 0x{:08X} in A[{}]",
+                      m_data_registers.at(index_a), index_a);
     });
 
     m_core_registers.pc += 2;

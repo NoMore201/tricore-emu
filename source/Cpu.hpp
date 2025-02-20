@@ -90,6 +90,7 @@ private:
     void insn_mova_srr();
     void insn_addsca_rr();
     void insn_jeq_brr();
+    void insn_mov_srr();
 
     // Helpers
 
