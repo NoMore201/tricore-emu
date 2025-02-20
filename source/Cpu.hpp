@@ -16,6 +16,7 @@
 #include <array>
 #include <concepts>
 #include <stdexcept>
+#include <string>
 #include <vector>
 
 namespace Tricore {
@@ -86,6 +87,9 @@ private:
     void insn_mova_src();
 
     // Helpers
+
+    void fail(std::string message);
+    void print_cpu_status();
 
     template <std::unsigned_integral T>
     T read(u32 address) {

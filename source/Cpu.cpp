@@ -4,6 +4,7 @@
 #include "Types.hpp"
 #include "Utils.hpp"
 
+#include <fmt/base.h>
 #include <spdlog/spdlog.h>
 
 #include <concepts>
@@ -157,7 +158,8 @@ struct RrpwFormatParser {
 struct RcpwFormatParser {
     u32 insn{};
 
-    template <std::invocable<u32, u32, u32, u32, u32> F> void parse(F &&callback) {
+    template <std::invocable<u32, u32, u32, u32, u32> F>
+    void parse(F &&callback) {
         namespace Utils = Tricore::Utils;
         u32 index_a = Utils::extract32(insn, 8, 4);
         u32 const4 = Utils::extract32(insn, 12, 4);
@@ -304,9 +306,9 @@ void Tricore::Cpu::start() {
                 insn_isync();
                 break;
             default:
-                throw Exception{fmt::format(
+                fail(fmt::format(
                     "0x0D opcode with identifier 0x{:02X} not implemented",
-                    identifier)};
+                    identifier));
             }
         } break;
         case bytecode_ldw_slr:
@@ -360,9 +362,9 @@ void Tricore::Cpu::start() {
                 insn_sh_rc();
                 break;
             default:
-                throw Exception{fmt::format(
+                fail(fmt::format(
                     "0x8F opcode with identifier 0x{:02X} not implemented",
-                    identifier)};
+                    identifier));
             }
         } break;
         case bytecode_stb_bol:
@@ -412,10 +414,9 @@ void Tricore::Cpu::start() {
                 insn_andne_rc();
                 break;
             default:
-                throw Exception{
-                    fmt::format("NE (RC) instruction with identifier 0x{:02X} "
-                                "not implemented",
-                                identifier)};
+                fail(fmt::format("NE (RC) instruction with identifier 0x{:02X} "
+                                 "not implemented",
+                                 identifier));
             }
         } break;
         case bytecode_ne_rr: {
@@ -429,10 +430,9 @@ void Tricore::Cpu::start() {
                 insn_ne_rr();
                 break;
             default:
-                throw Exception{
-                    fmt::format("NE (RR) instruction with identifier 0x{:02X} "
-                                "not implemented",
-                                identifier)};
+                fail(fmt::format("NE (RR) instruction with identifier 0x{:02X} "
+                                 "not implemented",
+                                 identifier));
             }
         } break;
         case bytecode_addi_rlc:
@@ -445,9 +445,8 @@ void Tricore::Cpu::start() {
             insn_mova_src();
             break;
         default:
-            throw Exception{
-                fmt::format("Instruction with opcode 0x{:02X} not implemented",
-                            insn_opcode)};
+            fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
+                             insn_opcode));
         }
     }
 }
@@ -1079,10 +1078,32 @@ void Tricore::Cpu::insn_mova_src() {
 
     SrcFormatParser{insn}.parse([this](u32 index_a, u32 const4) {
         // D[a] = zero_ext(const4);
-        spdlog::trace("==> Cpu: MOV.A value 0x{:08X} into D[{}]",
-                      const4, index_a);
+        spdlog::trace("==> Cpu: MOV.A value 0x{:08X} into D[{}]", const4,
+                      index_a);
         m_data_registers.at(index_a) = const4;
     });
 
     m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::print_cpu_status() {
+    // print CPU status
+    fmt::println("===============================================");
+    fmt::println(" PC  [0x{:08X}]  PSW [0x{:08X}]  PCXI [0x{:08X}]",
+                 m_core_registers.pc, m_core_registers.psw,
+                 m_core_registers.pcxi);
+    for (usize count = 0; count < register_count; count++) {
+
+        fmt::println(" A{0:<2} [0x{1:08X}]  D{0:<2} [0x{2:08X}]", count,
+                     m_address_registers.at(count), m_data_registers.at(count));
+    }
+    fmt::println("===============================================");
+}
+
+void Tricore::Cpu::fail(std::string message) {
+    // print CPU status
+    fmt::println("!! Failure in TC-33X CPU !!");
+    fmt::println("Reason: {}", message);
+    print_cpu_status();
+    throw Tricore::Exception{message};
 }
