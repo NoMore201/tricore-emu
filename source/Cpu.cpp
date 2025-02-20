@@ -358,10 +358,11 @@ void Tricore::Cpu::start() {
             case 0x02U:
                 insn_suba_rr();
                 break;
+            case 0x60U:
+                insn_addsca_rr();
+                break;
             case 0x01U:
                 // ADD.A (RR)
-            case 0x60U:
-                // ADDSC.A (RR)
             default:
                 fail(fmt::format(
                     "0x{:02X} opcode with identifier 0x{:02X} not implemented",
@@ -685,6 +686,25 @@ void Tricore::Cpu::insn_suba_rr() {
         spdlog::trace("==> Cpu: SUB.A writing value 0x{:08X} in A[{}]",
                       m_address_registers.at(index_c), index_c);
     });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_addsca_rr() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: ADDSC.A 0x{:08X}", insn);
+
+    const u32 n_value = Utils::extract32(insn, 16, 2);
+
+    RrFormatParser{insn}.parse(
+        [this, n_value](u32 index_a, u32 index_b, u32 index_c) {
+        // A[c] = A[b] + (D[a] << n);
+        const u32 shifted_data = m_data_registers.at(index_a) << n_value;
+        m_address_registers.at(index_c) =
+            m_address_registers.at(index_b) + shifted_data;
+        spdlog::trace("==> Cpu: ADDSC.A writing value 0x{:08X} in A[{}]",
+                      m_address_registers.at(index_c), index_c);
+    });
+
     m_core_registers.pc += 4;
 }
 

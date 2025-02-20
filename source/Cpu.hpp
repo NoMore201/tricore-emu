@@ -4,12 +4,13 @@
 #include "BusClient.hpp"
 #include "Elf.hpp"
 #include "Memory.hpp"
-#include "Types.hpp"
 #include "Peripherals/Cpu.hpp"
 #include "Peripherals/Mtu.hpp"
 #include "Peripherals/Pms.hpp"
 #include "Peripherals/Scu.hpp"
 #include "Peripherals/Stm.hpp"
+#include "Types.hpp"
+
 
 #include <fmt/format.h>
 
@@ -88,21 +89,22 @@ private:
     void insn_call_32();
     void insn_jeq_brc();
     void insn_mova_srr();
+    void insn_addsca_rr();
 
     // Helpers
 
     [[noreturn]] void fail(std::string message);
     void print_cpu_status();
 
-    template <std::unsigned_integral T>
-    T read(u32 address) {
+    template <std::unsigned_integral T> T read(u32 address) {
         constexpr auto read_length = sizeof(T);
 
         T data{};
 
         for (auto *client : m_bus_clients) {
             try {
-                client->read(reinterpret_cast<std::byte *>(&data), address, read_length);
+                client->read(reinterpret_cast<std::byte *>(&data), address,
+                             read_length);
                 return data;
             } catch (InvalidMemoryAccess &) {
                 // this client does not handle input address, continue
@@ -115,14 +117,14 @@ private:
             fmt::format("Address 0x{:08X} not handled by CPU", address)};
     }
 
-    template <std::unsigned_integral T>
-    void write(u32 address, T value) {
+    template <std::unsigned_integral T> void write(u32 address, T value) {
         constexpr auto write_length = sizeof(T);
         T data = value;
 
         for (auto *client : m_bus_clients) {
             try {
-                client->write(reinterpret_cast<std::byte *>(&data), address, write_length);
+                client->write(reinterpret_cast<std::byte *>(&data), address,
+                              write_length);
                 return;
             } catch (InvalidMemoryAccess &) {
                 // this client does not handle input address, continue
@@ -134,7 +136,6 @@ private:
         throw InvalidMemoryAccess{
             fmt::format("Address 0x{:08X} not handled by CPU", address)};
     }
-
 
     // CPU registers
     std::array<u32, register_count> m_data_registers{};
