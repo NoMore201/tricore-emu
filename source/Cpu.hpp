@@ -85,10 +85,12 @@ private:
     void insn_mov_src();
     void insn_sh_rc();
     void insn_mova_src();
+    void insn_call_32();
+    void insn_jeq_brc();
 
     // Helpers
 
-    void fail(std::string message);
+    [[noreturn]] void fail(std::string message);
     void print_cpu_status();
 
     template <std::unsigned_integral T>
@@ -138,7 +140,7 @@ private:
     std::array<u32, register_count> m_address_registers{};
     struct CoreRegisters {
         u32 pcxi{0};
-        u32 psw{0};
+        u32 psw{0xB80U};
         u32 pc{0};
         u32 syscon{0};
         u32 cpu_id{0};

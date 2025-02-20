@@ -5,6 +5,7 @@
 #include "Utils.hpp"
 
 #include <fmt/base.h>
+#include <gsl/assert>
 #include <spdlog/spdlog.h>
 
 #include <concepts>
@@ -48,6 +49,9 @@ constexpr std::byte bytecode_ne_rr = std::byte{0x0B};
 constexpr std::byte bytecode_addi_rlc = std::byte{0x1B};
 constexpr std::byte bytecode_mov_src = std::byte{0x82};
 constexpr std::byte bytecode_mova_src = std::byte{0xA0};
+constexpr std::byte bytecode_call_32 = std::byte{0x6D};
+
+constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
 struct BolFormatParser {
     u32 insn{};
@@ -326,9 +330,22 @@ void Tricore::Cpu::start() {
         case bytecode_and_srr:
             insn_and_srr();
             break;
-        case bytecode_jne_brc:
-            insn_jne_brc();
-            break;
+        case bytecode_jne_brc: {
+            u32 insn = read<u32>(m_core_registers.pc);
+            const u32 identifier = Utils::extract32(insn, 31U, 1U);
+            switch (identifier) {
+            case 0x0U:
+                insn_jeq_brc();
+                break;
+            case 0x1U:
+                insn_jne_brc();
+                break;
+            default:
+                fail(fmt::format(
+                    "0x8F opcode with identifier 0x{:02X} not implemented",
+                    identifier));
+            }
+        } break;
         case bytecode_suba_rr:
             insn_suba_rr();
             break;
@@ -443,6 +460,9 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_mova_src:
             insn_mova_src();
+            break;
+        case bytecode_call_32:
+            insn_call_32();
             break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -609,6 +629,24 @@ void Tricore::Cpu::insn_jne_brc() {
         } else {
             m_core_registers.pc += 4;
             spdlog::trace("==> Cpu: JNE branch NOT taken PC=0x{:08X}",
+                          m_core_registers.pc);
+        }
+    });
+}
+
+void Tricore::Cpu::insn_jeq_brc() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: JEQ 0x{:08X}", insn);
+
+    BrcFormatParser{insn}.parse([this](u32 index_a, u32 const4, u32 disp15) {
+        // if (D[a] == sign_ext(const4)) then PC = PC + sign_ext(disp15) * 2
+        if (m_data_registers.at(index_a) == const4) {
+            m_core_registers.pc += disp15 * 2U;
+            spdlog::trace("==> Cpu: JEQ branch taken PC=0x{:08X}",
+                          m_core_registers.pc);
+        } else {
+            m_core_registers.pc += 4;
+            spdlog::trace("==> Cpu: JEQ branch NOT taken PC=0x{:08X}",
                           m_core_registers.pc);
         }
     });
@@ -1084,6 +1122,50 @@ void Tricore::Cpu::insn_mova_src() {
     });
 
     m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_call_32() {
+    const u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: CALL 0x{:08X}", insn);
+
+    if (m_core_registers.fcx == 0) {
+        fail("CALL TRAP (FCU) => Context Save Area not initialized");
+    }
+
+    if ((m_core_registers.psw & cpu_psw_cde_mask) != 0) {
+        const u32 call_depth_counter =
+            Utils::extract32(m_core_registers.psw, 0, 7);
+        if (call_depth_counter < 0x7FU) {
+            u32 leading_ones = 0;
+
+            for (u32 shift = 6U; shift > 1U; shift--) {
+                if ((call_depth_counter & (1U << shift)) != 0) {
+                    leading_ones++;
+                } else {
+                    break;
+                }
+            }
+
+            Ensures(leading_ones <= 6U);
+
+            const u32 counter_bits = 6U - leading_ones;
+            const u32 max_depth_counter = (1U << (counter_bits)) - 1U;
+            u32 filtered_depth_counter =
+                Utils::extract32(call_depth_counter, 0, counter_bits);
+            if (filtered_depth_counter == max_depth_counter) {
+                fail("CALL TRAP (CDO) => Call Depth Counter overflow");
+            }
+
+            filtered_depth_counter += 1U;
+            m_core_registers.psw = Utils::deposit32(
+                filtered_depth_counter, 0, counter_bits, m_core_registers.psw);
+        }
+    } else {
+        // set PSW.CDE to 1
+        m_core_registers.psw |= cpu_psw_cde_mask;
+    }
+
+    fail("CALL Not implemented!!");
 }
 
 void Tricore::Cpu::print_cpu_status() {
