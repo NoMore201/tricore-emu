@@ -937,6 +937,7 @@ void Tricore::Cpu::insn_extru_rrpw() {
         // If pos + width > 32 or if width = 0, then the results are undefined.
         const u32 result =
             Utils::extract32(m_data_registers.at(index_a), pos, width);
+        spdlog::trace("===> Cpu: EXTR.U width={} pos={}", width, pos);
         m_data_registers.at(index_c) = result;
         spdlog::trace("==> Cpu: EXTR.U extracted value 0x{:08X} from D[{}]",
                       m_data_registers.at(index_c), index_a);
@@ -1171,20 +1172,18 @@ void Tricore::Cpu::insn_sh_rc() {
         const i32 sign_extended_const9 =
             static_cast<i32>(Utils::sign_extend32<6>(const9_subset));
         if (sign_extended_const9 >= 0) {
-            spdlog::trace("==> Cpu: SH left right of {}", sign_extended_const9);
+            spdlog::trace("==> Cpu: SH left value 0x{:08X} of {} positions",
+                          m_data_registers.at(index_a), sign_extended_const9);
             m_data_registers.at(index_c) =
                 m_data_registers.at(index_a)
                 << static_cast<u32>(sign_extended_const9);
         } else {
-            spdlog::trace("==> Cpu: SH shift right of {}",
-                          -sign_extended_const9);
+            spdlog::trace("==> Cpu: SH shift value 0x{:08X} of {} positions",
+                          m_data_registers.at(index_a), -sign_extended_const9);
             m_data_registers.at(index_c) =
                 m_data_registers.at(index_a) >>
                 static_cast<u32>(-sign_extended_const9);
         }
-        m_data_registers.at(index_c) = m_data_registers.at(index_a) | const9;
-        spdlog::trace("==> Cpu: SH store result 0x{:08X} into D[{}]",
-                      m_data_registers.at(index_c), index_c);
     });
 
     m_core_registers.pc += 4;
@@ -1282,6 +1281,8 @@ void Tricore::Cpu::print_cpu_status() {
     fmt::println(" PC  [0x{:08X}]  PSW [0x{:08X}]  PCXI [0x{:08X}]",
                  m_core_registers.pc, m_core_registers.psw,
                  m_core_registers.pcxi);
+    fmt::println(" FCX [0x{:08X}]  LCX [0x{:08X}]", m_core_registers.fcx,
+                 m_core_registers.lcx);
     for (usize count = 0; count < register_count; count++) {
 
         fmt::println(" A{0:<2} [0x{1:08X}]  D{0:<2} [0x{2:08X}]", count,
