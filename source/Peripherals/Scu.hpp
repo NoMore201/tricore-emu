@@ -102,6 +102,7 @@ private:
     u32 m_scu_eifr;
     u32 m_scu_fmr;
     u32 m_scu_pdrr;
+    u32 m_scu_wdtcpu0_con0;
     u32 m_scu_eicon0;
     u32 m_scu_eicon1;
     u32 m_scu_eisr;

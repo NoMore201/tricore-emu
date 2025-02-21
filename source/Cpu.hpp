@@ -93,6 +93,7 @@ private:
     void insn_mov_srr();
     void insn_movaa_srr();
     void insn_suba_sc();
+    void insn_sth_bol();
 
     // Helpers
 
