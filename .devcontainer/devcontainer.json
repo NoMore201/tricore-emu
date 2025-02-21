@@ -2,12 +2,5 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": "./setupVcpkg.sh",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-vscode.cpptools-extension-pack"
-      ]
-    }
-  }
+  "postCreateCommand": "./setupVcpkg.sh"
 }
