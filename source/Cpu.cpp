@@ -1244,7 +1244,77 @@ void Tricore::Cpu::insn_call_32() {
         m_core_registers.psw |= cpu_psw_cde_mask;
     }
 
-    fail("CALL Not implemented!!");
+    const u32 return_address = m_core_registers.pc + 4U;
+
+    const u32 tmp_fcx = m_core_registers.fcx;
+    u32 effective_fcx_address = Utils::extract32(tmp_fcx, 16, 4) << 28U;
+    effective_fcx_address |= Utils::extract32(tmp_fcx, 0, 16) << 6U;
+
+    const u32 new_fcx = read<u32>(effective_fcx_address);
+    write<u32>(effective_fcx_address, m_core_registers.pcxi);
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_core_registers.psw);
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_address_registers.at(10));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_address_registers.at(11));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_data_registers.at(8));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_data_registers.at(9));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_data_registers.at(10));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_data_registers.at(11));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_address_registers.at(12));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_address_registers.at(13));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_address_registers.at(14));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_address_registers.at(15));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_data_registers.at(12));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_data_registers.at(13));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_data_registers.at(14));
+    effective_fcx_address += 4;
+    write<u32>(effective_fcx_address, m_data_registers.at(15));
+
+    spdlog::trace("==> Cpu: CALL FCX pointer 0x{:08X}", effective_fcx_address);
+
+    const u32 ccpn = Utils::extract32(m_core_registers.icr, 0, 8);
+    m_core_registers.pcxi = Utils::deposit32(ccpn, 22, 8, m_core_registers.pcxi);
+
+    spdlog::trace("==> Cpu: CALL PCPN 0x{:02X}", ccpn);
+
+    const u32 ie_bit = Utils::extract32(m_core_registers.icr, 15, 1);
+    m_core_registers.pcxi = Utils::deposit32(ie_bit, 21, 1, m_core_registers.pcxi);
+
+    // PCXI.UL = 1
+    m_core_registers.pcxi = Utils::deposit32(1U, 20, 1, m_core_registers.pcxi);
+
+    // PCXI.PCXO = FCX
+    m_core_registers.pcxi = Utils::deposit32(tmp_fcx, 0, 16, m_core_registers.pcxi);
+
+    // FCX.FCXO = new_FCX
+    m_core_registers.fcx = Utils::deposit32(new_fcx, 0, 16, m_core_registers.fcx);
+
+    const u32 disp24 = Utils::extract32(insn, 16, 16) |
+        (Utils::extract32(insn, 8, 8) << 16U);
+
+    const u32 sign_extended_disp24 = Utils::sign_extend32<24>(disp24 * 2U);
+
+    m_core_registers.pc += sign_extended_disp24;
+    spdlog::trace("==> Cpu: CALL PC=0x{:02X}", m_core_registers.pc);
+
+    m_address_registers.at(11) = return_address;
+
+    if (tmp_fcx == m_core_registers.lcx) {
+        fail("CALL TRAP (FCD): CSA is full");
+    }
 }
 
 void Tricore::Cpu::insn_mova_srr() {
