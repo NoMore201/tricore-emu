@@ -52,6 +52,8 @@ constexpr std::byte bytecode_mova_src = std::byte{0xA0};
 constexpr std::byte bytecode_call_32 = std::byte{0x6D};
 constexpr std::byte bytecode_mova_srr = std::byte{0x60};
 constexpr std::byte bytecode_mov_srr = std::byte{0x02};
+constexpr std::byte bytecode_movaa_srr = std::byte{0x40};
+constexpr std::byte bytecode_suba_sc = std::byte{0x20};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -120,6 +122,16 @@ struct SrrFormatParser {
 
 using SrcFormatParser = SrrFormatParser;
 using SsrFormatParser = SrrFormatParser;
+
+struct ScFormatParser {
+    u16 insn{};
+
+    template <std::invocable<u32> F> void parse(F &&callback) {
+        namespace Utils = Tricore::Utils;
+        const auto const8 = Utils::extract16(insn, 8, 8);
+        callback(const8);
+    }
+};
 
 struct BrrFormatParser {
     u32 insn{};
@@ -503,6 +515,12 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_mov_srr:
             insn_mov_srr();
+            break;
+        case bytecode_movaa_srr:
+            insn_movaa_srr();
+            break;
+        case bytecode_suba_sc:
+            insn_suba_sc();
             break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -1286,24 +1304,28 @@ void Tricore::Cpu::insn_call_32() {
     spdlog::trace("==> Cpu: CALL FCX pointer 0x{:08X}", effective_fcx_address);
 
     const u32 ccpn = Utils::extract32(m_core_registers.icr, 0, 8);
-    m_core_registers.pcxi = Utils::deposit32(ccpn, 22, 8, m_core_registers.pcxi);
+    m_core_registers.pcxi =
+        Utils::deposit32(ccpn, 22, 8, m_core_registers.pcxi);
 
     spdlog::trace("==> Cpu: CALL PCPN 0x{:02X}", ccpn);
 
     const u32 ie_bit = Utils::extract32(m_core_registers.icr, 15, 1);
-    m_core_registers.pcxi = Utils::deposit32(ie_bit, 21, 1, m_core_registers.pcxi);
+    m_core_registers.pcxi =
+        Utils::deposit32(ie_bit, 21, 1, m_core_registers.pcxi);
 
     // PCXI.UL = 1
     m_core_registers.pcxi = Utils::deposit32(1U, 20, 1, m_core_registers.pcxi);
 
     // PCXI.PCXO = FCX
-    m_core_registers.pcxi = Utils::deposit32(tmp_fcx, 0, 16, m_core_registers.pcxi);
+    m_core_registers.pcxi =
+        Utils::deposit32(tmp_fcx, 0, 16, m_core_registers.pcxi);
 
     // FCX.FCXO = new_FCX
-    m_core_registers.fcx = Utils::deposit32(new_fcx, 0, 16, m_core_registers.fcx);
+    m_core_registers.fcx =
+        Utils::deposit32(new_fcx, 0, 16, m_core_registers.fcx);
 
-    const u32 disp24 = Utils::extract32(insn, 16, 16) |
-        (Utils::extract32(insn, 8, 8) << 16U);
+    const u32 disp24 =
+        Utils::extract32(insn, 16, 16) | (Utils::extract32(insn, 8, 8) << 16U);
 
     const u32 sign_extended_disp24 = Utils::sign_extend32<24>(disp24 * 2U);
 
@@ -1340,6 +1362,34 @@ void Tricore::Cpu::insn_mov_srr() {
         m_data_registers.at(index_a) = m_data_registers.at(index_b);
         spdlog::trace("==> Cpu: MOV write value 0x{:08X} in A[{}]",
                       m_data_registers.at(index_a), index_a);
+    });
+
+    m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_suba_sc() {
+    // A[10] = A[10] - zero_ext(const8);
+    const auto insn = read<u16>(m_core_registers.pc);
+    spdlog::trace("Cpu: SUB.A 0x{:04X}", insn);
+
+    ScFormatParser{insn}.parse([this](u32 const8) {
+        m_address_registers.at(10) -= const8;
+        spdlog::trace("==> Cpu: SUB.A write value 0x{:08X} in A[10]",
+                      m_address_registers.at(10));
+    });
+
+    m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_movaa_srr() {
+    // A[a] = A[b]
+    const auto insn = read<u16>(m_core_registers.pc);
+    spdlog::trace("Cpu: MOV.AA 0x{:04X}", insn);
+
+    SrrFormatParser{insn}.parse([this](u32 index_a, u32 index_b) {
+        m_address_registers.at(index_a) = m_address_registers.at(index_b);
+        spdlog::trace("==> Cpu: MOV.AA write value 0x{:08X} in A[{}]",
+                      m_address_registers.at(index_a), index_a);
     });
 
     m_core_registers.pc += 2;

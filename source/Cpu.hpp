@@ -91,6 +91,8 @@ private:
     void insn_addsca_rr();
     void insn_jeq_brr();
     void insn_mov_srr();
+    void insn_movaa_srr();
+    void insn_suba_sc();
 
     // Helpers
 
