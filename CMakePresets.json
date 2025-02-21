@@ -38,6 +38,15 @@
             }
         },
         {
+            "name": "unix",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            }
+        },
+        {
             "name": "mingw-gcc",
             "description": "Windows setup with MinGW GCC",
             "generator": "Ninja",
@@ -89,6 +98,26 @@
                 "CMAKE_CXX_COMPILER": "cl",
                 "ENABLE_SANITIZERS": "ON",
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+            }
+        },
+        {
+            "name": "ubuntu-clang",
+            "description": "Linux setup with clang compiler (used in DevContainer)",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "inherits": [
+                "default",
+                "unix"
+            ],
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "ENABLE_SANITIZERS": "ON",
+                "VCPKG_HOST_TRIPLET": "x64-linux",
+                "VCPKG_TARGET_TRIPLET": "x64-linux"
+            },
+            "environment": {
+                "VCPKG_ROOT": "${sourceDir}/third_party/vcpkg"
             }
         }
     ]
