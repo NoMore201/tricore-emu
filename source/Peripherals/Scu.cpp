@@ -94,6 +94,7 @@ constexpr u32 scu_eifilt_reset_value = 0;
 constexpr u32 scu_eifr_reset_value = 0;
 constexpr u32 scu_fmr_reset_value = 0;
 constexpr u32 scu_pdrr_reset_value = 0xFFU;
+constexpr u32 scu_wdtcpu0_con0_reset_value = 0xFFFC000EU;
 constexpr u32 scu_eicon0_reset_value = 0xFFFC000EU;
 constexpr u32 scu_eicon1_reset_value = 0;
 constexpr u32 scu_eisr_reset_value = 0xFFFC0000U;
@@ -268,6 +269,8 @@ constexpr u32 reg_scu_fmr_address = 0xf0036224;
 constexpr u32 reg_scu_fmr_offset = reg_scu_fmr_address - scu_memory_start_address;
 constexpr u32 reg_scu_pdrr_address = 0xf0036228;
 constexpr u32 reg_scu_pdrr_offset = reg_scu_pdrr_address - scu_memory_start_address;
+constexpr u32 reg_scu_wdtcpu0_con0_address = 0xf003624c;
+constexpr u32 reg_scu_wdtcpu0_con0_offset = reg_scu_wdtcpu0_con0_address - scu_memory_start_address;
 constexpr u32 reg_scu_eicon0_address = 0xf003629c;
 constexpr u32 reg_scu_eicon0_offset = reg_scu_eicon0_address - scu_memory_start_address;
 constexpr u32 reg_scu_eicon1_address = 0xf00362a0;
@@ -377,6 +380,7 @@ Tricore::Peripherals::Scu::Scu()
     , m_scu_eifr(scu_eifr_reset_value)
     , m_scu_fmr(scu_fmr_reset_value)
     , m_scu_pdrr(scu_pdrr_reset_value)
+    , m_scu_wdtcpu0_con0(scu_wdtcpu0_con0_reset_value)
     , m_scu_eicon0(scu_eicon0_reset_value)
     , m_scu_eicon1(scu_eicon1_reset_value)
     , m_scu_eisr(scu_eisr_reset_value)
@@ -785,6 +789,11 @@ void Tricore::Peripherals::Scu::read(std::byte *buffer_out, u32 address, usize l
     case reg_scu_pdrr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PDRR in read mode");
             const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pdrr);
+            std::ranges::copy(range_start, range_start + length, buffer_out);
+        } break;
+    case reg_scu_wdtcpu0_con0_offset: {
+            spdlog::debug("SCU: accessing SCU.WDTCPU0_CON0 in read mode");
+            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_wdtcpu0_con0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_eicon0_offset: {
@@ -1252,6 +1261,11 @@ void Tricore::Peripherals::Scu::write(const std::byte *buffer_in, u32 address,
         spdlog::debug("SCU: accessing SCU.SCU_PDRR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
                           reinterpret_cast<std::byte *>(&m_scu_pdrr));
+    } break;
+    case reg_scu_wdtcpu0_con0_offset: {
+        spdlog::debug("SCU: accessing SCU.WDTCPU0_CON' in write mode");
+        std::ranges::copy(buffer_in, buffer_in + length,
+                          reinterpret_cast<std::byte *>(&m_scu_wdtcpu0_con0));
     } break;
     case reg_scu_eicon0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_EICON0 in write mode");

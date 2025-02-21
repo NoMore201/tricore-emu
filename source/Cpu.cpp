@@ -54,6 +54,7 @@ constexpr std::byte bytecode_mova_srr = std::byte{0x60};
 constexpr std::byte bytecode_mov_srr = std::byte{0x02};
 constexpr std::byte bytecode_movaa_srr = std::byte{0x40};
 constexpr std::byte bytecode_suba_sc = std::byte{0x20};
+constexpr std::byte bytecode_sth_bol = std::byte{0xF9};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -521,6 +522,9 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_suba_sc:
             insn_suba_sc();
+            break;
+        case bytecode_sth_bol:
+            insn_sth_bol();
             break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -1379,6 +1383,24 @@ void Tricore::Cpu::insn_suba_sc() {
     });
 
     m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_sth_bol() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: ST.H 0x{:08X}", insn);
+
+    BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16);
+        // M(EA, halfword) = D[a][15:0];
+        const u32 effective_address = m_address_registers.at(index_b) + off16;
+        const u16 value =
+            static_cast<u16>(m_data_registers.at(index_a) & 0xFFFFU);
+        write<u16>(effective_address, value);
+        spdlog::trace(
+            "==> Cpu: ST.H store value 0x{:04X} to memory address 0x{:08X}",
+            value, effective_address);
+    });
+    m_core_registers.pc += 4;
 }
 
 void Tricore::Cpu::insn_movaa_srr() {
