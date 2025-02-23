@@ -55,6 +55,8 @@ constexpr std::byte bytecode_mov_srr = std::byte{0x02};
 constexpr std::byte bytecode_movaa_srr = std::byte{0x40};
 constexpr std::byte bytecode_suba_sc = std::byte{0x20};
 constexpr std::byte bytecode_sth_bol = std::byte{0xF9};
+constexpr std::byte bytecode_sta_bol = std::byte{0xB5};
+constexpr std::byte bytecode_ldhu_bol = std::byte{0xB9};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -525,6 +527,12 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_sth_bol:
             insn_sth_bol();
+            break;
+        case bytecode_sta_bol:
+            insn_sta_bol();
+            break;
+        case bytecode_ldhu_bol:
+            insn_ldhu_bol();
             break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -1399,6 +1407,39 @@ void Tricore::Cpu::insn_sth_bol() {
         spdlog::trace(
             "==> Cpu: ST.H store value 0x{:04X} to memory address 0x{:08X}",
             value, effective_address);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_sta_bol() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: ST.A 0x{:08X}", insn);
+
+    BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16);
+        // M(EA, word) = A[a];
+        const u32 effective_address = m_address_registers.at(index_b) + off16;
+        write<u32>(effective_address, m_address_registers.at(index_a));
+        spdlog::trace(
+            "==> Cpu: ST.A store value 0x{:08X} to memory address 0x{:08X}",
+            m_address_registers.at(index_a), effective_address);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_ldhu_bol() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: LD.HU 0x{:08X}", insn);
+
+    BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16);
+        // D[a] = zero_ext(M(EA, halfword));
+        const u32 effective_address = m_address_registers.at(index_b) + off16;
+        const u16 value = read<u16>(effective_address);
+        m_data_registers.at(index_a) = static_cast<u32>(value);
+        spdlog::trace(
+            "==> Cpu: LD.HU loaded value 0x{:08X} from memory address 0x{:08X}",
+            m_data_registers.at(index_a), effective_address);
     });
     m_core_registers.pc += 4;
 }
