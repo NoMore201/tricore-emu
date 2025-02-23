@@ -1194,13 +1194,13 @@ void Tricore::Cpu::insn_sh_rc() {
         const i32 sign_extended_const9 =
             static_cast<i32>(Utils::sign_extend32<6>(const9_subset));
         if (sign_extended_const9 >= 0) {
-            spdlog::trace("==> Cpu: SH left value 0x{:08X} of {} positions",
+            spdlog::trace("==> Cpu: SH shift left value 0x{:08X} of {} positions",
                           m_data_registers.at(index_a), sign_extended_const9);
             m_data_registers.at(index_c) =
                 m_data_registers.at(index_a)
                 << static_cast<u32>(sign_extended_const9);
         } else {
-            spdlog::trace("==> Cpu: SH shift value 0x{:08X} of {} positions",
+            spdlog::trace("==> Cpu: SH shift right value 0x{:08X} of {} positions",
                           m_data_registers.at(index_a), -sign_extended_const9);
             m_data_registers.at(index_c) =
                 m_data_registers.at(index_a) >>
@@ -1216,10 +1216,10 @@ void Tricore::Cpu::insn_mova_src() {
     spdlog::trace("Cpu: MOV.A 0x{:04X}", insn);
 
     SrcFormatParser{insn}.parse([this](u32 index_a, u32 const4) {
-        // D[a] = zero_ext(const4);
-        spdlog::trace("==> Cpu: MOV.A value 0x{:08X} into D[{}]", const4,
+        // A[a] = zero_ext(const4);
+        spdlog::trace("==> Cpu: MOV.A value 0x{:08X} into A[{}]", const4,
                       index_a);
-        m_data_registers.at(index_a) = const4;
+        m_address_registers.at(index_a) = const4;
     });
 
     m_core_registers.pc += 2;
