@@ -45,8 +45,8 @@ constexpr std::byte bytecode_insert_rcpw = std::byte{0xB7};
 constexpr std::byte bytecode_or_srr = std::byte{0xA6};
 constexpr std::byte bytecode_stw_ssr = std::byte{0x74};
 constexpr std::byte bytecode_lha_abs = std::byte{0xC5};
-constexpr std::byte bytecode_ne_rc = std::byte{0x8B};
-constexpr std::byte bytecode_ne_rr = std::byte{0x0B};
+constexpr std::byte bytecode_8b_rc = std::byte{0x8B};
+constexpr std::byte bytecode_0b_rr = std::byte{0x0B};
 constexpr std::byte bytecode_addi_rlc = std::byte{0x1B};
 constexpr std::byte bytecode_mov_src = std::byte{0x82};
 constexpr std::byte bytecode_mova_src = std::byte{0xA0};
@@ -479,7 +479,7 @@ void Tricore::Cpu::start() {
         case bytecode_lha_abs:
             insn_lha_abs();
             break;
-        case bytecode_ne_rc: {
+        case bytecode_8b_rc: {
             const u32 insn = read<u32>(m_core_registers.pc);
             const u32 identifier = Utils::extract32(insn, 21U, 7U);
             switch (identifier) {
@@ -490,12 +490,12 @@ void Tricore::Cpu::start() {
                 insn_andne_rc();
                 break;
             default:
-                fail(fmt::format("NE (RC) instruction with identifier 0x{:02X} "
+                fail(fmt::format("0x8B (RC) instruction with identifier 0x{:02X} "
                                  "not implemented",
                                  identifier));
             }
         } break;
-        case bytecode_ne_rr: {
+        case bytecode_0b_rr: {
             const u32 insn = read<u32>(m_core_registers.pc);
             const u32 identifier = Utils::extract32(insn, 20U, 8U);
             switch (identifier) {
@@ -505,8 +505,11 @@ void Tricore::Cpu::start() {
             case 0x11U:
                 insn_ne_rr();
                 break;
+            case 0x19U:
+                insn_minu_rr();
+                break;
             default:
-                fail(fmt::format("NE (RR) instruction with identifier 0x{:02X} "
+                fail(fmt::format("0x0B (RR) instruction with identifier 0x{:02X} "
                                  "not implemented",
                                  identifier));
             }
@@ -1191,6 +1194,23 @@ void Tricore::Cpu::insn_ne_rr() {
             m_data_registers.at(index_c) = 0U;
         }
         spdlog::trace("==> Cpu: NE writing value 0x{:08X} in D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_minu_rr() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: MIN.U 0x{:08X}", insn);
+
+    RrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 index_c) {
+        // D[c] = (D[a] < D[b]) ? D[a] : D[b]; // unsigned
+        if (m_data_registers.at(index_a) < m_data_registers.at(index_b)) {
+            m_data_registers.at(index_c) = m_data_registers.at(index_a);
+        } else {
+            m_data_registers.at(index_c) = m_data_registers.at(index_b);
+        }
+        spdlog::trace("==> Cpu: MIN.U writing value 0x{:08X} in D[{}]",
                       m_data_registers.at(index_c), index_c);
     });
     m_core_registers.pc += 4;
