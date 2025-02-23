@@ -36,7 +36,7 @@ constexpr std::byte bytecode_8f_rc = std::byte{0x8F};
 constexpr std::byte bytecode_stb_bol = std::byte{0xE9};
 constexpr std::byte bytecode_jump_5f = std::byte{0x5F};
 constexpr std::byte bytecode_jltu_brc = std::byte{0xBF};
-constexpr std::byte bytecode_nop = std::byte{0x00};
+constexpr std::byte bytecode_00 = std::byte{0x00};
 constexpr std::byte bytecode_j_b = std::byte{0x1D};
 constexpr std::byte bytecode_jgeu_brc = std::byte{0xFF};
 constexpr std::byte bytecode_extru_rrpw = std::byte{0x37};
@@ -452,9 +452,21 @@ void Tricore::Cpu::start() {
         case bytecode_jltu_brc:
             insn_jltu_brc();
             break;
-        case bytecode_nop:
-            insn_nop();
-            break;
+        case bytecode_00: {
+            const u16 insn = read<u16>(m_core_registers.pc);
+            const u32 identifier = Utils::extract32(insn, 12U, 4U);
+            switch (identifier) {
+            case 0x00U:
+                insn_nop();
+                break;
+            case 0x09U:
+                // TODO: implement RET
+            default:
+                fail(fmt::format("0x00 instruction with identifier 0x{:02X} "
+                                 "not implemented",
+                                 identifier));
+            }
+        } break;
         case bytecode_j_b:
             insn_j_b();
             break;
@@ -490,9 +502,10 @@ void Tricore::Cpu::start() {
                 insn_andne_rc();
                 break;
             default:
-                fail(fmt::format("0x8B (RC) instruction with identifier 0x{:02X} "
-                                 "not implemented",
-                                 identifier));
+                fail(fmt::format(
+                    "0x8B (RC) instruction with identifier 0x{:02X} "
+                    "not implemented",
+                    identifier));
             }
         } break;
         case bytecode_0b_rr: {
@@ -509,9 +522,10 @@ void Tricore::Cpu::start() {
                 insn_minu_rr();
                 break;
             default:
-                fail(fmt::format("0x0B (RR) instruction with identifier 0x{:02X} "
-                                 "not implemented",
-                                 identifier));
+                fail(fmt::format(
+                    "0x0B (RR) instruction with identifier 0x{:02X} "
+                    "not implemented",
+                    identifier));
             }
         } break;
         case bytecode_addi_rlc:
