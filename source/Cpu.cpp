@@ -17,6 +17,7 @@ constexpr std::byte bytecode_mov_rlc = std::byte{0x3B};
 constexpr std::byte bytecode_lea_bol = std::byte{0xD9};
 constexpr std::byte bytecode_ji_sr = std::byte{0xDC};
 constexpr std::byte bytecode_mtcr = std::byte{0xCD};
+constexpr std::byte bytecode_mfcr = std::byte{0x4D};
 constexpr std::byte bytecode_sync = std::byte{0x0D};
 constexpr std::byte bytecode_ldw_slr = std::byte{0x54};
 constexpr std::byte bytecode_ldw_bol = std::byte{0x19};
@@ -57,6 +58,7 @@ constexpr std::byte bytecode_suba_sc = std::byte{0x20};
 constexpr std::byte bytecode_sth_bol = std::byte{0xF9};
 constexpr std::byte bytecode_sta_bol = std::byte{0xB5};
 constexpr std::byte bytecode_ldhu_bol = std::byte{0xB9};
+constexpr std::byte bytecode_lda_bol = std::byte{0x99};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -229,6 +231,8 @@ u32 &Tricore::Cpu::CoreRegisters::operator[](usize offset) {
         return pc;
     case 0xFE14U:
         return syscon;
+    case 0xFE1CU:
+        return core_id;
     case 0xFE38U:
         return fcx;
     case 0xFE3CU:
@@ -319,6 +323,9 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_mtcr:
             insn_mtcr();
+            break;
+        case bytecode_mfcr:
+            insn_mfcr();
             break;
         case bytecode_sync: {
             const u32 insn = read<u32>(m_core_registers.pc);
@@ -413,6 +420,9 @@ void Tricore::Cpu::start() {
                 break;
             case 0x0U:
                 insn_sh_rc();
+                break;
+            case 0x08U:
+                insn_and_rc();
                 break;
             default:
                 fail(fmt::format(
@@ -534,6 +544,9 @@ void Tricore::Cpu::start() {
         case bytecode_ldhu_bol:
             insn_ldhu_bol();
             break;
+        case bytecode_lda_bol:
+            insn_lda_bol();
+            break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
                              insn_opcode));
@@ -597,9 +610,21 @@ void Tricore::Cpu::insn_ji_sr() {
 void Tricore::Cpu::insn_mtcr() {
     const auto insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: MTCR 0x{:08X}", insn);
-    const auto data_index = Utils::extract32(insn, 8, 4);
-    const auto const16 = Utils::extract32(insn, 12, 16);
-    m_core_registers[const16] = m_data_registers.at(data_index);
+    RlcFormatParser{insn}.parse([this](u32 index_a, u32, u32 const16) {
+        // CR[const16] = D[a];
+        m_core_registers[const16] = m_data_registers.at(index_a);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_mfcr() {
+    const auto insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: MFCR 0x{:08X}", insn);
+
+    RlcFormatParser{insn}.parse([this](u32, u32 index_c, u32 const16) {
+        // D[c] = CR[const16];
+        m_data_registers.at(index_c) = m_core_registers[const16];
+    });
     m_core_registers.pc += 4;
 }
 
@@ -842,6 +867,20 @@ void Tricore::Cpu::insn_or_rc() {
         // D[c] = D[a] | zero_ext(const9)
         m_data_registers.at(index_c) = m_data_registers.at(index_a) | const9;
         spdlog::trace("==> Cpu: OR store result 0x{:08X} into D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_and_rc() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: AND 0x{:08X}", insn);
+
+    RcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const9) {
+        // D[c] = D[a] & zero_ext(const9);
+        m_data_registers.at(index_c) = m_data_registers.at(index_a) & const9;
+        spdlog::trace("==> Cpu: AND store result 0x{:08X} into D[{}]",
                       m_data_registers.at(index_c), index_c);
     });
 
@@ -1202,14 +1241,16 @@ void Tricore::Cpu::insn_sh_rc() {
         const i32 sign_extended_const9 =
             static_cast<i32>(Utils::sign_extend32<6>(const9_subset));
         if (sign_extended_const9 >= 0) {
-            spdlog::trace("==> Cpu: SH shift left value 0x{:08X} of {} positions",
-                          m_data_registers.at(index_a), sign_extended_const9);
+            spdlog::trace(
+                "==> Cpu: SH shift left value 0x{:08X} of {} positions",
+                m_data_registers.at(index_a), sign_extended_const9);
             m_data_registers.at(index_c) =
                 m_data_registers.at(index_a)
                 << static_cast<u32>(sign_extended_const9);
         } else {
-            spdlog::trace("==> Cpu: SH shift right value 0x{:08X} of {} positions",
-                          m_data_registers.at(index_a), -sign_extended_const9);
+            spdlog::trace(
+                "==> Cpu: SH shift right value 0x{:08X} of {} positions",
+                m_data_registers.at(index_a), -sign_extended_const9);
             m_data_registers.at(index_c) =
                 m_data_registers.at(index_a) >>
                 static_cast<u32>(-sign_extended_const9);
@@ -1437,9 +1478,27 @@ void Tricore::Cpu::insn_ldhu_bol() {
         const u32 effective_address = m_address_registers.at(index_b) + off16;
         const u16 value = read<u16>(effective_address);
         m_data_registers.at(index_a) = static_cast<u32>(value);
-        spdlog::trace(
-            "==> Cpu: LD.HU loaded value 0x{:08X} from memory address 0x{:08X}",
-            m_data_registers.at(index_a), effective_address);
+        spdlog::trace("==> Cpu: LD.HU loaded value 0x{:08X} from memory "
+                      "address 0x{:08X} to D[{}]",
+                      m_data_registers.at(index_a), effective_address, index_a);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_lda_bol() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: LD.A 0x{:08X}", insn);
+
+    BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16);
+        // A[a] = M(EA, word);
+        const u32 effective_address = m_address_registers.at(index_b) + off16;
+        const u32 value = read<u32>(effective_address);
+        m_address_registers.at(index_a) = static_cast<u32>(value);
+        spdlog::trace("==> Cpu: LD.A loaded value 0x{:08X} from memory address "
+                      "0x{:08X} to A[{}]",
+                      m_address_registers.at(index_a), effective_address,
+                      index_a);
     });
     m_core_registers.pc += 4;
 }
