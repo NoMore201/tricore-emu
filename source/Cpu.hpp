@@ -96,6 +96,9 @@ private:
     void insn_sth_bol();
     void insn_sta_bol();
     void insn_ldhu_bol();
+    void insn_lda_bol();
+    void insn_and_rc();
+    void insn_mfcr();
 
     // Helpers
 
