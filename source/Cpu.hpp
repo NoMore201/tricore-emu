@@ -9,6 +9,7 @@
 #include "Peripherals/Pms.hpp"
 #include "Peripherals/Scu.hpp"
 #include "Peripherals/Stm.hpp"
+#include "Peripherals/Smu.hpp"
 #include "Types.hpp"
 
 #include <fmt/format.h>
@@ -102,6 +103,7 @@ private:
     void insn_minu_rr();
     void insn_ldh_bol();
     void insn_ret_sr();
+    void insn_movu_rlc();
 
     // Helpers
 
@@ -176,6 +178,7 @@ private:
     Peripherals::Cpu m_cpu;
     Peripherals::Mtu m_mtu;
     Peripherals::Stm m_stm;
+    Peripherals::Smu m_smu;
 };
 
 } // namespace Tricore

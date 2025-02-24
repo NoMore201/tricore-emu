@@ -10,11 +10,13 @@
 #include "BusClient.hpp"
 #include "Types.hpp"
 
-namespace Tricore {
+namespace Tricore::Peripherals {
 
 class Smu : public BusClient {
 
 public:
+
+    static constexpr usize AlarmConfigRegisterNumber = 12;
 
     Smu();
 
@@ -47,7 +49,9 @@ private:
     u32 m_smu_ocs;
     u32 m_smu_accen1;
     u32 m_smu_accen0;
+    u32 m_smu_agcf[AlarmConfigRegisterNumber][3];
+    
 
 };
 
-} // namespace Tricore
+} // namespace Tricore::Peripherals

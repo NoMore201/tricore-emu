@@ -60,6 +60,7 @@ constexpr std::byte bytecode_sta_bol = std::byte{0xB5};
 constexpr std::byte bytecode_ldhu_bol = std::byte{0xB9};
 constexpr std::byte bytecode_lda_bol = std::byte{0x99};
 constexpr std::byte bytecode_ldh_bol = std::byte{0xC9};
+constexpr std::byte bytecode_movu_rlc = std::byte{0xBB};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -302,6 +303,7 @@ void Tricore::Cpu::init(Elf &elf_file) {
     m_bus_clients.push_back(&m_cpu);
     m_bus_clients.push_back(&m_stm);
     m_bus_clients.push_back(&m_mtu);
+    m_bus_clients.push_back(&m_smu);
 
     // TODO: register other peripherals as bus clients
 }
@@ -570,6 +572,9 @@ void Tricore::Cpu::start() {
         case bytecode_ldh_bol:
             insn_ldh_bol();
             break;
+        case bytecode_movu_rlc:
+            insn_movu_rlc();
+            break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
                              insn_opcode));
@@ -597,6 +602,20 @@ void Tricore::Cpu::insn_mov_rlc() {
         const u32 sign_ext_const16 = Utils::sign_extend32<16>(const16);
         m_data_registers.at(index_c) = sign_ext_const16;
         spdlog::trace("==> Cpu: MOV final value 0x{:08X} to D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_movu_rlc() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: MOV.U 0x{:08X}", insn);
+
+    RlcFormatParser{insn}.parse([this](u32, u32 index_c, u32 const16) {
+        // D[c] = zero_ext(const16);
+        m_data_registers.at(index_c) = const16;
+        spdlog::trace("==> Cpu: MOV.U final value 0x{:08X} to D[{}]",
                       m_data_registers.at(index_c), index_c);
     });
 
