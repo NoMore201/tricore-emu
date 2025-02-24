@@ -100,6 +100,8 @@ private:
     void insn_and_rc();
     void insn_mfcr();
     void insn_minu_rr();
+    void insn_ldh_bol();
+    void insn_ret_sr();
 
     // Helpers
 
