@@ -59,6 +59,7 @@ constexpr std::byte bytecode_sth_bol = std::byte{0xF9};
 constexpr std::byte bytecode_sta_bol = std::byte{0xB5};
 constexpr std::byte bytecode_ldhu_bol = std::byte{0xB9};
 constexpr std::byte bytecode_lda_bol = std::byte{0x99};
+constexpr std::byte bytecode_ldh_bol = std::byte{0xC9};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -461,6 +462,8 @@ void Tricore::Cpu::start() {
                 break;
             case 0x09U:
                 // TODO: implement RET
+                insn_ret_sr();
+                break;
             default:
                 fail(fmt::format("0x00 instruction with identifier 0x{:02X} "
                                  "not implemented",
@@ -563,6 +566,9 @@ void Tricore::Cpu::start() {
             break;
         case bytecode_lda_bol:
             insn_lda_bol();
+            break;
+        case bytecode_ldh_bol:
+            insn_ldh_bol();
             break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
@@ -1352,43 +1358,43 @@ void Tricore::Cpu::insn_call_32() {
     const u32 return_address = m_core_registers.pc + 4U;
 
     const u32 tmp_fcx = m_core_registers.fcx;
-    u32 effective_fcx_address = Utils::extract32(tmp_fcx, 16, 4) << 28U;
-    effective_fcx_address |= Utils::extract32(tmp_fcx, 0, 16) << 6U;
+    u32 current_context_address = Utils::extract32(tmp_fcx, 16, 4) << 28U;
+    current_context_address |= Utils::extract32(tmp_fcx, 0, 16) << 6U;
 
-    const u32 new_fcx = read<u32>(effective_fcx_address);
-    write<u32>(effective_fcx_address, m_core_registers.pcxi);
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_core_registers.psw);
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_address_registers.at(10));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_address_registers.at(11));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_data_registers.at(8));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_data_registers.at(9));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_data_registers.at(10));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_data_registers.at(11));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_address_registers.at(12));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_address_registers.at(13));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_address_registers.at(14));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_address_registers.at(15));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_data_registers.at(12));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_data_registers.at(13));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_data_registers.at(14));
-    effective_fcx_address += 4;
-    write<u32>(effective_fcx_address, m_data_registers.at(15));
+    const u32 new_fcx = read<u32>(current_context_address);
+    write<u32>(current_context_address, m_core_registers.pcxi);
+    current_context_address += 4;
+    write<u32>(current_context_address, m_core_registers.psw);
+    current_context_address += 4;
+    write<u32>(current_context_address, m_address_registers.at(10));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_address_registers.at(11));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_data_registers.at(8));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_data_registers.at(9));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_data_registers.at(10));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_data_registers.at(11));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_address_registers.at(12));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_address_registers.at(13));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_address_registers.at(14));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_address_registers.at(15));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_data_registers.at(12));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_data_registers.at(13));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_data_registers.at(14));
+    current_context_address += 4;
+    write<u32>(current_context_address, m_data_registers.at(15));
 
-    spdlog::trace("==> Cpu: CALL FCX pointer 0x{:08X}", effective_fcx_address);
+    spdlog::trace("==> Cpu: CALL FCX pointer 0x{:08X}", current_context_address);
 
     const u32 ccpn = Utils::extract32(m_core_registers.icr, 0, 8);
     m_core_registers.pcxi =
@@ -1403,13 +1409,13 @@ void Tricore::Cpu::insn_call_32() {
     // PCXI.UL = 1
     m_core_registers.pcxi = Utils::deposit32(1U, 20, 1, m_core_registers.pcxi);
 
-    // PCXI.PCXO = FCX
+    // PCXI.PCX (PCXO + PCXS) = FCX
     m_core_registers.pcxi =
-        Utils::deposit32(tmp_fcx, 0, 16, m_core_registers.pcxi);
+        Utils::deposit32(tmp_fcx, 0, 20, m_core_registers.pcxi);
 
-    // FCX.FCXO = new_FCX
+    // FCX = new_FCX
     m_core_registers.fcx =
-        Utils::deposit32(new_fcx, 0, 16, m_core_registers.fcx);
+        Utils::deposit32(new_fcx, 0, 20, m_core_registers.fcx);
 
     const u32 disp24 =
         Utils::extract32(insn, 16, 16) | (Utils::extract32(insn, 8, 8) << 16U);
@@ -1417,7 +1423,7 @@ void Tricore::Cpu::insn_call_32() {
     const u32 sign_extended_disp24 = Utils::sign_extend32<24>(disp24 * 2U);
 
     m_core_registers.pc += sign_extended_disp24;
-    spdlog::trace("==> Cpu: CALL PC=0x{:02X}", m_core_registers.pc);
+    spdlog::trace("==> Cpu: CALL PC=0x{:08X}", m_core_registers.pc);
 
     m_address_registers.at(11) = return_address;
 
@@ -1438,6 +1444,106 @@ void Tricore::Cpu::insn_mova_srr() {
     });
 
     m_core_registers.pc += 2;
+}
+
+void Tricore::Cpu::insn_ret_sr() {
+    const auto insn = read<u16>(m_core_registers.pc);
+    spdlog::trace("Cpu: RET 0x{:04X}", insn);
+
+    // if (PSW.CDE) then if (cdc_decrement()) then trap(CDU);
+    const u32 call_depth_enable = Utils::extract32(m_core_registers.psw, 7, 1);
+    if (call_depth_enable != 0U) {
+        const u32 call_depth_counter =
+            Utils::extract32(m_core_registers.psw, 0, 7);
+        if (call_depth_counter < 0x7FU) {
+            u32 leading_ones = 0;
+
+            for (u32 shift = 6U; shift > 1U; shift--) {
+                if ((call_depth_counter & (1U << shift)) != 0) {
+                    leading_ones++;
+                } else {
+                    break;
+                }
+            }
+
+            Ensures(leading_ones <= 6U);
+
+            const u32 counter_bits = 6U - leading_ones;
+            u32 filtered_depth_counter =
+                Utils::extract32(call_depth_counter, 0, counter_bits);
+            if (filtered_depth_counter == 0U) {
+                fail("CALL TRAP (CDU) => Call Depth Counter underflow");
+            }
+
+            filtered_depth_counter -= 1U;
+            m_core_registers.psw = Utils::deposit32(
+                filtered_depth_counter, 0, counter_bits, m_core_registers.psw);
+        }
+    }
+
+    const u32 segment_address = Utils::extract32(m_core_registers.pcxi, 0, 20);
+    if (segment_address == 0U) {
+        fail("CALL TRAP (CSU) => Context Save underflow");
+    }
+
+    const u32 context_type = Utils::extract32(m_core_registers.pcxi, 20, 1);
+    if (context_type == 0U) {
+        fail("CALL TRAP (CTYP) => Wrong context type");
+    }
+
+    m_core_registers.pc = m_address_registers.at(11) & ~0x1U;
+    spdlog::trace("==> Cpu: RET restore PC=0x{:08X}", m_core_registers.pc);
+
+    const u32 pcxo = Utils::extract32(m_core_registers.pcxi, 0, 16);
+    const u32 pcxs = Utils::extract32(m_core_registers.pcxi, 16, 4);
+
+    const u32 effective_address = (pcxo << 6U) | (pcxs << 28U);
+    u32 previous_context_address = effective_address;
+    spdlog::trace("==> Cpu: RET restore upper context from address 0x{:08X}", previous_context_address);
+
+    const u32 new_pcxi = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    const u32 new_psw = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_address_registers.at(10) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_address_registers.at(11) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_data_registers.at(8) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_data_registers.at(9) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_data_registers.at(10) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_data_registers.at(11) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_address_registers.at(12) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_address_registers.at(13) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_address_registers.at(14) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_address_registers.at(15) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_data_registers.at(12) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_data_registers.at(13) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_data_registers.at(14) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+    m_data_registers.at(15) = read<u32>(previous_context_address);
+    previous_context_address += 4;
+
+    // Set "next" pointer in previous context area to the current CSA
+    write<u32>(effective_address, m_core_registers.fcx);
+
+    // Restore active CSA pointer to previous one
+    m_core_registers.fcx = Utils::deposit32(pcxo, 0, 16, m_core_registers.fcx);
+    m_core_registers.fcx = Utils::deposit32(pcxs, 16, 4, m_core_registers.fcx);
+
+    m_core_registers.pcxi = new_pcxi;
+    u32 mask = 0x3U << 24U;
+    m_core_registers.psw = (m_core_registers.psw & mask) | (new_psw & (~mask));
 }
 
 void Tricore::Cpu::insn_mov_srr() {
@@ -1528,11 +1634,29 @@ void Tricore::Cpu::insn_lda_bol() {
         // A[a] = M(EA, word);
         const u32 effective_address = m_address_registers.at(index_b) + off16;
         const u32 value = read<u32>(effective_address);
-        m_address_registers.at(index_a) = static_cast<u32>(value);
+        m_address_registers.at(index_a) = value;
         spdlog::trace("==> Cpu: LD.A loaded value 0x{:08X} from memory address "
                       "0x{:08X} to A[{}]",
                       m_address_registers.at(index_a), effective_address,
                       index_a);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_ldh_bol() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: LD.H 0x{:08X}", insn);
+
+    BolFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 off16) {
+        // EA = A[b] + sign_ext(off16);
+        // D[a] = sign_ext(M(EA, halfword));
+        const u32 effective_address = m_address_registers.at(index_b) + off16;
+        const u16 value = read<u16>(effective_address);
+        m_data_registers.at(index_a) =
+            Utils::sign_extend32<16>(static_cast<u32>(value));
+        spdlog::trace("==> Cpu: LD.H loaded value 0x{:08X} from memory address "
+                      "0x{:08X} to D[{}]",
+                      m_data_registers.at(index_a), effective_address, index_a);
     });
     m_core_registers.pc += 4;
 }
