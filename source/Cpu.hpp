@@ -104,6 +104,7 @@ private:
     void insn_ldh_bol();
     void insn_ret_sr();
     void insn_movu_rlc();
+    void insn_not_sr();
 
     // Helpers
 

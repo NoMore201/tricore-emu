@@ -61,6 +61,7 @@ constexpr std::byte bytecode_ldhu_bol = std::byte{0xB9};
 constexpr std::byte bytecode_lda_bol = std::byte{0x99};
 constexpr std::byte bytecode_ldh_bol = std::byte{0xC9};
 constexpr std::byte bytecode_movu_rlc = std::byte{0xBB};
+constexpr std::byte bytecode_not_sr = std::byte{0x46};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -575,6 +576,9 @@ void Tricore::Cpu::start() {
         case bytecode_movu_rlc:
             insn_movu_rlc();
             break;
+        case bytecode_not_sr:
+            insn_not_sr();
+            break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
                              insn_opcode));
@@ -647,6 +651,15 @@ void Tricore::Cpu::insn_ji_sr() {
         m_address_registers.at(addr_index) & ((~0U) - 1U);
     spdlog::trace("==> Cpu: JI final address 0x{:08X}", final_address);
     m_core_registers.pc = final_address;
+}
+
+void Tricore::Cpu::insn_not_sr() {
+    const auto insn = read<u16>(m_core_registers.pc);
+    spdlog::trace("Cpu: NOT 0x{:04X}", insn);
+    const auto index_a = Utils::extract32(insn, 8, 4);
+    m_data_registers.at(index_a) = ~m_data_registers.at(index_a);
+    spdlog::trace("==> Cpu: NOT result 0x{:08X}", m_data_registers.at(index_a));
+    m_core_registers.pc += 2;
 }
 
 void Tricore::Cpu::insn_mtcr() {
@@ -1413,7 +1426,8 @@ void Tricore::Cpu::insn_call_32() {
     current_context_address += 4;
     write<u32>(current_context_address, m_data_registers.at(15));
 
-    spdlog::trace("==> Cpu: CALL FCX pointer 0x{:08X}", current_context_address);
+    spdlog::trace("==> Cpu: CALL FCX pointer 0x{:08X}",
+                  current_context_address);
 
     const u32 ccpn = Utils::extract32(m_core_registers.icr, 0, 8);
     m_core_registers.pcxi =
@@ -1518,7 +1532,8 @@ void Tricore::Cpu::insn_ret_sr() {
 
     const u32 effective_address = (pcxo << 6U) | (pcxs << 28U);
     u32 previous_context_address = effective_address;
-    spdlog::trace("==> Cpu: RET restore upper context from address 0x{:08X}", previous_context_address);
+    spdlog::trace("==> Cpu: RET restore upper context from address 0x{:08X}",
+                  previous_context_address);
 
     const u32 new_pcxi = read<u32>(previous_context_address);
     previous_context_address += 4;
