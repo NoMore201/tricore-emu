@@ -18,6 +18,9 @@ using i64  = std::int64_t;
 
 using usize = std::size_t;
 
+using f32 = float;
+using f64 = double;
+
 static constexpr usize KiB = 1024ULL;
 static constexpr usize MiB = 1024ULL * 1024ULL;
 
