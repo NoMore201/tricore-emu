@@ -62,6 +62,7 @@ constexpr std::byte bytecode_lda_bol = std::byte{0x99};
 constexpr std::byte bytecode_ldh_bol = std::byte{0xC9};
 constexpr std::byte bytecode_movu_rlc = std::byte{0xBB};
 constexpr std::byte bytecode_not_sr = std::byte{0x46};
+constexpr std::byte bytecode_4b = std::byte{0x4B};
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
@@ -428,6 +429,9 @@ void Tricore::Cpu::start() {
             case 0x08U:
                 insn_and_rc();
                 break;
+            case 0x0EU:
+                insn_andn_rc();
+                break;
             default:
                 fail(fmt::format(
                     "0x{:02X} opcode with identifier 0x{:02X} not implemented",
@@ -527,6 +531,9 @@ void Tricore::Cpu::start() {
             case 0x19U:
                 insn_minu_rr();
                 break;
+            case 0x08U:
+                insn_sub_rr();
+                break;
             default:
                 fail(fmt::format(
                     "0x0B (RR) instruction with identifier 0x{:02X} "
@@ -579,6 +586,23 @@ void Tricore::Cpu::start() {
         case bytecode_not_sr:
             insn_not_sr();
             break;
+        case bytecode_4b: {
+            const u32 insn = read<u32>(m_core_registers.pc);
+            const u32 identifier = Utils::extract32(insn, 20U, 8U);
+            switch (identifier) {
+            case 0x21U:
+                insn_divu_rr();
+                break;
+            case 0x16U:
+                insn_utof_rr();
+                break;
+            default:
+                fail(fmt::format(
+                    "0x4B (RR) instruction with identifier 0x{:02X} "
+                    "not implemented",
+                    identifier));
+            }
+        } break;
         default:
             fail(fmt::format("Instruction with opcode 0x{:02X} not implemented",
                              insn_opcode));
@@ -942,6 +966,20 @@ void Tricore::Cpu::insn_and_rc() {
     m_core_registers.pc += 4;
 }
 
+void Tricore::Cpu::insn_andn_rc() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: ANDN 0x{:08X}", insn);
+
+    RcFormatParser{insn}.parse([this](u32 index_a, u32 index_c, u32 const9) {
+        // D[c] = D[a] & ~zero_ext(const9);
+        m_data_registers.at(index_c) = m_data_registers.at(index_a) & ~const9;
+        spdlog::trace("==> Cpu: ANDN store result 0x{:08X} into D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+
+    m_core_registers.pc += 4;
+}
+
 void Tricore::Cpu::insn_stb_bol() {
     u32 insn = read<u32>(m_core_registers.pc);
     spdlog::trace("Cpu: ST.B 0x{:08X}", insn);
@@ -1263,6 +1301,72 @@ void Tricore::Cpu::insn_minu_rr() {
             m_data_registers.at(index_c) = m_data_registers.at(index_b);
         }
         spdlog::trace("==> Cpu: MIN.U writing value 0x{:08X} in D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_divu_rr() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: DIV.U 0x{:08X}", insn);
+
+    RrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 index_c) {
+        const u32 dividend = m_data_registers.at(index_a);
+        const u32 divisor = m_data_registers.at(index_b);
+        u32 quotient{};
+        u32 remainder{};
+        bool overflow{};
+
+        if (divisor == 0) {
+            quotient = 0xFFFFFFFFU;
+            remainder = 0;
+        } else {
+            remainder = dividend % divisor;
+            quotient = (dividend - remainder) / divisor;
+        }
+
+        if (divisor == 0 ||
+            (divisor == 0xFFFFFFFFU && dividend == 0x80000000U)) {
+            overflow = true;
+        }
+
+        m_data_registers.at(index_c) = quotient;
+        m_data_registers.at(index_c + 1ULL) = remainder;
+
+        // TODO: update status register
+
+        const u64 final_value =
+            quotient | (static_cast<u64>(remainder) << 32ULL);
+        spdlog::trace("==> Cpu: DIV.U writing value 0x{:016X} in E[{}]",
+                      final_value, index_c);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_sub_rr() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: SUB 0x{:08X}", insn);
+
+    RrFormatParser{insn}.parse([this](u32 index_a, u32 index_b, u32 index_c) {
+        // D[c] = D[a] - D[b]
+        m_data_registers.at(index_c) =
+            m_data_registers.at(index_a) - m_data_registers.at(index_b);
+        spdlog::trace("==> Cpu: SUB writing value 0x{:08X} in D[{}]",
+                      m_data_registers.at(index_c), index_c);
+    });
+    m_core_registers.pc += 4;
+}
+
+void Tricore::Cpu::insn_utof_rr() {
+    u32 insn = read<u32>(m_core_registers.pc);
+    spdlog::trace("Cpu: UTOF 0x{:08X}", insn);
+
+    RrFormatParser{insn}.parse([this](u32 index_a, u32, u32 index_c) {
+        // Default rounding mode is nearest. TODO: check which rounding x86 performs
+        f32 converted = static_cast<f32>(m_data_registers.at(index_a));
+        spdlog::trace("==> Cpu: UTOF extracted float {}", converted);
+        m_data_registers.at(index_c) = static_cast<u32>(converted);
+        spdlog::trace("==> Cpu: UTOF writing value 0x{:08X} in D[{}]",
                       m_data_registers.at(index_c), index_c);
     });
     m_core_registers.pc += 4;

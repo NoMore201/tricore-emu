@@ -105,6 +105,10 @@ private:
     void insn_ret_sr();
     void insn_movu_rlc();
     void insn_not_sr();
+    void insn_andn_rc();
+    void insn_divu_rr();
+    void insn_sub_rr();
+    void insn_utof_rr();
 
     // Helpers
 
