@@ -1,0 +1,21 @@
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# Python
+.venv/
+
+# Build
+out/
+cmake-build-*/
+prefix/
+**/.DS_Store
+
+# CMake user overrides
+CMakeLists.txt.user
+CMakeUserPresets.json
+
+# Clangd cache
+.cache
+compile_commands.json
