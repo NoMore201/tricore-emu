@@ -20,14 +20,14 @@ pub fn parse_elf_section_headers(file_data: &[u8]) -> Result<Vec<SectionHeader>,
                 let (data_slice, _) = file.section_data(&section)?;
                 let string_name = string_table.get(section.sh_name as usize)?;
                 final_list.push(SectionHeader {
-                    name: string_name.clone(),
-                    data: data_slice.clone(),
+                    name: string_name,
+                    data: data_slice,
                 });
             }
-            return Ok(final_list);
+            Ok(final_list)
         }
         (_, _) => {
-            return Err(Box::from(ParseError::BadOffset(0u64)));
+            Err(Box::from(ParseError::BadOffset(0u64)))
         }
     }
 }
