@@ -24,7 +24,7 @@ fn main() {
         match example_file {
             Ok(list) => {
                 for sh in list.iter() {
-                    println!("Section {} length= {}", sh.name, sh.data.len());
+                    println!("Section {} address=0x{:08X} length={}", sh.name, sh.address, sh.data.len());
                 }
             },
             Err(e) => {

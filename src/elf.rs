@@ -3,9 +3,10 @@ use elf::{ElfBytes, ParseError};
 
 use std::error::Error;
 
-pub struct SectionHeader<'data> {
-    pub name: &'data str,
-    pub data: &'data [u8],
+pub struct SectionHeader {
+    pub name: String,
+    pub data: Vec<u8>,
+    pub address: u32
 }
 
 pub fn parse_elf_section_headers(file_data: &[u8]) -> Result<Vec<SectionHeader>, Box<dyn Error>> {
@@ -20,8 +21,9 @@ pub fn parse_elf_section_headers(file_data: &[u8]) -> Result<Vec<SectionHeader>,
                 let (data_slice, _) = file.section_data(&section)?;
                 let string_name = string_table.get(section.sh_name as usize)?;
                 final_list.push(SectionHeader {
-                    name: string_name,
-                    data: data_slice,
+                    name: string_name.into(),
+                    data: data_slice.into(),
+                    address: section.sh_addr as u32
                 });
             }
             Ok(final_list)
