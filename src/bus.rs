@@ -1,27 +1,29 @@
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::rc::Rc;
 
 pub enum BusError {
     InvalidAddress(u32),
 }
 
 pub trait BusClient {
+    /// Read bytes at provided address. Number of bytes to read is equal to
+    /// data length
     fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError>;
 
+    /// Write data at provided address. Number of bytes to read is equal to
+    /// data length
     fn write(&mut self, address: u32, data: &[u8]) -> Result<(), BusError>;
-
-    /// returns true if this bus client handles the provided address. Returns
-    /// false otherwise
-    fn address_is_managed(&self, address: u32) -> bool;
 }
 
-pub struct BusHandler {
+/// Collect devices connected to the bus and forward read/write
+/// request to all devices listening
+pub struct BusForwarder {
     registered_devices: Vec<Rc<RefCell<dyn BusClient>>>,
 }
 
-impl BusHandler {
+impl BusForwarder {
     pub fn new() -> Self {
-        BusHandler {
+        BusForwarder {
             registered_devices: Vec::new(),
         }
     }
@@ -31,12 +33,14 @@ impl BusHandler {
     }
 }
 
-impl BusClient for BusHandler {
+impl BusClient for BusForwarder {
     fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
         for dev in self.registered_devices.iter() {
-            if self.address_is_managed(address) {
-                return dev.borrow().read(address, data);
+            let result = dev.borrow().read(address, data);
+            if result.is_err() {
+                continue;
             }
+            return result;
         }
 
         Err(BusError::InvalidAddress(address))
@@ -44,56 +48,42 @@ impl BusClient for BusHandler {
 
     fn write(&mut self, address: u32, data: &[u8]) -> Result<(), BusError> {
         for dev in self.registered_devices.iter() {
-            if self.address_is_managed(address) {
-                return dev.borrow_mut().write(address, data);
+            let result = dev.borrow_mut().write(address, data);
+            if result.is_err() {
+                continue;
             }
+            return result;
         }
 
         Err(BusError::InvalidAddress(address))
-    }
-
-    fn address_is_managed(&self, address: u32) -> bool {
-        self.registered_devices
-            .iter()
-            .any(|d| d.borrow().address_is_managed(address))
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{BusClient, BusHandler};
-    use std::rc::Rc;
+    use super::{BusClient, BusError, BusForwarder};
     use std::cell::RefCell;
+    use std::rc::Rc;
 
-    struct SampleClient {
-        address: u32,
-        buffer: Vec<u8>,
-    }
+    struct SampleClient {}
 
     impl BusClient for SampleClient {
-        fn read(&self, address: u32, data: &mut [u8]) -> Result<(), super::BusError> {
+        fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
             Ok(())
         }
 
-        fn write(&mut self, address: u32, data: &[u8]) -> Result<(), super::BusError> {
-            self.address = address;
-            self.buffer.extend_from_slice(data);
+        fn write(&mut self, address: u32, data: &[u8]) -> Result<(), BusError> {
             Ok(())
-        }
-
-        fn address_is_managed(&self, address: u32) -> bool {
-            true
         }
     }
 
     #[test]
     fn test_bus_handler() {
-        let mut handler = BusHandler::new();
-        let sample_client = Rc::new(RefCell::new(SampleClient {
-            address: 1234,
-            buffer: Vec::new(),
-        }));
-        handler.register_device(sample_client);
-        assert_eq!(handler.registered_devices.len(), 1);
+        let mut handler = BusForwarder::new();
+        let sample_client1 = Rc::new(RefCell::new(SampleClient {}));
+        let sample_client2 = Rc::new(RefCell::new(SampleClient {}));
+        handler.register_device(sample_client1);
+        handler.register_device(sample_client2);
+        assert_eq!(handler.registered_devices.len(), 2);
     }
 }

@@ -1,7 +1,7 @@
 use std::{cell::RefCell, rc::Rc};
 
 use crate::{
-    bus::{BusClient, BusError, BusHandler},
+    bus::{BusClient, BusError, BusForwarder},
     config::MachineConfig,
 };
 
@@ -15,8 +15,7 @@ struct MemoryRegionAlias {}
 
 pub struct Machine {
     memory_regions: Vec<Rc<RefCell<MemoryArea>>>,
-
-    bus_handler: BusHandler, // TODO add cpu
+    bus_handler: BusForwarder,
 }
 
 impl MemoryArea {
@@ -26,6 +25,10 @@ impl MemoryArea {
             start_address,
             buffer: vec![0; size],
         }
+    }
+
+    fn address_is_managed(&self, address: u32) -> bool {
+        address < self.start_address || address >= self.start_address + (self.buffer.len() as u32)
     }
 }
 
@@ -53,17 +56,13 @@ impl BusClient for MemoryArea {
 
         Ok(())
     }
-
-    fn address_is_managed(&self, address: u32) -> bool {
-        address < self.start_address || address >= self.start_address + (self.buffer.len() as u32)
-    }
 }
 
 impl Machine {
     pub fn from_config(config: MachineConfig) -> Machine {
         let mut machine = Self {
             memory_regions: Vec::new(),
-            bus_handler: BusHandler::new(),
+            bus_handler: BusForwarder::new(),
         };
         machine
             .memory_regions
