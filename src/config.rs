@@ -50,10 +50,5 @@ impl MachineConfig {
                 },
             ],
         }
-        // pflash_size: 2 * MB,
-        // dflash0_size: 128 * KB,
-        // dflash1_size: 128 * KB,
-        // psram_size: 8 * KB,
-        // dsram_size: 192 * KB
     }
 }
