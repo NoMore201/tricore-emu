@@ -35,7 +35,7 @@ fn main() {
                     );
                 }
                 let config = MachineConfig::create_tc33x();
-                let mut machine = Machine::from_config(config);
+                let mut machine = Machine::from_config(&config);
                 machine.start();
             }
             Err(e) => {
