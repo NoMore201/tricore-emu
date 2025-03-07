@@ -60,46 +60,21 @@ impl BusClient for MemoryRegion {
 }
 
 impl Machine {
-    pub fn from_config(config: MachineConfig) -> Machine {
+    pub fn from_config(config: &MachineConfig) -> Machine {
         let mut machine = Self {
             memory_regions: Vec::new(),
             bus_handler: BusForwarder::new(),
         };
-        machine
-            .memory_regions
-            .push(Rc::new(RefCell::new(MemoryRegion::create(
-                0xA0000000u32,
-                config.pflash_size,
-                "pflash",
-            ))));
-        machine
-            .memory_regions
-            .push(Rc::new(RefCell::new(MemoryRegion::create(
-                0xAF000000u32,
-                config.dflash0_size,
-                "dflash0",
-            ))));
-        machine
-            .memory_regions
-            .push(Rc::new(RefCell::new(MemoryRegion::create(
-                0xAFC00000u32,
-                config.dflash1_size,
-                "dflash1",
-            ))));
-        machine
-            .memory_regions
-            .push(Rc::new(RefCell::new(MemoryRegion::create(
-                0x70100000u32,
-                config.psram_size,
-                "psram",
-            ))));
-        machine
-            .memory_regions
-            .push(Rc::new(RefCell::new(MemoryRegion::create(
-                0x70000000u32,
-                config.dsram_size,
-                "dsram",
-            ))));
+
+        for area in config.memory_areas.iter() {
+            machine
+                .memory_regions
+                .push(Rc::new(RefCell::new(MemoryRegion::create(
+                    area.address,
+                    area.size,
+                    &area.name,
+                ))));
+        }
 
         machine
     }
@@ -112,9 +87,12 @@ impl Machine {
 }
 #[cfg(test)]
 mod tests {
-    use crate::bus::BusClient;
+    use crate::{
+        bus::BusClient,
+        config::{MachineConfig, MemoryDetails},
+    };
 
-    use super::MemoryRegion;
+    use super::{Machine, MemoryRegion};
 
     #[test]
     fn test_memory_region() {
@@ -138,5 +116,51 @@ mod tests {
         assert_eq!(received[1], 76u8);
         assert_eq!(received[2], 54u8);
         assert_eq!(received[3], 32u8);
+    }
+
+    #[test]
+    fn test_machine_creation() {
+        let config = MachineConfig {
+            num_of_cpus: 1,
+            memory_areas: vec![
+                MemoryDetails {
+                    name: String::from("ram"),
+                    size: 12345678,
+                    address: 0xDEADBEEFu32,
+                    mirror_address: Some(0xDADADADAu32),
+                },
+                MemoryDetails {
+                    name: String::from("rom"),
+                    size: 987654,
+                    address: 0x10000000u32,
+                    mirror_address: None,
+                },
+            ],
+        };
+
+        let machine = Machine::from_config(&config);
+        assert_eq!(machine.memory_regions.len(), 2);
+        assert_eq!(machine.memory_regions[0].borrow().name, "ram");
+        assert_eq!(
+            machine.memory_regions[0].borrow().start_address,
+            0xDEADBEEFu32
+        );
+        assert_eq!(machine.memory_regions[0].borrow().buffer.len(), 12345678);
+        assert!(machine.memory_regions[0]
+            .borrow()
+            .buffer
+            .iter()
+            .all(|&b| b == 0));
+        assert_eq!(machine.memory_regions[1].borrow().name, "rom");
+        assert_eq!(
+            machine.memory_regions[1].borrow().start_address,
+            0x10000000u32
+        );
+        assert_eq!(machine.memory_regions[1].borrow().buffer.len(), 987654);
+        assert!(machine.memory_regions[1]
+            .borrow()
+            .buffer
+            .iter()
+            .all(|&b| b == 0));
     }
 }
