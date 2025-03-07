@@ -3,6 +3,7 @@ use std::rc::Rc;
 
 pub enum BusError {
     InvalidAddress(u32),
+    OutOfBounds
 }
 
 pub trait BusClient {
