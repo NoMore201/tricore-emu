@@ -1,5 +1,6 @@
 mod bus;
 mod config;
+mod cpu;
 mod elf;
 mod machine;
 

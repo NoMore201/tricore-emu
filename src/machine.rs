@@ -19,7 +19,7 @@ struct MemoryRegionMirror {
 pub struct Machine {
     memory_regions: Vec<Rc<RefCell<MemoryRegion>>>,
     mirrored_regions: Vec<Rc<RefCell<MemoryRegionMirror>>>,
-    bus_handler: BusForwarder,
+    bus_handler: Rc<RefCell<BusForwarder>>,
 }
 
 impl MemoryRegion {
@@ -100,7 +100,7 @@ impl Machine {
         let mut machine = Self {
             memory_regions: Vec::new(),
             mirrored_regions: Vec::new(),
-            bus_handler: BusForwarder::new(),
+            bus_handler: Rc::new(RefCell::new(BusForwarder::new())),
         };
 
         for area in config.memory_areas.iter() {
@@ -126,13 +126,15 @@ impl Machine {
 
     pub fn start(&mut self) {
         for region in self.memory_regions.iter() {
-            self.bus_handler.register_device(region.clone());
+            self.bus_handler.borrow_mut().register_device(region.clone());
         }
         for mirrored_region in self.mirrored_regions.iter() {
-            self.bus_handler.register_device(mirrored_region.clone());
+            self.bus_handler.borrow_mut().register_device(mirrored_region.clone());
         }
     }
 }
+
+
 #[cfg(test)]
 mod tests {
     use std::{cell::RefCell, rc::Rc};
