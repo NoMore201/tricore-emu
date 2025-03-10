@@ -1,8 +1,8 @@
 use std::{cell::RefCell, rc::Rc};
 
-use crate::bus::{BusClient, BusForwarder};
+use crate::bus::{BusClient, BusError, BusForwarder};
 
-struct TricoreCpu {
+pub struct TricoreCpu {
     bus_handler: Rc<RefCell<BusForwarder>>,
 
     data_regs: [u32; 16],
@@ -22,7 +22,7 @@ struct TricoreCpu {
 }
 
 impl TricoreCpu {
-    fn create(bus_handler: Rc<RefCell<BusForwarder>>) -> Self {
+    pub fn create(bus_handler: Rc<RefCell<BusForwarder>>) -> Self {
         Self {
             bus_handler: bus_handler.clone(),
             data_regs: [0; 16],
@@ -42,17 +42,23 @@ impl TricoreCpu {
         }
     }
 
-    fn set_program_counter(&mut self, address: u32) {
+    pub fn set_program_counter(&mut self, address: u32) {
         self.pc = address
     }
 
-    fn start(&self) {
+    pub fn start(&self) {
         loop {
             let mut opcode = [0u8];
-            match self.bus_handler.borrow().read(self.pc, &mut opcode) {
-                Err(err) => {
-                    println!("");
-                }    
+            if let Err(error) = self.bus_handler.borrow().read(self.pc, &mut opcode) {
+                match error {
+                    BusError::InvalidAddress(addr) => {
+                        println!("Address 0x{:08X} not handled by current machine configuration", addr);
+                        std::process::exit(1);
+                    },
+                    BusError::OutOfBounds => {
+                        panic!("Attempting to read outside bounds")
+                    }
+                }
             }
         }
         
