@@ -48,6 +48,12 @@ impl MachineConfig {
                     address: 0x70000000u32,
                     mirror_address: Some(0xD0000000u32),
                 },
+                MemoryDetails {
+                    name: String::from("ucb"),
+                    size: 24 * KB,
+                    address: 0xAF400000u32,
+                    mirror_address: None,
+                },
             ],
         }
     }

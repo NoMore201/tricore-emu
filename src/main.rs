@@ -23,11 +23,11 @@ fn main() {
     if let Some(file) = cli.kernel.as_deref() {
         let file_data = std::fs::read(file).expect("Cannot read file");
         let slice = file_data.as_slice();
-        let example_file = elf::parse_elf_section_headers(slice);
+        let elf_parse_result = elf::parse_elf_data(slice);
 
-        match example_file {
-            Ok(list) => {
-                for sh in list.iter() {
+        match elf_parse_result {
+            Ok(elf_data) => {
+                for sh in &elf_data.section_headers {
                     println!(
                         "Section {} address=0x{:08X} length={}",
                         sh.name,
@@ -37,6 +37,7 @@ fn main() {
                 }
                 let config = MachineConfig::create_tc33x();
                 let mut machine = Machine::from_config(&config);
+                machine.init_from_elf(&elf_data);
                 machine.start();
             }
             Err(e) => {
