@@ -3,7 +3,10 @@ use std::{cell::RefCell, rc::Rc};
 use crate::{
     bus::{BusClient, BusError, BusForwarder},
     config::MachineConfig,
+    cpu::TricoreCpu,
 };
+
+use std::cmp::Ordering;
 
 struct MemoryRegion {
     name: String,
@@ -20,6 +23,7 @@ pub struct Machine {
     memory_regions: Vec<Rc<RefCell<MemoryRegion>>>,
     mirrored_regions: Vec<Rc<RefCell<MemoryRegionMirror>>>,
     bus_handler: Rc<RefCell<BusForwarder>>,
+    cpu: TricoreCpu,
 }
 
 impl MemoryRegion {
@@ -31,16 +35,16 @@ impl MemoryRegion {
         }
     }
 
-    fn address_is_managed(&self, address: u32) -> bool {
-        address >= self.start_address && address < self.start_address + (self.buffer.len() as u32)
-    }
-
     fn out_of_bounds_check(&self, address: u32, length: usize) -> bool {
         address as usize + length > self.start_address as usize + self.buffer.len()
     }
 }
 
 impl BusClient for MemoryRegion {
+    fn address_is_managed(&self, address: u32) -> bool {
+        address >= self.start_address && address < self.start_address + (self.buffer.len() as u32)
+    }
+
     fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
         if !self.address_is_managed(address) {
             return Err(BusError::InvalidAddress(address));
@@ -76,31 +80,66 @@ impl BusClient for MemoryRegion {
 }
 
 impl BusClient for MemoryRegionMirror {
+    fn address_is_managed(&self, address: u32) -> bool {
+        address >= self.start_address
+            && address < self.start_address + (self.original_region.borrow().buffer.len() as u32)
+    }
+
     fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
-        let offset_to_original_region_address: i32 =
-            (self.original_region.borrow().start_address as i32) - (self.start_address as i32);
-        let address_into_original_region = address as i32 + offset_to_original_region_address;
-        self.original_region
-            .borrow()
-            .read(address_into_original_region as u32, data)
+        if !self.address_is_managed(address) {
+            return Err(BusError::InvalidAddress(address));
+        }
+
+        let original_start_address = self.original_region.borrow().start_address;
+
+        match original_start_address.cmp(&self.start_address) {
+            Ordering::Greater => {
+                let diff = original_start_address - self.start_address;
+                let mapped_address = address + diff;
+                self.original_region.borrow().read(mapped_address, data)
+            }
+            Ordering::Equal | Ordering::Less => {
+                let diff = self.start_address - original_start_address;
+                let mapped_address = address - diff;
+                self.original_region.borrow().read(mapped_address, data)
+            }
+        }
     }
 
     fn write(&mut self, address: u32, data: &[u8]) -> Result<(), BusError> {
-        let offset_to_original_region_address: i32 =
-            (self.original_region.borrow().start_address as i32) - (self.start_address as i32);
-        let address_into_original_region = address as i32 + offset_to_original_region_address;
-        self.original_region
-            .borrow_mut()
-            .write(address_into_original_region as u32, data)
+        if !self.address_is_managed(address) {
+            return Err(BusError::InvalidAddress(address));
+        }
+
+        let original_start_address = self.original_region.borrow().start_address;
+
+        match original_start_address.cmp(&self.start_address) {
+            Ordering::Greater => {
+                let diff = original_start_address - self.start_address;
+                let mapped_address = address + diff;
+                self.original_region
+                    .borrow_mut()
+                    .write(mapped_address, data)
+            }
+            Ordering::Equal | Ordering::Less => {
+                let diff = self.start_address - original_start_address;
+                let mapped_address = address - diff;
+                self.original_region
+                    .borrow_mut()
+                    .write(mapped_address, data)
+            }
+        }
     }
 }
 
 impl Machine {
     pub fn from_config(config: &MachineConfig) -> Machine {
+        let bus_handler = Rc::new(RefCell::new(BusForwarder::new()));
         let mut machine = Self {
             memory_regions: Vec::new(),
             mirrored_regions: Vec::new(),
-            bus_handler: Rc::new(RefCell::new(BusForwarder::new())),
+            bus_handler: bus_handler.clone(),
+            cpu: TricoreCpu::create(bus_handler.clone()),
         };
 
         for area in config.memory_areas.iter() {
@@ -126,14 +165,19 @@ impl Machine {
 
     pub fn start(&mut self) {
         for region in self.memory_regions.iter() {
-            self.bus_handler.borrow_mut().register_device(region.clone());
+            self.bus_handler
+                .borrow_mut()
+                .register_device(region.clone());
         }
         for mirrored_region in self.mirrored_regions.iter() {
-            self.bus_handler.borrow_mut().register_device(mirrored_region.clone());
+            self.bus_handler
+                .borrow_mut()
+                .register_device(mirrored_region.clone());
         }
+
+        self.cpu.start();
     }
 }
-
 
 #[cfg(test)]
 mod tests {

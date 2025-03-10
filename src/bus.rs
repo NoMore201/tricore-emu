@@ -3,7 +3,7 @@ use std::rc::Rc;
 
 pub enum BusError {
     InvalidAddress(u32),
-    OutOfBounds
+    OutOfBounds,
 }
 
 pub trait BusClient {
@@ -14,6 +14,8 @@ pub trait BusClient {
     /// Write data at provided address. Number of bytes to read is equal to
     /// data length
     fn write(&mut self, address: u32, data: &[u8]) -> Result<(), BusError>;
+
+    fn address_is_managed(&self, address: u32) -> bool;
 }
 
 /// Collect devices connected to the bus and forward read/write
@@ -58,6 +60,12 @@ impl BusClient for BusForwarder {
 
         Err(BusError::InvalidAddress(address))
     }
+
+    fn address_is_managed(&self, address: u32) -> bool {
+        self.registered_devices
+            .iter()
+            .any(|bc| bc.borrow().address_is_managed(address))
+    }
 }
 
 #[cfg(test)]
@@ -75,6 +83,10 @@ mod tests {
 
         fn write(&mut self, address: u32, data: &[u8]) -> Result<(), BusError> {
             Ok(())
+        }
+
+        fn address_is_managed(&self, address: u32) -> bool {
+            true
         }
     }
 
