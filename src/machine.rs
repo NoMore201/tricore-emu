@@ -4,6 +4,7 @@ use crate::{
     bus::{BusClient, BusError, BusForwarder},
     config::MachineConfig,
     cpu::TricoreCpu,
+    elf::{ElfData, SectionHeader},
 };
 
 use std::cmp::Ordering;
@@ -163,7 +164,8 @@ impl Machine {
         machine
     }
 
-    pub fn start(&mut self) {
+    pub fn init_from_elf(&mut self, elf_data: &ElfData) {
+        // register all memory regions in bus
         for region in self.memory_regions.iter() {
             self.bus_handler
                 .borrow_mut()
@@ -175,6 +177,20 @@ impl Machine {
                 .register_device(mirrored_region.clone());
         }
 
+        self.cpu.set_program_counter(elf_data.entrypoint);
+
+        for section in &elf_data.section_headers {
+            if let Err(error) = self
+                .bus_handler
+                .borrow_mut()
+                .write(section.address, &section.data)
+            {
+                println!("Ignoring section {}", section.name);
+            }
+        }
+    }
+
+    pub fn start(&mut self) {
         self.cpu.start();
     }
 }
