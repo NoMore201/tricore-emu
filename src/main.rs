@@ -6,9 +6,10 @@ mod machine;
 
 use std::path::PathBuf;
 
-use clap::Parser;
 use config::MachineConfig;
 use machine::Machine;
+
+use clap::Parser;
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
@@ -20,6 +21,10 @@ struct Cli {
 fn main() {
     let cli = Cli::parse();
 
+    tracing_subscriber::fmt()
+        .with_max_level(tracing::Level::TRACE)
+        .init();
+
     if let Some(file) = cli.kernel.as_deref() {
         let file_data = std::fs::read(file).expect("Cannot read file");
         let slice = file_data.as_slice();
@@ -27,21 +32,13 @@ fn main() {
 
         match elf_parse_result {
             Ok(elf_data) => {
-                for sh in &elf_data.section_headers {
-                    println!(
-                        "Section {} address=0x{:08X} length={}",
-                        sh.name,
-                        sh.address,
-                        sh.data.len()
-                    );
-                }
                 let config = MachineConfig::create_tc33x();
                 let mut machine = Machine::from_config(&config);
                 machine.init_from_elf(&elf_data);
                 machine.start();
             }
             Err(e) => {
-                println!("Cannot parse file: {}", e);
+                tracing::error!("Cannot parse ELF file {}: {}", file.display(), e);
             }
         }
     }
