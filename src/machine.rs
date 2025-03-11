@@ -4,7 +4,7 @@ use crate::{
     bus::{BusClient, BusError, BusForwarder},
     config::MachineConfig,
     cpu::TricoreCpu,
-    elf::{ElfData, SectionHeader},
+    elf::ElfData
 };
 
 use std::cmp::Ordering;
