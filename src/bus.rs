@@ -1,4 +1,5 @@
 use std::cell::RefCell;
+use std::fmt;
 use std::rc::Rc;
 
 pub enum BusError {
@@ -65,6 +66,15 @@ impl BusClient for BusForwarder {
         self.registered_devices
             .iter()
             .any(|bc| bc.borrow().address_is_managed(address))
+    }
+}
+
+impl fmt::Display for BusError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match *self {
+            BusError::InvalidAddress(addr) => write!(f, "Address 0x{:08X} not handled", addr),
+            BusError::OutOfBounds => write!(f, "Memory write out of bounds")
+        }
     }
 }
 
