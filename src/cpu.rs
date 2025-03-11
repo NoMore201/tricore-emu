@@ -52,7 +52,7 @@ impl TricoreCpu {
             if let Err(error) = self.bus_handler.borrow().read(self.pc, &mut opcode) {
                 match error {
                     BusError::InvalidAddress(addr) => {
-                        println!("Address 0x{:08X} not handled by current machine configuration", addr);
+                        tracing::error!("Address 0x{:08X} not handled by current machine configuration", addr);
                         std::process::exit(1);
                     },
                     BusError::OutOfBounds => {

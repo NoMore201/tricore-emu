@@ -25,6 +25,7 @@ pub fn parse_elf_data(file_data: &[u8]) -> Result<ElfData, Box<dyn Error>> {
             for section in sh_table {
                 let (data_slice, _) = file.section_data(&section)?;
                 let string_name = string_table.get(section.sh_name as usize)?;
+                tracing::debug!("Found section {} [address=0x{:08X}, length={}]", string_name, section.sh_addr, section.sh_size);
                 // filter only progbits regions
                 if section.sh_type == elf::abi::SHT_PROGBITS && data_slice.len() != 0 {
                     final_list.push(SectionHeader {

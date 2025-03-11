@@ -165,6 +165,9 @@ impl Machine {
     }
 
     pub fn init_from_elf(&mut self, elf_data: &ElfData) {
+
+        tracing::info!("Initializing machine from ELF data");
+
         // register all memory regions in bus
         for region in self.memory_regions.iter() {
             self.bus_handler
@@ -185,7 +188,20 @@ impl Machine {
                 .borrow_mut()
                 .write(section.address, &section.data)
             {
-                println!("Ignoring section {}", section.name);
+                match error {
+                    BusError::InvalidAddress(_) => {
+                        tracing::debug!(
+                            "Section {} address is not mapped into machine. Ignoring..",
+                            section.name
+                        );
+                    }
+                    BusError::OutOfBounds => {
+                        tracing::warn!(
+                            "Section {} data [addr={:08X}, length={}] does not fit currently configured memory regions",
+                            section.name, section.address, section.data.len()
+                        );
+                    }
+                }
             }
         }
     }
