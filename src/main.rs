@@ -1,4 +1,4 @@
-mod bit_utils;
+mod utils;
 mod bus;
 mod config;
 mod cpu;
