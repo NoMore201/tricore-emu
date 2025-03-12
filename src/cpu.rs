@@ -86,7 +86,7 @@ impl TricoreCpu {
         match opcode {
             OPCODE_MOVHA => self.insn_movha(),
             _ => {
-                println!("Instruction with opcode 0x{:02X} not implemented", opcode);
+                tracing::error!("Instruction with opcode 0x{:02X} not implemented", opcode);
                 std::process::exit(1);
             }
         }
@@ -94,10 +94,20 @@ impl TricoreCpu {
 
     fn insn_movha(&mut self) {
         let insn = self.read32();
-        let c = insn.extract(28, 4) as usize;
-        let const16 = insn.extract(12, 16);
-        self.address_regs[c] = const16;
-        tracing::trace!("Decode MOVH.A [{:08X}] A[{}]={:08X}", insn, c, const16);
-        self.pc += 4;
+        rlc_parser(insn, |a, c, const16| {
+            self.address_regs[c] = const16;
+            tracing::trace!("Decode MOVH.A [{:08X}] A[{}]={:08X}", insn, c, const16);
+            self.pc += 4;
+        });
     }
+}
+
+fn rlc_parser<F>(insn: u32, mut callback: F)
+where
+    F: FnMut(usize, usize, u32),
+{
+    let a = insn.extract(8, 4) as usize;
+    let c = insn.extract(28, 4) as usize;
+    let const16 = insn.extract(12, 16);
+    callback(a, c, const16);
 }
