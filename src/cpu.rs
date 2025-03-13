@@ -2,7 +2,7 @@ use std::{cell::RefCell, rc::Rc};
 
 use crate::{
     bus::{BusClient, BusForwarder},
-    utils::BitManipulation,
+    utils::{BitManipulation, sign_extend},
 };
 
 const OPCODE_MOVHA: u8 = 0x91u8;
@@ -100,7 +100,7 @@ impl TricoreCpu {
 
     fn insn_movha(&mut self) {
         let insn = self.read32();
-        rlc_parser(insn, |a, c, const16| {
+        rlc_parser(insn, |_, c, const16| {
             self.address_regs[c] = const16 << 16;
             tracing::trace!("Decode MOVH.A [{:08X}] A[{}]={:08X}", insn, c, const16);
             self.pc += 4;
@@ -110,7 +110,7 @@ impl TricoreCpu {
     fn insn_lea_bol(&mut self) {
         let insn = self.read32();
         bol_parser(insn, |a, b, off16| {
-            let ea = self.address_regs[b] + off16.sign_extend(16);
+            let ea = self.address_regs[b] + sign_extend(off16 as i32, 16) as u32;
             println!("a={}, b={}, off16={}", a, b, off16);
             self.address_regs[a] = ea;
             tracing::trace!("Decode LEA [{:08X}] A[{}]={:08X}", insn, a, ea);
@@ -138,3 +138,11 @@ where
     let off16 = insn.extract(16, 6) | (insn.extract(28, 4) << 6) | (insn.extract(22, 6) << 10);
     callback(a, b, off16);
 }
+
+// fn sr_parser<F>(insn: u16, mut callback: F)
+// where
+//     F: FnMut(usize, usize),
+// {
+//     let a = insn.extract(8, 4) as usize;
+//     let b = insn.extract(12, 4) as usize;
+// }

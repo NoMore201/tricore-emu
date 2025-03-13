@@ -1,7 +1,6 @@
 pub trait BitManipulation {
     fn extract(&self, offset: usize, length: usize) -> Self;
     fn deposit(&self, value: Self, offset: usize, length: usize) -> Self;
-    fn sign_extend(&self, original_bits: u32) -> Self;
 }
 
 impl BitManipulation for u32 {
@@ -15,19 +14,16 @@ impl BitManipulation for u32 {
         let mask = (!0u32 >> (32 - length)) << offset;
         (*self & !mask) | ((value << offset) & mask)
     }
+}
 
-    fn sign_extend(&self, from_bit: u32) -> Self {
-        assert!(from_bit != 0 && from_bit < Self::BITS);
-        let mut cleared_input = *self & ((1u32 << from_bit) - 1u32);
-        let sign_bit_mask = 1u32 << (from_bit - 1u32);
-        cleared_input ^= sign_bit_mask;
-        cleared_input.wrapping_sub(sign_bit_mask)
-    }
+pub fn sign_extend(value: i32, from_bit: u32) -> i32 {
+    let notherbits = std::mem::size_of_val(&value) as u32 * 8 - from_bit;
+    value.wrapping_shl(notherbits).wrapping_shr(notherbits)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::BitManipulation;
+    use super::{sign_extend, BitManipulation};
 
     #[test]
     fn test_extract() {
@@ -52,9 +48,9 @@ mod tests {
 
     #[test]
     fn test_sign_extend() {
-        assert_eq!(1u32.sign_extend(31), 1u32);
-        assert_eq!(0xFFu32.sign_extend(8), 0xFFFFFFFFu32);
-        assert_eq!(0x18u32.sign_extend(5), 0xFFFFFFF8u32);
+        assert_eq!(sign_extend(1, 31), 1);
+        assert_eq!(sign_extend(0xFF, 8), -1);
+        assert_eq!(sign_extend(0x18, 5), -8);
     }
 
     #[test]
