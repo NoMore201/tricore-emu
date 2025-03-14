@@ -16,6 +16,19 @@ impl BitManipulation for u32 {
     }
 }
 
+impl BitManipulation for u16 {
+    fn extract(&self, offset: usize, length: usize) -> Self {
+        assert!(offset < 16 && offset + length <= 16);
+        *self >> offset & (!0u16 >> (16 - length))
+    }
+
+    fn deposit(&self, value: Self, offset: usize, length: usize) -> Self {
+        assert!(offset < 16 && offset + length <= 16);
+        let mask = (!0u16 >> (16 - length)) << offset;
+        (*self & !mask) | ((value << offset) & mask)
+    }
+}
+
 pub fn sign_extend(value: i32, from_bit: u32) -> i32 {
     let notherbits = std::mem::size_of_val(&value) as u32 * 8 - from_bit;
     value.wrapping_shl(notherbits).wrapping_shr(notherbits)
@@ -34,6 +47,10 @@ mod tests {
 
         let num2 = 0x80000000u32;
         assert_eq!(num2.extract(31, 1), 1u32);
+
+        let num16 = 0x5D5Du16;
+        assert_eq!(num16.extract(8, 4), 0xDu16);
+        assert_eq!(num16.extract(4, 12), 0x5D5u16);
     }
 
     #[test]
@@ -55,24 +72,44 @@ mod tests {
 
     #[test]
     #[should_panic(expected = "assertion failed")]
-    fn test_extract_invalid_offset_panic() {
+    fn test_extract32_invalid_offset_panic() {
         let num = 0x12345678u32;
         num.extract(33, 4);
-        num.extract(12, 24);
     }
 
     #[test]
     #[should_panic(expected = "assertion failed")]
-    fn test_extract_invalid_length_panic() {
+    fn test_extract32_invalid_length_panic() {
         let num = 0x12345678u32;
         num.extract(12, 44);
     }
 
     #[test]
     #[should_panic(expected = "assertion failed")]
-    fn test_extract_invalid_offset_length_panic() {
+    fn test_extract32_invalid_offset_length_panic() {
         let num = 0x12345678u32;
         num.extract(12, 24);
+    }
+
+    #[test]
+    #[should_panic(expected = "assertion failed")]
+    fn test_extract16_invalid_offset_panic() {
+        let num = 0x5678u16;
+        num.extract(20, 4);
+    }
+
+    #[test]
+    #[should_panic(expected = "assertion failed")]
+    fn test_extract16_invalid_length_panic() {
+        let num = 0x5678u16;
+        num.extract(12, 17);
+    }
+
+    #[test]
+    #[should_panic(expected = "assertion failed")]
+    fn test_extract16_invalid_offset_length_panic() {
+        let num = 0x5678u16;
+        num.extract(4, 13);
     }
 
     #[test]
