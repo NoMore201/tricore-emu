@@ -8,6 +8,7 @@ use crate::{
 const OPCODE_MOVHA: u8 = 0x91u8;
 const OPCODE_LEA_BOL: u8 = 0xD9u8;
 const OPCODE_JI_SR: u8 = 0xDCu8;
+const OPCODE_MOV_RLC: u8 = 0x3Bu8;
 
 pub struct TricoreCpu {
     bus_handler: Rc<RefCell<BusForwarder>>,
@@ -93,6 +94,7 @@ impl TricoreCpu {
             OPCODE_MOVHA => self.insn_movha(),
             OPCODE_LEA_BOL => self.insn_lea_bol(),
             OPCODE_JI_SR => self.insn_ji_sr(),
+            OPCODE_MOV_RLC => self.insn_mov_rlc(),
             _ => {
                 tracing::error!("Instruction with opcode 0x{:02X} not implemented", opcode);
                 std::process::exit(1);
@@ -129,6 +131,21 @@ impl TricoreCpu {
         sr_parser(insn, |a, _| {
             self.pc = self.address_regs[a] & !1u32;
             tracing::trace!("Decode JI [{:04X}] PC=A[{}]={:08X}", insn, a, self.pc);
+        });
+    }
+
+    fn insn_mov_rlc(&mut self) {
+        let insn = self.read32();
+        rlc_parser(insn, |_, c, off16| {
+            let sign_extended_const16 = sign_extend(off16 as i32, 16) as u32;
+            self.data_regs[c] = sign_extended_const16;
+            tracing::trace!(
+                "Decode MOV [{:08X}] D[{}]={:08X}",
+                insn,
+                c,
+                sign_extended_const16
+            );
+            self.pc += 4;
         });
     }
 }
