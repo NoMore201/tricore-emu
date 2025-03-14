@@ -2,11 +2,12 @@ use std::{cell::RefCell, rc::Rc};
 
 use crate::{
     bus::{BusClient, BusForwarder},
-    utils::{BitManipulation, sign_extend},
+    utils::{sign_extend, BitManipulation},
 };
 
 const OPCODE_MOVHA: u8 = 0x91u8;
 const OPCODE_LEA_BOL: u8 = 0xD9u8;
+const OPCODE_JI_SR: u8 = 0xDCu8;
 
 pub struct TricoreCpu {
     bus_handler: Rc<RefCell<BusForwarder>>,
@@ -91,6 +92,7 @@ impl TricoreCpu {
         match opcode {
             OPCODE_MOVHA => self.insn_movha(),
             OPCODE_LEA_BOL => self.insn_lea_bol(),
+            OPCODE_JI_SR => self.insn_ji_sr(),
             _ => {
                 tracing::error!("Instruction with opcode 0x{:02X} not implemented", opcode);
                 std::process::exit(1);
@@ -102,7 +104,12 @@ impl TricoreCpu {
         let insn = self.read32();
         rlc_parser(insn, |_, c, const16| {
             self.address_regs[c] = const16 << 16;
-            tracing::trace!("Decode MOVH.A [{:08X}] A[{}]={:08X}", insn, c, const16);
+            tracing::trace!(
+                "Decode MOVH.A [{:08X}] A[{}]={:08X}",
+                insn,
+                c,
+                self.address_regs[c]
+            );
             self.pc += 4;
         });
     }
@@ -110,11 +117,18 @@ impl TricoreCpu {
     fn insn_lea_bol(&mut self) {
         let insn = self.read32();
         bol_parser(insn, |a, b, off16| {
-            let ea = self.address_regs[b] + sign_extend(off16 as i32, 16) as u32;
-            println!("a={}, b={}, off16={}", a, b, off16);
+            let ea = self.address_regs[b].wrapping_add(sign_extend(off16 as i32, 16) as u32);
             self.address_regs[a] = ea;
             tracing::trace!("Decode LEA [{:08X}] A[{}]={:08X}", insn, a, ea);
             self.pc += 4;
+        });
+    }
+
+    fn insn_ji_sr(&mut self) {
+        let insn = self.read16();
+        sr_parser(insn, |a, _| {
+            self.pc = self.address_regs[a] & !1u32;
+            tracing::trace!("Decode JI [{:04X}] PC=A[{}]={:08X}", insn, a, self.pc);
         });
     }
 }
@@ -139,10 +153,11 @@ where
     callback(a, b, off16);
 }
 
-// fn sr_parser<F>(insn: u16, mut callback: F)
-// where
-//     F: FnMut(usize, usize),
-// {
-//     let a = insn.extract(8, 4) as usize;
-//     let b = insn.extract(12, 4) as usize;
-// }
+fn sr_parser<F>(insn: u16, mut callback: F)
+where
+    F: FnMut(usize, usize),
+{
+    let a = insn.extract(8, 4) as usize;
+    let b = insn.extract(12, 4) as usize;
+    callback(a, b);
+}
