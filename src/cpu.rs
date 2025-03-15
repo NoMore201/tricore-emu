@@ -9,6 +9,7 @@ const OPCODE_MOVHA: u8 = 0x91u8;
 const OPCODE_LEA_BOL: u8 = 0xD9u8;
 const OPCODE_JI_SR: u8 = 0xDCu8;
 const OPCODE_MOV_RLC: u8 = 0x3Bu8;
+const OPCODE_MTCR: u8 = 0xCDu8;
 
 pub struct TricoreCpu {
     bus_handler: Rc<RefCell<BusForwarder>>,
@@ -89,12 +90,26 @@ impl TricoreCpu {
         bytes[0]
     }
 
+    fn get_core_register_by_offset(&mut self, offset: u16) -> &mut u32 {
+        match offset {
+            0xFE04u16 => &mut self.psw,
+            _ => {
+                tracing::error!(
+                    "Mapping to core register at offset 0x{:04X} not implemented",
+                    offset
+                );
+                std::process::exit(1);
+            }
+        }
+    }
+
     fn decode(&mut self, opcode: u8) {
         match opcode {
             OPCODE_MOVHA => self.insn_movha(),
             OPCODE_LEA_BOL => self.insn_lea_bol(),
             OPCODE_JI_SR => self.insn_ji_sr(),
             OPCODE_MOV_RLC => self.insn_mov_rlc(),
+            OPCODE_MTCR => self.insn_mtcr(),
             _ => {
                 tracing::error!("Instruction with opcode 0x{:02X} not implemented", opcode);
                 std::process::exit(1);
@@ -144,6 +159,23 @@ impl TricoreCpu {
                 insn,
                 c,
                 sign_extended_const16
+            );
+            self.pc += 4;
+        });
+    }
+
+    fn insn_mtcr(&mut self) {
+        let insn = self.read32();
+        rlc_parser(insn, |a, _, off16| {
+            let value = self.data_regs[a];
+            let cr = self.get_core_register_by_offset(off16 as u16);
+            *cr = value;
+            tracing::trace!(
+                "Decode MTCR [{:08X}] CR[0x{:04X}]=D[{}]={:08X}",
+                insn,
+                off16,
+                a,
+                value
             );
             self.pc += 4;
         });
