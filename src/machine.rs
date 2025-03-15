@@ -4,7 +4,7 @@ use crate::{
     bus::{BusClient, BusError, BusForwarder},
     config::MachineConfig,
     cpu::TricoreCpu,
-    elf::ElfData
+    elf::ElfData, peripherals::Peripherals,
 };
 
 use std::cmp::Ordering;
@@ -25,6 +25,7 @@ pub struct Machine {
     mirrored_regions: Vec<Rc<RefCell<MemoryRegionMirror>>>,
     bus_handler: Rc<RefCell<BusForwarder>>,
     cpu: TricoreCpu,
+    peripherals: Rc<RefCell<Peripherals>>,
 }
 
 impl MemoryRegion {
@@ -141,6 +142,7 @@ impl Machine {
             mirrored_regions: Vec::new(),
             bus_handler: bus_handler.clone(),
             cpu: TricoreCpu::create(bus_handler.clone()),
+            peripherals: Rc::new(RefCell::new(Peripherals::new())),
         };
 
         for area in config.memory_areas.iter() {
@@ -165,7 +167,6 @@ impl Machine {
     }
 
     pub fn init_from_elf(&mut self, elf_data: &ElfData) {
-
         tracing::info!("Initializing machine from ELF data");
 
         // register all memory regions in bus
@@ -179,6 +180,9 @@ impl Machine {
                 .borrow_mut()
                 .register_device(mirrored_region.clone());
         }
+        self.bus_handler
+            .borrow_mut()
+            .register_device(self.peripherals.clone());
 
         self.cpu.set_program_counter(elf_data.entrypoint);
 
