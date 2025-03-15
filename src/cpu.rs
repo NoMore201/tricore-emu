@@ -10,10 +10,14 @@ const OPCODE_LEA_BOL: u8 = 0xD9u8;
 const OPCODE_JI_SR: u8 = 0xDCu8;
 const OPCODE_MOV_RLC: u8 = 0x3Bu8;
 const OPCODE_MTCR: u8 = 0xCDu8;
+const OPCODE_LDW_BOL: u8 = 0x19u8;
+
+struct MemoryProxy {
+    bus_handler: Rc<RefCell<BusForwarder>>,
+}
 
 pub struct TricoreCpu {
-    bus_handler: Rc<RefCell<BusForwarder>>,
-
+    mem_proxy: MemoryProxy,
     data_regs: [u32; 16],
     address_regs: [u32; 16],
     pcxi: u32,
@@ -33,7 +37,9 @@ pub struct TricoreCpu {
 impl TricoreCpu {
     pub fn create(bus_handler: Rc<RefCell<BusForwarder>>) -> Self {
         Self {
-            bus_handler: bus_handler.clone(),
+            mem_proxy: MemoryProxy {
+                bus_handler: bus_handler.clone(),
+            },
             data_regs: [0; 16],
             address_regs: [0; 16],
             pcxi: 0,
@@ -57,37 +63,9 @@ impl TricoreCpu {
 
     pub fn start(&mut self) {
         loop {
-            let opcode = self.read8();
+            let opcode = self.mem_proxy.read8(self.pc);
             self.decode(opcode);
         }
-    }
-
-    fn read_or_panic(&self, buffer: &mut [u8]) {
-        if let Err(error) = self.bus_handler.borrow().read(self.pc, buffer) {
-            println!(
-                "Cannot fetch instruction from address 0x{:08X}, {}",
-                self.pc, error
-            );
-            std::process::exit(1);
-        }
-    }
-
-    fn read32(&self) -> u32 {
-        let mut bytes = [0u8; 4];
-        self.read_or_panic(&mut bytes);
-        u32::from_le_bytes(bytes)
-    }
-
-    fn read16(&self) -> u16 {
-        let mut bytes = [0u8; 2];
-        self.read_or_panic(&mut bytes);
-        u16::from_le_bytes(bytes)
-    }
-
-    fn read8(&self) -> u8 {
-        let mut bytes = [0u8; 1];
-        self.read_or_panic(&mut bytes);
-        bytes[0]
     }
 
     fn get_core_register_by_offset(&mut self, offset: u16) -> &mut u32 {
@@ -110,6 +88,7 @@ impl TricoreCpu {
             OPCODE_JI_SR => self.insn_ji_sr(),
             OPCODE_MOV_RLC => self.insn_mov_rlc(),
             OPCODE_MTCR => self.insn_mtcr(),
+            OPCODE_LDW_BOL => self.insn_ldw_bol(),
             _ => {
                 tracing::error!("Instruction with opcode 0x{:02X} not implemented", opcode);
                 std::process::exit(1);
@@ -118,7 +97,7 @@ impl TricoreCpu {
     }
 
     fn insn_movha(&mut self) {
-        let insn = self.read32();
+        let insn = self.mem_proxy.read32(self.pc);
         rlc_parser(insn, |_, c, const16| {
             self.address_regs[c] = const16 << 16;
             tracing::trace!(
@@ -132,7 +111,7 @@ impl TricoreCpu {
     }
 
     fn insn_lea_bol(&mut self) {
-        let insn = self.read32();
+        let insn = self.mem_proxy.read32(self.pc);
         bol_parser(insn, |a, b, off16| {
             let ea = self.address_regs[b].wrapping_add(sign_extend(off16 as i32, 16) as u32);
             self.address_regs[a] = ea;
@@ -142,7 +121,7 @@ impl TricoreCpu {
     }
 
     fn insn_ji_sr(&mut self) {
-        let insn = self.read16();
+        let insn = self.mem_proxy.read16(self.pc);
         sr_parser(insn, |a, _| {
             self.pc = self.address_regs[a] & !1u32;
             tracing::trace!("Decode JI [{:04X}] PC=A[{}]={:08X}", insn, a, self.pc);
@@ -150,7 +129,7 @@ impl TricoreCpu {
     }
 
     fn insn_mov_rlc(&mut self) {
-        let insn = self.read32();
+        let insn = self.mem_proxy.read32(self.pc);
         rlc_parser(insn, |_, c, off16| {
             let sign_extended_const16 = sign_extend(off16 as i32, 16) as u32;
             self.data_regs[c] = sign_extended_const16;
@@ -165,7 +144,7 @@ impl TricoreCpu {
     }
 
     fn insn_mtcr(&mut self) {
-        let insn = self.read32();
+        let insn = self.mem_proxy.read32(self.pc);
         rlc_parser(insn, |a, _, off16| {
             let value = self.data_regs[a];
             let cr = self.get_core_register_by_offset(off16 as u16);
@@ -179,6 +158,52 @@ impl TricoreCpu {
             );
             self.pc += 4;
         });
+    }
+
+    fn insn_ldw_bol(&mut self) {
+        let insn = self.mem_proxy.read32(self.pc);
+        bol_parser(insn, |a, b, off16| {
+            let sign_extended_off16 = sign_extend(off16 as i32, 16) as u32;
+            let ea = self.address_regs[b].wrapping_add(sign_extended_off16);
+            self.data_regs[a] = self.mem_proxy.read32(ea);
+            tracing::trace!(
+                "Decode LD.W [{:08X}] D[{}]={:08X}",
+                insn,
+                a,
+                self.data_regs[a]
+            );
+            self.pc += 4;
+        });
+    }
+}
+
+impl MemoryProxy {
+    fn read_or_panic(&self, address: u32, buffer: &mut [u8]) {
+        if let Err(error) = self.bus_handler.borrow().read(address, buffer) {
+            println!(
+                "Cannot fetch data from address 0x{:08X}, {}",
+                address, error
+            );
+            std::process::exit(1);
+        }
+    }
+
+    fn read32(&self, address: u32) -> u32 {
+        let mut bytes = [0u8; 4];
+        self.read_or_panic(address, &mut bytes);
+        u32::from_le_bytes(bytes)
+    }
+
+    fn read16(&self, address: u32) -> u16 {
+        let mut bytes = [0u8; 2];
+        self.read_or_panic(address, &mut bytes);
+        u16::from_le_bytes(bytes)
+    }
+
+    fn read8(&self, address: u32) -> u8 {
+        let mut bytes = [0u8; 1];
+        self.read_or_panic(address, &mut bytes);
+        bytes[0]
     }
 }
 
