@@ -4,7 +4,8 @@ use crate::{
     bus::{BusClient, BusError, BusForwarder},
     config::MachineConfig,
     cpu::TricoreCpu,
-    elf::ElfData, peripherals::Peripherals,
+    elf::ElfData,
+    peripherals::Peripherals,
 };
 
 use std::cmp::Ordering;
@@ -186,7 +187,11 @@ impl Machine {
 
         self.cpu.set_program_counter(elf_data.entrypoint);
 
-        for section in &elf_data.section_headers {
+        for section in elf_data
+            .section_headers
+            .iter()
+            .filter(|&s| s.data.len() != 0 && s.address != 0)
+        {
             if let Err(error) = self
                 .bus_handler
                 .borrow_mut()

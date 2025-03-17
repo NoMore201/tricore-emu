@@ -11,7 +11,7 @@ impl Peripherals {
 impl BusClient for Peripherals {
     fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
         tracing::warn!(
-            "Accessing peripheral address 0x{:08X}, not yet implemented",
+            "Accessing peripheral address 0x{:08X} in read mode, not yet implemented",
             address
         );
         Ok(())
@@ -19,7 +19,7 @@ impl BusClient for Peripherals {
 
     fn write(&mut self, address: u32, data: &[u8]) -> Result<(), BusError> {
         tracing::warn!(
-            "Accessing peripheral address 0x{:08X}, not yet implemented",
+            "Accessing peripheral address 0x{:08X} in write mode, not yet implemented",
             address
         );
         Ok(())
