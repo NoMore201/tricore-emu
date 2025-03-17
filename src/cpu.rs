@@ -11,6 +11,7 @@ const OPCODE_JI_SR: u8 = 0xDCu8;
 const OPCODE_MOV_RLC: u8 = 0x3Bu8;
 const OPCODE_MTCR: u8 = 0xCDu8;
 const OPCODE_LDW_BOL: u8 = 0x19u8;
+const OPCODE_0DH: u8 = 0x0Du8;
 
 struct MemoryProxy {
     bus_handler: Rc<RefCell<BusForwarder>>,
@@ -89,11 +90,39 @@ impl TricoreCpu {
             OPCODE_MOV_RLC => self.insn_mov_rlc(),
             OPCODE_MTCR => self.insn_mtcr(),
             OPCODE_LDW_BOL => self.insn_ldw_bol(),
+            OPCODE_0DH => self.parse_0dh_opcodes(),
             _ => {
                 tracing::error!("Instruction with opcode 0x{:02X} not implemented", opcode);
                 std::process::exit(1);
             }
         }
+    }
+
+    fn parse_0dh_opcodes(&mut self) {
+        let insn = self.mem_proxy.read32(self.pc);
+        let id = insn.extract(22, 6);
+
+        match id {
+            0x12 => self.insn_dsync(),
+            0x13 => self.insn_isync(),
+            _ => {
+                tracing::error!(
+                    "Instruction with opcode 0x0D and identifier 0x{:02X} not implemented",
+                    id
+                );
+                std::process::exit(1);
+            }
+        }
+
+        self.pc += 4;
+    }
+
+    fn insn_dsync(&self) {
+        tracing::trace!("Decode DSYNC");
+    }
+
+    fn insn_isync(&self) {
+        tracing::trace!("Decode ISYNC");
     }
 
     fn insn_movha(&mut self) {
