@@ -5,13 +5,15 @@ use crate::{
     utils::{sign_extend, BitManipulation},
 };
 
-const OPCODE_MOVHA: u8 = 0x91u8;
-const OPCODE_LEA_BOL: u8 = 0xD9u8;
-const OPCODE_JI_SR: u8 = 0xDCu8;
-const OPCODE_MOV_RLC: u8 = 0x3Bu8;
-const OPCODE_MTCR: u8 = 0xCDu8;
-const OPCODE_LDW_BOL: u8 = 0x19u8;
-const OPCODE_0DH: u8 = 0x0Du8;
+const OPCODE_ADD_SRC: u8 = 0xC2;
+const OPCODE_JI_SR: u8 = 0xDC;
+const OPCODE_LEA_BOL: u8 = 0xD9;
+const OPCODE_LDW_BOL: u8 = 0x19;
+const OPCODE_LDW_SLR: u8 = 0x54;
+const OPCODE_MOV_RLC: u8 = 0x3B;
+const OPCODE_MOVHA: u8 = 0x91;
+const OPCODE_MTCR: u8 = 0xCD;
+const OPCODE_0DH: u8 = 0x0D;
 
 struct MemoryProxy {
     bus_handler: Rc<RefCell<BusForwarder>>,
@@ -91,6 +93,8 @@ impl TricoreCpu {
             OPCODE_MTCR => self.insn_mtcr(),
             OPCODE_LDW_BOL => self.insn_ldw_bol(),
             OPCODE_0DH => self.parse_0dh_opcodes(),
+            OPCODE_LDW_SLR => self.insn_ldw_slr(),
+            OPCODE_ADD_SRC => self.insn_add_src(),
             _ => {
                 tracing::error!("Instruction with opcode 0x{:02X} not implemented", opcode);
                 std::process::exit(1);
@@ -204,6 +208,35 @@ impl TricoreCpu {
             self.pc += 4;
         });
     }
+
+    fn insn_ldw_slr(&mut self) {
+        let insn = self.mem_proxy.read16(self.pc);
+        slr_parser(insn, |c, b| {
+            self.data_regs[c] = self.mem_proxy.read32(self.address_regs[b]);
+            tracing::trace!(
+                "Decode LD.W [{:04X}] D[{}]={:08X}",
+                insn,
+                c,
+                self.data_regs[c]
+            );
+            self.pc += 2;
+        });
+    }
+
+    fn insn_add_src(&mut self) {
+        let insn = self.mem_proxy.read16(self.pc);
+        src_parser(insn, |a, const4| {
+            let result = self.data_regs[a] + sign_extend(const4 as i32, 4) as u32;
+            self.data_regs[a] = result;
+            tracing::trace!(
+                "Decode ADD [{:04X}] D[{}]={:08X}",
+                insn,
+                a,
+                self.data_regs[a]
+            );
+            self.pc += 2;
+        });
+    }
 }
 
 impl MemoryProxy {
@@ -263,4 +296,18 @@ where
     let a = insn.extract(8, 4) as usize;
     let b = insn.extract(12, 4) as usize;
     callback(a, b);
+}
+
+fn slr_parser<F>(insn: u16, mut callback: F)
+where
+    F: FnMut(usize, usize),
+{
+    sr_parser(insn, callback);
+}
+
+fn src_parser<F>(insn: u16, mut callback: F)
+where
+    F: FnMut(usize, usize),
+{
+    sr_parser(insn, callback);
 }
