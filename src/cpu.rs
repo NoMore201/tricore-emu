@@ -12,8 +12,10 @@ const OPCODE_LDW_BOL: u8 = 0x19;
 const OPCODE_LDW_SLR: u8 = 0x54;
 const OPCODE_MOV_RLC: u8 = 0x3B;
 const OPCODE_MOVHA: u8 = 0x91;
+const OPCODE_MOVH: u8 = 0x7B;
 const OPCODE_MTCR: u8 = 0xCD;
 const OPCODE_0DH: u8 = 0x0D;
+const OPCODE_STW_BOL: u8 = 0x59;
 
 struct MemoryProxy {
     bus_handler: Rc<RefCell<BusForwarder>>,
@@ -87,11 +89,13 @@ impl TricoreCpu {
     fn decode(&mut self, opcode: u8) {
         match opcode {
             OPCODE_MOVHA => self.insn_movha(),
+            OPCODE_MOVH => self.insn_movh(),
             OPCODE_LEA_BOL => self.insn_lea_bol(),
             OPCODE_JI_SR => self.insn_ji_sr(),
             OPCODE_MOV_RLC => self.insn_mov_rlc(),
             OPCODE_MTCR => self.insn_mtcr(),
             OPCODE_LDW_BOL => self.insn_ldw_bol(),
+            OPCODE_STW_BOL => self.insn_stw_bol(),
             OPCODE_0DH => self.parse_0dh_opcodes(),
             OPCODE_LDW_SLR => self.insn_ldw_slr(),
             OPCODE_ADD_SRC => self.insn_add_src(),
@@ -135,6 +139,20 @@ impl TricoreCpu {
             self.address_regs[c] = const16 << 16;
             tracing::trace!(
                 "Decode MOVH.A [{:08X}] A[{}]={:08X}",
+                insn,
+                c,
+                self.address_regs[c]
+            );
+            self.pc += 4;
+        });
+    }
+
+    fn insn_movh(&mut self) {
+        let insn = self.mem_proxy.read32(self.pc);
+        rlc_parser(insn, |_, c, const16| {
+            self.data_regs[c] = const16 << 16;
+            tracing::trace!(
+                "Decode MOVH [{:08X}] A[{}]={:08X}",
                 insn,
                 c,
                 self.address_regs[c]
@@ -209,6 +227,22 @@ impl TricoreCpu {
         });
     }
 
+    fn insn_stw_bol(&mut self) {
+        let insn = self.mem_proxy.read32(self.pc);
+        bol_parser(insn, |a, b, off16| {
+            let sign_extended_off16 = sign_extend(off16 as i32, 16) as u32;
+            let ea = self.address_regs[b].wrapping_add(sign_extended_off16);
+            self.mem_proxy.write32(ea, self.data_regs[a]);
+            tracing::trace!(
+                "Decode ST.W [{:08X}] MEM[0x{:08X}]={:08X}",
+                insn,
+                ea,
+                self.data_regs[a]
+            );
+            self.pc += 4;
+        });
+    }
+
     fn insn_ldw_slr(&mut self) {
         let insn = self.mem_proxy.read16(self.pc);
         slr_parser(insn, |c, b| {
@@ -250,6 +284,13 @@ impl MemoryProxy {
         }
     }
 
+    fn write_or_panic(&self, address: u32, buffer: &[u8]) {
+        if let Err(error) = self.bus_handler.borrow_mut().write(address, buffer) {
+            println!("Cannot write data to address 0x{:08X}, {}", address, error);
+            std::process::exit(1);
+        }
+    }
+
     fn read32(&self, address: u32) -> u32 {
         let mut bytes = [0u8; 4];
         self.read_or_panic(address, &mut bytes);
@@ -266,6 +307,11 @@ impl MemoryProxy {
         let mut bytes = [0u8; 1];
         self.read_or_panic(address, &mut bytes);
         bytes[0]
+    }
+
+    fn write32(&self, address: u32, value: u32) {
+        let slice = value.to_le_bytes();
+        self.write_or_panic(address, &slice);
     }
 }
 

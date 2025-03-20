@@ -190,7 +190,7 @@ impl Machine {
         for section in elf_data
             .section_headers
             .iter()
-            .filter(|&s| s.data.len() != 0 && s.address != 0)
+            .filter(|&s| !s.data.is_empty() && s.address != 0)
         {
             if let Err(error) = self
                 .bus_handler
