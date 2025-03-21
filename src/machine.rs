@@ -3,7 +3,7 @@ use std::{cell::RefCell, rc::Rc};
 use crate::{
     bus::{BusClient, BusError, BusForwarder},
     config::MachineConfig,
-    cpu::TricoreCpu,
+    cpu::CpuState,
     elf::ElfData,
     peripherals::Peripherals,
 };
@@ -25,7 +25,7 @@ pub struct Machine {
     memory_regions: Vec<Rc<RefCell<MemoryRegion>>>,
     mirrored_regions: Vec<Rc<RefCell<MemoryRegionMirror>>>,
     bus_handler: Rc<RefCell<BusForwarder>>,
-    cpu: TricoreCpu,
+    cpu: CpuState,
     peripherals: Rc<RefCell<Peripherals>>,
 }
 
@@ -142,7 +142,7 @@ impl Machine {
             memory_regions: Vec::new(),
             mirrored_regions: Vec::new(),
             bus_handler: bus_handler.clone(),
-            cpu: TricoreCpu::create(bus_handler.clone()),
+            cpu: CpuState::create(bus_handler.clone()),
             peripherals: Rc::new(RefCell::new(Peripherals::new())),
         };
 
