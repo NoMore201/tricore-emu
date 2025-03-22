@@ -1,4 +1,4 @@
-use crate::bus::{BusClient, BusError};
+use crate::bus::{BusInterface, BusError};
 
 pub struct Peripherals {}
 
@@ -8,7 +8,7 @@ impl Peripherals {
     }
 }
 
-impl BusClient for Peripherals {
+impl BusInterface for Peripherals {
     fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
         tracing::warn!(
             "Accessing peripheral address 0x{:08X} in read mode, not yet implemented",

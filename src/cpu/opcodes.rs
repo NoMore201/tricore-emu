@@ -35,7 +35,7 @@ pub fn decode(cpu: &mut CpuState, opcode: u8) {
 }
 
 fn parse_0dh_opcodes(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read32(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc);
     let id = insn.extract(22, 6);
 
     match id {
@@ -62,7 +62,7 @@ fn insn_isync() {
 }
 
 fn insn_movha(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read32(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc);
     parser::rlc_parser(insn, |_, c, const16| {
         cpu.registers.address[c] = const16 << 16;
         tracing::trace!(
@@ -76,7 +76,7 @@ fn insn_movha(cpu: &mut CpuState) {
 }
 
 fn insn_movh(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read32(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc);
     parser::rlc_parser(insn, |_, c, const16| {
         cpu.registers.data[c] = const16 << 16;
         tracing::trace!(
@@ -90,7 +90,7 @@ fn insn_movh(cpu: &mut CpuState) {
 }
 
 fn insn_lea_bol(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read32(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc);
     parser::bol_parser(insn, |a, b, off16| {
         let ea = cpu.registers.address[b].wrapping_add(sign_extend(off16 as i32, 16) as u32);
         cpu.registers.address[a] = ea;
@@ -100,7 +100,7 @@ fn insn_lea_bol(cpu: &mut CpuState) {
 }
 
 fn insn_ji_sr(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read16(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read16(cpu.registers.pc);
     parser::sr_parser(insn, |a, _| {
         cpu.registers.pc = cpu.registers.address[a] & !1u32;
         tracing::trace!("Decode JI [{:04X}] PC=A[{}]={:08X}", insn, a, cpu.registers.pc);
@@ -108,7 +108,7 @@ fn insn_ji_sr(cpu: &mut CpuState) {
 }
 
 fn insn_mov_rlc(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read32(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc);
     parser::rlc_parser(insn, |_, c, off16| {
         let sign_extended_const16 = sign_extend(off16 as i32, 16) as u32;
         cpu.registers.data[c] = sign_extended_const16;
@@ -123,7 +123,7 @@ fn insn_mov_rlc(cpu: &mut CpuState) {
 }
 
 fn insn_mtcr(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read32(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc);
     parser::rlc_parser(insn, |a, _, off16| {
         let value = cpu.registers.data[a];
         let cr = cpu.get_core_register_by_offset(off16 as u16);
@@ -140,11 +140,11 @@ fn insn_mtcr(cpu: &mut CpuState) {
 }
 
 fn insn_ldw_bol(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read32(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc);
     parser::bol_parser(insn, |a, b, off16| {
         let sign_extended_off16 = sign_extend(off16 as i32, 16) as u32;
         let ea = cpu.registers.address[b].wrapping_add(sign_extended_off16);
-        cpu.registers.data[a] = cpu.mem_proxy.read32(ea);
+        cpu.registers.data[a] = cpu.memory_proxy.read32(ea);
         tracing::trace!(
             "Decode LD.W [{:08X}] D[{}]={:08X}",
             insn,
@@ -156,11 +156,11 @@ fn insn_ldw_bol(cpu: &mut CpuState) {
 }
 
 fn insn_stw_bol(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read32(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc);
     parser::bol_parser(insn, |a, b, off16| {
         let sign_extended_off16 = sign_extend(off16 as i32, 16) as u32;
         let ea = cpu.registers.address[b].wrapping_add(sign_extended_off16);
-        cpu.mem_proxy.write32(ea, cpu.registers.data[a]);
+        cpu.memory_proxy.write32(ea, cpu.registers.data[a]);
         tracing::trace!(
             "Decode ST.W [{:08X}] MEM[0x{:08X}]={:08X}",
             insn,
@@ -172,9 +172,9 @@ fn insn_stw_bol(cpu: &mut CpuState) {
 }
 
 fn insn_ldw_slr(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read16(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read16(cpu.registers.pc);
     parser::slr_parser(insn, |c, b| {
-        cpu.registers.data[c] = cpu.mem_proxy.read32(cpu.registers.address[b]);
+        cpu.registers.data[c] = cpu.memory_proxy.read32(cpu.registers.address[b]);
         tracing::trace!(
             "Decode LD.W [{:04X}] D[{}]={:08X}",
             insn,
@@ -186,7 +186,7 @@ fn insn_ldw_slr(cpu: &mut CpuState) {
 }
 
 fn insn_add_src(cpu: &mut CpuState) {
-    let insn = cpu.mem_proxy.read16(cpu.registers.pc);
+    let insn = cpu.memory_proxy.read16(cpu.registers.pc);
     parser::src_parser(insn, |a, const4| {
         let result = cpu.registers.data[a] + sign_extend(const4 as i32, 4) as u32;
         cpu.registers.data[a] = result;

@@ -7,7 +7,7 @@ pub enum BusError {
     OutOfBounds,
 }
 
-pub trait BusClient {
+pub trait BusInterface {
     /// Read bytes at provided address. Number of bytes to read is equal to
     /// data length
     fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError>;
@@ -21,23 +21,23 @@ pub trait BusClient {
 
 /// Collect devices connected to the bus and forward read/write
 /// request to all devices listening
-pub struct BusForwarder {
-    registered_devices: Vec<Rc<RefCell<dyn BusClient>>>,
+pub struct BusProxy {
+    registered_devices: Vec<Rc<RefCell<dyn BusInterface>>>,
 }
 
-impl BusForwarder {
+impl BusProxy {
     pub fn new() -> Self {
-        BusForwarder {
+        BusProxy {
             registered_devices: Vec::new(),
         }
     }
 
-    pub fn register_device(&mut self, device: Rc<RefCell<dyn BusClient>>) {
+    pub fn register_device(&mut self, device: Rc<RefCell<dyn BusInterface>>) {
         self.registered_devices.push(device)
     }
 }
 
-impl BusClient for BusForwarder {
+impl BusInterface for BusProxy {
     fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
         for dev in self.registered_devices.iter() {
             let result = dev.borrow().read(address, data);
@@ -73,20 +73,20 @@ impl fmt::Display for BusError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match *self {
             BusError::InvalidAddress(addr) => write!(f, "Address 0x{:08X} not handled", addr),
-            BusError::OutOfBounds => write!(f, "Memory write out of bounds")
+            BusError::OutOfBounds => write!(f, "Memory write out of bounds"),
         }
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{BusClient, BusError, BusForwarder};
+    use super::{BusInterface, BusError, BusProxy};
     use std::cell::RefCell;
     use std::rc::Rc;
 
     struct SampleClient {}
 
-    impl BusClient for SampleClient {
+    impl BusInterface for SampleClient {
         fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
             Ok(())
         }
@@ -102,7 +102,7 @@ mod tests {
 
     #[test]
     fn test_bus_handler() {
-        let mut handler = BusForwarder::new();
+        let mut handler = BusProxy::new();
         let sample_client1 = Rc::new(RefCell::new(SampleClient {}));
         let sample_client2 = Rc::new(RefCell::new(SampleClient {}));
         handler.register_device(sample_client1);

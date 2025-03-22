@@ -1,7 +1,7 @@
 use std::{cell::RefCell, rc::Rc};
 
 use crate::{
-    bus::{BusClient, BusError, BusForwarder},
+    bus::{BusInterface, BusError, BusProxy},
     config::MachineConfig,
     cpu::CpuState,
     elf::ElfData,
@@ -24,7 +24,7 @@ struct MemoryRegionMirror {
 pub struct Machine {
     memory_regions: Vec<Rc<RefCell<MemoryRegion>>>,
     mirrored_regions: Vec<Rc<RefCell<MemoryRegionMirror>>>,
-    bus_handler: Rc<RefCell<BusForwarder>>,
+    bus_handler: Rc<RefCell<BusProxy>>,
     cpu: CpuState,
     peripherals: Rc<RefCell<Peripherals>>,
 }
@@ -43,7 +43,7 @@ impl MemoryRegion {
     }
 }
 
-impl BusClient for MemoryRegion {
+impl BusInterface for MemoryRegion {
     fn address_is_managed(&self, address: u32) -> bool {
         address >= self.start_address && address < self.start_address + (self.buffer.len() as u32)
     }
@@ -82,7 +82,7 @@ impl BusClient for MemoryRegion {
     }
 }
 
-impl BusClient for MemoryRegionMirror {
+impl BusInterface for MemoryRegionMirror {
     fn address_is_managed(&self, address: u32) -> bool {
         address >= self.start_address
             && address < self.start_address + (self.original_region.borrow().buffer.len() as u32)
@@ -137,7 +137,7 @@ impl BusClient for MemoryRegionMirror {
 
 impl Machine {
     pub fn from_config(config: &MachineConfig) -> Machine {
-        let bus_handler = Rc::new(RefCell::new(BusForwarder::new()));
+        let bus_handler = Rc::new(RefCell::new(BusProxy::new()));
         let mut machine = Self {
             memory_regions: Vec::new(),
             mirrored_regions: Vec::new(),
@@ -225,7 +225,7 @@ mod tests {
     use std::{cell::RefCell, rc::Rc};
 
     use crate::{
-        bus::BusClient,
+        bus::BusInterface,
         config::{MachineConfig, MemoryDetails},
     };
 

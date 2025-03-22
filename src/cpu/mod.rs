@@ -1,15 +1,11 @@
+mod memory;
 mod opcodes;
 mod utils;
 
 use std::{cell::RefCell, rc::Rc};
 
-use crate::
-    bus::{BusClient, BusForwarder}
-;
-
-struct MemoryProxy {
-    bus_handler: Rc<RefCell<BusForwarder>>,
-}
+use crate::bus::BusProxy;
+use crate::cpu::memory::MemoryProxy;
 
 struct Registers {
     pub data: [u32; 16],
@@ -25,20 +21,18 @@ struct Registers {
     pub isp: u32,
     pub icr: u32,
     pub fcx: u32,
-    pub lcx: u32
+    pub lcx: u32,
 }
 
 pub struct CpuState {
-    mem_proxy: MemoryProxy,
-    registers: Registers
+    memory_proxy: MemoryProxy,
+    registers: Registers,
 }
 
 impl CpuState {
-    pub fn create(bus_handler: Rc<RefCell<BusForwarder>>) -> Self {
+    pub fn create(bus_proxy: Rc<RefCell<BusProxy>>) -> Self {
         Self {
-            mem_proxy: MemoryProxy {
-                bus_handler: bus_handler.clone(),
-            },
+            memory_proxy: MemoryProxy::new(bus_proxy),
             registers: Registers {
                 data: [0; 16],
                 address: [0; 16],
@@ -54,7 +48,7 @@ impl CpuState {
                 icr: 0,
                 fcx: 0,
                 lcx: 0,
-            }
+            },
         }
     }
 
@@ -64,7 +58,7 @@ impl CpuState {
 
     pub fn start(&mut self) {
         loop {
-            let opcode = self.mem_proxy.read8(self.registers.pc);
+            let opcode = self.memory_proxy.read8(self.registers.pc);
             opcodes::decode(self, opcode);
         }
     }
@@ -81,47 +75,5 @@ impl CpuState {
             }
         }
     }
-
 }
 
-impl MemoryProxy {
-    fn read_or_panic(&self, address: u32, buffer: &mut [u8]) {
-        if let Err(error) = self.bus_handler.borrow().read(address, buffer) {
-            println!(
-                "Cannot fetch data from address 0x{:08X}, {}",
-                address, error
-            );
-            std::process::exit(1);
-        }
-    }
-
-    fn write_or_panic(&self, address: u32, buffer: &[u8]) {
-        if let Err(error) = self.bus_handler.borrow_mut().write(address, buffer) {
-            println!("Cannot write data to address 0x{:08X}, {}", address, error);
-            std::process::exit(1);
-        }
-    }
-
-    fn read32(&self, address: u32) -> u32 {
-        let mut bytes = [0u8; 4];
-        self.read_or_panic(address, &mut bytes);
-        u32::from_le_bytes(bytes)
-    }
-
-    fn read16(&self, address: u32) -> u16 {
-        let mut bytes = [0u8; 2];
-        self.read_or_panic(address, &mut bytes);
-        u16::from_le_bytes(bytes)
-    }
-
-    fn read8(&self, address: u32) -> u8 {
-        let mut bytes = [0u8; 1];
-        self.read_or_panic(address, &mut bytes);
-        bytes[0]
-    }
-
-    fn write32(&self, address: u32, value: u32) {
-        let slice = value.to_le_bytes();
-        self.write_or_panic(address, &slice);
-    }
-}
