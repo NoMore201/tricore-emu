@@ -57,6 +57,7 @@ impl BusInterface for MemoryRegion {
             return Err(BusError::OutOfBounds);
         }
 
+        tracing::trace!("Reading from memory region {} at address 0x{:08X}", self.name, address);
         let offset: usize = (address as usize) - (self.start_address as usize);
         data.copy_from_slice(&self.buffer[offset..offset + data.len()]);
 
@@ -72,6 +73,7 @@ impl BusInterface for MemoryRegion {
             return Err(BusError::OutOfBounds);
         }
 
+        tracing::trace!("Writing from memory region {} at address 0x{:08X}", self.name, address);
         let mut offset: usize = (address as usize) - (self.start_address as usize);
         for byte in data {
             self.buffer[offset] = *byte;
