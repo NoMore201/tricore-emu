@@ -1,7 +1,9 @@
 use std::cell::RefCell;
+use std::error::Error;
 use std::fmt;
 use std::rc::Rc;
 
+#[derive(Debug)]
 pub enum BusError {
     InvalidAddress(u32),
     OutOfBounds,
@@ -78,9 +80,11 @@ impl fmt::Display for BusError {
     }
 }
 
+impl Error for BusError {}
+
 #[cfg(test)]
 mod tests {
-    use super::{BusInterface, BusError, BusProxy};
+    use super::{BusError, BusInterface, BusProxy};
     use std::cell::RefCell;
     use std::rc::Rc;
 

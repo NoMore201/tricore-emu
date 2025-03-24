@@ -59,7 +59,18 @@ impl CpuState {
     pub fn start(&mut self) {
         loop {
             let opcode = self.memory_proxy.read8(self.registers.pc);
-            opcodes::decode(self, opcode);
+            match opcode {
+                Ok(byte) => {
+                    if let Err(error) = opcodes::decode(self, byte) {
+                        tracing::error!("Instruction decoding error: {}", error);
+                        std::process::exit(1);
+                    }
+                },
+                Err(error) => {
+                    tracing::error!("Cannot fetch byte from PC address: {}", error);
+                    std::process::exit(1);
+                }
+            }
         }
     }
 
@@ -76,4 +87,3 @@ impl CpuState {
         }
     }
 }
-
