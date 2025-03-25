@@ -1,6 +1,6 @@
 pub mod parser {
-    use crate::utils::BitManipulation;
     use crate::cpu::opcodes::Result;
+    use crate::utils::BitManipulation;
 
     pub fn rlc_parser<F>(insn: u32, mut callback: F) -> Result<()>
     where
@@ -43,5 +43,22 @@ pub mod parser {
         F: FnMut(usize, usize) -> Result<()>,
     {
         sr_parser(insn, callback)
+    }
+
+    pub fn srr_parser<F>(insn: u16, callback: F) -> Result<()>
+    where
+        F: FnMut(usize, usize) -> Result<()>,
+    {
+        sr_parser(insn, callback)
+    }
+
+    pub fn brc_parser<F>(insn: u32, mut callback: F) -> Result<()>
+    where
+        F: FnMut(usize, usize, u32) -> Result<()>,
+    {
+        let a = insn.extract(8, 4) as usize;
+        let b = insn.extract(12, 4) as usize;
+        let disp15 = insn.extract(16, 15);
+        callback(a, b, disp15)
     }
 }

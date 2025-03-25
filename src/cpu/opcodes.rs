@@ -6,6 +6,7 @@ use crate::cpu::CpuState;
 use crate::utils::{sign_extend, BitManipulation};
 
 const OPCODE_ADD_SRC: u8 = 0xC2;
+const OPCODE_AND_SRR: u8 = 0x26;
 const OPCODE_JI_SR: u8 = 0xDC;
 const OPCODE_LEA_BOL: u8 = 0xD9;
 const OPCODE_LDW_BOL: u8 = 0x19;
@@ -16,6 +17,7 @@ const OPCODE_MOVH: u8 = 0x7B;
 const OPCODE_MTCR: u8 = 0xCD;
 const OPCODE_0DH: u8 = 0x0D;
 const OPCODE_STW_BOL: u8 = 0x59;
+const OPCODE_JUMP_DF: u8 = 0xDF;
 
 pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
@@ -38,6 +40,8 @@ pub fn decode(cpu: &mut CpuState, opcode: u8) -> Result<()> {
         OPCODE_0DH => parse_0dh_opcodes(cpu),
         OPCODE_LDW_SLR => insn_ldw_slr(cpu),
         OPCODE_ADD_SRC => insn_add_src(cpu),
+        OPCODE_AND_SRR => insn_and_srr(cpu),
+        OPCODE_JUMP_DF => insn_jump_df(cpu),
         _ => Err(Box::new(OpcodeError::InvalidOpcode(opcode))),
     }
 }
@@ -220,6 +224,52 @@ fn insn_add_src(cpu: &mut CpuState) -> Result<()> {
             cpu.registers.data[a]
         );
         cpu.registers.pc += 2;
+        Ok(())
+    })
+}
+
+fn insn_and_srr(cpu: &mut CpuState) -> Result<()> {
+    let insn = cpu.memory_proxy.read16(cpu.registers.pc)?;
+    parser::srr_parser(insn, |a, b| {
+        cpu.registers.data[a] = cpu.registers.data[a] & cpu.registers.data[b];
+        tracing::trace!(
+            "Decode AND [{:04X}] D[{}]={:08X}",
+            insn,
+            a,
+            cpu.registers.data[a]
+        );
+        cpu.registers.pc += 2;
+        Ok(())
+    })
+}
+
+fn insn_jump_df(cpu: &mut CpuState) -> Result<()> {
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc)?;
+    parser::brc_parser(insn, |a, b, disp15| {
+        let sign_extended_const4 = sign_extend(b as i32, 4) as u32;
+        let sign_extended_disp15 = sign_extend(disp15 as i32, 15) as u32;
+        let identifier = insn.extract(31, 1);
+        let (condition, name) = match identifier {
+            0 => (cpu.registers.data[a] == sign_extended_const4, "JEQ"),
+            1 => (cpu.registers.data[a] != sign_extended_const4, "JNE"),
+            _ => return Err(Box::new(OpcodeError::InvalidVariant(0xDF, identifier as u8)))
+            
+        };
+        if condition {
+            cpu.registers.pc += sign_extended_disp15 * 2;
+        }
+        let outcome_str = match condition {
+            false => "not taken",
+            true => "taken"
+        };
+
+        tracing::trace!(
+            "Decode {} [{:08X}] branch {}",
+            name,
+            insn,
+            outcome_str
+        );
+        cpu.registers.pc += 4;
         Ok(())
     })
 }
