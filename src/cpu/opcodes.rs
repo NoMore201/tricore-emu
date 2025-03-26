@@ -18,6 +18,7 @@ const OPCODE_MTCR: u8 = 0xCD;
 const OPCODE_0DH: u8 = 0x0D;
 const OPCODE_STW_BOL: u8 = 0x59;
 const OPCODE_JUMP_DF: u8 = 0xDF;
+const OPCODE_8F: u8 = 0x8F;
 
 pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
@@ -42,6 +43,7 @@ pub fn decode(cpu: &mut CpuState, opcode: u8) -> Result<()> {
         OPCODE_ADD_SRC => insn_add_src(cpu),
         OPCODE_AND_SRR => insn_and_srr(cpu),
         OPCODE_JUMP_DF => insn_jump_df(cpu),
+        OPCODE_8F => parse_8fh_opcodes(cpu),
         _ => Err(Box::new(OpcodeError::InvalidOpcode(opcode))),
     }
 }
@@ -60,6 +62,31 @@ fn parse_0dh_opcodes(cpu: &mut CpuState) -> Result<()> {
             }
         }
     }
+}
+
+fn parse_8fh_opcodes(cpu: &mut CpuState) -> Result<()> {
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc).unwrap();
+    let id = insn.extract(21, 7);
+    println!("0x{:02X}", id);
+    match id {
+        0x08 => insn_and_rc(cpu),
+        _ => Err(Box::new(OpcodeError::InvalidVariant(0x8F, id as u8))),
+    }
+}
+
+fn insn_and_rc(cpu: &mut CpuState) -> Result<()> {
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc).unwrap();
+    parser::rc_parser(insn, |a, c, const9| {
+        cpu.registers.data[c] = cpu.registers.data[a] & const9;
+        tracing::trace!(
+            "Decode AND [{:08X}] D[{}]={:08X}",
+            insn,
+            c,
+            cpu.registers.data[c]
+        );
+        cpu.registers.pc += 4;
+        Ok(())
+    })
 }
 
 fn insn_dsync(cpu: &mut CpuState) -> Result<()> {
@@ -252,23 +279,22 @@ fn insn_jump_df(cpu: &mut CpuState) -> Result<()> {
         let (condition, name) = match identifier {
             0 => (cpu.registers.data[a] == sign_extended_const4, "JEQ"),
             1 => (cpu.registers.data[a] != sign_extended_const4, "JNE"),
-            _ => return Err(Box::new(OpcodeError::InvalidVariant(0xDF, identifier as u8)))
-            
+            _ => {
+                return Err(Box::new(OpcodeError::InvalidVariant(
+                    0xDF,
+                    identifier as u8,
+                )))
+            }
         };
         if condition {
             cpu.registers.pc += sign_extended_disp15 * 2;
         }
         let outcome_str = match condition {
             false => "not taken",
-            true => "taken"
+            true => "taken",
         };
 
-        tracing::trace!(
-            "Decode {} [{:08X}] branch {}",
-            name,
-            insn,
-            outcome_str
-        );
+        tracing::trace!("Decode {} [{:08X}] branch {}", name, insn, outcome_str);
         cpu.registers.pc += 4;
         Ok(())
     })

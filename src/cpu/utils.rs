@@ -2,6 +2,16 @@ pub mod parser {
     use crate::cpu::opcodes::Result;
     use crate::utils::BitManipulation;
 
+    pub fn rc_parser<F>(insn: u32, mut callback: F) -> Result<()>
+    where
+        F: FnMut(usize, usize, u32) -> Result<()>,
+    {
+        let a = insn.extract(8, 4) as usize;
+        let c = insn.extract(28, 4) as usize;
+        let const9 = insn.extract(12, 9);
+        callback(a, c, const9)
+    }
+
     pub fn rlc_parser<F>(insn: u32, mut callback: F) -> Result<()>
     where
         F: FnMut(usize, usize, u32) -> Result<()>,
