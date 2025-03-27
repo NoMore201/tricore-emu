@@ -22,6 +22,14 @@ const OPCODE_8F: u8 = 0x8F;
 
 pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
+struct Instruction32(u32);
+
+struct BolLayout {
+    a: u32,
+    b: u32,
+    off16: u32,
+}
+
 #[derive(Debug)]
 enum OpcodeError {
     InvalidOpcode(u8),
@@ -132,14 +140,18 @@ fn insn_movh(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_lea_bol(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.read32(cpu.registers.pc)?;
-    parser::bol_parser(insn, |a, b, off16| {
-        let ea = cpu.registers.address[b].wrapping_add(sign_extend(off16 as i32, 16) as u32);
-        cpu.registers.address[a] = ea;
-        tracing::trace!("Decode LEA [{:08X}] A[{}]={:08X}", insn, a, ea);
-        cpu.registers.pc += 4;
-        Ok(())
-    })
+    let insn = Instruction32::fetch(cpu)?;
+    let bol_layout = insn.bol_layout();
+
+    let a = bol_layout.a as usize;
+    let b = bol_layout.b as usize;
+    let sign_extended_off16 = sign_extend(bol_layout.off16 as i32, 16) as u32;
+
+    let ea = cpu.registers.address[b].wrapping_add(sign_extended_off16);
+    cpu.registers.address[a] = ea;
+    tracing::trace!("Decode LEA [{:08X}] A[{}]={:08X}", insn.0, a, ea);
+    cpu.registers.pc += 4;
+    Ok(())
 }
 
 fn insn_ji_sr(cpu: &mut CpuState) -> Result<()> {
@@ -191,37 +203,44 @@ fn insn_mtcr(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_ldw_bol(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.read32(cpu.registers.pc)?;
-    parser::bol_parser(insn, |a, b, off16| {
-        let sign_extended_off16 = sign_extend(off16 as i32, 16) as u32;
-        let ea = cpu.registers.address[b].wrapping_add(sign_extended_off16);
-        cpu.registers.data[a] = cpu.memory_proxy.read32(ea)?;
-        tracing::trace!(
-            "Decode LD.W [{:08X}] D[{}]={:08X}",
-            insn,
-            a,
-            cpu.registers.data[a]
-        );
-        cpu.registers.pc += 4;
-        Ok(())
-    })
+    let insn = Instruction32::fetch(cpu)?;
+    let bol_layout = insn.bol_layout();
+
+    let a = bol_layout.a as usize;
+    let b = bol_layout.b as usize;
+    let sign_extended_off16 = sign_extend(bol_layout.off16 as i32, 16) as u32;
+
+    let ea = cpu.registers.address[b].wrapping_add(sign_extended_off16);
+    cpu.registers.data[a] = cpu.memory_proxy.read32(ea)?;
+    tracing::trace!(
+        "Decode LD.W [{:08X}] D[{}]={:08X}",
+        insn.0,
+        a,
+        cpu.registers.data[a]
+    );
+    cpu.registers.pc += 4;
+    Ok(())
 }
 
 fn insn_stw_bol(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.read32(cpu.registers.pc)?;
-    parser::bol_parser(insn, |a, b, off16| {
-        let sign_extended_off16 = sign_extend(off16 as i32, 16) as u32;
-        let ea = cpu.registers.address[b].wrapping_add(sign_extended_off16);
-        cpu.memory_proxy.write32(ea, cpu.registers.data[a])?;
-        tracing::trace!(
-            "Decode ST.W [{:08X}] MEM[0x{:08X}]={:08X}",
-            insn,
-            ea,
-            cpu.registers.data[a]
-        );
-        cpu.registers.pc += 4;
-        Ok(())
-    })
+    let insn = Instruction32::fetch(cpu)?;
+    let bol_layout = insn.bol_layout();
+
+    let a = bol_layout.a as usize;
+    let b = bol_layout.b as usize;
+    let sign_extended_off16 = sign_extend(bol_layout.off16 as i32, 16) as u32;
+
+    let ea = cpu.registers.address[b].wrapping_add(sign_extended_off16);
+    cpu.memory_proxy
+        .write32(ea, cpu.registers.data[a])?;
+    tracing::trace!(
+        "Decode ST.W [{:08X}] MEM[0x{:08X}]={:08X}",
+        insn.0,
+        ea,
+        cpu.registers.data[a]
+    );
+    cpu.registers.pc += 4;
+    Ok(())
 }
 
 fn insn_ldw_slr(cpu: &mut CpuState) -> Result<()> {
@@ -316,3 +335,22 @@ impl Display for OpcodeError {
 }
 
 impl Error for OpcodeError {}
+
+impl Instruction32 {
+    fn fetch(cpu: &CpuState) -> Result<Instruction32> {
+        cpu.memory_proxy
+            .read32(cpu.registers.pc)
+            .and_then(|v| Ok(Instruction32(v)))
+            .or_else(|err| Err(Box::new(err).into()))
+    }
+
+    fn bol_layout(&self) -> BolLayout {
+        BolLayout {
+            a: self.0.extract(8, 4),
+            b: self.0.extract(12, 4),
+            off16: self.0.extract(16, 6)
+                | (self.0.extract(28, 4) << 6)
+                | (self.0.extract(22, 6) << 10),
+        }
+    }
+}

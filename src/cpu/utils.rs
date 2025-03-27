@@ -22,16 +22,6 @@ pub mod parser {
         callback(a, c, const16)
     }
 
-    pub fn bol_parser<F>(insn: u32, mut callback: F) -> Result<()>
-    where
-        F: FnMut(usize, usize, u32) -> Result<()>,
-    {
-        let a = insn.extract(8, 4) as usize;
-        let b = insn.extract(12, 4) as usize;
-        let off16 = insn.extract(16, 6) | (insn.extract(28, 4) << 6) | (insn.extract(22, 6) << 10);
-        callback(a, b, off16)
-    }
-
     pub fn sr_parser<F>(insn: u16, mut callback: F) -> Result<()>
     where
         F: FnMut(usize, usize) -> Result<()>,
