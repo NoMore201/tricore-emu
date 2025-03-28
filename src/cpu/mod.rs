@@ -1,6 +1,5 @@
 mod memory;
 mod opcodes;
-mod utils;
 
 use std::{cell::RefCell, rc::Rc};
 
