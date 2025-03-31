@@ -18,6 +18,8 @@ const OPCODE_0DH: u8 = 0x0D;
 const OPCODE_STW_BOL: u8 = 0x59;
 const OPCODE_JUMP_DF: u8 = 0xDF;
 const OPCODE_8F: u8 = 0x8F;
+const OPCODE_00: u8 = 0x0;
+const OPCODE_JUMP_1D: u8 = 0x1D;
 
 pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
@@ -62,6 +64,10 @@ struct BrcLayout {
     disp15: u32,
 }
 
+struct BLayout {
+    disp24: u32,
+}
+
 #[derive(Debug)]
 enum OpcodeError {
     InvalidOpcode(u8),
@@ -84,6 +90,8 @@ pub fn decode(cpu: &mut CpuState, opcode: u8) -> Result<()> {
         OPCODE_AND_SRR => insn_and_srr(cpu),
         OPCODE_JUMP_DF => insn_jump_df(cpu),
         OPCODE_8F => parse_8fh_opcodes(cpu),
+        OPCODE_00 => parse_00h_opcodes(cpu),
+        OPCODE_JUMP_1D => insn_jump_1d(cpu),
         _ => Err(Box::new(OpcodeError::InvalidOpcode(opcode))),
     }
 }
@@ -107,11 +115,38 @@ fn parse_0dh_opcodes(cpu: &mut CpuState) -> Result<()> {
 fn parse_8fh_opcodes(cpu: &mut CpuState) -> Result<()> {
     let insn = cpu.memory_proxy.read32(cpu.registers.pc).unwrap();
     let id = insn.extract(21, 7);
-    println!("0x{:02X}", id);
     match id {
         0x08 => insn_and_rc(cpu),
         _ => Err(Box::new(OpcodeError::InvalidVariant(0x8F, id as u8))),
     }
+}
+
+fn parse_00h_opcodes(cpu: &mut CpuState) -> Result<()> {
+    let insn = cpu.memory_proxy.read16(cpu.registers.pc).unwrap();
+    let id = insn.extract(12, 4);
+    match id {
+        0 => insn_nop_sr(cpu),
+        _ => Err(Box::new(OpcodeError::InvalidVariant(0x00, id as u8))),
+    }
+}
+
+fn insn_nop_sr(cpu: &mut CpuState) -> Result<()> {
+    cpu.registers.pc += 2;
+    tracing::trace!("Decode NOP");
+    Ok(())
+}
+
+fn insn_jump_1d(cpu: &mut CpuState) -> Result<()> {
+    let insn = cpu.memory_proxy.read32(cpu.registers.pc).unwrap();
+    let layout = b_layout(insn);
+
+    let sign_extended_disp24 = sign_extend(layout.disp24 as i32, 24) as u32;
+    cpu.registers.pc = cpu
+        .registers
+        .pc
+        .wrapping_add(sign_extended_disp24.wrapping_mul(2));
+    tracing::trace!("Decode J [{:08X}] PC={:08X}", insn, cpu.registers.pc);
+    Ok(())
 }
 
 fn insn_and_rc(cpu: &mut CpuState) -> Result<()> {
@@ -449,5 +484,11 @@ fn brc_layout(insn: u32) -> BrcLayout {
         a: insn.extract(8, 4),
         b: insn.extract(12, 4),
         disp15: insn.extract(16, 15),
+    }
+}
+
+fn b_layout(insn: u32) -> BLayout {
+    BLayout {
+        disp24: insn.extract(16, 16) | (insn.extract(8, 8) << 16),
     }
 }
