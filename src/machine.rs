@@ -6,7 +6,7 @@ use crate::{
     cpu::CpuState,
     elf::ElfData,
     memory::{MemoryRegion, MemoryRegionMirror},
-    peripherals::Peripherals,
+    peripherals::PeripheralHandler,
 };
 
 pub struct Machine {
@@ -14,7 +14,7 @@ pub struct Machine {
     mirrored_regions: Vec<Rc<RefCell<MemoryRegionMirror>>>,
     bus_handler: Rc<RefCell<BusProxy>>,
     cpu: CpuState,
-    peripherals: Rc<RefCell<Peripherals>>,
+    peripherals: Rc<RefCell<PeripheralHandler>>,
 }
 
 impl Machine {
@@ -25,7 +25,7 @@ impl Machine {
             mirrored_regions: Vec::new(),
             bus_handler: bus_handler.clone(),
             cpu: CpuState::create(bus_handler.clone()),
-            peripherals: Rc::new(RefCell::new(Peripherals::new())),
+            peripherals: Rc::new(RefCell::new(PeripheralHandler::new())),
         };
 
         for area in config.memory_areas.iter() {

@@ -2,19 +2,19 @@ mod xram;
 
 use crate::bus::{BusError, BusInterface};
 
-pub struct Peripherals {
+pub struct PeripheralHandler {
     devices: Vec<Box<dyn BusInterface>>,
 }
 
-impl Peripherals {
+impl PeripheralHandler {
     pub fn new() -> Self {
-        Peripherals {
+        PeripheralHandler {
             devices: vec![Box::new(xram::Xram::new())],
         }
     }
 }
 
-impl BusInterface for Peripherals {
+impl BusInterface for PeripheralHandler {
     fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
         for device in &self.devices {
             let result = device.read(address, data);

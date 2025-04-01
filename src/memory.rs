@@ -22,6 +22,10 @@ impl MemoryRegion {
         }
     }
 
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
     fn out_of_bounds_check(&self, address: u32, length: usize) -> bool {
         address as usize + length > self.start_address as usize + self.buffer.len()
     }
