@@ -4,6 +4,7 @@ mod config;
 mod cpu;
 mod elf;
 mod machine;
+mod memory;
 mod peripherals;
 
 use std::path::PathBuf;

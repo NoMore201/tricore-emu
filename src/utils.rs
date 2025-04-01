@@ -1,3 +1,7 @@
+
+pub const KiB: usize = 1024;
+pub const MiB: usize = KiB * KiB;
+
 pub trait BitManipulation {
     fn extract(&self, offset: usize, length: usize) -> Self;
     fn deposit(&self, value: Self, offset: usize, length: usize) -> Self;
