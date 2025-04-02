@@ -44,8 +44,8 @@ pub trait BusInterface {
     fn address_is_managed(&self, address: u32) -> bool;
 }
 
-/// Collect devices connected to the bus and forward read/write
-/// request to all devices listening
+/// Group of devices connected to the bus that can forward read/write
+/// request to the bus.
 pub struct BusProxy {
     registered_devices: Vec<Rc<RefCell<dyn BusInterface>>>,
 }
