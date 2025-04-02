@@ -56,7 +56,7 @@ impl CpuState {
 
     pub fn start(&mut self) {
         loop {
-            let opcode = self.memory_proxy.borrow().read8(self.registers.pc);
+            let opcode = self.memory_proxy.borrow_mut().read8(self.registers.pc);
             match opcode {
                 Ok(byte) => {
                     if let Err(error) = opcodes::decode(self, byte) {

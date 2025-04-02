@@ -6,7 +6,7 @@ use crate::{
     cpu::CpuState,
     elf::ElfData,
     memory::{MemoryRegion, MemoryRegionMirror},
-    peripherals::PeripheralHandler,
+    peripherals,
 };
 
 pub struct Machine {
@@ -14,7 +14,7 @@ pub struct Machine {
     mirrored_regions: Vec<Rc<RefCell<MemoryRegionMirror>>>,
     bus_handler: Rc<RefCell<BusProxy>>,
     cpu: CpuState,
-    peripherals: Rc<RefCell<PeripheralHandler>>,
+    peripherals: Vec<Rc<RefCell<dyn BusInterface>>>,
 }
 
 impl Machine {
@@ -25,7 +25,7 @@ impl Machine {
             mirrored_regions: Vec::new(),
             bus_handler: bus_handler.clone(),
             cpu: CpuState::create(bus_handler.clone()),
-            peripherals: Rc::new(RefCell::new(PeripheralHandler::new())),
+            peripherals: peripherals::create_rc(),
         };
 
         for area in config.memory_areas.iter() {
@@ -52,20 +52,24 @@ impl Machine {
     pub fn init_from_elf(&mut self, elf_data: &ElfData) {
         tracing::info!("Initializing machine from ELF data");
 
-        // register all memory regions in bus
+        // register all memory regions in bus handler
         for region in self.memory_regions.iter() {
             self.bus_handler
                 .borrow_mut()
                 .register_device(region.clone());
         }
+        // register all memory regions mirrors in bus handler
         for mirrored_region in self.mirrored_regions.iter() {
             self.bus_handler
                 .borrow_mut()
                 .register_device(mirrored_region.clone());
         }
-        self.bus_handler
-            .borrow_mut()
-            .register_device(self.peripherals.clone());
+        // register all peripherals in bus handler
+        for peripheral in &self.peripherals {
+            self.bus_handler
+                .borrow_mut()
+                .register_device(peripheral.clone());
+        }
 
         self.cpu.set_program_counter(elf_data.entrypoint);
 
@@ -164,5 +168,4 @@ mod tests {
             0xDADADADAu32
         );
     }
-
 }

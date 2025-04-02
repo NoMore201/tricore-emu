@@ -12,25 +12,25 @@ pub enum BusError {
 pub trait BusInterface {
     /// Read bytes at provided address. Number of bytes to read is equal to
     /// data length
-    fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError>;
+    fn read(&mut self, address: u32, data: &mut [u8]) -> Result<(), BusError>;
 
     /// Write data at provided address. Number of bytes to read is equal to
     /// data length
     fn write(&mut self, address: u32, data: &[u8]) -> Result<(), BusError>;
 
-    fn read32(&self, address: u32) -> Result<u32, BusError> {
+    fn read32(&mut self, address: u32) -> Result<u32, BusError> {
         let mut bytes = [0u8; 4];
         self.read(address, &mut bytes)?;
         Ok(u32::from_le_bytes(bytes))
     }
 
-    fn read16(&self, address: u32) -> Result<u16, BusError> {
+    fn read16(&mut self, address: u32) -> Result<u16, BusError> {
         let mut bytes = [0u8; 2];
         self.read(address, &mut bytes)?;
         Ok(u16::from_le_bytes(bytes))
     }
 
-    fn read8(&self, address: u32) -> Result<u8, BusError> {
+    fn read8(&mut self, address: u32) -> Result<u8, BusError> {
         let mut bytes = [0u8; 1];
         self.read(address, &mut bytes)?;
         Ok(bytes[0])
@@ -63,9 +63,9 @@ impl BusProxy {
 }
 
 impl BusInterface for BusProxy {
-    fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
+    fn read(&mut self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
         for dev in self.registered_devices.iter() {
-            let result = dev.borrow().read(address, data);
+            let result = dev.borrow_mut().read(address, data);
             if result.is_err() {
                 continue;
             }

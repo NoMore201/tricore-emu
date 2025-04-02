@@ -52,7 +52,7 @@ impl BusInterface for MemoryRegion {
         address >= self.start_address && address < self.start_address + (self.buffer.len() as u32)
     }
 
-    fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
+    fn read(&mut self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
         if !self.address_is_managed(address) {
             return Err(BusError::InvalidAddress(address));
         }
@@ -102,7 +102,7 @@ impl BusInterface for MemoryRegionMirror {
             && address < self.start_address + (self.original_region.borrow().buffer.len() as u32)
     }
 
-    fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
+    fn read(&mut self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
         if !self.address_is_managed(address) {
             return Err(BusError::InvalidAddress(address));
         }
@@ -113,12 +113,12 @@ impl BusInterface for MemoryRegionMirror {
             Ordering::Greater => {
                 let diff = original_start_address - self.start_address;
                 let mapped_address = address + diff;
-                self.original_region.borrow().read(mapped_address, data)
+                self.original_region.borrow_mut().read(mapped_address, data)
             }
             Ordering::Equal | Ordering::Less => {
                 let diff = self.start_address - original_start_address;
                 let mapped_address = address - diff;
-                self.original_region.borrow().read(mapped_address, data)
+                self.original_region.borrow_mut().read(mapped_address, data)
             }
         }
     }

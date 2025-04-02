@@ -98,7 +98,7 @@ pub fn decode(cpu: &mut CpuState, opcode: u8) -> Result<()> {
 }
 
 fn parse_0dh_opcodes(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc);
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc);
     match insn {
         Err(error) => Err(error.into()),
         Ok(word) => {
@@ -114,7 +114,7 @@ fn parse_0dh_opcodes(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn parse_8fh_opcodes(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc).unwrap();
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc).unwrap();
     let id = insn.extract(21, 7);
     match id {
         0x08 => insn_and_rc(cpu),
@@ -123,7 +123,7 @@ fn parse_8fh_opcodes(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn parse_00h_opcodes(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read16(cpu.registers.pc).unwrap();
+    let insn = cpu.memory_proxy.borrow_mut().read16(cpu.registers.pc).unwrap();
     let id = insn.extract(12, 4);
     match id {
         0 => insn_nop_sr(cpu),
@@ -138,7 +138,7 @@ fn insn_nop_sr(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_jump_1d(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc).unwrap();
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc).unwrap();
     let layout = b_layout(insn);
 
     let sign_extended_disp24 = sign_extend(layout.disp24 as i32, 24) as u32;
@@ -151,7 +151,7 @@ fn insn_jump_1d(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_and_rc(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc).unwrap();
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc).unwrap();
     let rc_layout = rc_layout(insn);
 
     let a = rc_layout.a as usize;
@@ -181,7 +181,7 @@ fn insn_isync(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_movha(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc)?;
     let rlc_layout = rlc_layout(insn);
 
     let c = rlc_layout.c as usize;
@@ -198,7 +198,7 @@ fn insn_movha(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_movh(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc)?;
     let rlc_layout = rlc_layout(insn);
 
     let c = rlc_layout.c as usize;
@@ -215,7 +215,7 @@ fn insn_movh(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_lea_bol(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc)?;
     let bol_layout = bol_layout(insn);
 
     let a = bol_layout.a as usize;
@@ -230,7 +230,7 @@ fn insn_lea_bol(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_ji_sr(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read16(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read16(cpu.registers.pc)?;
     let sr_layout = sr_layout(insn);
 
     let a = sr_layout.a as usize;
@@ -246,7 +246,7 @@ fn insn_ji_sr(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_mov_rlc(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc)?;
     let rlc_layout = rlc_layout(insn);
 
     let c = rlc_layout.c as usize;
@@ -265,7 +265,7 @@ fn insn_mov_rlc(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_mtcr(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc)?;
     let rlc_layout = rlc_layout(insn);
 
     let a = rlc_layout.a as usize;
@@ -285,7 +285,7 @@ fn insn_mtcr(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_ldw_bol(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc)?;
     let bol_layout = bol_layout(insn);
 
     let a = bol_layout.a as usize;
@@ -293,7 +293,7 @@ fn insn_ldw_bol(cpu: &mut CpuState) -> Result<()> {
     let sign_extended_off16 = sign_extend(bol_layout.off16 as i32, 16) as u32;
 
     let ea = cpu.registers.address[b].wrapping_add(sign_extended_off16);
-    cpu.registers.data[a] = cpu.memory_proxy.borrow().read32(ea)?;
+    cpu.registers.data[a] = cpu.memory_proxy.borrow_mut().read32(ea)?;
     tracing::trace!(
         "Decode LD.W [{:08X}] D[{}]={:08X}",
         insn,
@@ -305,7 +305,7 @@ fn insn_ldw_bol(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_stw_bol(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc)?;
     let bol_layout = bol_layout(insn);
 
     let a = bol_layout.a as usize;
@@ -325,13 +325,13 @@ fn insn_stw_bol(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_ldw_slr(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read16(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read16(cpu.registers.pc)?;
     let slr_layout = slr_layout(insn);
 
     let b = slr_layout.b as usize;
     let c = slr_layout.c as usize;
 
-    cpu.registers.data[c] = cpu.memory_proxy.borrow().read32(cpu.registers.address[b])?;
+    cpu.registers.data[c] = cpu.memory_proxy.borrow_mut().read32(cpu.registers.address[b])?;
     tracing::trace!(
         "Decode LD.W [{:04X}] D[{}]={:08X}",
         insn,
@@ -343,7 +343,7 @@ fn insn_ldw_slr(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_add_src(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read16(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read16(cpu.registers.pc)?;
     let src_layout = src_layout(insn);
 
     let a = src_layout.a as usize;
@@ -361,7 +361,7 @@ fn insn_add_src(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_and_srr(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read16(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read16(cpu.registers.pc)?;
     let srr_layout = srr_layout(insn);
 
     let a = srr_layout.a as usize;
@@ -379,7 +379,7 @@ fn insn_and_srr(cpu: &mut CpuState) -> Result<()> {
 }
 
 fn insn_jump_df(cpu: &mut CpuState) -> Result<()> {
-    let insn = cpu.memory_proxy.borrow().read32(cpu.registers.pc)?;
+    let insn = cpu.memory_proxy.borrow_mut().read32(cpu.registers.pc)?;
     let brc_layout = brc_layout(insn);
 
     let a = brc_layout.a as usize;
