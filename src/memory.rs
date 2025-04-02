@@ -22,6 +22,10 @@ impl MemoryRegion {
         }
     }
 
+    pub fn create_rc(start_address: u32, size: usize, name: &str) -> Rc<RefCell<Self>> {
+        Rc::new(RefCell::new(Self::create(start_address, size, name)))
+    }
+
     pub fn name(&self) -> &str {
         &self.name
     }
@@ -32,8 +36,14 @@ impl MemoryRegion {
 }
 
 impl MemoryRegionMirror {
-    pub fn create(start_address: u32, orig_region: Rc<RefCell<MemoryRegion>>) -> MemoryRegionMirror {
-        MemoryRegionMirror { start_address, original_region: orig_region } 
+    pub fn create(
+        start_address: u32,
+        orig_region: Rc<RefCell<MemoryRegion>>,
+    ) -> MemoryRegionMirror {
+        MemoryRegionMirror {
+            start_address,
+            original_region: orig_region,
+        }
     }
 }
 
@@ -51,7 +61,11 @@ impl BusInterface for MemoryRegion {
             return Err(BusError::OutOfBounds);
         }
 
-        tracing::trace!("Reading from memory region {} at address 0x{:08X}", self.name, address);
+        tracing::trace!(
+            "Reading from memory region {} at address 0x{:08X}",
+            self.name,
+            address
+        );
         let offset: usize = (address as usize) - (self.start_address as usize);
         data.copy_from_slice(&self.buffer[offset..offset + data.len()]);
 
@@ -67,7 +81,11 @@ impl BusInterface for MemoryRegion {
             return Err(BusError::OutOfBounds);
         }
 
-        tracing::trace!("Writing to memory region {} at address 0x{:08X}", self.name, address);
+        tracing::trace!(
+            "Writing to memory region {} at address 0x{:08X}",
+            self.name,
+            address
+        );
         let mut offset: usize = (address as usize) - (self.start_address as usize);
         for byte in data {
             self.buffer[offset] = *byte;
@@ -168,11 +186,7 @@ mod tests {
 
     #[test]
     fn test_memory_region_alias() {
-        let region = Rc::new(RefCell::new(MemoryRegion::create(
-            0xD0000000u32,
-            64,
-            "flash",
-        )));
+        let region = MemoryRegion::create_rc(0xD0000000u32, 64, "flash");
 
         let mut mirror = MemoryRegionMirror {
             start_address: 0,
