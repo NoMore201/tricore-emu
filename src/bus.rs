@@ -18,6 +18,29 @@ pub trait BusInterface {
     /// data length
     fn write(&mut self, address: u32, data: &[u8]) -> Result<(), BusError>;
 
+    fn read32(&self, address: u32) -> Result<u32, BusError> {
+        let mut bytes = [0u8; 4];
+        self.read(address, &mut bytes)?;
+        Ok(u32::from_le_bytes(bytes))
+    }
+
+    fn read16(&self, address: u32) -> Result<u16, BusError> {
+        let mut bytes = [0u8; 2];
+        self.read(address, &mut bytes)?;
+        Ok(u16::from_le_bytes(bytes))
+    }
+
+    fn read8(&self, address: u32) -> Result<u8, BusError> {
+        let mut bytes = [0u8; 1];
+        self.read(address, &mut bytes)?;
+        Ok(bytes[0])
+    }
+
+    fn write32(&mut self, address: u32, value: u32) -> Result<(), BusError> {
+        let slice = value.to_le_bytes();
+        self.write(address, &slice)
+    }
+
     fn address_is_managed(&self, address: u32) -> bool;
 }
 

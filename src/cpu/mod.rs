@@ -1,10 +1,9 @@
-mod memory;
 mod opcodes;
 
 use std::{cell::RefCell, rc::Rc};
 
+use crate::bus::BusInterface;
 use crate::bus::BusProxy;
-use crate::cpu::memory::MemoryProxy;
 
 struct Registers {
     pub data: [u32; 16],
@@ -24,14 +23,14 @@ struct Registers {
 }
 
 pub struct CpuState {
-    memory_proxy: MemoryProxy,
+    memory_proxy: Rc<RefCell<BusProxy>>,
     registers: Registers,
 }
 
 impl CpuState {
     pub fn create(bus_proxy: Rc<RefCell<BusProxy>>) -> Self {
         Self {
-            memory_proxy: MemoryProxy::new(bus_proxy),
+            memory_proxy: bus_proxy,
             registers: Registers {
                 data: [0; 16],
                 address: [0; 16],
@@ -57,7 +56,7 @@ impl CpuState {
 
     pub fn start(&mut self) {
         loop {
-            let opcode = self.memory_proxy.read8(self.registers.pc);
+            let opcode = self.memory_proxy.borrow().read8(self.registers.pc);
             match opcode {
                 Ok(byte) => {
                     if let Err(error) = opcodes::decode(self, byte) {
