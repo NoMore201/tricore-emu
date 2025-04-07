@@ -114,7 +114,7 @@ mod tests {
     struct SampleClient {}
 
     impl BusInterface for SampleClient {
-        fn read(&self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
+        fn read(&mut self, address: u32, data: &mut [u8]) -> Result<(), BusError> {
             Ok(())
         }
 

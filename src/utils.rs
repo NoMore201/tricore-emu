@@ -119,21 +119,21 @@ mod tests {
     #[test]
     #[should_panic(expected = "assertion failed")]
     fn test_deposit_invalid_offset_panic() {
-        let mut num = 0x12345678u32;
+        let num = 0x12345678u32;
         num.deposit(12, 123, 1);
     }
 
     #[test]
     #[should_panic(expected = "assertion failed")]
     fn test_deposit_invalid_length_panic() {
-        let mut num = 0x12345678u32;
+        let num = 0x12345678u32;
         num.deposit(12, 1, 40);
     }
 
     #[test]
     #[should_panic(expected = "assertion failed")]
     fn test_deposit_invalid_offset_length_panic() {
-        let mut num = 0x12345678u32;
+        let num = 0x12345678u32;
         num.deposit(12, 24, 11);
     }
 }

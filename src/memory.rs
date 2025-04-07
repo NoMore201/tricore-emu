@@ -151,14 +151,9 @@ impl BusInterface for MemoryRegionMirror {
 
 #[cfg(test)]
 mod tests {
-    use std::{cell::RefCell, rc::Rc};
+    use crate::bus::BusInterface;
 
-    use crate::{
-        bus::BusInterface,
-        config::{MachineConfig, MemoryDetails},
-    };
-
-    use super::{Machine, MemoryRegion, MemoryRegionMirror};
+    use super::{MemoryRegion, MemoryRegionMirror};
 
     #[test]
     fn test_memory_region() {
@@ -198,7 +193,7 @@ mod tests {
         assert!(write_result.is_ok());
 
         let mut received = [0u8; 32];
-        let read_result = region.borrow().read(0xD0000004, &mut received);
+        let read_result = region.borrow_mut().read(0xD0000004, &mut received);
         assert!(read_result.is_ok());
         assert!(sent.iter().zip(received.iter()).all(|(&l, &r)| l == r));
 
@@ -206,9 +201,9 @@ mod tests {
         assert!(mirror.read(128, &mut received).is_err());
         assert!(mirror.read(48, &mut received).is_err());
         assert!(mirror.read(0xD0000000, &mut received).is_err());
-        assert!(region.borrow().read(0xD0000030, &mut received).is_err());
-        assert!(region.borrow().read(0xCFFFFFFF, &mut received).is_err());
-        assert!(region.borrow().read(0xD0000021, &mut received).is_err());
-        assert!(region.borrow().read(0xD0000020, &mut received).is_ok());
+        assert!(region.borrow_mut().read(0xD0000030, &mut received).is_err());
+        assert!(region.borrow_mut().read(0xCFFFFFFF, &mut received).is_err());
+        assert!(region.borrow_mut().read(0xD0000021, &mut received).is_err());
+        assert!(region.borrow_mut().read(0xD0000020, &mut received).is_ok());
     }
 }
