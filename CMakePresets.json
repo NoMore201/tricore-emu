@@ -96,7 +96,7 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "cl",
                 "CMAKE_CXX_COMPILER": "cl",
-                "ENABLE_SANITIZERS": "ON",
+                "ENABLE_SANITIZERS": "OFF",
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
             }
         },

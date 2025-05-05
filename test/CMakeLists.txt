@@ -19,13 +19,9 @@ add_executable(
 )
 target_link_libraries(
   tricore_emu_test PRIVATE
-  tricore_emu_lib
+  emulator
   GTest::gtest_main
 )
 target_compile_features(tricore_emu_test PRIVATE cxx_std_20)
 
 gtest_discover_tests(tricore_emu_test)
-
-# ---- End-of-file commands ----
-
-add_folders(Test)
