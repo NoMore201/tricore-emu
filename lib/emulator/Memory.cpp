@@ -4,7 +4,6 @@
 #include "Utils.hpp"
 
 #include <fmt/format.h>
-#include <gsl/assert>
 
 #include <algorithm>
 

@@ -5,8 +5,9 @@
 #include "Utils.hpp"
 
 #include <fmt/base.h>
-#include <gsl/assert>
 #include <spdlog/spdlog.h>
+
+#include <cassert>
 
 #include <concepts>
 
@@ -1472,7 +1473,7 @@ void Tricore::Cpu::insn_call_32() {
                 }
             }
 
-            Ensures(leading_ones <= 6U);
+            assert(leading_ones <= 6U);
 
             const u32 counter_bits = 6U - leading_ones;
             const u32 max_depth_counter = (1U << (counter_bits)) - 1U;
@@ -1603,7 +1604,7 @@ void Tricore::Cpu::insn_ret_sr() {
                 }
             }
 
-            Ensures(leading_ones <= 6U);
+            assert(leading_ones <= 6U);
 
             const u32 counter_bits = 6U - leading_ones;
             u32 filtered_depth_counter =
