@@ -17,7 +17,6 @@ option(ENABLE_SANITIZERS "Enable compiler sanitizers" OFF)
 include(cmake/flags.cmake)
 
 find_package(spdlog CONFIG REQUIRED)
-find_package(Microsoft.GSL CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 
 add_subdirectory(lib/emulator)
