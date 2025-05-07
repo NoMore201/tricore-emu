@@ -32,7 +32,7 @@ add_library(
 	Peripherals/Scu.cpp
 	Peripherals/Sent.cpp
 	Peripherals/Smu.cpp
-	Peripherals/Src.cpp
+	#Peripherals/Src.cpp
 	Peripherals/Stm.cpp
 )
 target_include_directories(emulator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
