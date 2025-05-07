@@ -3,7 +3,7 @@
 
 #include "Types.hpp"
 
-#include <cassert>
+#include <gsl/assert>
 
 #include <concepts>
 
@@ -28,20 +28,20 @@ template <usize B> static inline u32 sign_extend32(const u32 input) {
 
 static inline u32 extract32(u32 data, u32 offset, u32 length) {
     constexpr u32 num_of_bits = 32;
-    assert(offset < num_of_bits && length <= num_of_bits - offset);
+    Expects(offset < num_of_bits && length <= num_of_bits - offset);
     return (data >> offset) & ((~0U) >> (num_of_bits - length));
 }
 
 static inline u16 extract16(u16 data, u32 offset, u32 length) {
     constexpr u32 num_of_bits = 16;
-    assert(offset < num_of_bits && length <= num_of_bits - offset);
+    Expects(offset < num_of_bits && length <= num_of_bits - offset);
     return static_cast<u16>(extract32(data, offset, length));
 }
 
 static inline u32 deposit32(u32 field, u32 offset, u32 length,
                             u32 destination) {
     constexpr u32 num_of_bits = 32;
-    assert(offset < num_of_bits && length <= num_of_bits - offset);
+    Expects(offset < num_of_bits && length <= num_of_bits - offset);
     u32 mask = (~0U >> (num_of_bits - length)) << offset;
     return (destination & ~mask) | ((field << offset) & mask);
 }
