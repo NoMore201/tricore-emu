@@ -32,9 +32,9 @@ add_library(
 	Peripherals/Scu.cpp
 	Peripherals/Sent.cpp
 	Peripherals/Smu.cpp
-	#Peripherals/Src.cpp
+	Peripherals/Src.cpp
 	Peripherals/Stm.cpp
 )
 target_include_directories(emulator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_compile_features(emulator PRIVATE cxx_std_20)
-target_link_libraries(emulator PRIVATE fmt::fmt spdlog::spdlog)
+target_link_libraries(emulator PRIVATE fmt::fmt Microsoft.GSL::GSL spdlog::spdlog)

@@ -3,6 +3,10 @@
   "version-semver": "0.1.0",
   "dependencies": [
     {
+      "name": "ms-gsl",
+      "version>=": "4.0.0"
+    },
+    {
       "name": "fmt",
       "version>=": "11.0.2"
     },
