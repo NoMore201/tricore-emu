@@ -17,32 +17,33 @@ constexpr char elf_magic_number_3 = 'F';
 
 Tricore::Elf::Elf() = default;
 
-Tricore::Elf::SectionHeader Tricore::Elf::get_string_table() {
+Tricore::Elf::SectionHeader Tricore::Elf::get_string_table()
+{
 
-    const std::ifstream::pos_type string_header_offset =
-        m_header.e_shoff + (m_header.e_shstrndx * m_header.e_shentsize);
+    const std::ifstream::pos_type string_header_offset = m_header.e_shoff + (m_header.e_shstrndx * m_header.e_shentsize);
 
-    SectionHeader section_header{};
+    SectionHeader section_header {};
     m_file.seekg(string_header_offset);
     m_file.read(reinterpret_cast<std::ifstream::char_type*>(&section_header), sizeof(SectionHeader));
     return section_header;
 }
 
-std::vector<Tricore::Elf::SectionHeaderWithName> Tricore::Elf::get_section_headers_with_names() {
+std::vector<Tricore::Elf::SectionHeaderWithName> Tricore::Elf::get_section_headers_with_names()
+{
     auto string_table = get_string_table();
 
-    std::vector<Tricore::Elf::SectionHeaderWithName> section_list{};
+    std::vector<Tricore::Elf::SectionHeaderWithName> section_list {};
     section_list.reserve(m_header.e_shnum);
 
     // skip first entry since it's reserved
     for (u32 pos = m_header.e_shoff + m_header.e_shentsize; pos < m_header.e_shoff + (m_header.e_shnum * m_header.e_shentsize);
          pos += m_header.e_shentsize) {
-        SectionHeader section_header{};
+        SectionHeader section_header {};
         m_file.seekg(pos);
         m_file.read(reinterpret_cast<std::ifstream::char_type*>(&section_header), sizeof(SectionHeader));
 
         m_file.seekg(string_table.sh_offset + section_header.sh_name);
-        std::string name{};
+        std::string name {};
         std::getline(m_file, name, '\0');
         section_list.emplace_back(section_header, name);
     }
@@ -50,7 +51,8 @@ std::vector<Tricore::Elf::SectionHeaderWithName> Tricore::Elf::get_section_heade
     return section_list;
 }
 
-std::optional<Tricore::Elf::Error> Tricore::Elf::parse_file(const std::filesystem::path &file_path) {
+std::optional<Tricore::Elf::Error> Tricore::Elf::parse_file(const std::filesystem::path& file_path)
+{
     m_file = std::ifstream(file_path, std::ios::binary);
     m_file.seekg(0);
 
@@ -58,20 +60,20 @@ std::optional<Tricore::Elf::Error> Tricore::Elf::parse_file(const std::filesyste
         return Error::ReadError;
     }
 
-    if (!m_file.read(reinterpret_cast<char *>(&m_header), sizeof(m_header))) {
+    if (!m_file.read(reinterpret_cast<char*>(&m_header), sizeof(m_header))) {
         return Error::InvalidFile;
     }
 
-    if (m_header.e_ident[0] != elf_magic_number_0 || m_header.e_ident[1] != elf_magic_number_1 ||
-        m_header.e_ident[2] != elf_magic_number_2 || m_header.e_ident[3] != elf_magic_number_3) {
+    if (m_header.e_ident[0] != elf_magic_number_0 || m_header.e_ident[1] != elf_magic_number_1 || m_header.e_ident[2] != elf_magic_number_2 || m_header.e_ident[3] != elf_magic_number_3) {
         return Error::InvalidFile;
     }
 
     return {};
 }
 
-std::vector<byte> Tricore::Elf::get_section_data(const SectionHeader& section) {
-    std::vector<byte> data{};
+std::vector<byte> Tricore::Elf::get_section_data(const SectionHeader& section)
+{
+    std::vector<byte> data {};
 
     data.resize(section.sh_size);
     m_file.seekg(section.sh_offset);

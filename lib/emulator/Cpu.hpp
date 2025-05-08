@@ -5,8 +5,8 @@
 #include "Elf.hpp"
 #include "Types.hpp"
 
-#include <gsl/pointers>
 #include <fmt/format.h>
+#include <gsl/pointers>
 
 #include <array>
 #include <concepts>
@@ -25,9 +25,10 @@ class Cpu {
 public:
     explicit Cpu(Bus& bus);
 
-    void initialize_program(Elf &elf_file);
+    void initialize_program(Elf& elf_file);
 
-    void set_program_counter(u32 address) noexcept {
+    void set_program_counter(u32 address) noexcept
+    {
         m_core_registers.pc = address;
     }
 
@@ -108,23 +109,23 @@ private:
     void print_cpu_status();
 
     // CPU registers
-    std::array<u32, register_count> m_data_registers{};
-    std::array<u32, register_count> m_address_registers{};
+    std::array<u32, register_count> m_data_registers {};
+    std::array<u32, register_count> m_address_registers {};
     struct CoreRegisters {
-        u32 pcxi{0};
-        u32 psw{0xB80U};
-        u32 pc{0};
-        u32 syscon{0};
-        u32 cpu_id{0};
-        u32 core_id{0};
-        u32 biv{0};
-        u32 btv{0};
-        u32 isp{0};
-        u32 icr{0};
-        u32 fcx{0};
-        u32 lcx{0};
+        u32 pcxi { 0 };
+        u32 psw { 0xB80U };
+        u32 pc { 0 };
+        u32 syscon { 0 };
+        u32 cpu_id { 0 };
+        u32 core_id { 0 };
+        u32 biv { 0 };
+        u32 btv { 0 };
+        u32 isp { 0 };
+        u32 icr { 0 };
+        u32 fcx { 0 };
+        u32 lcx { 0 };
 
-        u32 &operator[](usize offset);
+        u32& operator[](usize offset);
 
     } m_core_registers;
 
