@@ -1,5 +1,6 @@
 #include "Elf.hpp"
-#include "Tc33x.hpp"
+#include "Machine.hpp"
+#include "Tricore.hpp"
 
 #include <spdlog/common.h>
 #include <spdlog/spdlog.h>
@@ -23,7 +24,7 @@ int main(int argc, char *argv[]) {
                 break;
             }
         } else {
-            Tricore::Tc33x machine{};
+            Tricore::Machine machine{Tricore::CpuVariant::TC33X};
             machine.init(elf_file);
             machine.start();
         }

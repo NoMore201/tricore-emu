@@ -106,102 +106,102 @@ Tricore::Gpt12::Gpt12()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Gpt12::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Gpt12::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - gpt12_memory_start_address;
     switch (offset) {
     case reg_gpt120_clc_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_CLC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_clc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_clc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_pisel_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_PISEL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_pisel);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_pisel);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_id_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t2con_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T2CON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t2con);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t2con);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t3con_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T3CON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t3con);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t3con);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t4con_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T4CON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t4con);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t4con);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t5con_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T5CON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t5con);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t5con);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t6con_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T6CON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t6con);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t6con);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_caprel_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_CAPREL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_caprel);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_caprel);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t2_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t3_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t4_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t5_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T5 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t5);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t5);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_t6_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_T6 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_t6);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_t6);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_ocs_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_OCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_ocs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_ocs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_krstclr_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_krstclr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_krstclr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_krst1_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_krst1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_krst1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_krst0_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_krst0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_krst0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gpt120_accen0_offset: {
             spdlog::debug("GPT12: accessing GPT12.GPT120_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gpt120_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gpt120_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -211,104 +211,104 @@ void Tricore::Gpt12::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Gpt12::write(const std::byte *buffer_in, u32 address,
+void Tricore::Gpt12::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - gpt12_memory_start_address;
     switch (offset) {
     case reg_gpt120_clc_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_clc));
+                          reinterpret_cast<byte *>(&m_gpt120_clc));
     } break;
     case reg_gpt120_pisel_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_PISEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_pisel));
+                          reinterpret_cast<byte *>(&m_gpt120_pisel));
     } break;
     case reg_gpt120_id_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_id));
+                          reinterpret_cast<byte *>(&m_gpt120_id));
     } break;
     case reg_gpt120_t2con_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T2CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t2con));
+                          reinterpret_cast<byte *>(&m_gpt120_t2con));
     } break;
     case reg_gpt120_t3con_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T3CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t3con));
+                          reinterpret_cast<byte *>(&m_gpt120_t3con));
     } break;
     case reg_gpt120_t4con_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T4CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t4con));
+                          reinterpret_cast<byte *>(&m_gpt120_t4con));
     } break;
     case reg_gpt120_t5con_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T5CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t5con));
+                          reinterpret_cast<byte *>(&m_gpt120_t5con));
     } break;
     case reg_gpt120_t6con_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T6CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t6con));
+                          reinterpret_cast<byte *>(&m_gpt120_t6con));
     } break;
     case reg_gpt120_caprel_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_CAPREL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_caprel));
+                          reinterpret_cast<byte *>(&m_gpt120_caprel));
     } break;
     case reg_gpt120_t2_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t2));
+                          reinterpret_cast<byte *>(&m_gpt120_t2));
     } break;
     case reg_gpt120_t3_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t3));
+                          reinterpret_cast<byte *>(&m_gpt120_t3));
     } break;
     case reg_gpt120_t4_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t4));
+                          reinterpret_cast<byte *>(&m_gpt120_t4));
     } break;
     case reg_gpt120_t5_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T5 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t5));
+                          reinterpret_cast<byte *>(&m_gpt120_t5));
     } break;
     case reg_gpt120_t6_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_T6 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_t6));
+                          reinterpret_cast<byte *>(&m_gpt120_t6));
     } break;
     case reg_gpt120_ocs_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_ocs));
+                          reinterpret_cast<byte *>(&m_gpt120_ocs));
     } break;
     case reg_gpt120_krstclr_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_krstclr));
+                          reinterpret_cast<byte *>(&m_gpt120_krstclr));
     } break;
     case reg_gpt120_krst1_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_krst1));
+                          reinterpret_cast<byte *>(&m_gpt120_krst1));
     } break;
     case reg_gpt120_krst0_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_krst0));
+                          reinterpret_cast<byte *>(&m_gpt120_krst0));
     } break;
     case reg_gpt120_accen0_offset: {
         spdlog::debug("GPT12: accessing GPT12.GPT120_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gpt120_accen0));
+                          reinterpret_cast<byte *>(&m_gpt120_accen0));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

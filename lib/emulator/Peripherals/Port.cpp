@@ -1278,1567 +1278,1567 @@ Tricore::Port::Port()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Port::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Port::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - port_memory_start_address;
     switch (offset) {
     case reg_p00_out_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_id_offset: {
             spdlog::debug("PORT: accessing PORT.P00_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P00_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P00_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_iocr8_offset: {
             spdlog::debug("PORT: accessing PORT.P00_IOCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_iocr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_iocr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_iocr12_offset: {
             spdlog::debug("PORT: accessing PORT.P00_IOCR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_iocr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_iocr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_in_offset: {
             spdlog::debug("PORT: accessing PORT.P00_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P00_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_pdr1_offset: {
             spdlog::debug("PORT: accessing PORT.P00_PDR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_pdr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_pdr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P00_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P00_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P00_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omsr8_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMSR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omsr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omsr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omsr12_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMSR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omsr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omsr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omcr8_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omcr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omcr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omcr12_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMCR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omcr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omcr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P00_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P00_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p00_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P00_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p00_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p00_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_out_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_id_offset: {
             spdlog::debug("PORT: accessing PORT.P02_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P02_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P02_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_iocr8_offset: {
             spdlog::debug("PORT: accessing PORT.P02_IOCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_iocr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_iocr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_in_offset: {
             spdlog::debug("PORT: accessing PORT.P02_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P02_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_pdr1_offset: {
             spdlog::debug("PORT: accessing PORT.P02_PDR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_pdr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_pdr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P02_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P02_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P02_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_omsr8_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OMSR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_omsr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_omsr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_omcr8_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OMCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_omcr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_omcr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P02_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P02_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p02_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P02_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p02_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p02_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_out_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_id_offset: {
             spdlog::debug("PORT: accessing PORT.P10_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P10_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P10_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_iocr8_offset: {
             spdlog::debug("PORT: accessing PORT.P10_IOCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_iocr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_iocr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_in_offset: {
             spdlog::debug("PORT: accessing PORT.P10_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P10_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_pdr1_offset: {
             spdlog::debug("PORT: accessing PORT.P10_PDR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_pdr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_pdr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P10_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P10_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P10_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_omsr8_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OMSR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_omsr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_omsr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_omcr8_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OMCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_omcr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_omcr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P10_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P10_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p10_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P10_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p10_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p10_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_out_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_id_offset: {
             spdlog::debug("PORT: accessing PORT.P11_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P11_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P11_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_iocr8_offset: {
             spdlog::debug("PORT: accessing PORT.P11_IOCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_iocr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_iocr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_iocr12_offset: {
             spdlog::debug("PORT: accessing PORT.P11_IOCR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_iocr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_iocr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_in_offset: {
             spdlog::debug("PORT: accessing PORT.P11_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P11_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_pdr1_offset: {
             spdlog::debug("PORT: accessing PORT.P11_PDR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_pdr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_pdr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P11_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P11_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P11_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omsr8_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMSR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omsr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omsr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omsr12_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMSR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omsr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omsr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omcr8_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omcr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omcr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omcr12_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMCR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omcr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omcr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P11_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P11_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p11_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P11_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p11_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p11_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_out_offset: {
             spdlog::debug("PORT: accessing PORT.P13_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P13_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_id_offset: {
             spdlog::debug("PORT: accessing PORT.P13_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P13_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_in_offset: {
             spdlog::debug("PORT: accessing PORT.P13_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P13_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P13_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P13_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P13_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P13_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P13_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P13_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P13_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P13_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p13_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P13_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p13_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p13_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_out_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_id_offset: {
             spdlog::debug("PORT: accessing PORT.P14_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P14_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P14_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_iocr8_offset: {
             spdlog::debug("PORT: accessing PORT.P14_IOCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_iocr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_iocr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_in_offset: {
             spdlog::debug("PORT: accessing PORT.P14_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P14_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_pdr1_offset: {
             spdlog::debug("PORT: accessing PORT.P14_PDR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_pdr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_pdr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P14_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P14_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P14_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_omsr8_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OMSR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_omsr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_omsr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_omcr8_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OMCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_omcr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_omcr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P14_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P14_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p14_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P14_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p14_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p14_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_out_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_id_offset: {
             spdlog::debug("PORT: accessing PORT.P15_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P15_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P15_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_iocr8_offset: {
             spdlog::debug("PORT: accessing PORT.P15_IOCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_iocr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_iocr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_in_offset: {
             spdlog::debug("PORT: accessing PORT.P15_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P15_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_pdr1_offset: {
             spdlog::debug("PORT: accessing PORT.P15_PDR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_pdr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_pdr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P15_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P15_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P15_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_omsr8_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OMSR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_omsr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_omsr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_omcr8_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OMCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_omcr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_omcr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P15_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P15_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p15_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P15_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p15_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p15_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_out_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_id_offset: {
             spdlog::debug("PORT: accessing PORT.P20_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P20_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P20_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_iocr8_offset: {
             spdlog::debug("PORT: accessing PORT.P20_IOCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_iocr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_iocr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_iocr12_offset: {
             spdlog::debug("PORT: accessing PORT.P20_IOCR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_iocr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_iocr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_in_offset: {
             spdlog::debug("PORT: accessing PORT.P20_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P20_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_pdr1_offset: {
             spdlog::debug("PORT: accessing PORT.P20_PDR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_pdr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_pdr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P20_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P20_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P20_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omsr8_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMSR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omsr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omsr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omsr12_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMSR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omsr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omsr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omcr8_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omcr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omcr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omcr12_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMCR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omcr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omcr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P20_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P20_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p20_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P20_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p20_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p20_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_out_offset: {
             spdlog::debug("PORT: accessing PORT.P21_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P21_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_id_offset: {
             spdlog::debug("PORT: accessing PORT.P21_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P21_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P21_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_in_offset: {
             spdlog::debug("PORT: accessing PORT.P21_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P21_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P21_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P21_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P21_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P21_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P21_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P21_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P21_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P21_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P21_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P21_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p21_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P21_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p21_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p21_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_out_offset: {
             spdlog::debug("PORT: accessing PORT.P22_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P22_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_id_offset: {
             spdlog::debug("PORT: accessing PORT.P22_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P22_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P22_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_in_offset: {
             spdlog::debug("PORT: accessing PORT.P22_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P22_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P22_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P22_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P22_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P22_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P22_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P22_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P22_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P22_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P22_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P22_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p22_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P22_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p22_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p22_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_out_offset: {
             spdlog::debug("PORT: accessing PORT.P23_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P23_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_id_offset: {
             spdlog::debug("PORT: accessing PORT.P23_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P23_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P23_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_in_offset: {
             spdlog::debug("PORT: accessing PORT.P23_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P23_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P23_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P23_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P23_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P23_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P23_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P23_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P23_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P23_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P23_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P23_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p23_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P23_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p23_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p23_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_out_offset: {
             spdlog::debug("PORT: accessing PORT.P32_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P32_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_id_offset: {
             spdlog::debug("PORT: accessing PORT.P32_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P32_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P32_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_in_offset: {
             spdlog::debug("PORT: accessing PORT.P32_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P32_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P32_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P32_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P32_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P32_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P32_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P32_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P32_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P32_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P32_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P32_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p32_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P32_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p32_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p32_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_out_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_id_offset: {
             spdlog::debug("PORT: accessing PORT.P33_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P33_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P33_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_iocr8_offset: {
             spdlog::debug("PORT: accessing PORT.P33_IOCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_iocr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_iocr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_iocr12_offset: {
             spdlog::debug("PORT: accessing PORT.P33_IOCR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_iocr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_iocr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_in_offset: {
             spdlog::debug("PORT: accessing PORT.P33_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P33_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_pdr1_offset: {
             spdlog::debug("PORT: accessing PORT.P33_PDR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_pdr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_pdr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P33_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P33_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P33_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omsr8_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMSR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omsr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omsr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omsr12_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMSR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omsr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omsr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omcr8_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omcr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omcr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omcr12_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMCR12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omcr12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omcr12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P33_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P33_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p33_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P33_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p33_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p33_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_out_offset: {
             spdlog::debug("PORT: accessing PORT.P34_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P34_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_id_offset: {
             spdlog::debug("PORT: accessing PORT.P34_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P34_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_in_offset: {
             spdlog::debug("PORT: accessing PORT.P34_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P34_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P34_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P34_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P34_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P34_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P34_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P34_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P34_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P34_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p34_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P34_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p34_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p34_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_out_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_omr_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_id_offset: {
             spdlog::debug("PORT: accessing PORT.P40_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_iocr0_offset: {
             spdlog::debug("PORT: accessing PORT.P40_IOCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_iocr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_iocr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_iocr4_offset: {
             spdlog::debug("PORT: accessing PORT.P40_IOCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_iocr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_iocr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_iocr8_offset: {
             spdlog::debug("PORT: accessing PORT.P40_IOCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_iocr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_iocr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_in_offset: {
             spdlog::debug("PORT: accessing PORT.P40_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_pdr0_offset: {
             spdlog::debug("PORT: accessing PORT.P40_PDR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_pdr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_pdr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_pdr1_offset: {
             spdlog::debug("PORT: accessing PORT.P40_PDR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_pdr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_pdr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_esr_offset: {
             spdlog::debug("PORT: accessing PORT.P40_ESR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_esr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_esr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_pdisc_offset: {
             spdlog::debug("PORT: accessing PORT.P40_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_pcsr_offset: {
             spdlog::debug("PORT: accessing PORT.P40_PCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_pcsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_pcsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_omsr0_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OMSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_omsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_omsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_omsr4_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OMSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_omsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_omsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_omsr8_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OMSR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_omsr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_omsr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_omcr0_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OMCR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_omcr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_omcr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_omcr4_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OMCR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_omcr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_omcr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_omcr8_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OMCR8 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_omcr8);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_omcr8);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_omsr_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_omsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_omsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_omcr_offset: {
             spdlog::debug("PORT: accessing PORT.P40_OMCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_omcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_omcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_accen1_offset: {
             spdlog::debug("PORT: accessing PORT.P40_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_p40_accen0_offset: {
             spdlog::debug("PORT: accessing PORT.P40_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_p40_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_p40_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -2848,1569 +2848,1569 @@ void Tricore::Port::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Port::write(const std::byte *buffer_in, u32 address,
+void Tricore::Port::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - port_memory_start_address;
     switch (offset) {
     case reg_p00_out_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_out));
+                          reinterpret_cast<byte *>(&m_p00_out));
     } break;
     case reg_p00_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omr));
+                          reinterpret_cast<byte *>(&m_p00_omr));
     } break;
     case reg_p00_id_offset: {
         spdlog::debug("PORT: accessing PORT.P00_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_id));
+                          reinterpret_cast<byte *>(&m_p00_id));
     } break;
     case reg_p00_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P00_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_iocr0));
+                          reinterpret_cast<byte *>(&m_p00_iocr0));
     } break;
     case reg_p00_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P00_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_iocr4));
+                          reinterpret_cast<byte *>(&m_p00_iocr4));
     } break;
     case reg_p00_iocr8_offset: {
         spdlog::debug("PORT: accessing PORT.P00_IOCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_iocr8));
+                          reinterpret_cast<byte *>(&m_p00_iocr8));
     } break;
     case reg_p00_iocr12_offset: {
         spdlog::debug("PORT: accessing PORT.P00_IOCR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_iocr12));
+                          reinterpret_cast<byte *>(&m_p00_iocr12));
     } break;
     case reg_p00_in_offset: {
         spdlog::debug("PORT: accessing PORT.P00_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_in));
+                          reinterpret_cast<byte *>(&m_p00_in));
     } break;
     case reg_p00_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P00_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_pdr0));
+                          reinterpret_cast<byte *>(&m_p00_pdr0));
     } break;
     case reg_p00_pdr1_offset: {
         spdlog::debug("PORT: accessing PORT.P00_PDR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_pdr1));
+                          reinterpret_cast<byte *>(&m_p00_pdr1));
     } break;
     case reg_p00_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P00_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_esr));
+                          reinterpret_cast<byte *>(&m_p00_esr));
     } break;
     case reg_p00_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P00_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_pdisc));
+                          reinterpret_cast<byte *>(&m_p00_pdisc));
     } break;
     case reg_p00_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P00_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_pcsr));
+                          reinterpret_cast<byte *>(&m_p00_pcsr));
     } break;
     case reg_p00_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omsr0));
+                          reinterpret_cast<byte *>(&m_p00_omsr0));
     } break;
     case reg_p00_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omsr4));
+                          reinterpret_cast<byte *>(&m_p00_omsr4));
     } break;
     case reg_p00_omsr8_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMSR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omsr8));
+                          reinterpret_cast<byte *>(&m_p00_omsr8));
     } break;
     case reg_p00_omsr12_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMSR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omsr12));
+                          reinterpret_cast<byte *>(&m_p00_omsr12));
     } break;
     case reg_p00_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omcr0));
+                          reinterpret_cast<byte *>(&m_p00_omcr0));
     } break;
     case reg_p00_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omcr4));
+                          reinterpret_cast<byte *>(&m_p00_omcr4));
     } break;
     case reg_p00_omcr8_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omcr8));
+                          reinterpret_cast<byte *>(&m_p00_omcr8));
     } break;
     case reg_p00_omcr12_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMCR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omcr12));
+                          reinterpret_cast<byte *>(&m_p00_omcr12));
     } break;
     case reg_p00_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omsr));
+                          reinterpret_cast<byte *>(&m_p00_omsr));
     } break;
     case reg_p00_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P00_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_omcr));
+                          reinterpret_cast<byte *>(&m_p00_omcr));
     } break;
     case reg_p00_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P00_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_accen1));
+                          reinterpret_cast<byte *>(&m_p00_accen1));
     } break;
     case reg_p00_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P00_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p00_accen0));
+                          reinterpret_cast<byte *>(&m_p00_accen0));
     } break;
     case reg_p02_out_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_out));
+                          reinterpret_cast<byte *>(&m_p02_out));
     } break;
     case reg_p02_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_omr));
+                          reinterpret_cast<byte *>(&m_p02_omr));
     } break;
     case reg_p02_id_offset: {
         spdlog::debug("PORT: accessing PORT.P02_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_id));
+                          reinterpret_cast<byte *>(&m_p02_id));
     } break;
     case reg_p02_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P02_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_iocr0));
+                          reinterpret_cast<byte *>(&m_p02_iocr0));
     } break;
     case reg_p02_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P02_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_iocr4));
+                          reinterpret_cast<byte *>(&m_p02_iocr4));
     } break;
     case reg_p02_iocr8_offset: {
         spdlog::debug("PORT: accessing PORT.P02_IOCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_iocr8));
+                          reinterpret_cast<byte *>(&m_p02_iocr8));
     } break;
     case reg_p02_in_offset: {
         spdlog::debug("PORT: accessing PORT.P02_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_in));
+                          reinterpret_cast<byte *>(&m_p02_in));
     } break;
     case reg_p02_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P02_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_pdr0));
+                          reinterpret_cast<byte *>(&m_p02_pdr0));
     } break;
     case reg_p02_pdr1_offset: {
         spdlog::debug("PORT: accessing PORT.P02_PDR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_pdr1));
+                          reinterpret_cast<byte *>(&m_p02_pdr1));
     } break;
     case reg_p02_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P02_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_esr));
+                          reinterpret_cast<byte *>(&m_p02_esr));
     } break;
     case reg_p02_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P02_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_pdisc));
+                          reinterpret_cast<byte *>(&m_p02_pdisc));
     } break;
     case reg_p02_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P02_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_pcsr));
+                          reinterpret_cast<byte *>(&m_p02_pcsr));
     } break;
     case reg_p02_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_omsr0));
+                          reinterpret_cast<byte *>(&m_p02_omsr0));
     } break;
     case reg_p02_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_omsr4));
+                          reinterpret_cast<byte *>(&m_p02_omsr4));
     } break;
     case reg_p02_omsr8_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OMSR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_omsr8));
+                          reinterpret_cast<byte *>(&m_p02_omsr8));
     } break;
     case reg_p02_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_omcr0));
+                          reinterpret_cast<byte *>(&m_p02_omcr0));
     } break;
     case reg_p02_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_omcr4));
+                          reinterpret_cast<byte *>(&m_p02_omcr4));
     } break;
     case reg_p02_omcr8_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OMCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_omcr8));
+                          reinterpret_cast<byte *>(&m_p02_omcr8));
     } break;
     case reg_p02_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_omsr));
+                          reinterpret_cast<byte *>(&m_p02_omsr));
     } break;
     case reg_p02_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P02_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_omcr));
+                          reinterpret_cast<byte *>(&m_p02_omcr));
     } break;
     case reg_p02_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P02_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_accen1));
+                          reinterpret_cast<byte *>(&m_p02_accen1));
     } break;
     case reg_p02_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P02_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p02_accen0));
+                          reinterpret_cast<byte *>(&m_p02_accen0));
     } break;
     case reg_p10_out_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_out));
+                          reinterpret_cast<byte *>(&m_p10_out));
     } break;
     case reg_p10_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_omr));
+                          reinterpret_cast<byte *>(&m_p10_omr));
     } break;
     case reg_p10_id_offset: {
         spdlog::debug("PORT: accessing PORT.P10_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_id));
+                          reinterpret_cast<byte *>(&m_p10_id));
     } break;
     case reg_p10_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P10_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_iocr0));
+                          reinterpret_cast<byte *>(&m_p10_iocr0));
     } break;
     case reg_p10_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P10_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_iocr4));
+                          reinterpret_cast<byte *>(&m_p10_iocr4));
     } break;
     case reg_p10_iocr8_offset: {
         spdlog::debug("PORT: accessing PORT.P10_IOCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_iocr8));
+                          reinterpret_cast<byte *>(&m_p10_iocr8));
     } break;
     case reg_p10_in_offset: {
         spdlog::debug("PORT: accessing PORT.P10_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_in));
+                          reinterpret_cast<byte *>(&m_p10_in));
     } break;
     case reg_p10_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P10_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_pdr0));
+                          reinterpret_cast<byte *>(&m_p10_pdr0));
     } break;
     case reg_p10_pdr1_offset: {
         spdlog::debug("PORT: accessing PORT.P10_PDR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_pdr1));
+                          reinterpret_cast<byte *>(&m_p10_pdr1));
     } break;
     case reg_p10_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P10_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_esr));
+                          reinterpret_cast<byte *>(&m_p10_esr));
     } break;
     case reg_p10_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P10_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_pdisc));
+                          reinterpret_cast<byte *>(&m_p10_pdisc));
     } break;
     case reg_p10_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P10_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_pcsr));
+                          reinterpret_cast<byte *>(&m_p10_pcsr));
     } break;
     case reg_p10_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_omsr0));
+                          reinterpret_cast<byte *>(&m_p10_omsr0));
     } break;
     case reg_p10_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_omsr4));
+                          reinterpret_cast<byte *>(&m_p10_omsr4));
     } break;
     case reg_p10_omsr8_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OMSR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_omsr8));
+                          reinterpret_cast<byte *>(&m_p10_omsr8));
     } break;
     case reg_p10_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_omcr0));
+                          reinterpret_cast<byte *>(&m_p10_omcr0));
     } break;
     case reg_p10_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_omcr4));
+                          reinterpret_cast<byte *>(&m_p10_omcr4));
     } break;
     case reg_p10_omcr8_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OMCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_omcr8));
+                          reinterpret_cast<byte *>(&m_p10_omcr8));
     } break;
     case reg_p10_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_omsr));
+                          reinterpret_cast<byte *>(&m_p10_omsr));
     } break;
     case reg_p10_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P10_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_omcr));
+                          reinterpret_cast<byte *>(&m_p10_omcr));
     } break;
     case reg_p10_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P10_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_accen1));
+                          reinterpret_cast<byte *>(&m_p10_accen1));
     } break;
     case reg_p10_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P10_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p10_accen0));
+                          reinterpret_cast<byte *>(&m_p10_accen0));
     } break;
     case reg_p11_out_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_out));
+                          reinterpret_cast<byte *>(&m_p11_out));
     } break;
     case reg_p11_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omr));
+                          reinterpret_cast<byte *>(&m_p11_omr));
     } break;
     case reg_p11_id_offset: {
         spdlog::debug("PORT: accessing PORT.P11_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_id));
+                          reinterpret_cast<byte *>(&m_p11_id));
     } break;
     case reg_p11_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P11_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_iocr0));
+                          reinterpret_cast<byte *>(&m_p11_iocr0));
     } break;
     case reg_p11_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P11_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_iocr4));
+                          reinterpret_cast<byte *>(&m_p11_iocr4));
     } break;
     case reg_p11_iocr8_offset: {
         spdlog::debug("PORT: accessing PORT.P11_IOCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_iocr8));
+                          reinterpret_cast<byte *>(&m_p11_iocr8));
     } break;
     case reg_p11_iocr12_offset: {
         spdlog::debug("PORT: accessing PORT.P11_IOCR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_iocr12));
+                          reinterpret_cast<byte *>(&m_p11_iocr12));
     } break;
     case reg_p11_in_offset: {
         spdlog::debug("PORT: accessing PORT.P11_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_in));
+                          reinterpret_cast<byte *>(&m_p11_in));
     } break;
     case reg_p11_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P11_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_pdr0));
+                          reinterpret_cast<byte *>(&m_p11_pdr0));
     } break;
     case reg_p11_pdr1_offset: {
         spdlog::debug("PORT: accessing PORT.P11_PDR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_pdr1));
+                          reinterpret_cast<byte *>(&m_p11_pdr1));
     } break;
     case reg_p11_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P11_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_esr));
+                          reinterpret_cast<byte *>(&m_p11_esr));
     } break;
     case reg_p11_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P11_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_pdisc));
+                          reinterpret_cast<byte *>(&m_p11_pdisc));
     } break;
     case reg_p11_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P11_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_pcsr));
+                          reinterpret_cast<byte *>(&m_p11_pcsr));
     } break;
     case reg_p11_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omsr0));
+                          reinterpret_cast<byte *>(&m_p11_omsr0));
     } break;
     case reg_p11_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omsr4));
+                          reinterpret_cast<byte *>(&m_p11_omsr4));
     } break;
     case reg_p11_omsr8_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMSR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omsr8));
+                          reinterpret_cast<byte *>(&m_p11_omsr8));
     } break;
     case reg_p11_omsr12_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMSR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omsr12));
+                          reinterpret_cast<byte *>(&m_p11_omsr12));
     } break;
     case reg_p11_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omcr0));
+                          reinterpret_cast<byte *>(&m_p11_omcr0));
     } break;
     case reg_p11_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omcr4));
+                          reinterpret_cast<byte *>(&m_p11_omcr4));
     } break;
     case reg_p11_omcr8_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omcr8));
+                          reinterpret_cast<byte *>(&m_p11_omcr8));
     } break;
     case reg_p11_omcr12_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMCR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omcr12));
+                          reinterpret_cast<byte *>(&m_p11_omcr12));
     } break;
     case reg_p11_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omsr));
+                          reinterpret_cast<byte *>(&m_p11_omsr));
     } break;
     case reg_p11_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P11_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_omcr));
+                          reinterpret_cast<byte *>(&m_p11_omcr));
     } break;
     case reg_p11_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P11_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_accen1));
+                          reinterpret_cast<byte *>(&m_p11_accen1));
     } break;
     case reg_p11_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P11_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p11_accen0));
+                          reinterpret_cast<byte *>(&m_p11_accen0));
     } break;
     case reg_p13_out_offset: {
         spdlog::debug("PORT: accessing PORT.P13_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_out));
+                          reinterpret_cast<byte *>(&m_p13_out));
     } break;
     case reg_p13_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P13_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_omr));
+                          reinterpret_cast<byte *>(&m_p13_omr));
     } break;
     case reg_p13_id_offset: {
         spdlog::debug("PORT: accessing PORT.P13_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_id));
+                          reinterpret_cast<byte *>(&m_p13_id));
     } break;
     case reg_p13_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P13_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_iocr0));
+                          reinterpret_cast<byte *>(&m_p13_iocr0));
     } break;
     case reg_p13_in_offset: {
         spdlog::debug("PORT: accessing PORT.P13_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_in));
+                          reinterpret_cast<byte *>(&m_p13_in));
     } break;
     case reg_p13_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P13_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_pdr0));
+                          reinterpret_cast<byte *>(&m_p13_pdr0));
     } break;
     case reg_p13_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P13_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_esr));
+                          reinterpret_cast<byte *>(&m_p13_esr));
     } break;
     case reg_p13_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P13_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_pdisc));
+                          reinterpret_cast<byte *>(&m_p13_pdisc));
     } break;
     case reg_p13_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P13_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_pcsr));
+                          reinterpret_cast<byte *>(&m_p13_pcsr));
     } break;
     case reg_p13_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P13_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_omsr0));
+                          reinterpret_cast<byte *>(&m_p13_omsr0));
     } break;
     case reg_p13_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P13_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_omcr0));
+                          reinterpret_cast<byte *>(&m_p13_omcr0));
     } break;
     case reg_p13_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P13_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_omsr));
+                          reinterpret_cast<byte *>(&m_p13_omsr));
     } break;
     case reg_p13_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P13_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_omcr));
+                          reinterpret_cast<byte *>(&m_p13_omcr));
     } break;
     case reg_p13_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P13_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_accen1));
+                          reinterpret_cast<byte *>(&m_p13_accen1));
     } break;
     case reg_p13_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P13_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p13_accen0));
+                          reinterpret_cast<byte *>(&m_p13_accen0));
     } break;
     case reg_p14_out_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_out));
+                          reinterpret_cast<byte *>(&m_p14_out));
     } break;
     case reg_p14_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_omr));
+                          reinterpret_cast<byte *>(&m_p14_omr));
     } break;
     case reg_p14_id_offset: {
         spdlog::debug("PORT: accessing PORT.P14_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_id));
+                          reinterpret_cast<byte *>(&m_p14_id));
     } break;
     case reg_p14_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P14_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_iocr0));
+                          reinterpret_cast<byte *>(&m_p14_iocr0));
     } break;
     case reg_p14_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P14_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_iocr4));
+                          reinterpret_cast<byte *>(&m_p14_iocr4));
     } break;
     case reg_p14_iocr8_offset: {
         spdlog::debug("PORT: accessing PORT.P14_IOCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_iocr8));
+                          reinterpret_cast<byte *>(&m_p14_iocr8));
     } break;
     case reg_p14_in_offset: {
         spdlog::debug("PORT: accessing PORT.P14_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_in));
+                          reinterpret_cast<byte *>(&m_p14_in));
     } break;
     case reg_p14_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P14_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_pdr0));
+                          reinterpret_cast<byte *>(&m_p14_pdr0));
     } break;
     case reg_p14_pdr1_offset: {
         spdlog::debug("PORT: accessing PORT.P14_PDR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_pdr1));
+                          reinterpret_cast<byte *>(&m_p14_pdr1));
     } break;
     case reg_p14_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P14_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_esr));
+                          reinterpret_cast<byte *>(&m_p14_esr));
     } break;
     case reg_p14_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P14_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_pdisc));
+                          reinterpret_cast<byte *>(&m_p14_pdisc));
     } break;
     case reg_p14_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P14_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_pcsr));
+                          reinterpret_cast<byte *>(&m_p14_pcsr));
     } break;
     case reg_p14_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_omsr0));
+                          reinterpret_cast<byte *>(&m_p14_omsr0));
     } break;
     case reg_p14_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_omsr4));
+                          reinterpret_cast<byte *>(&m_p14_omsr4));
     } break;
     case reg_p14_omsr8_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OMSR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_omsr8));
+                          reinterpret_cast<byte *>(&m_p14_omsr8));
     } break;
     case reg_p14_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_omcr0));
+                          reinterpret_cast<byte *>(&m_p14_omcr0));
     } break;
     case reg_p14_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_omcr4));
+                          reinterpret_cast<byte *>(&m_p14_omcr4));
     } break;
     case reg_p14_omcr8_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OMCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_omcr8));
+                          reinterpret_cast<byte *>(&m_p14_omcr8));
     } break;
     case reg_p14_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_omsr));
+                          reinterpret_cast<byte *>(&m_p14_omsr));
     } break;
     case reg_p14_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P14_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_omcr));
+                          reinterpret_cast<byte *>(&m_p14_omcr));
     } break;
     case reg_p14_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P14_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_accen1));
+                          reinterpret_cast<byte *>(&m_p14_accen1));
     } break;
     case reg_p14_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P14_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p14_accen0));
+                          reinterpret_cast<byte *>(&m_p14_accen0));
     } break;
     case reg_p15_out_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_out));
+                          reinterpret_cast<byte *>(&m_p15_out));
     } break;
     case reg_p15_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_omr));
+                          reinterpret_cast<byte *>(&m_p15_omr));
     } break;
     case reg_p15_id_offset: {
         spdlog::debug("PORT: accessing PORT.P15_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_id));
+                          reinterpret_cast<byte *>(&m_p15_id));
     } break;
     case reg_p15_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P15_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_iocr0));
+                          reinterpret_cast<byte *>(&m_p15_iocr0));
     } break;
     case reg_p15_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P15_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_iocr4));
+                          reinterpret_cast<byte *>(&m_p15_iocr4));
     } break;
     case reg_p15_iocr8_offset: {
         spdlog::debug("PORT: accessing PORT.P15_IOCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_iocr8));
+                          reinterpret_cast<byte *>(&m_p15_iocr8));
     } break;
     case reg_p15_in_offset: {
         spdlog::debug("PORT: accessing PORT.P15_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_in));
+                          reinterpret_cast<byte *>(&m_p15_in));
     } break;
     case reg_p15_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P15_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_pdr0));
+                          reinterpret_cast<byte *>(&m_p15_pdr0));
     } break;
     case reg_p15_pdr1_offset: {
         spdlog::debug("PORT: accessing PORT.P15_PDR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_pdr1));
+                          reinterpret_cast<byte *>(&m_p15_pdr1));
     } break;
     case reg_p15_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P15_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_esr));
+                          reinterpret_cast<byte *>(&m_p15_esr));
     } break;
     case reg_p15_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P15_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_pdisc));
+                          reinterpret_cast<byte *>(&m_p15_pdisc));
     } break;
     case reg_p15_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P15_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_pcsr));
+                          reinterpret_cast<byte *>(&m_p15_pcsr));
     } break;
     case reg_p15_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_omsr0));
+                          reinterpret_cast<byte *>(&m_p15_omsr0));
     } break;
     case reg_p15_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_omsr4));
+                          reinterpret_cast<byte *>(&m_p15_omsr4));
     } break;
     case reg_p15_omsr8_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OMSR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_omsr8));
+                          reinterpret_cast<byte *>(&m_p15_omsr8));
     } break;
     case reg_p15_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_omcr0));
+                          reinterpret_cast<byte *>(&m_p15_omcr0));
     } break;
     case reg_p15_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_omcr4));
+                          reinterpret_cast<byte *>(&m_p15_omcr4));
     } break;
     case reg_p15_omcr8_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OMCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_omcr8));
+                          reinterpret_cast<byte *>(&m_p15_omcr8));
     } break;
     case reg_p15_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_omsr));
+                          reinterpret_cast<byte *>(&m_p15_omsr));
     } break;
     case reg_p15_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P15_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_omcr));
+                          reinterpret_cast<byte *>(&m_p15_omcr));
     } break;
     case reg_p15_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P15_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_accen1));
+                          reinterpret_cast<byte *>(&m_p15_accen1));
     } break;
     case reg_p15_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P15_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p15_accen0));
+                          reinterpret_cast<byte *>(&m_p15_accen0));
     } break;
     case reg_p20_out_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_out));
+                          reinterpret_cast<byte *>(&m_p20_out));
     } break;
     case reg_p20_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omr));
+                          reinterpret_cast<byte *>(&m_p20_omr));
     } break;
     case reg_p20_id_offset: {
         spdlog::debug("PORT: accessing PORT.P20_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_id));
+                          reinterpret_cast<byte *>(&m_p20_id));
     } break;
     case reg_p20_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P20_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_iocr0));
+                          reinterpret_cast<byte *>(&m_p20_iocr0));
     } break;
     case reg_p20_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P20_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_iocr4));
+                          reinterpret_cast<byte *>(&m_p20_iocr4));
     } break;
     case reg_p20_iocr8_offset: {
         spdlog::debug("PORT: accessing PORT.P20_IOCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_iocr8));
+                          reinterpret_cast<byte *>(&m_p20_iocr8));
     } break;
     case reg_p20_iocr12_offset: {
         spdlog::debug("PORT: accessing PORT.P20_IOCR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_iocr12));
+                          reinterpret_cast<byte *>(&m_p20_iocr12));
     } break;
     case reg_p20_in_offset: {
         spdlog::debug("PORT: accessing PORT.P20_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_in));
+                          reinterpret_cast<byte *>(&m_p20_in));
     } break;
     case reg_p20_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P20_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_pdr0));
+                          reinterpret_cast<byte *>(&m_p20_pdr0));
     } break;
     case reg_p20_pdr1_offset: {
         spdlog::debug("PORT: accessing PORT.P20_PDR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_pdr1));
+                          reinterpret_cast<byte *>(&m_p20_pdr1));
     } break;
     case reg_p20_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P20_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_esr));
+                          reinterpret_cast<byte *>(&m_p20_esr));
     } break;
     case reg_p20_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P20_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_pdisc));
+                          reinterpret_cast<byte *>(&m_p20_pdisc));
     } break;
     case reg_p20_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P20_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_pcsr));
+                          reinterpret_cast<byte *>(&m_p20_pcsr));
     } break;
     case reg_p20_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omsr0));
+                          reinterpret_cast<byte *>(&m_p20_omsr0));
     } break;
     case reg_p20_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omsr4));
+                          reinterpret_cast<byte *>(&m_p20_omsr4));
     } break;
     case reg_p20_omsr8_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMSR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omsr8));
+                          reinterpret_cast<byte *>(&m_p20_omsr8));
     } break;
     case reg_p20_omsr12_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMSR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omsr12));
+                          reinterpret_cast<byte *>(&m_p20_omsr12));
     } break;
     case reg_p20_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omcr0));
+                          reinterpret_cast<byte *>(&m_p20_omcr0));
     } break;
     case reg_p20_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omcr4));
+                          reinterpret_cast<byte *>(&m_p20_omcr4));
     } break;
     case reg_p20_omcr8_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omcr8));
+                          reinterpret_cast<byte *>(&m_p20_omcr8));
     } break;
     case reg_p20_omcr12_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMCR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omcr12));
+                          reinterpret_cast<byte *>(&m_p20_omcr12));
     } break;
     case reg_p20_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omsr));
+                          reinterpret_cast<byte *>(&m_p20_omsr));
     } break;
     case reg_p20_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P20_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_omcr));
+                          reinterpret_cast<byte *>(&m_p20_omcr));
     } break;
     case reg_p20_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P20_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_accen1));
+                          reinterpret_cast<byte *>(&m_p20_accen1));
     } break;
     case reg_p20_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P20_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p20_accen0));
+                          reinterpret_cast<byte *>(&m_p20_accen0));
     } break;
     case reg_p21_out_offset: {
         spdlog::debug("PORT: accessing PORT.P21_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_out));
+                          reinterpret_cast<byte *>(&m_p21_out));
     } break;
     case reg_p21_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P21_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_omr));
+                          reinterpret_cast<byte *>(&m_p21_omr));
     } break;
     case reg_p21_id_offset: {
         spdlog::debug("PORT: accessing PORT.P21_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_id));
+                          reinterpret_cast<byte *>(&m_p21_id));
     } break;
     case reg_p21_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P21_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_iocr0));
+                          reinterpret_cast<byte *>(&m_p21_iocr0));
     } break;
     case reg_p21_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P21_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_iocr4));
+                          reinterpret_cast<byte *>(&m_p21_iocr4));
     } break;
     case reg_p21_in_offset: {
         spdlog::debug("PORT: accessing PORT.P21_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_in));
+                          reinterpret_cast<byte *>(&m_p21_in));
     } break;
     case reg_p21_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P21_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_pdr0));
+                          reinterpret_cast<byte *>(&m_p21_pdr0));
     } break;
     case reg_p21_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P21_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_esr));
+                          reinterpret_cast<byte *>(&m_p21_esr));
     } break;
     case reg_p21_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P21_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_pdisc));
+                          reinterpret_cast<byte *>(&m_p21_pdisc));
     } break;
     case reg_p21_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P21_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_pcsr));
+                          reinterpret_cast<byte *>(&m_p21_pcsr));
     } break;
     case reg_p21_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P21_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_omsr0));
+                          reinterpret_cast<byte *>(&m_p21_omsr0));
     } break;
     case reg_p21_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P21_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_omsr4));
+                          reinterpret_cast<byte *>(&m_p21_omsr4));
     } break;
     case reg_p21_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P21_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_omcr0));
+                          reinterpret_cast<byte *>(&m_p21_omcr0));
     } break;
     case reg_p21_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P21_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_omcr4));
+                          reinterpret_cast<byte *>(&m_p21_omcr4));
     } break;
     case reg_p21_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P21_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_omsr));
+                          reinterpret_cast<byte *>(&m_p21_omsr));
     } break;
     case reg_p21_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P21_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_omcr));
+                          reinterpret_cast<byte *>(&m_p21_omcr));
     } break;
     case reg_p21_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P21_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_accen1));
+                          reinterpret_cast<byte *>(&m_p21_accen1));
     } break;
     case reg_p21_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P21_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p21_accen0));
+                          reinterpret_cast<byte *>(&m_p21_accen0));
     } break;
     case reg_p22_out_offset: {
         spdlog::debug("PORT: accessing PORT.P22_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_out));
+                          reinterpret_cast<byte *>(&m_p22_out));
     } break;
     case reg_p22_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P22_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_omr));
+                          reinterpret_cast<byte *>(&m_p22_omr));
     } break;
     case reg_p22_id_offset: {
         spdlog::debug("PORT: accessing PORT.P22_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_id));
+                          reinterpret_cast<byte *>(&m_p22_id));
     } break;
     case reg_p22_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P22_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_iocr0));
+                          reinterpret_cast<byte *>(&m_p22_iocr0));
     } break;
     case reg_p22_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P22_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_iocr4));
+                          reinterpret_cast<byte *>(&m_p22_iocr4));
     } break;
     case reg_p22_in_offset: {
         spdlog::debug("PORT: accessing PORT.P22_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_in));
+                          reinterpret_cast<byte *>(&m_p22_in));
     } break;
     case reg_p22_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P22_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_pdr0));
+                          reinterpret_cast<byte *>(&m_p22_pdr0));
     } break;
     case reg_p22_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P22_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_esr));
+                          reinterpret_cast<byte *>(&m_p22_esr));
     } break;
     case reg_p22_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P22_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_pdisc));
+                          reinterpret_cast<byte *>(&m_p22_pdisc));
     } break;
     case reg_p22_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P22_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_pcsr));
+                          reinterpret_cast<byte *>(&m_p22_pcsr));
     } break;
     case reg_p22_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P22_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_omsr0));
+                          reinterpret_cast<byte *>(&m_p22_omsr0));
     } break;
     case reg_p22_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P22_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_omsr4));
+                          reinterpret_cast<byte *>(&m_p22_omsr4));
     } break;
     case reg_p22_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P22_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_omcr0));
+                          reinterpret_cast<byte *>(&m_p22_omcr0));
     } break;
     case reg_p22_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P22_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_omcr4));
+                          reinterpret_cast<byte *>(&m_p22_omcr4));
     } break;
     case reg_p22_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P22_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_omsr));
+                          reinterpret_cast<byte *>(&m_p22_omsr));
     } break;
     case reg_p22_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P22_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_omcr));
+                          reinterpret_cast<byte *>(&m_p22_omcr));
     } break;
     case reg_p22_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P22_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_accen1));
+                          reinterpret_cast<byte *>(&m_p22_accen1));
     } break;
     case reg_p22_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P22_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p22_accen0));
+                          reinterpret_cast<byte *>(&m_p22_accen0));
     } break;
     case reg_p23_out_offset: {
         spdlog::debug("PORT: accessing PORT.P23_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_out));
+                          reinterpret_cast<byte *>(&m_p23_out));
     } break;
     case reg_p23_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P23_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_omr));
+                          reinterpret_cast<byte *>(&m_p23_omr));
     } break;
     case reg_p23_id_offset: {
         spdlog::debug("PORT: accessing PORT.P23_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_id));
+                          reinterpret_cast<byte *>(&m_p23_id));
     } break;
     case reg_p23_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P23_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_iocr0));
+                          reinterpret_cast<byte *>(&m_p23_iocr0));
     } break;
     case reg_p23_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P23_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_iocr4));
+                          reinterpret_cast<byte *>(&m_p23_iocr4));
     } break;
     case reg_p23_in_offset: {
         spdlog::debug("PORT: accessing PORT.P23_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_in));
+                          reinterpret_cast<byte *>(&m_p23_in));
     } break;
     case reg_p23_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P23_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_pdr0));
+                          reinterpret_cast<byte *>(&m_p23_pdr0));
     } break;
     case reg_p23_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P23_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_esr));
+                          reinterpret_cast<byte *>(&m_p23_esr));
     } break;
     case reg_p23_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P23_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_pdisc));
+                          reinterpret_cast<byte *>(&m_p23_pdisc));
     } break;
     case reg_p23_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P23_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_pcsr));
+                          reinterpret_cast<byte *>(&m_p23_pcsr));
     } break;
     case reg_p23_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P23_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_omsr0));
+                          reinterpret_cast<byte *>(&m_p23_omsr0));
     } break;
     case reg_p23_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P23_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_omsr4));
+                          reinterpret_cast<byte *>(&m_p23_omsr4));
     } break;
     case reg_p23_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P23_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_omcr0));
+                          reinterpret_cast<byte *>(&m_p23_omcr0));
     } break;
     case reg_p23_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P23_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_omcr4));
+                          reinterpret_cast<byte *>(&m_p23_omcr4));
     } break;
     case reg_p23_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P23_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_omsr));
+                          reinterpret_cast<byte *>(&m_p23_omsr));
     } break;
     case reg_p23_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P23_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_omcr));
+                          reinterpret_cast<byte *>(&m_p23_omcr));
     } break;
     case reg_p23_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P23_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_accen1));
+                          reinterpret_cast<byte *>(&m_p23_accen1));
     } break;
     case reg_p23_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P23_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p23_accen0));
+                          reinterpret_cast<byte *>(&m_p23_accen0));
     } break;
     case reg_p32_out_offset: {
         spdlog::debug("PORT: accessing PORT.P32_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_out));
+                          reinterpret_cast<byte *>(&m_p32_out));
     } break;
     case reg_p32_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P32_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_omr));
+                          reinterpret_cast<byte *>(&m_p32_omr));
     } break;
     case reg_p32_id_offset: {
         spdlog::debug("PORT: accessing PORT.P32_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_id));
+                          reinterpret_cast<byte *>(&m_p32_id));
     } break;
     case reg_p32_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P32_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_iocr0));
+                          reinterpret_cast<byte *>(&m_p32_iocr0));
     } break;
     case reg_p32_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P32_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_iocr4));
+                          reinterpret_cast<byte *>(&m_p32_iocr4));
     } break;
     case reg_p32_in_offset: {
         spdlog::debug("PORT: accessing PORT.P32_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_in));
+                          reinterpret_cast<byte *>(&m_p32_in));
     } break;
     case reg_p32_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P32_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_pdr0));
+                          reinterpret_cast<byte *>(&m_p32_pdr0));
     } break;
     case reg_p32_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P32_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_esr));
+                          reinterpret_cast<byte *>(&m_p32_esr));
     } break;
     case reg_p32_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P32_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_pdisc));
+                          reinterpret_cast<byte *>(&m_p32_pdisc));
     } break;
     case reg_p32_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P32_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_pcsr));
+                          reinterpret_cast<byte *>(&m_p32_pcsr));
     } break;
     case reg_p32_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P32_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_omsr0));
+                          reinterpret_cast<byte *>(&m_p32_omsr0));
     } break;
     case reg_p32_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P32_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_omsr4));
+                          reinterpret_cast<byte *>(&m_p32_omsr4));
     } break;
     case reg_p32_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P32_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_omcr0));
+                          reinterpret_cast<byte *>(&m_p32_omcr0));
     } break;
     case reg_p32_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P32_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_omcr4));
+                          reinterpret_cast<byte *>(&m_p32_omcr4));
     } break;
     case reg_p32_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P32_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_omsr));
+                          reinterpret_cast<byte *>(&m_p32_omsr));
     } break;
     case reg_p32_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P32_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_omcr));
+                          reinterpret_cast<byte *>(&m_p32_omcr));
     } break;
     case reg_p32_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P32_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_accen1));
+                          reinterpret_cast<byte *>(&m_p32_accen1));
     } break;
     case reg_p32_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P32_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p32_accen0));
+                          reinterpret_cast<byte *>(&m_p32_accen0));
     } break;
     case reg_p33_out_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_out));
+                          reinterpret_cast<byte *>(&m_p33_out));
     } break;
     case reg_p33_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omr));
+                          reinterpret_cast<byte *>(&m_p33_omr));
     } break;
     case reg_p33_id_offset: {
         spdlog::debug("PORT: accessing PORT.P33_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_id));
+                          reinterpret_cast<byte *>(&m_p33_id));
     } break;
     case reg_p33_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P33_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_iocr0));
+                          reinterpret_cast<byte *>(&m_p33_iocr0));
     } break;
     case reg_p33_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P33_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_iocr4));
+                          reinterpret_cast<byte *>(&m_p33_iocr4));
     } break;
     case reg_p33_iocr8_offset: {
         spdlog::debug("PORT: accessing PORT.P33_IOCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_iocr8));
+                          reinterpret_cast<byte *>(&m_p33_iocr8));
     } break;
     case reg_p33_iocr12_offset: {
         spdlog::debug("PORT: accessing PORT.P33_IOCR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_iocr12));
+                          reinterpret_cast<byte *>(&m_p33_iocr12));
     } break;
     case reg_p33_in_offset: {
         spdlog::debug("PORT: accessing PORT.P33_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_in));
+                          reinterpret_cast<byte *>(&m_p33_in));
     } break;
     case reg_p33_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P33_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_pdr0));
+                          reinterpret_cast<byte *>(&m_p33_pdr0));
     } break;
     case reg_p33_pdr1_offset: {
         spdlog::debug("PORT: accessing PORT.P33_PDR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_pdr1));
+                          reinterpret_cast<byte *>(&m_p33_pdr1));
     } break;
     case reg_p33_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P33_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_esr));
+                          reinterpret_cast<byte *>(&m_p33_esr));
     } break;
     case reg_p33_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P33_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_pdisc));
+                          reinterpret_cast<byte *>(&m_p33_pdisc));
     } break;
     case reg_p33_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P33_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_pcsr));
+                          reinterpret_cast<byte *>(&m_p33_pcsr));
     } break;
     case reg_p33_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omsr0));
+                          reinterpret_cast<byte *>(&m_p33_omsr0));
     } break;
     case reg_p33_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omsr4));
+                          reinterpret_cast<byte *>(&m_p33_omsr4));
     } break;
     case reg_p33_omsr8_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMSR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omsr8));
+                          reinterpret_cast<byte *>(&m_p33_omsr8));
     } break;
     case reg_p33_omsr12_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMSR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omsr12));
+                          reinterpret_cast<byte *>(&m_p33_omsr12));
     } break;
     case reg_p33_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omcr0));
+                          reinterpret_cast<byte *>(&m_p33_omcr0));
     } break;
     case reg_p33_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omcr4));
+                          reinterpret_cast<byte *>(&m_p33_omcr4));
     } break;
     case reg_p33_omcr8_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omcr8));
+                          reinterpret_cast<byte *>(&m_p33_omcr8));
     } break;
     case reg_p33_omcr12_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMCR12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omcr12));
+                          reinterpret_cast<byte *>(&m_p33_omcr12));
     } break;
     case reg_p33_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omsr));
+                          reinterpret_cast<byte *>(&m_p33_omsr));
     } break;
     case reg_p33_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P33_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_omcr));
+                          reinterpret_cast<byte *>(&m_p33_omcr));
     } break;
     case reg_p33_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P33_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_accen1));
+                          reinterpret_cast<byte *>(&m_p33_accen1));
     } break;
     case reg_p33_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P33_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p33_accen0));
+                          reinterpret_cast<byte *>(&m_p33_accen0));
     } break;
     case reg_p34_out_offset: {
         spdlog::debug("PORT: accessing PORT.P34_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_out));
+                          reinterpret_cast<byte *>(&m_p34_out));
     } break;
     case reg_p34_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P34_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_omr));
+                          reinterpret_cast<byte *>(&m_p34_omr));
     } break;
     case reg_p34_id_offset: {
         spdlog::debug("PORT: accessing PORT.P34_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_id));
+                          reinterpret_cast<byte *>(&m_p34_id));
     } break;
     case reg_p34_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P34_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_iocr0));
+                          reinterpret_cast<byte *>(&m_p34_iocr0));
     } break;
     case reg_p34_in_offset: {
         spdlog::debug("PORT: accessing PORT.P34_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_in));
+                          reinterpret_cast<byte *>(&m_p34_in));
     } break;
     case reg_p34_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P34_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_pdr0));
+                          reinterpret_cast<byte *>(&m_p34_pdr0));
     } break;
     case reg_p34_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P34_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_esr));
+                          reinterpret_cast<byte *>(&m_p34_esr));
     } break;
     case reg_p34_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P34_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_pdisc));
+                          reinterpret_cast<byte *>(&m_p34_pdisc));
     } break;
     case reg_p34_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P34_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_pcsr));
+                          reinterpret_cast<byte *>(&m_p34_pcsr));
     } break;
     case reg_p34_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P34_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_omsr0));
+                          reinterpret_cast<byte *>(&m_p34_omsr0));
     } break;
     case reg_p34_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P34_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_omcr0));
+                          reinterpret_cast<byte *>(&m_p34_omcr0));
     } break;
     case reg_p34_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P34_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_omsr));
+                          reinterpret_cast<byte *>(&m_p34_omsr));
     } break;
     case reg_p34_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P34_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_omcr));
+                          reinterpret_cast<byte *>(&m_p34_omcr));
     } break;
     case reg_p34_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P34_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_accen1));
+                          reinterpret_cast<byte *>(&m_p34_accen1));
     } break;
     case reg_p34_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P34_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p34_accen0));
+                          reinterpret_cast<byte *>(&m_p34_accen0));
     } break;
     case reg_p40_out_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_out));
+                          reinterpret_cast<byte *>(&m_p40_out));
     } break;
     case reg_p40_omr_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_omr));
+                          reinterpret_cast<byte *>(&m_p40_omr));
     } break;
     case reg_p40_id_offset: {
         spdlog::debug("PORT: accessing PORT.P40_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_id));
+                          reinterpret_cast<byte *>(&m_p40_id));
     } break;
     case reg_p40_iocr0_offset: {
         spdlog::debug("PORT: accessing PORT.P40_IOCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_iocr0));
+                          reinterpret_cast<byte *>(&m_p40_iocr0));
     } break;
     case reg_p40_iocr4_offset: {
         spdlog::debug("PORT: accessing PORT.P40_IOCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_iocr4));
+                          reinterpret_cast<byte *>(&m_p40_iocr4));
     } break;
     case reg_p40_iocr8_offset: {
         spdlog::debug("PORT: accessing PORT.P40_IOCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_iocr8));
+                          reinterpret_cast<byte *>(&m_p40_iocr8));
     } break;
     case reg_p40_in_offset: {
         spdlog::debug("PORT: accessing PORT.P40_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_in));
+                          reinterpret_cast<byte *>(&m_p40_in));
     } break;
     case reg_p40_pdr0_offset: {
         spdlog::debug("PORT: accessing PORT.P40_PDR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_pdr0));
+                          reinterpret_cast<byte *>(&m_p40_pdr0));
     } break;
     case reg_p40_pdr1_offset: {
         spdlog::debug("PORT: accessing PORT.P40_PDR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_pdr1));
+                          reinterpret_cast<byte *>(&m_p40_pdr1));
     } break;
     case reg_p40_esr_offset: {
         spdlog::debug("PORT: accessing PORT.P40_ESR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_esr));
+                          reinterpret_cast<byte *>(&m_p40_esr));
     } break;
     case reg_p40_pdisc_offset: {
         spdlog::debug("PORT: accessing PORT.P40_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_pdisc));
+                          reinterpret_cast<byte *>(&m_p40_pdisc));
     } break;
     case reg_p40_pcsr_offset: {
         spdlog::debug("PORT: accessing PORT.P40_PCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_pcsr));
+                          reinterpret_cast<byte *>(&m_p40_pcsr));
     } break;
     case reg_p40_omsr0_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OMSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_omsr0));
+                          reinterpret_cast<byte *>(&m_p40_omsr0));
     } break;
     case reg_p40_omsr4_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OMSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_omsr4));
+                          reinterpret_cast<byte *>(&m_p40_omsr4));
     } break;
     case reg_p40_omsr8_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OMSR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_omsr8));
+                          reinterpret_cast<byte *>(&m_p40_omsr8));
     } break;
     case reg_p40_omcr0_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OMCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_omcr0));
+                          reinterpret_cast<byte *>(&m_p40_omcr0));
     } break;
     case reg_p40_omcr4_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OMCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_omcr4));
+                          reinterpret_cast<byte *>(&m_p40_omcr4));
     } break;
     case reg_p40_omcr8_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OMCR8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_omcr8));
+                          reinterpret_cast<byte *>(&m_p40_omcr8));
     } break;
     case reg_p40_omsr_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_omsr));
+                          reinterpret_cast<byte *>(&m_p40_omsr));
     } break;
     case reg_p40_omcr_offset: {
         spdlog::debug("PORT: accessing PORT.P40_OMCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_omcr));
+                          reinterpret_cast<byte *>(&m_p40_omcr));
     } break;
     case reg_p40_accen1_offset: {
         spdlog::debug("PORT: accessing PORT.P40_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_accen1));
+                          reinterpret_cast<byte *>(&m_p40_accen1));
     } break;
     case reg_p40_accen0_offset: {
         spdlog::debug("PORT: accessing PORT.P40_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_p40_accen0));
+                          reinterpret_cast<byte *>(&m_p40_accen0));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

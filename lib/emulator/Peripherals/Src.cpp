@@ -28,12 +28,12 @@ constexpr u32 src_memory_end_address = src_memory_start_address + src_memory_siz
 
 
 Tricore::Src::Src()
-    : 
+    :
 {}
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Src::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Src::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - src_memory_start_address;
     switch (offset) {
 
@@ -44,7 +44,7 @@ void Tricore::Src::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Src::write(const std::byte *buffer_in, u32 address,
+void Tricore::Src::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - src_memory_start_address;
     switch (offset) {

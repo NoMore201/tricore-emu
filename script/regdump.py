@@ -35,9 +35,9 @@ public:
 
     $module_name();
 
-    void read(std::byte *buffer_out, u32 address, usize length) override;
+    void read(byte *buffer_out, u32 address, usize length) override;
 
-    void write(const std::byte *buffer_in, u32 address, usize length) override;
+    void write(const byte *buffer_in, u32 address, usize length) override;
 
 private:
 
@@ -85,7 +85,7 @@ Tricore::${module_name_camel}::${module_name_camel}()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::${module_name_camel}::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::${module_name_camel}::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - ${module_name_lower}_memory_start_address;
     switch (offset) {
 ${read_switch_cases}
@@ -96,7 +96,7 @@ ${read_switch_cases}
     }
 }
 
-void Tricore::${module_name_camel}::write(const std::byte *buffer_in, u32 address,
+void Tricore::${module_name_camel}::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - ${module_name_lower}_memory_start_address;
     switch (offset) {
@@ -114,14 +114,14 @@ ${write_switch_cases}
 
 READ_SWITCH_CASE_TEMPLATE = """    case reg_{reg_lower}_offset: {{
             spdlog::debug("{module_upper}: accessing {module_upper}.{reg_upper} in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_{reg_lower});
+            const auto *range_start = reinterpret_cast<byte *>(&m_{reg_lower});
             std::ranges::copy(range_start, range_start + length, buffer_out);
         }} break;"""
 
 WRITE_SWITCH_CASE_TEMPLATE = """    case reg_{reg_lower}_offset: {{
         spdlog::debug("{module_upper}: accessing {module_upper}.{reg_upper} in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_{reg_lower}));
+                          reinterpret_cast<byte *>(&m_{reg_lower}));
     }} break;"""
 
 

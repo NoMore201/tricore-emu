@@ -78,7 +78,7 @@ public:
 
     std::optional<Error> parse_file(const std::filesystem::path &file_path);
 
-    std::vector<std::byte> get_section_data(const SectionHeader& section);
+    std::vector<byte> get_section_data(const SectionHeader& section);
 
 private:
     ElfHeader m_header{};

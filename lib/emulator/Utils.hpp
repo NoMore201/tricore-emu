@@ -4,10 +4,16 @@
 #include "Types.hpp"
 
 #include <gsl/assert>
+#include <gsl/span>
+#include <gsl/span_ext>
+
+#include <cstddef>
 
 #include <concepts>
 
 namespace Tricore::Utils {
+
+// Integer utils
 
 template <std::unsigned_integral U>
 static constexpr U unsigned_abs_diff(U lhs, U rhs) {
@@ -44,6 +50,16 @@ static inline u32 deposit32(u32 field, u32 offset, u32 length,
     Expects(offset < num_of_bits && length <= num_of_bits - offset);
     u32 mask = (~0U >> (num_of_bits - length)) << offset;
     return (destination & ~mask) | ((field << offset) & mask);
+}
+
+// Span helpers
+
+static inline gsl::span<byte> to_span(auto* const buffer, usize length) {
+    return gsl::make_span(reinterpret_cast<byte*>(buffer), length);
+}
+
+static inline gsl::span<const byte> to_span(const auto* const buffer, usize length) {
+    return gsl::make_span(reinterpret_cast<const byte*>(buffer), length);
 }
 
 } // namespace Tricore::Utils

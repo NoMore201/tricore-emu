@@ -1,6 +1,11 @@
 #ifndef TRICORE_EMU_MACHINE_HPP
 #define TRICORE_EMU_MACHINE_HPP
 
+#include "Bus.hpp"
+#include "Cpu.hpp"
+#include "Memory.hpp"
+#include "Tricore.hpp"
+
 namespace Tricore {
 
 class Elf;
@@ -9,12 +14,17 @@ class Machine {
 
 public:
 
-    virtual ~Machine() = default;
+    explicit Machine(CpuVariant variant);
 
-    virtual void init(Elf& elf_file) = 0;
+    void init(Elf& elf_file);
 
-    virtual void start() = 0;
+    void start();
 
+private:
+
+    Memory m_memory;
+    Bus m_bus;
+    Cpu m_cpu;
 };
 
 } // namespace Tricore

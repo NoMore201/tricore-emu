@@ -78,67 +78,67 @@ Tricore::Int::Int()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Int::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Int::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - int_memory_start_address;
     switch (offset) {
     case reg_int_id_offset: {
             spdlog::debug("INT: accessing INT.INT_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_oobs_offset: {
             spdlog::debug("INT: accessing INT.INT_OOBS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_oobs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_oobs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_ossic_offset: {
             spdlog::debug("INT: accessing INT.INT_OSSIC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_ossic);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_ossic);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_oixts_offset: {
             spdlog::debug("INT: accessing INT.INT_OIXTS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_oixts);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_oixts);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_oixms_offset: {
             spdlog::debug("INT: accessing INT.INT_OIXMS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_oixms);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_oixms);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_oixs0_offset: {
             spdlog::debug("INT: accessing INT.INT_OIXS0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_oixs0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_oixs0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_oixs1_offset: {
             spdlog::debug("INT: accessing INT.INT_OIXS1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_oixs1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_oixs1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_oit_offset: {
             spdlog::debug("INT: accessing INT.INT_OIT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_oit);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_oit);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_omisp_offset: {
             spdlog::debug("INT: accessing INT.INT_OMISP in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_omisp);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_omisp);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_omisn_offset: {
             spdlog::debug("INT: accessing INT.INT_OMISN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_omisn);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_omisn);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_accen_config0_offset: {
             spdlog::debug("INT: accessing INT.INT_ACCEN_CONFIG0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_accen_config0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_accen_config0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_int_accen_config1_offset: {
             spdlog::debug("INT: accessing INT.INT_ACCEN_CONFIG1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_int_accen_config1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_int_accen_config1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -148,69 +148,69 @@ void Tricore::Int::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Int::write(const std::byte *buffer_in, u32 address,
+void Tricore::Int::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - int_memory_start_address;
     switch (offset) {
     case reg_int_id_offset: {
         spdlog::debug("INT: accessing INT.INT_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_id));
+                          reinterpret_cast<byte *>(&m_int_id));
     } break;
     case reg_int_oobs_offset: {
         spdlog::debug("INT: accessing INT.INT_OOBS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_oobs));
+                          reinterpret_cast<byte *>(&m_int_oobs));
     } break;
     case reg_int_ossic_offset: {
         spdlog::debug("INT: accessing INT.INT_OSSIC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_ossic));
+                          reinterpret_cast<byte *>(&m_int_ossic));
     } break;
     case reg_int_oixts_offset: {
         spdlog::debug("INT: accessing INT.INT_OIXTS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_oixts));
+                          reinterpret_cast<byte *>(&m_int_oixts));
     } break;
     case reg_int_oixms_offset: {
         spdlog::debug("INT: accessing INT.INT_OIXMS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_oixms));
+                          reinterpret_cast<byte *>(&m_int_oixms));
     } break;
     case reg_int_oixs0_offset: {
         spdlog::debug("INT: accessing INT.INT_OIXS0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_oixs0));
+                          reinterpret_cast<byte *>(&m_int_oixs0));
     } break;
     case reg_int_oixs1_offset: {
         spdlog::debug("INT: accessing INT.INT_OIXS1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_oixs1));
+                          reinterpret_cast<byte *>(&m_int_oixs1));
     } break;
     case reg_int_oit_offset: {
         spdlog::debug("INT: accessing INT.INT_OIT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_oit));
+                          reinterpret_cast<byte *>(&m_int_oit));
     } break;
     case reg_int_omisp_offset: {
         spdlog::debug("INT: accessing INT.INT_OMISP in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_omisp));
+                          reinterpret_cast<byte *>(&m_int_omisp));
     } break;
     case reg_int_omisn_offset: {
         spdlog::debug("INT: accessing INT.INT_OMISN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_omisn));
+                          reinterpret_cast<byte *>(&m_int_omisn));
     } break;
     case reg_int_accen_config0_offset: {
         spdlog::debug("INT: accessing INT.INT_ACCEN_CONFIG0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_accen_config0));
+                          reinterpret_cast<byte *>(&m_int_accen_config0));
     } break;
     case reg_int_accen_config1_offset: {
         spdlog::debug("INT: accessing INT.INT_ACCEN_CONFIG1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_int_accen_config1));
+                          reinterpret_cast<byte *>(&m_int_accen_config1));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

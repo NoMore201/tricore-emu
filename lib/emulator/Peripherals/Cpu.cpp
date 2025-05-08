@@ -258,292 +258,292 @@ Tricore::Peripherals::Cpu::Cpu()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Peripherals::Cpu::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Cpu::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - cpu_memory_start_address;
     switch (offset) {
     case reg_cpu0_flashcon0_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_flashcon0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_flashcon0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_flashcon1_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_flashcon1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_flashcon1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_flashcon2_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_flashcon2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_flashcon2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_flashcon3_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_flashcon3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_flashcon3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_flashcon4_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_flashcon4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_flashcon4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_krst0_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_krst0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_krst0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_krst1_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_krst1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_krst1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_krstclr_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_krstclr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_krstclr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_osel_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_OSEL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_osel);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_osel);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_segen_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_SEGEN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_segen);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_segen);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_task_asi_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_TASK_ASI in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_task_asi);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_task_asi);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pma0_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PMA0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pma0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pma0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pma1_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PMA1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pma1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pma1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pma2_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PMA2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pma2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pma2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_dcon2_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DCON2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_dcon2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_dcon2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_smacon_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_SMACON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_smacon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_smacon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_dstr_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DSTR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_dstr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_dstr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_datr_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DATR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_datr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_datr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_deadd_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DEADD in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_deadd);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_deadd);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_diear_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DIEAR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_diear);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_diear);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_dietr_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DIETR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_dietr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_dietr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_dcon0_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DCON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_dcon0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_dcon0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pstr_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PSTR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pstr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pstr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pcon1_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PCON1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pcon1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pcon1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pcon2_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PCON2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pcon2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pcon2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pcon0_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PCON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pcon0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pcon0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_piear_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PIEAR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_piear);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_piear);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pietr_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PIETR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pietr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pietr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_compat_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_COMPAT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_compat);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_compat);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_tps_con_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_TPS_CON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_tps_con);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_tps_con);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_cctrl_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_CCTRL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_cctrl);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_cctrl);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_ccnt_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_CCNT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_ccnt);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_ccnt);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_icnt_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_ICNT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_icnt);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_icnt);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_m1cnt_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_M1CNT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_m1cnt);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_m1cnt);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_m2cnt_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_M2CNT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_m2cnt);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_m2cnt);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_m3cnt_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_M3CNT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_m3cnt);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_m3cnt);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_dbgsr_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DBGSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_dbgsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_dbgsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_exevt_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_EXEVT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_exevt);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_exevt);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_crevt_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_CREVT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_crevt);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_crevt);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_swevt_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_SWEVT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_swevt);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_swevt);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_trig_acc_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_TRIG_ACC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_trig_acc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_trig_acc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_dms_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DMS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_dms);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_dms);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_dcx_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DCX in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_dcx);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_dcx);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_dbgtcr_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_DBGTCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_dbgtcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_dbgtcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pcxi_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PCXI in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pcxi);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pcxi);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_psw_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PSW in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_psw);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_psw);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_pc_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_PC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_pc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_pc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_syscon_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_SYSCON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_syscon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_syscon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_cpu_id_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_CPU_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_cpu_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_cpu_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_core_id_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_CORE_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_core_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_core_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_biv_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_BIV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_biv);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_biv);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_btv_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_BTV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_btv);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_btv);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_isp_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_ISP in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_isp);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_isp);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_icr_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_ICR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_icr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_icr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_fcx_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_FCX in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_fcx);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_fcx);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_lcx_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_LCX in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_lcx);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_lcx);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_cpu0_cus_id_offset: {
             spdlog::debug("CPU: accessing CPU.CPU0_CUS_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_cpu0_cus_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_cpu0_cus_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -553,294 +553,294 @@ void Tricore::Peripherals::Cpu::read(std::byte *buffer_out, u32 address, usize l
     }
 }
 
-void Tricore::Peripherals::Cpu::write(const std::byte *buffer_in, u32 address,
+void Tricore::Peripherals::Cpu::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - cpu_memory_start_address;
     switch (offset) {
     case reg_cpu0_flashcon0_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_flashcon0));
+                          reinterpret_cast<byte *>(&m_cpu0_flashcon0));
     } break;
     case reg_cpu0_flashcon1_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_flashcon1));
+                          reinterpret_cast<byte *>(&m_cpu0_flashcon1));
     } break;
     case reg_cpu0_flashcon2_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_flashcon2));
+                          reinterpret_cast<byte *>(&m_cpu0_flashcon2));
     } break;
     case reg_cpu0_flashcon3_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_flashcon3));
+                          reinterpret_cast<byte *>(&m_cpu0_flashcon3));
     } break;
     case reg_cpu0_flashcon4_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_FLASHCON4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_flashcon4));
+                          reinterpret_cast<byte *>(&m_cpu0_flashcon4));
     } break;
     case reg_cpu0_krst0_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_krst0));
+                          reinterpret_cast<byte *>(&m_cpu0_krst0));
     } break;
     case reg_cpu0_krst1_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_krst1));
+                          reinterpret_cast<byte *>(&m_cpu0_krst1));
     } break;
     case reg_cpu0_krstclr_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_krstclr));
+                          reinterpret_cast<byte *>(&m_cpu0_krstclr));
     } break;
     case reg_cpu0_osel_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_OSEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_osel));
+                          reinterpret_cast<byte *>(&m_cpu0_osel));
     } break;
     case reg_cpu0_segen_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_SEGEN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_segen));
+                          reinterpret_cast<byte *>(&m_cpu0_segen));
     } break;
     case reg_cpu0_task_asi_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_TASK_ASI in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_task_asi));
+                          reinterpret_cast<byte *>(&m_cpu0_task_asi));
     } break;
     case reg_cpu0_pma0_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PMA0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pma0));
+                          reinterpret_cast<byte *>(&m_cpu0_pma0));
     } break;
     case reg_cpu0_pma1_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PMA1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pma1));
+                          reinterpret_cast<byte *>(&m_cpu0_pma1));
     } break;
     case reg_cpu0_pma2_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PMA2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pma2));
+                          reinterpret_cast<byte *>(&m_cpu0_pma2));
     } break;
     case reg_cpu0_dcon2_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DCON2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_dcon2));
+                          reinterpret_cast<byte *>(&m_cpu0_dcon2));
     } break;
     case reg_cpu0_smacon_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_SMACON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_smacon));
+                          reinterpret_cast<byte *>(&m_cpu0_smacon));
     } break;
     case reg_cpu0_dstr_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DSTR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_dstr));
+                          reinterpret_cast<byte *>(&m_cpu0_dstr));
     } break;
     case reg_cpu0_datr_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DATR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_datr));
+                          reinterpret_cast<byte *>(&m_cpu0_datr));
     } break;
     case reg_cpu0_deadd_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DEADD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_deadd));
+                          reinterpret_cast<byte *>(&m_cpu0_deadd));
     } break;
     case reg_cpu0_diear_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DIEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_diear));
+                          reinterpret_cast<byte *>(&m_cpu0_diear));
     } break;
     case reg_cpu0_dietr_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DIETR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_dietr));
+                          reinterpret_cast<byte *>(&m_cpu0_dietr));
     } break;
     case reg_cpu0_dcon0_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DCON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_dcon0));
+                          reinterpret_cast<byte *>(&m_cpu0_dcon0));
     } break;
     case reg_cpu0_pstr_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PSTR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pstr));
+                          reinterpret_cast<byte *>(&m_cpu0_pstr));
     } break;
     case reg_cpu0_pcon1_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pcon1));
+                          reinterpret_cast<byte *>(&m_cpu0_pcon1));
     } break;
     case reg_cpu0_pcon2_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PCON2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pcon2));
+                          reinterpret_cast<byte *>(&m_cpu0_pcon2));
     } break;
     case reg_cpu0_pcon0_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PCON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pcon0));
+                          reinterpret_cast<byte *>(&m_cpu0_pcon0));
     } break;
     case reg_cpu0_piear_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PIEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_piear));
+                          reinterpret_cast<byte *>(&m_cpu0_piear));
     } break;
     case reg_cpu0_pietr_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PIETR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pietr));
+                          reinterpret_cast<byte *>(&m_cpu0_pietr));
     } break;
     case reg_cpu0_compat_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_COMPAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_compat));
+                          reinterpret_cast<byte *>(&m_cpu0_compat));
     } break;
     case reg_cpu0_tps_con_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_TPS_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_tps_con));
+                          reinterpret_cast<byte *>(&m_cpu0_tps_con));
     } break;
     case reg_cpu0_cctrl_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_CCTRL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_cctrl));
+                          reinterpret_cast<byte *>(&m_cpu0_cctrl));
     } break;
     case reg_cpu0_ccnt_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_CCNT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_ccnt));
+                          reinterpret_cast<byte *>(&m_cpu0_ccnt));
     } break;
     case reg_cpu0_icnt_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_ICNT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_icnt));
+                          reinterpret_cast<byte *>(&m_cpu0_icnt));
     } break;
     case reg_cpu0_m1cnt_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_M1CNT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_m1cnt));
+                          reinterpret_cast<byte *>(&m_cpu0_m1cnt));
     } break;
     case reg_cpu0_m2cnt_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_M2CNT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_m2cnt));
+                          reinterpret_cast<byte *>(&m_cpu0_m2cnt));
     } break;
     case reg_cpu0_m3cnt_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_M3CNT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_m3cnt));
+                          reinterpret_cast<byte *>(&m_cpu0_m3cnt));
     } break;
     case reg_cpu0_dbgsr_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DBGSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_dbgsr));
+                          reinterpret_cast<byte *>(&m_cpu0_dbgsr));
     } break;
     case reg_cpu0_exevt_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_EXEVT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_exevt));
+                          reinterpret_cast<byte *>(&m_cpu0_exevt));
     } break;
     case reg_cpu0_crevt_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_CREVT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_crevt));
+                          reinterpret_cast<byte *>(&m_cpu0_crevt));
     } break;
     case reg_cpu0_swevt_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_SWEVT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_swevt));
+                          reinterpret_cast<byte *>(&m_cpu0_swevt));
     } break;
     case reg_cpu0_trig_acc_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_TRIG_ACC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_trig_acc));
+                          reinterpret_cast<byte *>(&m_cpu0_trig_acc));
     } break;
     case reg_cpu0_dms_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DMS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_dms));
+                          reinterpret_cast<byte *>(&m_cpu0_dms));
     } break;
     case reg_cpu0_dcx_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DCX in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_dcx));
+                          reinterpret_cast<byte *>(&m_cpu0_dcx));
     } break;
     case reg_cpu0_dbgtcr_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_DBGTCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_dbgtcr));
+                          reinterpret_cast<byte *>(&m_cpu0_dbgtcr));
     } break;
     case reg_cpu0_pcxi_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PCXI in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pcxi));
+                          reinterpret_cast<byte *>(&m_cpu0_pcxi));
     } break;
     case reg_cpu0_psw_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PSW in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_psw));
+                          reinterpret_cast<byte *>(&m_cpu0_psw));
     } break;
     case reg_cpu0_pc_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_PC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_pc));
+                          reinterpret_cast<byte *>(&m_cpu0_pc));
     } break;
     case reg_cpu0_syscon_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_SYSCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_syscon));
+                          reinterpret_cast<byte *>(&m_cpu0_syscon));
     } break;
     case reg_cpu0_cpu_id_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_CPU_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_cpu_id));
+                          reinterpret_cast<byte *>(&m_cpu0_cpu_id));
     } break;
     case reg_cpu0_core_id_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_CORE_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_core_id));
+                          reinterpret_cast<byte *>(&m_cpu0_core_id));
     } break;
     case reg_cpu0_biv_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_BIV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_biv));
+                          reinterpret_cast<byte *>(&m_cpu0_biv));
     } break;
     case reg_cpu0_btv_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_BTV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_btv));
+                          reinterpret_cast<byte *>(&m_cpu0_btv));
     } break;
     case reg_cpu0_isp_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_ISP in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_isp));
+                          reinterpret_cast<byte *>(&m_cpu0_isp));
     } break;
     case reg_cpu0_icr_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_ICR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_icr));
+                          reinterpret_cast<byte *>(&m_cpu0_icr));
     } break;
     case reg_cpu0_fcx_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_FCX in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_fcx));
+                          reinterpret_cast<byte *>(&m_cpu0_fcx));
     } break;
     case reg_cpu0_lcx_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_LCX in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_lcx));
+                          reinterpret_cast<byte *>(&m_cpu0_lcx));
     } break;
     case reg_cpu0_cus_id_offset: {
         spdlog::debug("CPU: accessing CPU.CPU0_CUS_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_cpu0_cus_id));
+                          reinterpret_cast<byte *>(&m_cpu0_cus_id));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

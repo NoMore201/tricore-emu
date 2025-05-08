@@ -330,382 +330,382 @@ Tricore::Ccu6::Ccu6()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Ccu6::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Ccu6::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - ccu6_memory_start_address;
     switch (offset) {
     case reg_ccu60_clc_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_CLC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_clc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_clc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_mcfg_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_MCFG in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_mcfg);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_mcfg);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_id_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_mosel_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_MOSEL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_mosel);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_mosel);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_pisel0_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_PISEL0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_pisel0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_pisel0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_pisel2_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_PISEL2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_pisel2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_pisel2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_kscsr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_KSCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_kscsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_kscsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_t12_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_T12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_t12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_t12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_t12pr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_T12PR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_t12pr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_t12pr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_t12dtc_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_T12DTC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_t12dtc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_t12dtc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_t13_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_T13 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_t13);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_t13);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_t13pr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_T13PR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_t13pr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_t13pr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_cc63r_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_CC63R in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_cc63r);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_cc63r);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_cc63sr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_CC63SR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_cc63sr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_cc63sr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_cmpstat_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_CMPSTAT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_cmpstat);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_cmpstat);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_cmpmodif_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_CMPMODIF in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_cmpmodif);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_cmpmodif);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_t12msel_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_T12MSEL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_t12msel);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_t12msel);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_tctr0_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_TCTR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_tctr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_tctr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_tctr2_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_TCTR2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_tctr2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_tctr2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_tctr4_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_TCTR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_tctr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_tctr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_modctr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_MODCTR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_modctr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_modctr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_trpctr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_TRPCTR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_trpctr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_trpctr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_pslr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_PSLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_pslr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_pslr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_mcmouts_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_MCMOUTS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_mcmouts);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_mcmouts);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_mcmout_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_MCMOUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_mcmout);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_mcmout);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_mcmctr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_MCMCTR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_mcmctr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_mcmctr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_imon_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_IMON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_imon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_imon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_li_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_LI in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_li);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_li);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_is_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_IS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_is);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_is);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_iss_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_ISS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_iss);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_iss);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_isr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_ISR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_isr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_isr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_inp_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_INP in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_inp);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_inp);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_ien_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_IEN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_ien);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_ien);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_ocs_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_OCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_ocs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_ocs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_krstclr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_krstclr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_krstclr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_krst1_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_krst1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_krst1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_krst0_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_krst0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_krst0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu60_accen0_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU60_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu60_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu60_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_clc_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_CLC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_clc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_clc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_mcfg_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_MCFG in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_mcfg);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_mcfg);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_id_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_pisel0_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_PISEL0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_pisel0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_pisel0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_pisel2_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_PISEL2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_pisel2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_pisel2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_kscsr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_KSCSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_kscsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_kscsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_t12_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_T12 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_t12);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_t12);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_t12pr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_T12PR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_t12pr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_t12pr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_t12dtc_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_T12DTC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_t12dtc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_t12dtc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_t13_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_T13 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_t13);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_t13);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_t13pr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_T13PR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_t13pr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_t13pr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_cc63r_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_CC63R in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_cc63r);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_cc63r);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_cc63sr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_CC63SR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_cc63sr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_cc63sr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_cmpstat_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_CMPSTAT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_cmpstat);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_cmpstat);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_cmpmodif_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_CMPMODIF in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_cmpmodif);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_cmpmodif);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_t12msel_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_T12MSEL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_t12msel);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_t12msel);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_tctr0_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_TCTR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_tctr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_tctr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_tctr2_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_TCTR2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_tctr2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_tctr2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_tctr4_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_TCTR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_tctr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_tctr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_modctr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_MODCTR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_modctr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_modctr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_trpctr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_TRPCTR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_trpctr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_trpctr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_pslr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_PSLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_pslr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_pslr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_mcmouts_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_MCMOUTS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_mcmouts);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_mcmouts);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_mcmout_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_MCMOUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_mcmout);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_mcmout);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_mcmctr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_MCMCTR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_mcmctr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_mcmctr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_imon_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_IMON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_imon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_imon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_li_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_LI in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_li);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_li);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_is_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_IS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_is);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_is);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_iss_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_ISS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_iss);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_iss);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_isr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_ISR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_isr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_isr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_inp_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_INP in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_inp);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_inp);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_ien_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_IEN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_ien);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_ien);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_ocs_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_OCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_ocs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_ocs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_krstclr_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_krstclr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_krstclr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_krst1_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_krst1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_krst1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_krst0_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_krst0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_krst0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_ccu61_accen0_offset: {
             spdlog::debug("CCU6: accessing CCU6.CCU61_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_ccu61_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_ccu61_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -715,384 +715,384 @@ void Tricore::Ccu6::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Ccu6::write(const std::byte *buffer_in, u32 address,
+void Tricore::Ccu6::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - ccu6_memory_start_address;
     switch (offset) {
     case reg_ccu60_clc_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_clc));
+                          reinterpret_cast<byte *>(&m_ccu60_clc));
     } break;
     case reg_ccu60_mcfg_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_MCFG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_mcfg));
+                          reinterpret_cast<byte *>(&m_ccu60_mcfg));
     } break;
     case reg_ccu60_id_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_id));
+                          reinterpret_cast<byte *>(&m_ccu60_id));
     } break;
     case reg_ccu60_mosel_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_MOSEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_mosel));
+                          reinterpret_cast<byte *>(&m_ccu60_mosel));
     } break;
     case reg_ccu60_pisel0_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_PISEL0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_pisel0));
+                          reinterpret_cast<byte *>(&m_ccu60_pisel0));
     } break;
     case reg_ccu60_pisel2_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_PISEL2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_pisel2));
+                          reinterpret_cast<byte *>(&m_ccu60_pisel2));
     } break;
     case reg_ccu60_kscsr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_KSCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_kscsr));
+                          reinterpret_cast<byte *>(&m_ccu60_kscsr));
     } break;
     case reg_ccu60_t12_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_T12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_t12));
+                          reinterpret_cast<byte *>(&m_ccu60_t12));
     } break;
     case reg_ccu60_t12pr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_T12PR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_t12pr));
+                          reinterpret_cast<byte *>(&m_ccu60_t12pr));
     } break;
     case reg_ccu60_t12dtc_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_T12DTC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_t12dtc));
+                          reinterpret_cast<byte *>(&m_ccu60_t12dtc));
     } break;
     case reg_ccu60_t13_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_T13 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_t13));
+                          reinterpret_cast<byte *>(&m_ccu60_t13));
     } break;
     case reg_ccu60_t13pr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_T13PR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_t13pr));
+                          reinterpret_cast<byte *>(&m_ccu60_t13pr));
     } break;
     case reg_ccu60_cc63r_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_CC63R in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_cc63r));
+                          reinterpret_cast<byte *>(&m_ccu60_cc63r));
     } break;
     case reg_ccu60_cc63sr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_CC63SR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_cc63sr));
+                          reinterpret_cast<byte *>(&m_ccu60_cc63sr));
     } break;
     case reg_ccu60_cmpstat_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_CMPSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_cmpstat));
+                          reinterpret_cast<byte *>(&m_ccu60_cmpstat));
     } break;
     case reg_ccu60_cmpmodif_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_CMPMODIF in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_cmpmodif));
+                          reinterpret_cast<byte *>(&m_ccu60_cmpmodif));
     } break;
     case reg_ccu60_t12msel_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_T12MSEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_t12msel));
+                          reinterpret_cast<byte *>(&m_ccu60_t12msel));
     } break;
     case reg_ccu60_tctr0_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_TCTR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_tctr0));
+                          reinterpret_cast<byte *>(&m_ccu60_tctr0));
     } break;
     case reg_ccu60_tctr2_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_TCTR2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_tctr2));
+                          reinterpret_cast<byte *>(&m_ccu60_tctr2));
     } break;
     case reg_ccu60_tctr4_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_TCTR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_tctr4));
+                          reinterpret_cast<byte *>(&m_ccu60_tctr4));
     } break;
     case reg_ccu60_modctr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_MODCTR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_modctr));
+                          reinterpret_cast<byte *>(&m_ccu60_modctr));
     } break;
     case reg_ccu60_trpctr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_TRPCTR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_trpctr));
+                          reinterpret_cast<byte *>(&m_ccu60_trpctr));
     } break;
     case reg_ccu60_pslr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_PSLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_pslr));
+                          reinterpret_cast<byte *>(&m_ccu60_pslr));
     } break;
     case reg_ccu60_mcmouts_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_MCMOUTS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_mcmouts));
+                          reinterpret_cast<byte *>(&m_ccu60_mcmouts));
     } break;
     case reg_ccu60_mcmout_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_MCMOUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_mcmout));
+                          reinterpret_cast<byte *>(&m_ccu60_mcmout));
     } break;
     case reg_ccu60_mcmctr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_MCMCTR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_mcmctr));
+                          reinterpret_cast<byte *>(&m_ccu60_mcmctr));
     } break;
     case reg_ccu60_imon_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_IMON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_imon));
+                          reinterpret_cast<byte *>(&m_ccu60_imon));
     } break;
     case reg_ccu60_li_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_LI in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_li));
+                          reinterpret_cast<byte *>(&m_ccu60_li));
     } break;
     case reg_ccu60_is_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_IS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_is));
+                          reinterpret_cast<byte *>(&m_ccu60_is));
     } break;
     case reg_ccu60_iss_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_ISS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_iss));
+                          reinterpret_cast<byte *>(&m_ccu60_iss));
     } break;
     case reg_ccu60_isr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_ISR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_isr));
+                          reinterpret_cast<byte *>(&m_ccu60_isr));
     } break;
     case reg_ccu60_inp_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_INP in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_inp));
+                          reinterpret_cast<byte *>(&m_ccu60_inp));
     } break;
     case reg_ccu60_ien_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_IEN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_ien));
+                          reinterpret_cast<byte *>(&m_ccu60_ien));
     } break;
     case reg_ccu60_ocs_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_ocs));
+                          reinterpret_cast<byte *>(&m_ccu60_ocs));
     } break;
     case reg_ccu60_krstclr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_krstclr));
+                          reinterpret_cast<byte *>(&m_ccu60_krstclr));
     } break;
     case reg_ccu60_krst1_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_krst1));
+                          reinterpret_cast<byte *>(&m_ccu60_krst1));
     } break;
     case reg_ccu60_krst0_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_krst0));
+                          reinterpret_cast<byte *>(&m_ccu60_krst0));
     } break;
     case reg_ccu60_accen0_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU60_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu60_accen0));
+                          reinterpret_cast<byte *>(&m_ccu60_accen0));
     } break;
     case reg_ccu61_clc_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_clc));
+                          reinterpret_cast<byte *>(&m_ccu61_clc));
     } break;
     case reg_ccu61_mcfg_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_MCFG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_mcfg));
+                          reinterpret_cast<byte *>(&m_ccu61_mcfg));
     } break;
     case reg_ccu61_id_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_id));
+                          reinterpret_cast<byte *>(&m_ccu61_id));
     } break;
     case reg_ccu61_pisel0_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_PISEL0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_pisel0));
+                          reinterpret_cast<byte *>(&m_ccu61_pisel0));
     } break;
     case reg_ccu61_pisel2_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_PISEL2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_pisel2));
+                          reinterpret_cast<byte *>(&m_ccu61_pisel2));
     } break;
     case reg_ccu61_kscsr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_KSCSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_kscsr));
+                          reinterpret_cast<byte *>(&m_ccu61_kscsr));
     } break;
     case reg_ccu61_t12_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_T12 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_t12));
+                          reinterpret_cast<byte *>(&m_ccu61_t12));
     } break;
     case reg_ccu61_t12pr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_T12PR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_t12pr));
+                          reinterpret_cast<byte *>(&m_ccu61_t12pr));
     } break;
     case reg_ccu61_t12dtc_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_T12DTC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_t12dtc));
+                          reinterpret_cast<byte *>(&m_ccu61_t12dtc));
     } break;
     case reg_ccu61_t13_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_T13 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_t13));
+                          reinterpret_cast<byte *>(&m_ccu61_t13));
     } break;
     case reg_ccu61_t13pr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_T13PR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_t13pr));
+                          reinterpret_cast<byte *>(&m_ccu61_t13pr));
     } break;
     case reg_ccu61_cc63r_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_CC63R in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_cc63r));
+                          reinterpret_cast<byte *>(&m_ccu61_cc63r));
     } break;
     case reg_ccu61_cc63sr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_CC63SR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_cc63sr));
+                          reinterpret_cast<byte *>(&m_ccu61_cc63sr));
     } break;
     case reg_ccu61_cmpstat_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_CMPSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_cmpstat));
+                          reinterpret_cast<byte *>(&m_ccu61_cmpstat));
     } break;
     case reg_ccu61_cmpmodif_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_CMPMODIF in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_cmpmodif));
+                          reinterpret_cast<byte *>(&m_ccu61_cmpmodif));
     } break;
     case reg_ccu61_t12msel_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_T12MSEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_t12msel));
+                          reinterpret_cast<byte *>(&m_ccu61_t12msel));
     } break;
     case reg_ccu61_tctr0_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_TCTR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_tctr0));
+                          reinterpret_cast<byte *>(&m_ccu61_tctr0));
     } break;
     case reg_ccu61_tctr2_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_TCTR2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_tctr2));
+                          reinterpret_cast<byte *>(&m_ccu61_tctr2));
     } break;
     case reg_ccu61_tctr4_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_TCTR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_tctr4));
+                          reinterpret_cast<byte *>(&m_ccu61_tctr4));
     } break;
     case reg_ccu61_modctr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_MODCTR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_modctr));
+                          reinterpret_cast<byte *>(&m_ccu61_modctr));
     } break;
     case reg_ccu61_trpctr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_TRPCTR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_trpctr));
+                          reinterpret_cast<byte *>(&m_ccu61_trpctr));
     } break;
     case reg_ccu61_pslr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_PSLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_pslr));
+                          reinterpret_cast<byte *>(&m_ccu61_pslr));
     } break;
     case reg_ccu61_mcmouts_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_MCMOUTS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_mcmouts));
+                          reinterpret_cast<byte *>(&m_ccu61_mcmouts));
     } break;
     case reg_ccu61_mcmout_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_MCMOUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_mcmout));
+                          reinterpret_cast<byte *>(&m_ccu61_mcmout));
     } break;
     case reg_ccu61_mcmctr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_MCMCTR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_mcmctr));
+                          reinterpret_cast<byte *>(&m_ccu61_mcmctr));
     } break;
     case reg_ccu61_imon_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_IMON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_imon));
+                          reinterpret_cast<byte *>(&m_ccu61_imon));
     } break;
     case reg_ccu61_li_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_LI in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_li));
+                          reinterpret_cast<byte *>(&m_ccu61_li));
     } break;
     case reg_ccu61_is_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_IS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_is));
+                          reinterpret_cast<byte *>(&m_ccu61_is));
     } break;
     case reg_ccu61_iss_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_ISS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_iss));
+                          reinterpret_cast<byte *>(&m_ccu61_iss));
     } break;
     case reg_ccu61_isr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_ISR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_isr));
+                          reinterpret_cast<byte *>(&m_ccu61_isr));
     } break;
     case reg_ccu61_inp_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_INP in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_inp));
+                          reinterpret_cast<byte *>(&m_ccu61_inp));
     } break;
     case reg_ccu61_ien_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_IEN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_ien));
+                          reinterpret_cast<byte *>(&m_ccu61_ien));
     } break;
     case reg_ccu61_ocs_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_ocs));
+                          reinterpret_cast<byte *>(&m_ccu61_ocs));
     } break;
     case reg_ccu61_krstclr_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_krstclr));
+                          reinterpret_cast<byte *>(&m_ccu61_krstclr));
     } break;
     case reg_ccu61_krst1_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_krst1));
+                          reinterpret_cast<byte *>(&m_ccu61_krst1));
     } break;
     case reg_ccu61_krst0_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_krst0));
+                          reinterpret_cast<byte *>(&m_ccu61_krst0));
     } break;
     case reg_ccu61_accen0_offset: {
         spdlog::debug("CCU6: accessing CCU6.CCU61_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_ccu61_accen0));
+                          reinterpret_cast<byte *>(&m_ccu61_accen0));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

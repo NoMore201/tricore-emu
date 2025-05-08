@@ -1,17 +1,11 @@
 #ifndef TRICORE_EMU_CPU_HPP
 #define TRICORE_EMU_CPU_HPP
 
-#include "BusClient.hpp"
+#include "Bus.hpp"
 #include "Elf.hpp"
-#include "Memory.hpp"
-#include "Peripherals/Cpu.hpp"
-#include "Peripherals/Mtu.hpp"
-#include "Peripherals/Pms.hpp"
-#include "Peripherals/Scu.hpp"
-#include "Peripherals/Stm.hpp"
-#include "Peripherals/Smu.hpp"
 #include "Types.hpp"
 
+#include <gsl/pointers>
 #include <fmt/format.h>
 
 #include <array>
@@ -29,11 +23,9 @@ struct InvalidCoreRegisterOffset : public std::runtime_error {
 class Cpu {
 
 public:
-    Cpu() = default;
+    explicit Cpu(Bus& bus);
 
-    static Cpu create_tc33x();
-
-    void init(Elf &elf_file);
+    void initialize_program(Elf &elf_file);
 
     void set_program_counter(u32 address) noexcept {
         m_core_registers.pc = address;
@@ -115,45 +107,6 @@ private:
     [[noreturn]] void fail(std::string message);
     void print_cpu_status();
 
-    template <std::unsigned_integral T> T read(u32 address) {
-        constexpr auto read_length = sizeof(T);
-
-        T data{};
-
-        for (auto *client : m_bus_clients) {
-            try {
-                client->read(reinterpret_cast<std::byte *>(&data), address,
-                             read_length);
-                return data;
-            } catch (InvalidMemoryAccess &) {
-                // this client does not handle input address, continue
-                continue;
-            }
-        }
-
-        // Address not handled by any peripherals, re-throw error
-        fail(fmt::format("Address 0x{:08X} not handled by CPU", address));
-    }
-
-    template <std::unsigned_integral T> void write(u32 address, T value) {
-        constexpr auto write_length = sizeof(T);
-        T data = value;
-
-        for (auto *client : m_bus_clients) {
-            try {
-                client->write(reinterpret_cast<std::byte *>(&data), address,
-                              write_length);
-                return;
-            } catch (InvalidMemoryAccess &) {
-                // this client does not handle input address, continue
-                continue;
-            }
-        }
-
-        // Address not handled by any peripherals, re-throw error
-        fail(fmt::format("Address 0x{:08X} not handled by CPU", address));
-    }
-
     // CPU registers
     std::array<u32, register_count> m_data_registers{};
     std::array<u32, register_count> m_address_registers{};
@@ -175,15 +128,7 @@ private:
 
     } m_core_registers;
 
-    // Peripherals
-    std::vector<BusClient *> m_bus_clients;
-    Memory m_memory;
-    Peripherals::Scu m_scu;
-    Peripherals::Pms m_pms;
-    Peripherals::Cpu m_cpu;
-    Peripherals::Mtu m_mtu;
-    Peripherals::Stm m_stm;
-    Peripherals::Smu m_smu;
+    gsl::not_null<Bus*> m_bus;
 };
 
 } // namespace Tricore

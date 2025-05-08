@@ -114,112 +114,112 @@ Tricore::Peripherals::Stm::Stm()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Peripherals::Stm::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Stm::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - stm_memory_start_address;
     switch (offset) {
     case reg_stm0_clc_offset: {
             spdlog::debug("STM: accessing STM.STM0_CLC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_clc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_clc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_id_offset: {
             spdlog::debug("STM: accessing STM.STM0_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_tim0_offset: {
             spdlog::debug("STM: accessing STM.STM0_TIM0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_tim0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_tim0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_tim1_offset: {
             spdlog::debug("STM: accessing STM.STM0_TIM1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_tim1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_tim1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_tim2_offset: {
             spdlog::debug("STM: accessing STM.STM0_TIM2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_tim2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_tim2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_tim3_offset: {
             spdlog::debug("STM: accessing STM.STM0_TIM3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_tim3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_tim3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_tim4_offset: {
             spdlog::debug("STM: accessing STM.STM0_TIM4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_tim4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_tim4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_tim5_offset: {
             spdlog::debug("STM: accessing STM.STM0_TIM5 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_tim5);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_tim5);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_tim6_offset: {
             spdlog::debug("STM: accessing STM.STM0_TIM6 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_tim6);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_tim6);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_cap_offset: {
             spdlog::debug("STM: accessing STM.STM0_CAP in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_cap);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_cap);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_cmcon_offset: {
             spdlog::debug("STM: accessing STM.STM0_CMCON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_cmcon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_cmcon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_icr_offset: {
             spdlog::debug("STM: accessing STM.STM0_ICR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_icr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_icr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_iscr_offset: {
             spdlog::debug("STM: accessing STM.STM0_ISCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_iscr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_iscr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_tim0sv_offset: {
             spdlog::debug("STM: accessing STM.STM0_TIM0SV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_tim0sv);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_tim0sv);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_capsv_offset: {
             spdlog::debug("STM: accessing STM.STM0_CAPSV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_capsv);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_capsv);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_ocs_offset: {
             spdlog::debug("STM: accessing STM.STM0_OCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_ocs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_ocs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_krstclr_offset: {
             spdlog::debug("STM: accessing STM.STM0_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_krstclr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_krstclr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_krst1_offset: {
             spdlog::debug("STM: accessing STM.STM0_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_krst1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_krst1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_krst0_offset: {
             spdlog::debug("STM: accessing STM.STM0_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_krst0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_krst0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_accen1_offset: {
             spdlog::debug("STM: accessing STM.STM0_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_stm0_accen0_offset: {
             spdlog::debug("STM: accessing STM.STM0_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_stm0_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_stm0_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -229,114 +229,114 @@ void Tricore::Peripherals::Stm::read(std::byte *buffer_out, u32 address, usize l
     }
 }
 
-void Tricore::Peripherals::Stm::write(const std::byte *buffer_in, u32 address,
+void Tricore::Peripherals::Stm::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - stm_memory_start_address;
     switch (offset) {
     case reg_stm0_clc_offset: {
         spdlog::debug("STM: accessing STM.STM0_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_clc));
+                          reinterpret_cast<byte *>(&m_stm0_clc));
     } break;
     case reg_stm0_id_offset: {
         spdlog::debug("STM: accessing STM.STM0_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_id));
+                          reinterpret_cast<byte *>(&m_stm0_id));
     } break;
     case reg_stm0_tim0_offset: {
         spdlog::debug("STM: accessing STM.STM0_TIM0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_tim0));
+                          reinterpret_cast<byte *>(&m_stm0_tim0));
     } break;
     case reg_stm0_tim1_offset: {
         spdlog::debug("STM: accessing STM.STM0_TIM1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_tim1));
+                          reinterpret_cast<byte *>(&m_stm0_tim1));
     } break;
     case reg_stm0_tim2_offset: {
         spdlog::debug("STM: accessing STM.STM0_TIM2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_tim2));
+                          reinterpret_cast<byte *>(&m_stm0_tim2));
     } break;
     case reg_stm0_tim3_offset: {
         spdlog::debug("STM: accessing STM.STM0_TIM3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_tim3));
+                          reinterpret_cast<byte *>(&m_stm0_tim3));
     } break;
     case reg_stm0_tim4_offset: {
         spdlog::debug("STM: accessing STM.STM0_TIM4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_tim4));
+                          reinterpret_cast<byte *>(&m_stm0_tim4));
     } break;
     case reg_stm0_tim5_offset: {
         spdlog::debug("STM: accessing STM.STM0_TIM5 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_tim5));
+                          reinterpret_cast<byte *>(&m_stm0_tim5));
     } break;
     case reg_stm0_tim6_offset: {
         spdlog::debug("STM: accessing STM.STM0_TIM6 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_tim6));
+                          reinterpret_cast<byte *>(&m_stm0_tim6));
     } break;
     case reg_stm0_cap_offset: {
         spdlog::debug("STM: accessing STM.STM0_CAP in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_cap));
+                          reinterpret_cast<byte *>(&m_stm0_cap));
     } break;
     case reg_stm0_cmcon_offset: {
         spdlog::debug("STM: accessing STM.STM0_CMCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_cmcon));
+                          reinterpret_cast<byte *>(&m_stm0_cmcon));
     } break;
     case reg_stm0_icr_offset: {
         spdlog::debug("STM: accessing STM.STM0_ICR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_icr));
+                          reinterpret_cast<byte *>(&m_stm0_icr));
     } break;
     case reg_stm0_iscr_offset: {
         spdlog::debug("STM: accessing STM.STM0_ISCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_iscr));
+                          reinterpret_cast<byte *>(&m_stm0_iscr));
     } break;
     case reg_stm0_tim0sv_offset: {
         spdlog::debug("STM: accessing STM.STM0_TIM0SV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_tim0sv));
+                          reinterpret_cast<byte *>(&m_stm0_tim0sv));
     } break;
     case reg_stm0_capsv_offset: {
         spdlog::debug("STM: accessing STM.STM0_CAPSV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_capsv));
+                          reinterpret_cast<byte *>(&m_stm0_capsv));
     } break;
     case reg_stm0_ocs_offset: {
         spdlog::debug("STM: accessing STM.STM0_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_ocs));
+                          reinterpret_cast<byte *>(&m_stm0_ocs));
     } break;
     case reg_stm0_krstclr_offset: {
         spdlog::debug("STM: accessing STM.STM0_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_krstclr));
+                          reinterpret_cast<byte *>(&m_stm0_krstclr));
     } break;
     case reg_stm0_krst1_offset: {
         spdlog::debug("STM: accessing STM.STM0_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_krst1));
+                          reinterpret_cast<byte *>(&m_stm0_krst1));
     } break;
     case reg_stm0_krst0_offset: {
         spdlog::debug("STM: accessing STM.STM0_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_krst0));
+                          reinterpret_cast<byte *>(&m_stm0_krst0));
     } break;
     case reg_stm0_accen1_offset: {
         spdlog::debug("STM: accessing STM.STM0_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_accen1));
+                          reinterpret_cast<byte *>(&m_stm0_accen1));
     } break;
     case reg_stm0_accen0_offset: {
         spdlog::debug("STM: accessing STM.STM0_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_stm0_accen0));
+                          reinterpret_cast<byte *>(&m_stm0_accen0));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

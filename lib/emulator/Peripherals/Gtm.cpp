@@ -174,187 +174,187 @@ Tricore::Gtm::Gtm()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Gtm::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Gtm::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - gtm_memory_start_address;
     switch (offset) {
     case reg_gtm_rev_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_REV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_rev);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_rev);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_rst_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_RST in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_rst);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_rst);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_ctrl_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_CTRL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_ctrl);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_ctrl);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_irq_notify_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_IRQ_NOTIFY in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_irq_notify);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_irq_notify);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_irq_en_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_IRQ_EN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_irq_en);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_irq_en);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_irq_forcint_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_IRQ_FORCINT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_irq_forcint);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_irq_forcint);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_irq_mode_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_IRQ_MODE in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_irq_mode);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_irq_mode);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_eirq_en_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_EIRQ_EN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_eirq_en);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_eirq_en);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_hw_conf_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_HW_CONF in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_hw_conf);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_hw_conf);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_cfg_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_CFG in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_cfg);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_cfg);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_bridge_mode_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_BRIDGE_MODE in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_bridge_mode);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_bridge_mode);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_bridge_ptr1_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_BRIDGE_PTR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_bridge_ptr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_bridge_ptr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_bridge_ptr2_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_BRIDGE_PTR2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_bridge_ptr2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_bridge_ptr2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_tbu_chen_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_TBU_CHEN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_tbu_chen);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_tbu_chen);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_mon_status_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_MON_STATUS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_mon_status);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_mon_status);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_cmp_en_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_CMP_EN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_cmp_en);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_cmp_en);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_aru_access_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_ARU_ACCESS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_aru_access);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_aru_access);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_aru_ctrl_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_ARU_CTRL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_aru_ctrl);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_aru_ctrl);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_aru_caddr_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_ARU_CADDR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_aru_caddr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_aru_caddr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_brc_rst_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_BRC_RST in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_brc_rst);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_brc_rst);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_clc_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_CLC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_clc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_clc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_reset_clr_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_RESET_CLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_reset_clr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_reset_clr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_reset1_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_RESET1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_reset1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_reset1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_reset2_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_RESET2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_reset2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_reset2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_accen0_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_accen1_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_ocds_otbu0t_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTBU0T in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_ocds_otbu0t);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_ocds_otbu0t);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_ocds_otbu1t_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTBU1T in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_ocds_otbu1t);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_ocds_otbu1t);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_ocds_otbu2t_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTBU2T in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_ocds_otbu2t);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_ocds_otbu2t);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_ocds_otss_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTSS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_ocds_otss);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_ocds_otss);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_ocds_otsc0_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTSC0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_ocds_otsc0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_ocds_otsc0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_ocds_oda_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_OCDS_ODA in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_ocds_oda);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_ocds_oda);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_ocds_ocs_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_OCDS_OCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_ocds_ocs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_ocds_ocs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_lcdcdcoutsel_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_LCDCDCOUTSEL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_lcdcdcoutsel);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_lcdcdcoutsel);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_dtmauxinsel_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_DTMAUXINSEL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_dtmauxinsel);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_dtmauxinsel);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_gtm_canoutsel0_offset: {
             spdlog::debug("GTM: accessing GTM.GTM_CANOUTSEL0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_gtm_canoutsel0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_gtm_canoutsel0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -364,189 +364,189 @@ void Tricore::Gtm::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Gtm::write(const std::byte *buffer_in, u32 address,
+void Tricore::Gtm::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - gtm_memory_start_address;
     switch (offset) {
     case reg_gtm_rev_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_REV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_rev));
+                          reinterpret_cast<byte *>(&m_gtm_rev));
     } break;
     case reg_gtm_rst_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_RST in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_rst));
+                          reinterpret_cast<byte *>(&m_gtm_rst));
     } break;
     case reg_gtm_ctrl_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_CTRL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_ctrl));
+                          reinterpret_cast<byte *>(&m_gtm_ctrl));
     } break;
     case reg_gtm_irq_notify_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_IRQ_NOTIFY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_irq_notify));
+                          reinterpret_cast<byte *>(&m_gtm_irq_notify));
     } break;
     case reg_gtm_irq_en_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_IRQ_EN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_irq_en));
+                          reinterpret_cast<byte *>(&m_gtm_irq_en));
     } break;
     case reg_gtm_irq_forcint_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_IRQ_FORCINT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_irq_forcint));
+                          reinterpret_cast<byte *>(&m_gtm_irq_forcint));
     } break;
     case reg_gtm_irq_mode_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_IRQ_MODE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_irq_mode));
+                          reinterpret_cast<byte *>(&m_gtm_irq_mode));
     } break;
     case reg_gtm_eirq_en_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_EIRQ_EN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_eirq_en));
+                          reinterpret_cast<byte *>(&m_gtm_eirq_en));
     } break;
     case reg_gtm_hw_conf_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_HW_CONF in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_hw_conf));
+                          reinterpret_cast<byte *>(&m_gtm_hw_conf));
     } break;
     case reg_gtm_cfg_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_CFG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_cfg));
+                          reinterpret_cast<byte *>(&m_gtm_cfg));
     } break;
     case reg_gtm_bridge_mode_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_BRIDGE_MODE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_bridge_mode));
+                          reinterpret_cast<byte *>(&m_gtm_bridge_mode));
     } break;
     case reg_gtm_bridge_ptr1_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_BRIDGE_PTR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_bridge_ptr1));
+                          reinterpret_cast<byte *>(&m_gtm_bridge_ptr1));
     } break;
     case reg_gtm_bridge_ptr2_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_BRIDGE_PTR2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_bridge_ptr2));
+                          reinterpret_cast<byte *>(&m_gtm_bridge_ptr2));
     } break;
     case reg_gtm_tbu_chen_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_TBU_CHEN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_tbu_chen));
+                          reinterpret_cast<byte *>(&m_gtm_tbu_chen));
     } break;
     case reg_gtm_mon_status_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_MON_STATUS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_mon_status));
+                          reinterpret_cast<byte *>(&m_gtm_mon_status));
     } break;
     case reg_gtm_cmp_en_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_CMP_EN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_cmp_en));
+                          reinterpret_cast<byte *>(&m_gtm_cmp_en));
     } break;
     case reg_gtm_aru_access_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_ARU_ACCESS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_aru_access));
+                          reinterpret_cast<byte *>(&m_gtm_aru_access));
     } break;
     case reg_gtm_aru_ctrl_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_ARU_CTRL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_aru_ctrl));
+                          reinterpret_cast<byte *>(&m_gtm_aru_ctrl));
     } break;
     case reg_gtm_aru_caddr_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_ARU_CADDR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_aru_caddr));
+                          reinterpret_cast<byte *>(&m_gtm_aru_caddr));
     } break;
     case reg_gtm_brc_rst_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_BRC_RST in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_brc_rst));
+                          reinterpret_cast<byte *>(&m_gtm_brc_rst));
     } break;
     case reg_gtm_clc_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_clc));
+                          reinterpret_cast<byte *>(&m_gtm_clc));
     } break;
     case reg_gtm_reset_clr_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_RESET_CLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_reset_clr));
+                          reinterpret_cast<byte *>(&m_gtm_reset_clr));
     } break;
     case reg_gtm_reset1_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_RESET1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_reset1));
+                          reinterpret_cast<byte *>(&m_gtm_reset1));
     } break;
     case reg_gtm_reset2_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_RESET2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_reset2));
+                          reinterpret_cast<byte *>(&m_gtm_reset2));
     } break;
     case reg_gtm_accen0_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_accen0));
+                          reinterpret_cast<byte *>(&m_gtm_accen0));
     } break;
     case reg_gtm_accen1_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_accen1));
+                          reinterpret_cast<byte *>(&m_gtm_accen1));
     } break;
     case reg_gtm_ocds_otbu0t_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTBU0T in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_ocds_otbu0t));
+                          reinterpret_cast<byte *>(&m_gtm_ocds_otbu0t));
     } break;
     case reg_gtm_ocds_otbu1t_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTBU1T in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_ocds_otbu1t));
+                          reinterpret_cast<byte *>(&m_gtm_ocds_otbu1t));
     } break;
     case reg_gtm_ocds_otbu2t_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTBU2T in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_ocds_otbu2t));
+                          reinterpret_cast<byte *>(&m_gtm_ocds_otbu2t));
     } break;
     case reg_gtm_ocds_otss_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTSS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_ocds_otss));
+                          reinterpret_cast<byte *>(&m_gtm_ocds_otss));
     } break;
     case reg_gtm_ocds_otsc0_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_OCDS_OTSC0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_ocds_otsc0));
+                          reinterpret_cast<byte *>(&m_gtm_ocds_otsc0));
     } break;
     case reg_gtm_ocds_oda_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_OCDS_ODA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_ocds_oda));
+                          reinterpret_cast<byte *>(&m_gtm_ocds_oda));
     } break;
     case reg_gtm_ocds_ocs_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_OCDS_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_ocds_ocs));
+                          reinterpret_cast<byte *>(&m_gtm_ocds_ocs));
     } break;
     case reg_gtm_lcdcdcoutsel_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_LCDCDCOUTSEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_lcdcdcoutsel));
+                          reinterpret_cast<byte *>(&m_gtm_lcdcdcoutsel));
     } break;
     case reg_gtm_dtmauxinsel_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_DTMAUXINSEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_dtmauxinsel));
+                          reinterpret_cast<byte *>(&m_gtm_dtmauxinsel));
     } break;
     case reg_gtm_canoutsel0_offset: {
         spdlog::debug("GTM: accessing GTM.GTM_CANOUTSEL0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_gtm_canoutsel0));
+                          reinterpret_cast<byte *>(&m_gtm_canoutsel0));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

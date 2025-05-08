@@ -398,467 +398,467 @@ Tricore::Peripherals::Scu::Scu()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Peripherals::Scu::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Scu::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - scu_memory_start_address;
     switch (offset) {
     case reg_scu_id_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_osccon_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_OSCCON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_osccon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_osccon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_syspllstat_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SYSPLLSTAT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_syspllstat);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_syspllstat);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_syspllcon0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SYSPLLCON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_syspllcon0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_syspllcon0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_syspllcon1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SYSPLLCON1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_syspllcon1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_syspllcon1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_syspllcon2_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SYSPLLCON2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_syspllcon2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_syspllcon2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_perpllstat_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PERPLLSTAT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_perpllstat);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_perpllstat);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_perpllcon0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PERPLLCON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_perpllcon0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_perpllcon0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_perpllcon1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PERPLLCON1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_perpllcon1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_perpllcon1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ccucon0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_CCUCON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ccucon0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ccucon0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ccucon1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_CCUCON1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ccucon1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ccucon1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_fdr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_FDR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_fdr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_fdr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_extcon_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_EXTCON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_extcon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_extcon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ccucon2_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_CCUCON2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ccucon2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ccucon2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ccucon3_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_CCUCON3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ccucon3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ccucon3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ccucon4_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_CCUCON4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ccucon4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ccucon4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ccucon5_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_CCUCON5 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ccucon5);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ccucon5);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_rststat_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_RSTSTAT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_rststat);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_rststat);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_rstcon_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_RSTCON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_rstcon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_rstcon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_arstdis_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_ARSTDIS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_arstdis);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_arstdis);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_swrstcon_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SWRSTCON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_swrstcon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_swrstcon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_rstcon2_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_RSTCON2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_rstcon2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_rstcon2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_rstcon3_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_RSTCON3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_rstcon3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_rstcon3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_esrocfg_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_ESROCFG in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_esrocfg);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_esrocfg);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_syscon_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SYSCON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_syscon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_syscon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ccucon6_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_CCUCON6 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ccucon6);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ccucon6);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ccucon7_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_CCUCON7 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ccucon7);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ccucon7);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pdr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PDR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pdr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pdr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_iocr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_iocr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_iocr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_out_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_OUT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_out);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_out);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_omr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_OMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_omr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_omr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_in_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_IN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_in);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_in);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ststat_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_STSTAT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ststat);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ststat);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_stcon_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_STCON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_stcon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_stcon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmcsr0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMCSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmcsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmcsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmcsr1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMCSR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmcsr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmcsr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmcsr2_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMCSR2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmcsr2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmcsr2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmcsr3_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMCSR3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmcsr3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmcsr3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmcsr4_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMCSR4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmcsr4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmcsr4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmcsr5_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMCSR5 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmcsr5);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmcsr5);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmstat0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMSTAT0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmstat0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmstat0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmswcr1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMSWCR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmswcr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmswcr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_emsr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_EMSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_emsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_emsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_emssw_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_EMSSW in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_emssw);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_emssw);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_dtscstat_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_DTSCSTAT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_dtscstat);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_dtscstat);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_dtsclim_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_DTSCLIM in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_dtsclim);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_dtsclim);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_trapdis1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_TRAPDIS1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_trapdis1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_trapdis1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_trapstat_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_TRAPSTAT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_trapstat);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_trapstat);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_trapset_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_TRAPSET in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_trapset);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_trapset);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_trapclr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_TRAPCLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_trapclr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_trapclr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_trapdis0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_TRAPDIS0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_trapdis0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_trapdis0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_lclcon0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_LCLCON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_lclcon0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_lclcon0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_lclcon1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_LCLCON1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_lclcon1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_lclcon1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_lcltest_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_LCLTEST in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_lcltest);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_lcltest);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_chipid_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_CHIPID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_chipid);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_chipid);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_manid_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_MANID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_manid);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_manid);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_swapctrl_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SWAPCTRL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_swapctrl);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_swapctrl);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_lbistctrl0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_LBISTCTRL0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_lbistctrl0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_lbistctrl0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_lbistctrl1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_LBISTCTRL1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_lbistctrl1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_lbistctrl1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_lbistctrl2_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_LBISTCTRL2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_lbistctrl2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_lbistctrl2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_lbistctrl3_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_LBISTCTRL3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_lbistctrl3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_lbistctrl3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_stmem1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_STMEM1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_stmem1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_stmem1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_stmem2_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_STMEM2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_stmem2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_stmem2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pdisc_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PDISC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pdisc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pdisc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmtrcsr0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMTRCSR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmtrcsr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmtrcsr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmtrcsr1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMTRCSR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmtrcsr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmtrcsr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmtrcsr2_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMTRCSR2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmtrcsr2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmtrcsr2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pmtrcsr3_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PMTRCSR3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pmtrcsr3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pmtrcsr3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_stmem3_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_STMEM3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_stmem3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_stmem3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_stmem4_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_STMEM4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_stmem4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_stmem4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_stmem5_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_STMEM5 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_stmem5);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_stmem5);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_stmem6_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_STMEM6 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_stmem6);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_stmem6);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ovcenable_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_OVCENABLE in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ovcenable);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ovcenable);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_ovccon_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_OVCCON in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_ovccon);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_ovccon);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_eifilt_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_EIFILT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_eifilt);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_eifilt);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_eifr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_EIFR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_eifr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_eifr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_fmr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_FMR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_fmr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_fmr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_pdrr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_PDRR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_pdrr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_pdrr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_wdtcpu0_con0_offset: {
             spdlog::debug("SCU: accessing SCU.WDTCPU0_CON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_wdtcpu0_con0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_wdtcpu0_con0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_eicon0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_EICON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_eicon0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_eicon0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_eicon1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_EICON1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_eicon1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_eicon1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_eisr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_EISR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_eisr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_eisr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_wdts_con0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_WDTS_CON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_wdts_con0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_wdts_con0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_wdts_con1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_WDTS_CON1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_wdts_con1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_wdts_con1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_wdts_sr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_WDTS_SR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_wdts_sr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_wdts_sr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_seicon0_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SEICON0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_seicon0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_seicon0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_seicon1_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SEICON1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_seicon1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_seicon1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_seisr_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_SEISR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_seisr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_seisr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_accen11_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_ACCEN11 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_accen11);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_accen11);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_accen10_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_ACCEN10 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_accen10);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_accen10);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_accen01_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_ACCEN01 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_accen01);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_accen01);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_scu_accen00_offset: {
             spdlog::debug("SCU: accessing SCU.SCU_ACCEN00 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_scu_accen00);
+            const auto *range_start = reinterpret_cast<byte *>(&m_scu_accen00);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -868,469 +868,469 @@ void Tricore::Peripherals::Scu::read(std::byte *buffer_out, u32 address, usize l
     }
 }
 
-void Tricore::Peripherals::Scu::write(const std::byte *buffer_in, u32 address,
+void Tricore::Peripherals::Scu::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - scu_memory_start_address;
     switch (offset) {
     case reg_scu_id_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_id));
+                          reinterpret_cast<byte *>(&m_scu_id));
     } break;
     case reg_scu_osccon_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_OSCCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_osccon));
+                          reinterpret_cast<byte *>(&m_scu_osccon));
     } break;
     case reg_scu_syspllstat_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SYSPLLSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_syspllstat));
+                          reinterpret_cast<byte *>(&m_scu_syspllstat));
     } break;
     case reg_scu_syspllcon0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SYSPLLCON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_syspllcon0));
+                          reinterpret_cast<byte *>(&m_scu_syspllcon0));
     } break;
     case reg_scu_syspllcon1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SYSPLLCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_syspllcon1));
+                          reinterpret_cast<byte *>(&m_scu_syspllcon1));
     } break;
     case reg_scu_syspllcon2_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SYSPLLCON2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_syspllcon2));
+                          reinterpret_cast<byte *>(&m_scu_syspllcon2));
     } break;
     case reg_scu_perpllstat_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PERPLLSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_perpllstat));
+                          reinterpret_cast<byte *>(&m_scu_perpllstat));
     } break;
     case reg_scu_perpllcon0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PERPLLCON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_perpllcon0));
+                          reinterpret_cast<byte *>(&m_scu_perpllcon0));
     } break;
     case reg_scu_perpllcon1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PERPLLCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_perpllcon1));
+                          reinterpret_cast<byte *>(&m_scu_perpllcon1));
     } break;
     case reg_scu_ccucon0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_CCUCON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ccucon0));
+                          reinterpret_cast<byte *>(&m_scu_ccucon0));
     } break;
     case reg_scu_ccucon1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_CCUCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ccucon1));
+                          reinterpret_cast<byte *>(&m_scu_ccucon1));
     } break;
     case reg_scu_fdr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_FDR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_fdr));
+                          reinterpret_cast<byte *>(&m_scu_fdr));
     } break;
     case reg_scu_extcon_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_EXTCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_extcon));
+                          reinterpret_cast<byte *>(&m_scu_extcon));
     } break;
     case reg_scu_ccucon2_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_CCUCON2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ccucon2));
+                          reinterpret_cast<byte *>(&m_scu_ccucon2));
     } break;
     case reg_scu_ccucon3_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_CCUCON3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ccucon3));
+                          reinterpret_cast<byte *>(&m_scu_ccucon3));
     } break;
     case reg_scu_ccucon4_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_CCUCON4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ccucon4));
+                          reinterpret_cast<byte *>(&m_scu_ccucon4));
     } break;
     case reg_scu_ccucon5_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_CCUCON5 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ccucon5));
+                          reinterpret_cast<byte *>(&m_scu_ccucon5));
     } break;
     case reg_scu_rststat_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_RSTSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_rststat));
+                          reinterpret_cast<byte *>(&m_scu_rststat));
     } break;
     case reg_scu_rstcon_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_RSTCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_rstcon));
+                          reinterpret_cast<byte *>(&m_scu_rstcon));
     } break;
     case reg_scu_arstdis_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_ARSTDIS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_arstdis));
+                          reinterpret_cast<byte *>(&m_scu_arstdis));
     } break;
     case reg_scu_swrstcon_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SWRSTCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_swrstcon));
+                          reinterpret_cast<byte *>(&m_scu_swrstcon));
     } break;
     case reg_scu_rstcon2_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_RSTCON2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_rstcon2));
+                          reinterpret_cast<byte *>(&m_scu_rstcon2));
     } break;
     case reg_scu_rstcon3_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_RSTCON3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_rstcon3));
+                          reinterpret_cast<byte *>(&m_scu_rstcon3));
     } break;
     case reg_scu_esrocfg_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_ESROCFG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_esrocfg));
+                          reinterpret_cast<byte *>(&m_scu_esrocfg));
     } break;
     case reg_scu_syscon_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SYSCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_syscon));
+                          reinterpret_cast<byte *>(&m_scu_syscon));
     } break;
     case reg_scu_ccucon6_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_CCUCON6 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ccucon6));
+                          reinterpret_cast<byte *>(&m_scu_ccucon6));
     } break;
     case reg_scu_ccucon7_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_CCUCON7 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ccucon7));
+                          reinterpret_cast<byte *>(&m_scu_ccucon7));
     } break;
     case reg_scu_pdr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PDR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pdr));
+                          reinterpret_cast<byte *>(&m_scu_pdr));
     } break;
     case reg_scu_iocr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_iocr));
+                          reinterpret_cast<byte *>(&m_scu_iocr));
     } break;
     case reg_scu_out_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_OUT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_out));
+                          reinterpret_cast<byte *>(&m_scu_out));
     } break;
     case reg_scu_omr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_OMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_omr));
+                          reinterpret_cast<byte *>(&m_scu_omr));
     } break;
     case reg_scu_in_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_IN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_in));
+                          reinterpret_cast<byte *>(&m_scu_in));
     } break;
     case reg_scu_ststat_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_STSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ststat));
+                          reinterpret_cast<byte *>(&m_scu_ststat));
     } break;
     case reg_scu_stcon_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_STCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_stcon));
+                          reinterpret_cast<byte *>(&m_scu_stcon));
     } break;
     case reg_scu_pmcsr0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMCSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmcsr0));
+                          reinterpret_cast<byte *>(&m_scu_pmcsr0));
     } break;
     case reg_scu_pmcsr1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMCSR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmcsr1));
+                          reinterpret_cast<byte *>(&m_scu_pmcsr1));
     } break;
     case reg_scu_pmcsr2_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMCSR2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmcsr2));
+                          reinterpret_cast<byte *>(&m_scu_pmcsr2));
     } break;
     case reg_scu_pmcsr3_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMCSR3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmcsr3));
+                          reinterpret_cast<byte *>(&m_scu_pmcsr3));
     } break;
     case reg_scu_pmcsr4_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMCSR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmcsr4));
+                          reinterpret_cast<byte *>(&m_scu_pmcsr4));
     } break;
     case reg_scu_pmcsr5_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMCSR5 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmcsr5));
+                          reinterpret_cast<byte *>(&m_scu_pmcsr5));
     } break;
     case reg_scu_pmstat0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMSTAT0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmstat0));
+                          reinterpret_cast<byte *>(&m_scu_pmstat0));
     } break;
     case reg_scu_pmswcr1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMSWCR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmswcr1));
+                          reinterpret_cast<byte *>(&m_scu_pmswcr1));
     } break;
     case reg_scu_emsr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_EMSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_emsr));
+                          reinterpret_cast<byte *>(&m_scu_emsr));
     } break;
     case reg_scu_emssw_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_EMSSW in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_emssw));
+                          reinterpret_cast<byte *>(&m_scu_emssw));
     } break;
     case reg_scu_dtscstat_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_DTSCSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_dtscstat));
+                          reinterpret_cast<byte *>(&m_scu_dtscstat));
     } break;
     case reg_scu_dtsclim_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_DTSCLIM in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_dtsclim));
+                          reinterpret_cast<byte *>(&m_scu_dtsclim));
     } break;
     case reg_scu_trapdis1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_TRAPDIS1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_trapdis1));
+                          reinterpret_cast<byte *>(&m_scu_trapdis1));
     } break;
     case reg_scu_trapstat_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_TRAPSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_trapstat));
+                          reinterpret_cast<byte *>(&m_scu_trapstat));
     } break;
     case reg_scu_trapset_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_TRAPSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_trapset));
+                          reinterpret_cast<byte *>(&m_scu_trapset));
     } break;
     case reg_scu_trapclr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_TRAPCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_trapclr));
+                          reinterpret_cast<byte *>(&m_scu_trapclr));
     } break;
     case reg_scu_trapdis0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_TRAPDIS0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_trapdis0));
+                          reinterpret_cast<byte *>(&m_scu_trapdis0));
     } break;
     case reg_scu_lclcon0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_LCLCON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_lclcon0));
+                          reinterpret_cast<byte *>(&m_scu_lclcon0));
     } break;
     case reg_scu_lclcon1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_LCLCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_lclcon1));
+                          reinterpret_cast<byte *>(&m_scu_lclcon1));
     } break;
     case reg_scu_lcltest_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_LCLTEST in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_lcltest));
+                          reinterpret_cast<byte *>(&m_scu_lcltest));
     } break;
     case reg_scu_chipid_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_CHIPID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_chipid));
+                          reinterpret_cast<byte *>(&m_scu_chipid));
     } break;
     case reg_scu_manid_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_MANID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_manid));
+                          reinterpret_cast<byte *>(&m_scu_manid));
     } break;
     case reg_scu_swapctrl_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SWAPCTRL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_swapctrl));
+                          reinterpret_cast<byte *>(&m_scu_swapctrl));
     } break;
     case reg_scu_lbistctrl0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_LBISTCTRL0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_lbistctrl0));
+                          reinterpret_cast<byte *>(&m_scu_lbistctrl0));
     } break;
     case reg_scu_lbistctrl1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_LBISTCTRL1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_lbistctrl1));
+                          reinterpret_cast<byte *>(&m_scu_lbistctrl1));
     } break;
     case reg_scu_lbistctrl2_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_LBISTCTRL2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_lbistctrl2));
+                          reinterpret_cast<byte *>(&m_scu_lbistctrl2));
     } break;
     case reg_scu_lbistctrl3_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_LBISTCTRL3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_lbistctrl3));
+                          reinterpret_cast<byte *>(&m_scu_lbistctrl3));
     } break;
     case reg_scu_stmem1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_STMEM1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_stmem1));
+                          reinterpret_cast<byte *>(&m_scu_stmem1));
     } break;
     case reg_scu_stmem2_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_STMEM2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_stmem2));
+                          reinterpret_cast<byte *>(&m_scu_stmem2));
     } break;
     case reg_scu_pdisc_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PDISC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pdisc));
+                          reinterpret_cast<byte *>(&m_scu_pdisc));
     } break;
     case reg_scu_pmtrcsr0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMTRCSR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmtrcsr0));
+                          reinterpret_cast<byte *>(&m_scu_pmtrcsr0));
     } break;
     case reg_scu_pmtrcsr1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMTRCSR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmtrcsr1));
+                          reinterpret_cast<byte *>(&m_scu_pmtrcsr1));
     } break;
     case reg_scu_pmtrcsr2_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMTRCSR2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmtrcsr2));
+                          reinterpret_cast<byte *>(&m_scu_pmtrcsr2));
     } break;
     case reg_scu_pmtrcsr3_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PMTRCSR3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pmtrcsr3));
+                          reinterpret_cast<byte *>(&m_scu_pmtrcsr3));
     } break;
     case reg_scu_stmem3_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_STMEM3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_stmem3));
+                          reinterpret_cast<byte *>(&m_scu_stmem3));
     } break;
     case reg_scu_stmem4_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_STMEM4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_stmem4));
+                          reinterpret_cast<byte *>(&m_scu_stmem4));
     } break;
     case reg_scu_stmem5_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_STMEM5 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_stmem5));
+                          reinterpret_cast<byte *>(&m_scu_stmem5));
     } break;
     case reg_scu_stmem6_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_STMEM6 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_stmem6));
+                          reinterpret_cast<byte *>(&m_scu_stmem6));
     } break;
     case reg_scu_ovcenable_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_OVCENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ovcenable));
+                          reinterpret_cast<byte *>(&m_scu_ovcenable));
     } break;
     case reg_scu_ovccon_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_OVCCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_ovccon));
+                          reinterpret_cast<byte *>(&m_scu_ovccon));
     } break;
     case reg_scu_eifilt_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_EIFILT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_eifilt));
+                          reinterpret_cast<byte *>(&m_scu_eifilt));
     } break;
     case reg_scu_eifr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_EIFR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_eifr));
+                          reinterpret_cast<byte *>(&m_scu_eifr));
     } break;
     case reg_scu_fmr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_FMR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_fmr));
+                          reinterpret_cast<byte *>(&m_scu_fmr));
     } break;
     case reg_scu_pdrr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_PDRR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_pdrr));
+                          reinterpret_cast<byte *>(&m_scu_pdrr));
     } break;
     case reg_scu_wdtcpu0_con0_offset: {
         spdlog::debug("SCU: accessing SCU.WDTCPU0_CON' in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_wdtcpu0_con0));
+                          reinterpret_cast<byte *>(&m_scu_wdtcpu0_con0));
     } break;
     case reg_scu_eicon0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_EICON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_eicon0));
+                          reinterpret_cast<byte *>(&m_scu_eicon0));
     } break;
     case reg_scu_eicon1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_EICON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_eicon1));
+                          reinterpret_cast<byte *>(&m_scu_eicon1));
     } break;
     case reg_scu_eisr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_EISR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_eisr));
+                          reinterpret_cast<byte *>(&m_scu_eisr));
     } break;
     case reg_scu_wdts_con0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_WDTS_CON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_wdts_con0));
+                          reinterpret_cast<byte *>(&m_scu_wdts_con0));
     } break;
     case reg_scu_wdts_con1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_WDTS_CON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_wdts_con1));
+                          reinterpret_cast<byte *>(&m_scu_wdts_con1));
     } break;
     case reg_scu_wdts_sr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_WDTS_SR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_wdts_sr));
+                          reinterpret_cast<byte *>(&m_scu_wdts_sr));
     } break;
     case reg_scu_seicon0_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SEICON0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_seicon0));
+                          reinterpret_cast<byte *>(&m_scu_seicon0));
     } break;
     case reg_scu_seicon1_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SEICON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_seicon1));
+                          reinterpret_cast<byte *>(&m_scu_seicon1));
     } break;
     case reg_scu_seisr_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_SEISR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_seisr));
+                          reinterpret_cast<byte *>(&m_scu_seisr));
     } break;
     case reg_scu_accen11_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_ACCEN11 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_accen11));
+                          reinterpret_cast<byte *>(&m_scu_accen11));
     } break;
     case reg_scu_accen10_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_ACCEN10 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_accen10));
+                          reinterpret_cast<byte *>(&m_scu_accen10));
     } break;
     case reg_scu_accen01_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_ACCEN01 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_accen01));
+                          reinterpret_cast<byte *>(&m_scu_accen01));
     } break;
     case reg_scu_accen00_offset: {
         spdlog::debug("SCU: accessing SCU.SCU_ACCEN00 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_scu_accen00));
+                          reinterpret_cast<byte *>(&m_scu_accen00));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

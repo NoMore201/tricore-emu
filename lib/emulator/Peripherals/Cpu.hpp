@@ -18,9 +18,9 @@ public:
 
     Cpu();
 
-    void read(std::byte *buffer_out, u32 address, usize length) override;
+    void read(gsl::span<byte> buffer_out, u32 address) override;
 
-    void write(const std::byte *buffer_in, u32 address, usize length) override;
+    void write(gsl::span<const byte> buffer_in, u32 address) override;
 
 private:
 

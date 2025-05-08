@@ -2,8 +2,10 @@
 #define TRICORE_EMU_MEMORY_HPP
 
 #include "BusClient.hpp"
+#include "Tricore.hpp"
 #include "Types.hpp"
 
+#include <gsl/span>
 #include <optional>
 #include <vector>
 
@@ -17,22 +19,17 @@ public:
         u32 address;
     };
 
-    Memory();
+    explicit Memory(CpuVariant variant);
 
-    void read(std::byte *buffer_out, u32 address, usize length) override;
+    void read(gsl::span<byte> buffer_out, u32 address) override;
 
-    void write(const std::byte *buffer_in, u32 address, usize length) override;
-
-    void add_memory_region(Layout layout,
-                           std::optional<u32> mirror_address = {});
-
-    std::byte peek_at(u32 address);
+    void write(gsl::span<const byte> buffer_in, u32 address) override;
 
 private:
     struct MemBuffer {
         u32 start_address;
         std::optional<u32> mirror_start_address;
-        std::vector<std::byte> buffer;
+        std::vector<byte> buffer;
 
         u32 offset_into_buffer(u32 address);
     };
