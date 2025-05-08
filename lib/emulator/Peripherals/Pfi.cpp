@@ -38,17 +38,17 @@ Tricore::Pfi::Pfi()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Pfi::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Pfi::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - pfi_memory_start_address;
     switch (offset) {
     case reg_pfi0_eccr_offset: {
             spdlog::debug("PFI: accessing PFI.PFI0_ECCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_pfi0_eccr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_pfi0_eccr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_pfi0_eccs_offset: {
             spdlog::debug("PFI: accessing PFI.PFI0_ECCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_pfi0_eccs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_pfi0_eccs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -58,19 +58,19 @@ void Tricore::Pfi::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Pfi::write(const std::byte *buffer_in, u32 address,
+void Tricore::Pfi::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - pfi_memory_start_address;
     switch (offset) {
     case reg_pfi0_eccr_offset: {
         spdlog::debug("PFI: accessing PFI.PFI0_ECCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_pfi0_eccr));
+                          reinterpret_cast<byte *>(&m_pfi0_eccr));
     } break;
     case reg_pfi0_eccs_offset: {
         spdlog::debug("PFI: accessing PFI.PFI0_ECCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_pfi0_eccs));
+                          reinterpret_cast<byte *>(&m_pfi0_eccs));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

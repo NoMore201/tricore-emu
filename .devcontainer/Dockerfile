@@ -5,6 +5,7 @@ RUN apt-get --yes update && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get --no-install-recommends --yes install \
       git \
+      pre-commit \
       llvm \
       clang \
       clangd \

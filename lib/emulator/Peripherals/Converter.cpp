@@ -70,57 +70,57 @@ Tricore::Converter::Converter()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Converter::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Converter::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - converter_memory_start_address;
     switch (offset) {
     case reg_converter_clc_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_CLC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_clc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_clc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_converter_id_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_converter_ocs_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_OCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_ocs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_ocs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_converter_krstclr_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_krstclr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_krstclr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_converter_krst1_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_krst1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_krst1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_converter_krst0_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_krst0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_krst0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_converter_accen0_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_converter_ccctrl_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_CCCTRL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_ccctrl);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_ccctrl);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_converter_phscfg_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_PHSCFG in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_phscfg);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_phscfg);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_converter_phssfty_offset: {
             spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_PHSSFTY in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_converter_phssfty);
+            const auto *range_start = reinterpret_cast<byte *>(&m_converter_phssfty);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -130,59 +130,59 @@ void Tricore::Converter::read(std::byte *buffer_out, u32 address, usize length) 
     }
 }
 
-void Tricore::Converter::write(const std::byte *buffer_in, u32 address,
+void Tricore::Converter::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - converter_memory_start_address;
     switch (offset) {
     case reg_converter_clc_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_clc));
+                          reinterpret_cast<byte *>(&m_converter_clc));
     } break;
     case reg_converter_id_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_id));
+                          reinterpret_cast<byte *>(&m_converter_id));
     } break;
     case reg_converter_ocs_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_ocs));
+                          reinterpret_cast<byte *>(&m_converter_ocs));
     } break;
     case reg_converter_krstclr_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_krstclr));
+                          reinterpret_cast<byte *>(&m_converter_krstclr));
     } break;
     case reg_converter_krst1_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_krst1));
+                          reinterpret_cast<byte *>(&m_converter_krst1));
     } break;
     case reg_converter_krst0_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_krst0));
+                          reinterpret_cast<byte *>(&m_converter_krst0));
     } break;
     case reg_converter_accen0_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_accen0));
+                          reinterpret_cast<byte *>(&m_converter_accen0));
     } break;
     case reg_converter_ccctrl_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_CCCTRL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_ccctrl));
+                          reinterpret_cast<byte *>(&m_converter_ccctrl));
     } break;
     case reg_converter_phscfg_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_PHSCFG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_phscfg));
+                          reinterpret_cast<byte *>(&m_converter_phscfg));
     } break;
     case reg_converter_phssfty_offset: {
         spdlog::debug("CONVERTER: accessing CONVERTER.CONVERTER_PHSSFTY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_converter_phssfty));
+                          reinterpret_cast<byte *>(&m_converter_phssfty));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

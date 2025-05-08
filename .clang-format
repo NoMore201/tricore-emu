@@ -1,7 +1,12 @@
 ---
 Language: Cpp
-BasedOnStyle: LLVM
-IndentWidth: 4
-AccessModifierOffset: -4
-ColumnLimit: 80
-LambdaBodyIndentation: OuterScope
+BasedOnStyle: WebKit
+BraceWrapping:
+    AfterFunction: true
+BreakBeforeBraces: Custom
+BreakBeforeInheritanceComma: true
+BreakConstructorInitializers: BeforeComma
+InsertNewlineAtEOF: true
+LineEnding: LF
+NamespaceIndentation: None
+SpaceAfterTemplateKeyword: false

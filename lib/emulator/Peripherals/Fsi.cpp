@@ -46,27 +46,27 @@ Tricore::Fsi::Fsi()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Fsi::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Fsi::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - fsi_memory_start_address;
     switch (offset) {
     case reg_fsi_comm_1_offset: {
             spdlog::debug("FSI: accessing FSI.FSI_COMM_1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_fsi_comm_1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_fsi_comm_1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_fsi_comm_2_offset: {
             spdlog::debug("FSI: accessing FSI.FSI_COMM_2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_fsi_comm_2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_fsi_comm_2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_fsi_hsmcomm_1_offset: {
             spdlog::debug("FSI: accessing FSI.FSI_HSMCOMM_1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_fsi_hsmcomm_1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_fsi_hsmcomm_1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_fsi_hsmcomm_2_offset: {
             spdlog::debug("FSI: accessing FSI.FSI_HSMCOMM_2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_fsi_hsmcomm_2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_fsi_hsmcomm_2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -76,29 +76,29 @@ void Tricore::Fsi::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Fsi::write(const std::byte *buffer_in, u32 address,
+void Tricore::Fsi::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - fsi_memory_start_address;
     switch (offset) {
     case reg_fsi_comm_1_offset: {
         spdlog::debug("FSI: accessing FSI.FSI_COMM_1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_fsi_comm_1));
+                          reinterpret_cast<byte *>(&m_fsi_comm_1));
     } break;
     case reg_fsi_comm_2_offset: {
         spdlog::debug("FSI: accessing FSI.FSI_COMM_2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_fsi_comm_2));
+                          reinterpret_cast<byte *>(&m_fsi_comm_2));
     } break;
     case reg_fsi_hsmcomm_1_offset: {
         spdlog::debug("FSI: accessing FSI.FSI_HSMCOMM_1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_fsi_hsmcomm_1));
+                          reinterpret_cast<byte *>(&m_fsi_hsmcomm_1));
     } break;
     case reg_fsi_hsmcomm_2_offset: {
         spdlog::debug("FSI: accessing FSI.FSI_HSMCOMM_2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_fsi_hsmcomm_2));
+                          reinterpret_cast<byte *>(&m_fsi_hsmcomm_2));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

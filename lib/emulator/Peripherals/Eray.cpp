@@ -406,477 +406,477 @@ Tricore::Eray::Eray()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Eray::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Eray::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - eray_memory_start_address;
     switch (offset) {
     case reg_eray0_clc_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_CLC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_clc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_clc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_cust1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_CUST1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_cust1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_cust1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_id_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_cust3_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_CUST3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_cust3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_cust3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_test1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_TEST1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_test1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_test1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_test2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_TEST2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_test2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_test2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_lck_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_LCK in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_lck);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_lck);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_eir_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_EIR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_eir);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_eir);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_sir_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SIR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_sir);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_sir);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_eils_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_EILS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_eils);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_eils);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_sils_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SILS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_sils);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_sils);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_eies_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_EIES in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_eies);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_eies);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_eier_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_EIER in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_eier);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_eier);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_sies_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SIES in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_sies);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_sies);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_sier_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SIER in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_sier);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_sier);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ile_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_ILE in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ile);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ile);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_t0c_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_T0C in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_t0c);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_t0c);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_t1c_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_T1C in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_t1c);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_t1c);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_stpw1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_STPW1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_stpw1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_stpw1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_stpw2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_STPW2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_stpw2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_stpw2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_succ1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SUCC1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_succ1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_succ1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_succ2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SUCC2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_succ2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_succ2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_succ3_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SUCC3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_succ3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_succ3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_nemc_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_NEMC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_nemc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_nemc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_prtc1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_PRTC1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_prtc1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_prtc1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_prtc2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_PRTC2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_prtc2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_prtc2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mhdc_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MHDC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mhdc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mhdc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc01_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC01 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc01);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc01);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc02_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC02 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc02);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc02);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc03_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC03 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc03);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc03);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc04_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC04 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc04);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc04);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc05_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC05 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc05);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc05);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc06_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC06 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc06);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc06);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc07_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC07 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc07);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc07);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc08_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC08 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc08);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc08);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc09_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC09 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc09);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc09);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc10_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC10 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc10);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc10);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_gtuc11_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC11 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_gtuc11);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_gtuc11);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ccsv_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_CCSV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ccsv);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ccsv);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ccev_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_CCEV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ccev);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ccev);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_scv_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SCV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_scv);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_scv);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mtccv_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MTCCV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mtccv);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mtccv);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_rcv_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_RCV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_rcv);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_rcv);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ocv_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_OCV in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ocv);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ocv);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_sfs_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SFS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_sfs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_sfs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_swnit_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_SWNIT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_swnit);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_swnit);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_acs_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_ACS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_acs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_acs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mrc_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MRC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mrc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mrc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_frf_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_FRF in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_frf);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_frf);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_frfm_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_FRFM in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_frfm);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_frfm);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_fcl_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_FCL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_fcl);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_fcl);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mhds_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MHDS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mhds);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mhds);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ldts_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_LDTS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ldts);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ldts);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_fsr_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_FSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_fsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_fsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mhdf_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MHDF in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mhdf);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mhdf);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_txrq1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_TXRQ1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_txrq1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_txrq1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_txrq2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_TXRQ2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_txrq2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_txrq2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_txrq3_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_TXRQ3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_txrq3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_txrq3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_txrq4_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_TXRQ4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_txrq4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_txrq4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ndat1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_NDAT1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ndat1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ndat1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ndat2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_NDAT2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ndat2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ndat2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ndat3_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_NDAT3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ndat3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ndat3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ndat4_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_NDAT4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ndat4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ndat4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mbsc1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MBSC1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mbsc1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mbsc1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mbsc2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MBSC2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mbsc2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mbsc2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mbsc3_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MBSC3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mbsc3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mbsc3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mbsc4_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MBSC4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mbsc4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mbsc4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ndic1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_NDIC1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ndic1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ndic1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ndic2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_NDIC2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ndic2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ndic2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ndic3_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_NDIC3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ndic3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ndic3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ndic4_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_NDIC4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ndic4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ndic4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_msic1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MSIC1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_msic1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_msic1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_msic2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MSIC2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_msic2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_msic2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_msic3_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MSIC3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_msic3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_msic3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_msic4_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MSIC4 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_msic4);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_msic4);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_crel_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_CREL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_crel);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_crel);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_endn_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_ENDN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_endn);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_endn);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_wrhs1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_WRHS1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_wrhs1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_wrhs1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_wrhs2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_WRHS2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_wrhs2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_wrhs2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_wrhs3_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_WRHS3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_wrhs3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_wrhs3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ibcm_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_IBCM in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ibcm);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ibcm);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ibcr_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_IBCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ibcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ibcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_rdhs1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_RDHS1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_rdhs1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_rdhs1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_rdhs2_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_RDHS2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_rdhs2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_rdhs2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_rdhs3_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_RDHS3 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_rdhs3);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_rdhs3);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_mbs_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_MBS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_mbs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_mbs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_obcm_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_OBCM in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_obcm);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_obcm);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_obcr_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_OBCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_obcr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_obcr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_otss_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_OTSS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_otss);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_otss);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_ocs_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_OCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_ocs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_ocs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_krstclr_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_krstclr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_krstclr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_krst1_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_krst1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_krst1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_krst0_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_krst0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_krst0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_eray0_accen0_offset: {
             spdlog::debug("ERAY: accessing ERAY.ERAY0_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_eray0_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_eray0_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -886,479 +886,479 @@ void Tricore::Eray::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Eray::write(const std::byte *buffer_in, u32 address,
+void Tricore::Eray::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - eray_memory_start_address;
     switch (offset) {
     case reg_eray0_clc_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_clc));
+                          reinterpret_cast<byte *>(&m_eray0_clc));
     } break;
     case reg_eray0_cust1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_CUST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_cust1));
+                          reinterpret_cast<byte *>(&m_eray0_cust1));
     } break;
     case reg_eray0_id_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_id));
+                          reinterpret_cast<byte *>(&m_eray0_id));
     } break;
     case reg_eray0_cust3_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_CUST3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_cust3));
+                          reinterpret_cast<byte *>(&m_eray0_cust3));
     } break;
     case reg_eray0_test1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_TEST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_test1));
+                          reinterpret_cast<byte *>(&m_eray0_test1));
     } break;
     case reg_eray0_test2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_TEST2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_test2));
+                          reinterpret_cast<byte *>(&m_eray0_test2));
     } break;
     case reg_eray0_lck_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_LCK in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_lck));
+                          reinterpret_cast<byte *>(&m_eray0_lck));
     } break;
     case reg_eray0_eir_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_EIR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_eir));
+                          reinterpret_cast<byte *>(&m_eray0_eir));
     } break;
     case reg_eray0_sir_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SIR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_sir));
+                          reinterpret_cast<byte *>(&m_eray0_sir));
     } break;
     case reg_eray0_eils_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_EILS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_eils));
+                          reinterpret_cast<byte *>(&m_eray0_eils));
     } break;
     case reg_eray0_sils_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SILS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_sils));
+                          reinterpret_cast<byte *>(&m_eray0_sils));
     } break;
     case reg_eray0_eies_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_EIES in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_eies));
+                          reinterpret_cast<byte *>(&m_eray0_eies));
     } break;
     case reg_eray0_eier_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_EIER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_eier));
+                          reinterpret_cast<byte *>(&m_eray0_eier));
     } break;
     case reg_eray0_sies_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SIES in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_sies));
+                          reinterpret_cast<byte *>(&m_eray0_sies));
     } break;
     case reg_eray0_sier_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SIER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_sier));
+                          reinterpret_cast<byte *>(&m_eray0_sier));
     } break;
     case reg_eray0_ile_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_ILE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ile));
+                          reinterpret_cast<byte *>(&m_eray0_ile));
     } break;
     case reg_eray0_t0c_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_T0C in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_t0c));
+                          reinterpret_cast<byte *>(&m_eray0_t0c));
     } break;
     case reg_eray0_t1c_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_T1C in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_t1c));
+                          reinterpret_cast<byte *>(&m_eray0_t1c));
     } break;
     case reg_eray0_stpw1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_STPW1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_stpw1));
+                          reinterpret_cast<byte *>(&m_eray0_stpw1));
     } break;
     case reg_eray0_stpw2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_STPW2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_stpw2));
+                          reinterpret_cast<byte *>(&m_eray0_stpw2));
     } break;
     case reg_eray0_succ1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SUCC1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_succ1));
+                          reinterpret_cast<byte *>(&m_eray0_succ1));
     } break;
     case reg_eray0_succ2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SUCC2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_succ2));
+                          reinterpret_cast<byte *>(&m_eray0_succ2));
     } break;
     case reg_eray0_succ3_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SUCC3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_succ3));
+                          reinterpret_cast<byte *>(&m_eray0_succ3));
     } break;
     case reg_eray0_nemc_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_NEMC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_nemc));
+                          reinterpret_cast<byte *>(&m_eray0_nemc));
     } break;
     case reg_eray0_prtc1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_PRTC1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_prtc1));
+                          reinterpret_cast<byte *>(&m_eray0_prtc1));
     } break;
     case reg_eray0_prtc2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_PRTC2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_prtc2));
+                          reinterpret_cast<byte *>(&m_eray0_prtc2));
     } break;
     case reg_eray0_mhdc_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MHDC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mhdc));
+                          reinterpret_cast<byte *>(&m_eray0_mhdc));
     } break;
     case reg_eray0_gtuc01_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC01 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc01));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc01));
     } break;
     case reg_eray0_gtuc02_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC02 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc02));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc02));
     } break;
     case reg_eray0_gtuc03_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC03 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc03));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc03));
     } break;
     case reg_eray0_gtuc04_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC04 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc04));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc04));
     } break;
     case reg_eray0_gtuc05_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC05 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc05));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc05));
     } break;
     case reg_eray0_gtuc06_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC06 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc06));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc06));
     } break;
     case reg_eray0_gtuc07_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC07 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc07));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc07));
     } break;
     case reg_eray0_gtuc08_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC08 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc08));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc08));
     } break;
     case reg_eray0_gtuc09_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC09 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc09));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc09));
     } break;
     case reg_eray0_gtuc10_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC10 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc10));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc10));
     } break;
     case reg_eray0_gtuc11_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_GTUC11 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_gtuc11));
+                          reinterpret_cast<byte *>(&m_eray0_gtuc11));
     } break;
     case reg_eray0_ccsv_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_CCSV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ccsv));
+                          reinterpret_cast<byte *>(&m_eray0_ccsv));
     } break;
     case reg_eray0_ccev_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_CCEV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ccev));
+                          reinterpret_cast<byte *>(&m_eray0_ccev));
     } break;
     case reg_eray0_scv_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SCV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_scv));
+                          reinterpret_cast<byte *>(&m_eray0_scv));
     } break;
     case reg_eray0_mtccv_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MTCCV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mtccv));
+                          reinterpret_cast<byte *>(&m_eray0_mtccv));
     } break;
     case reg_eray0_rcv_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_RCV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_rcv));
+                          reinterpret_cast<byte *>(&m_eray0_rcv));
     } break;
     case reg_eray0_ocv_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_OCV in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ocv));
+                          reinterpret_cast<byte *>(&m_eray0_ocv));
     } break;
     case reg_eray0_sfs_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SFS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_sfs));
+                          reinterpret_cast<byte *>(&m_eray0_sfs));
     } break;
     case reg_eray0_swnit_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_SWNIT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_swnit));
+                          reinterpret_cast<byte *>(&m_eray0_swnit));
     } break;
     case reg_eray0_acs_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_ACS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_acs));
+                          reinterpret_cast<byte *>(&m_eray0_acs));
     } break;
     case reg_eray0_mrc_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MRC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mrc));
+                          reinterpret_cast<byte *>(&m_eray0_mrc));
     } break;
     case reg_eray0_frf_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_FRF in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_frf));
+                          reinterpret_cast<byte *>(&m_eray0_frf));
     } break;
     case reg_eray0_frfm_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_FRFM in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_frfm));
+                          reinterpret_cast<byte *>(&m_eray0_frfm));
     } break;
     case reg_eray0_fcl_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_FCL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_fcl));
+                          reinterpret_cast<byte *>(&m_eray0_fcl));
     } break;
     case reg_eray0_mhds_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MHDS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mhds));
+                          reinterpret_cast<byte *>(&m_eray0_mhds));
     } break;
     case reg_eray0_ldts_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_LDTS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ldts));
+                          reinterpret_cast<byte *>(&m_eray0_ldts));
     } break;
     case reg_eray0_fsr_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_FSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_fsr));
+                          reinterpret_cast<byte *>(&m_eray0_fsr));
     } break;
     case reg_eray0_mhdf_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MHDF in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mhdf));
+                          reinterpret_cast<byte *>(&m_eray0_mhdf));
     } break;
     case reg_eray0_txrq1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_TXRQ1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_txrq1));
+                          reinterpret_cast<byte *>(&m_eray0_txrq1));
     } break;
     case reg_eray0_txrq2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_TXRQ2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_txrq2));
+                          reinterpret_cast<byte *>(&m_eray0_txrq2));
     } break;
     case reg_eray0_txrq3_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_TXRQ3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_txrq3));
+                          reinterpret_cast<byte *>(&m_eray0_txrq3));
     } break;
     case reg_eray0_txrq4_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_TXRQ4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_txrq4));
+                          reinterpret_cast<byte *>(&m_eray0_txrq4));
     } break;
     case reg_eray0_ndat1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_NDAT1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ndat1));
+                          reinterpret_cast<byte *>(&m_eray0_ndat1));
     } break;
     case reg_eray0_ndat2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_NDAT2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ndat2));
+                          reinterpret_cast<byte *>(&m_eray0_ndat2));
     } break;
     case reg_eray0_ndat3_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_NDAT3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ndat3));
+                          reinterpret_cast<byte *>(&m_eray0_ndat3));
     } break;
     case reg_eray0_ndat4_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_NDAT4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ndat4));
+                          reinterpret_cast<byte *>(&m_eray0_ndat4));
     } break;
     case reg_eray0_mbsc1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MBSC1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mbsc1));
+                          reinterpret_cast<byte *>(&m_eray0_mbsc1));
     } break;
     case reg_eray0_mbsc2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MBSC2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mbsc2));
+                          reinterpret_cast<byte *>(&m_eray0_mbsc2));
     } break;
     case reg_eray0_mbsc3_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MBSC3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mbsc3));
+                          reinterpret_cast<byte *>(&m_eray0_mbsc3));
     } break;
     case reg_eray0_mbsc4_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MBSC4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mbsc4));
+                          reinterpret_cast<byte *>(&m_eray0_mbsc4));
     } break;
     case reg_eray0_ndic1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_NDIC1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ndic1));
+                          reinterpret_cast<byte *>(&m_eray0_ndic1));
     } break;
     case reg_eray0_ndic2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_NDIC2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ndic2));
+                          reinterpret_cast<byte *>(&m_eray0_ndic2));
     } break;
     case reg_eray0_ndic3_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_NDIC3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ndic3));
+                          reinterpret_cast<byte *>(&m_eray0_ndic3));
     } break;
     case reg_eray0_ndic4_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_NDIC4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ndic4));
+                          reinterpret_cast<byte *>(&m_eray0_ndic4));
     } break;
     case reg_eray0_msic1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MSIC1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_msic1));
+                          reinterpret_cast<byte *>(&m_eray0_msic1));
     } break;
     case reg_eray0_msic2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MSIC2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_msic2));
+                          reinterpret_cast<byte *>(&m_eray0_msic2));
     } break;
     case reg_eray0_msic3_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MSIC3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_msic3));
+                          reinterpret_cast<byte *>(&m_eray0_msic3));
     } break;
     case reg_eray0_msic4_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MSIC4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_msic4));
+                          reinterpret_cast<byte *>(&m_eray0_msic4));
     } break;
     case reg_eray0_crel_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_CREL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_crel));
+                          reinterpret_cast<byte *>(&m_eray0_crel));
     } break;
     case reg_eray0_endn_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_ENDN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_endn));
+                          reinterpret_cast<byte *>(&m_eray0_endn));
     } break;
     case reg_eray0_wrhs1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_WRHS1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_wrhs1));
+                          reinterpret_cast<byte *>(&m_eray0_wrhs1));
     } break;
     case reg_eray0_wrhs2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_WRHS2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_wrhs2));
+                          reinterpret_cast<byte *>(&m_eray0_wrhs2));
     } break;
     case reg_eray0_wrhs3_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_WRHS3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_wrhs3));
+                          reinterpret_cast<byte *>(&m_eray0_wrhs3));
     } break;
     case reg_eray0_ibcm_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_IBCM in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ibcm));
+                          reinterpret_cast<byte *>(&m_eray0_ibcm));
     } break;
     case reg_eray0_ibcr_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_IBCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ibcr));
+                          reinterpret_cast<byte *>(&m_eray0_ibcr));
     } break;
     case reg_eray0_rdhs1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_RDHS1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_rdhs1));
+                          reinterpret_cast<byte *>(&m_eray0_rdhs1));
     } break;
     case reg_eray0_rdhs2_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_RDHS2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_rdhs2));
+                          reinterpret_cast<byte *>(&m_eray0_rdhs2));
     } break;
     case reg_eray0_rdhs3_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_RDHS3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_rdhs3));
+                          reinterpret_cast<byte *>(&m_eray0_rdhs3));
     } break;
     case reg_eray0_mbs_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_MBS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_mbs));
+                          reinterpret_cast<byte *>(&m_eray0_mbs));
     } break;
     case reg_eray0_obcm_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_OBCM in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_obcm));
+                          reinterpret_cast<byte *>(&m_eray0_obcm));
     } break;
     case reg_eray0_obcr_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_OBCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_obcr));
+                          reinterpret_cast<byte *>(&m_eray0_obcr));
     } break;
     case reg_eray0_otss_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_OTSS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_otss));
+                          reinterpret_cast<byte *>(&m_eray0_otss));
     } break;
     case reg_eray0_ocs_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_ocs));
+                          reinterpret_cast<byte *>(&m_eray0_ocs));
     } break;
     case reg_eray0_krstclr_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_krstclr));
+                          reinterpret_cast<byte *>(&m_eray0_krstclr));
     } break;
     case reg_eray0_krst1_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_krst1));
+                          reinterpret_cast<byte *>(&m_eray0_krst1));
     } break;
     case reg_eray0_krst0_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_krst0));
+                          reinterpret_cast<byte *>(&m_eray0_krst0));
     } break;
     case reg_eray0_accen0_offset: {
         spdlog::debug("ERAY: accessing ERAY.ERAY0_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_eray0_accen0));
+                          reinterpret_cast<byte *>(&m_eray0_accen0));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

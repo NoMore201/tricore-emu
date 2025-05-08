@@ -70,8 +70,8 @@ std::optional<Tricore::Elf::Error> Tricore::Elf::parse_file(const std::filesyste
     return {};
 }
 
-std::vector<std::byte> Tricore::Elf::get_section_data(const SectionHeader& section) {
-    std::vector<std::byte> data{};
+std::vector<byte> Tricore::Elf::get_section_data(const SectionHeader& section) {
+    std::vector<byte> data{};
 
     data.resize(section.sh_size);
     m_file.seekg(section.sh_offset);

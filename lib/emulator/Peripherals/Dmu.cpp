@@ -230,257 +230,257 @@ Tricore::Dmu::Dmu()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Dmu::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Dmu::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - dmu_memory_start_address;
     switch (offset) {
     case reg_dmu_hf_id_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_status_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_STATUS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_status);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_status);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_control_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_CONTROL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_control);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_control);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_operation_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_OPERATION in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_operation);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_operation);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_protect_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PROTECT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_protect);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_protect);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_confirm0_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_CONFIRM0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_confirm0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_confirm0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_confirm1_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_CONFIRM1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_confirm1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_confirm1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_confirm2_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_CONFIRM2 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_confirm2);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_confirm2);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_eer_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_EER in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_eer);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_eer);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_errsr_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_ERRSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_errsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_errsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_clre_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_CLRE in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_clre);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_clre);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_eccr_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_ECCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_eccr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_eccr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_eccs_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_ECCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_eccs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_eccs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_eccc_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_ECCC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_eccc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_eccc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_eccw_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_ECCW in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_eccw);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_eccw);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_ccontrol_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_CCONTROL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_ccontrol);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_ccontrol);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_pstatus_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PSTATUS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_pstatus);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_pstatus);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_pcontrol_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PCONTROL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_pcontrol);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_pcontrol);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_pwait_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PWAIT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_pwait);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_pwait);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_dwait_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_DWAIT in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_dwait);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_dwait);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_proconusr_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONUSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_proconusr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_proconusr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_proconpf_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONPF in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_proconpf);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_proconpf);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_procontp_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONTP in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_procontp);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_procontp);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_procondf_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONDF in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_procondf);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_procondf);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_proconram_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONRAM in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_proconram);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_proconram);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_procondbg_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONDBG in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_procondbg);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_procondbg);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_suspend_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_SUSPEND in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_suspend);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_suspend);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_margin_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_MARGIN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_margin);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_margin);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_accen1_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_accen1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_accen1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_hf_accen0_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_HF_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_hf_accen0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_hf_accen0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_status_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_STATUS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_status);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_status);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_control_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_CONTROL in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_control);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_control);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_operation_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_OPERATION in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_operation);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_operation);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_eer_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_EER in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_eer);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_eer);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_errsr_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_ERRSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_errsr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_errsr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_clre_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_CLRE in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_clre);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_clre);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_eccr_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_ECCR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_eccr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_eccr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_eccs_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_ECCS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_eccs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_eccs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_eccc_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_ECCC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_eccc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_eccc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_eccw_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_ECCW in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_eccw);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_eccw);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_proconusr_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_PROCONUSR in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_proconusr);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_proconusr);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_suspend_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_SUSPEND in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_suspend);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_suspend);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sf_margin_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SF_MARGIN in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sf_margin);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sf_margin);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sp_proconhsmcfg_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCFG in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcfg);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcfg);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sp_proconhsmcbs_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCBS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcbs);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcbs);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sp_proconhsmcx0_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCX0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcx0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcx0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sp_proconhsmcx1_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCX1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcx1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcx1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sp_proconhsmcotp0_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCOTP0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcotp0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcotp0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sp_proconhsmcotp1_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCOTP1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcotp1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcotp1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dmu_sp_proconhsm_offset: {
             spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSM in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsm);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dmu_sp_proconhsm);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -490,259 +490,259 @@ void Tricore::Dmu::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Dmu::write(const std::byte *buffer_in, u32 address,
+void Tricore::Dmu::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - dmu_memory_start_address;
     switch (offset) {
     case reg_dmu_hf_id_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_id));
+                          reinterpret_cast<byte *>(&m_dmu_hf_id));
     } break;
     case reg_dmu_hf_status_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_STATUS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_status));
+                          reinterpret_cast<byte *>(&m_dmu_hf_status));
     } break;
     case reg_dmu_hf_control_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_CONTROL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_control));
+                          reinterpret_cast<byte *>(&m_dmu_hf_control));
     } break;
     case reg_dmu_hf_operation_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_OPERATION in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_operation));
+                          reinterpret_cast<byte *>(&m_dmu_hf_operation));
     } break;
     case reg_dmu_hf_protect_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PROTECT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_protect));
+                          reinterpret_cast<byte *>(&m_dmu_hf_protect));
     } break;
     case reg_dmu_hf_confirm0_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_CONFIRM0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_confirm0));
+                          reinterpret_cast<byte *>(&m_dmu_hf_confirm0));
     } break;
     case reg_dmu_hf_confirm1_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_CONFIRM1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_confirm1));
+                          reinterpret_cast<byte *>(&m_dmu_hf_confirm1));
     } break;
     case reg_dmu_hf_confirm2_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_CONFIRM2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_confirm2));
+                          reinterpret_cast<byte *>(&m_dmu_hf_confirm2));
     } break;
     case reg_dmu_hf_eer_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_EER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_eer));
+                          reinterpret_cast<byte *>(&m_dmu_hf_eer));
     } break;
     case reg_dmu_hf_errsr_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_ERRSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_errsr));
+                          reinterpret_cast<byte *>(&m_dmu_hf_errsr));
     } break;
     case reg_dmu_hf_clre_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_CLRE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_clre));
+                          reinterpret_cast<byte *>(&m_dmu_hf_clre));
     } break;
     case reg_dmu_hf_eccr_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_ECCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_eccr));
+                          reinterpret_cast<byte *>(&m_dmu_hf_eccr));
     } break;
     case reg_dmu_hf_eccs_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_ECCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_eccs));
+                          reinterpret_cast<byte *>(&m_dmu_hf_eccs));
     } break;
     case reg_dmu_hf_eccc_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_ECCC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_eccc));
+                          reinterpret_cast<byte *>(&m_dmu_hf_eccc));
     } break;
     case reg_dmu_hf_eccw_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_ECCW in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_eccw));
+                          reinterpret_cast<byte *>(&m_dmu_hf_eccw));
     } break;
     case reg_dmu_hf_ccontrol_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_CCONTROL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_ccontrol));
+                          reinterpret_cast<byte *>(&m_dmu_hf_ccontrol));
     } break;
     case reg_dmu_hf_pstatus_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PSTATUS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_pstatus));
+                          reinterpret_cast<byte *>(&m_dmu_hf_pstatus));
     } break;
     case reg_dmu_hf_pcontrol_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PCONTROL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_pcontrol));
+                          reinterpret_cast<byte *>(&m_dmu_hf_pcontrol));
     } break;
     case reg_dmu_hf_pwait_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PWAIT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_pwait));
+                          reinterpret_cast<byte *>(&m_dmu_hf_pwait));
     } break;
     case reg_dmu_hf_dwait_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_DWAIT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_dwait));
+                          reinterpret_cast<byte *>(&m_dmu_hf_dwait));
     } break;
     case reg_dmu_hf_proconusr_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONUSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_proconusr));
+                          reinterpret_cast<byte *>(&m_dmu_hf_proconusr));
     } break;
     case reg_dmu_hf_proconpf_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONPF in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_proconpf));
+                          reinterpret_cast<byte *>(&m_dmu_hf_proconpf));
     } break;
     case reg_dmu_hf_procontp_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONTP in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_procontp));
+                          reinterpret_cast<byte *>(&m_dmu_hf_procontp));
     } break;
     case reg_dmu_hf_procondf_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONDF in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_procondf));
+                          reinterpret_cast<byte *>(&m_dmu_hf_procondf));
     } break;
     case reg_dmu_hf_proconram_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONRAM in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_proconram));
+                          reinterpret_cast<byte *>(&m_dmu_hf_proconram));
     } break;
     case reg_dmu_hf_procondbg_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_PROCONDBG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_procondbg));
+                          reinterpret_cast<byte *>(&m_dmu_hf_procondbg));
     } break;
     case reg_dmu_hf_suspend_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_SUSPEND in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_suspend));
+                          reinterpret_cast<byte *>(&m_dmu_hf_suspend));
     } break;
     case reg_dmu_hf_margin_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_MARGIN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_margin));
+                          reinterpret_cast<byte *>(&m_dmu_hf_margin));
     } break;
     case reg_dmu_hf_accen1_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_accen1));
+                          reinterpret_cast<byte *>(&m_dmu_hf_accen1));
     } break;
     case reg_dmu_hf_accen0_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_HF_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_hf_accen0));
+                          reinterpret_cast<byte *>(&m_dmu_hf_accen0));
     } break;
     case reg_dmu_sf_status_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_STATUS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_status));
+                          reinterpret_cast<byte *>(&m_dmu_sf_status));
     } break;
     case reg_dmu_sf_control_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_CONTROL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_control));
+                          reinterpret_cast<byte *>(&m_dmu_sf_control));
     } break;
     case reg_dmu_sf_operation_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_OPERATION in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_operation));
+                          reinterpret_cast<byte *>(&m_dmu_sf_operation));
     } break;
     case reg_dmu_sf_eer_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_EER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_eer));
+                          reinterpret_cast<byte *>(&m_dmu_sf_eer));
     } break;
     case reg_dmu_sf_errsr_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_ERRSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_errsr));
+                          reinterpret_cast<byte *>(&m_dmu_sf_errsr));
     } break;
     case reg_dmu_sf_clre_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_CLRE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_clre));
+                          reinterpret_cast<byte *>(&m_dmu_sf_clre));
     } break;
     case reg_dmu_sf_eccr_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_ECCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_eccr));
+                          reinterpret_cast<byte *>(&m_dmu_sf_eccr));
     } break;
     case reg_dmu_sf_eccs_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_ECCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_eccs));
+                          reinterpret_cast<byte *>(&m_dmu_sf_eccs));
     } break;
     case reg_dmu_sf_eccc_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_ECCC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_eccc));
+                          reinterpret_cast<byte *>(&m_dmu_sf_eccc));
     } break;
     case reg_dmu_sf_eccw_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_ECCW in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_eccw));
+                          reinterpret_cast<byte *>(&m_dmu_sf_eccw));
     } break;
     case reg_dmu_sf_proconusr_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_PROCONUSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_proconusr));
+                          reinterpret_cast<byte *>(&m_dmu_sf_proconusr));
     } break;
     case reg_dmu_sf_suspend_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_SUSPEND in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_suspend));
+                          reinterpret_cast<byte *>(&m_dmu_sf_suspend));
     } break;
     case reg_dmu_sf_margin_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SF_MARGIN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sf_margin));
+                          reinterpret_cast<byte *>(&m_dmu_sf_margin));
     } break;
     case reg_dmu_sp_proconhsmcfg_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCFG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcfg));
+                          reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcfg));
     } break;
     case reg_dmu_sp_proconhsmcbs_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCBS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcbs));
+                          reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcbs));
     } break;
     case reg_dmu_sp_proconhsmcx0_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCX0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcx0));
+                          reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcx0));
     } break;
     case reg_dmu_sp_proconhsmcx1_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCX1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcx1));
+                          reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcx1));
     } break;
     case reg_dmu_sp_proconhsmcotp0_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCOTP0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcotp0));
+                          reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcotp0));
     } break;
     case reg_dmu_sp_proconhsmcotp1_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSMCOTP1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsmcotp1));
+                          reinterpret_cast<byte *>(&m_dmu_sp_proconhsmcotp1));
     } break;
     case reg_dmu_sp_proconhsm_offset: {
         spdlog::debug("DMU: accessing DMU.DMU_SP_PROCONHSM in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dmu_sp_proconhsm));
+                          reinterpret_cast<byte *>(&m_dmu_sp_proconhsm));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

@@ -54,37 +54,37 @@ Tricore::Dma::Dma()
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Dma::read(std::byte *buffer_out, u32 address, usize length) {
+void Tricore::Dma::read(byte *buffer_out, u32 address, usize length) {
     const u32 offset = address - dma_memory_start_address;
     switch (offset) {
     case reg_dma_clc_offset: {
             spdlog::debug("DMA: accessing DMA.DMA_CLC in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dma_clc);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dma_clc);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dma_id_offset: {
             spdlog::debug("DMA: accessing DMA.DMA_ID in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dma_id);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dma_id);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dma_otss_offset: {
             spdlog::debug("DMA: accessing DMA.DMA_OTSS in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dma_otss);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dma_otss);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dma_prr0_offset: {
             spdlog::debug("DMA: accessing DMA.DMA_PRR0 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dma_prr0);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dma_prr0);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dma_prr1_offset: {
             spdlog::debug("DMA: accessing DMA.DMA_PRR1 in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dma_prr1);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dma_prr1);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     case reg_dma_time_offset: {
             spdlog::debug("DMA: accessing DMA.DMA_TIME in read mode");
-            const auto *range_start = reinterpret_cast<std::byte *>(&m_dma_time);
+            const auto *range_start = reinterpret_cast<byte *>(&m_dma_time);
             std::ranges::copy(range_start, range_start + length, buffer_out);
         } break;
     default:
@@ -94,39 +94,39 @@ void Tricore::Dma::read(std::byte *buffer_out, u32 address, usize length) {
     }
 }
 
-void Tricore::Dma::write(const std::byte *buffer_in, u32 address,
+void Tricore::Dma::write(const byte *buffer_in, u32 address,
                          usize length) {
     const u32 offset = address - dma_memory_start_address;
     switch (offset) {
     case reg_dma_clc_offset: {
         spdlog::debug("DMA: accessing DMA.DMA_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dma_clc));
+                          reinterpret_cast<byte *>(&m_dma_clc));
     } break;
     case reg_dma_id_offset: {
         spdlog::debug("DMA: accessing DMA.DMA_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dma_id));
+                          reinterpret_cast<byte *>(&m_dma_id));
     } break;
     case reg_dma_otss_offset: {
         spdlog::debug("DMA: accessing DMA.DMA_OTSS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dma_otss));
+                          reinterpret_cast<byte *>(&m_dma_otss));
     } break;
     case reg_dma_prr0_offset: {
         spdlog::debug("DMA: accessing DMA.DMA_PRR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dma_prr0));
+                          reinterpret_cast<byte *>(&m_dma_prr0));
     } break;
     case reg_dma_prr1_offset: {
         spdlog::debug("DMA: accessing DMA.DMA_PRR1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dma_prr1));
+                          reinterpret_cast<byte *>(&m_dma_prr1));
     } break;
     case reg_dma_time_offset: {
         spdlog::debug("DMA: accessing DMA.DMA_TIME in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<std::byte *>(&m_dma_time));
+                          reinterpret_cast<byte *>(&m_dma_time));
     } break;
     default:
         throw InvalidMemoryAccess{fmt::format(

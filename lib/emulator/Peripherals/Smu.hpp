@@ -20,9 +20,9 @@ public:
 
     Smu();
 
-    void read(std::byte *buffer_out, u32 address, usize length) override;
+    void read(byte *buffer_out, u32 address, usize length) override;
 
-    void write(const std::byte *buffer_in, u32 address, usize length) override;
+    void write(const byte *buffer_in, u32 address, usize length) override;
 
 private:
 
@@ -50,7 +50,7 @@ private:
     u32 m_smu_accen1;
     u32 m_smu_accen0;
     u32 m_smu_agcf[AlarmConfigRegisterNumber][3];
-    
+
 
 };
 
