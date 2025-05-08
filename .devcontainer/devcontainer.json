@@ -2,5 +2,12 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+
+  // Uncomment the following lines to make Dev Container compatible with Podman
+  //"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z",
+	//"workspaceFolder": "/workspace",
+  //"runArgs": ["--userns=keep-id"],
+	//"containerUser": "vscode",
+
   "postCreateCommand": "./setupVcpkg.sh"
 }
