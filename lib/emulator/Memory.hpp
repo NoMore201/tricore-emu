@@ -11,7 +11,7 @@
 
 namespace Tricore {
 
-class Memory  : public BusClient {
+class Memory : public BusClient {
 
 public:
     struct Layout {
@@ -34,7 +34,7 @@ private:
         u32 offset_into_buffer(u32 address);
     };
 
-    MemBuffer &get_corresponding_buffer(u32 address);
+    MemBuffer& get_corresponding_buffer(u32 address);
 
     std::vector<MemBuffer> m_data;
 };

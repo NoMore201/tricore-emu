@@ -10,7 +10,6 @@
 #include <string>
 #include <vector>
 
-
 namespace Tricore {
 
 class Elf {
@@ -66,7 +65,8 @@ public:
         std::string name;
     };
 
-    enum class Error { InvalidFile, ReadError };
+    enum class Error { InvalidFile,
+        ReadError };
 
     Elf();
 
@@ -76,12 +76,12 @@ public:
 
     std::vector<SectionHeaderWithName> get_section_headers_with_names();
 
-    std::optional<Error> parse_file(const std::filesystem::path &file_path);
+    std::optional<Error> parse_file(const std::filesystem::path& file_path);
 
     std::vector<byte> get_section_data(const SectionHeader& section);
 
 private:
-    ElfHeader m_header{};
+    ElfHeader m_header {};
     std::ifstream m_file;
 };
 

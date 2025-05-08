@@ -1,5 +1,5 @@
-#include "Elf.hpp"
 #include "Machine.hpp"
+#include "Elf.hpp"
 #include "Tricore.hpp"
 
 Tricore::Machine::Machine(Tricore::CpuVariant variant)
@@ -9,10 +9,12 @@ Tricore::Machine::Machine(Tricore::CpuVariant variant)
     m_bus.register_device(m_memory);
 }
 
-void Tricore::Machine::init(Elf& elf_file) {
+void Tricore::Machine::init(Elf& elf_file)
+{
     m_cpu.initialize_program(elf_file);
 }
 
-void Tricore::Machine::start() {
+void Tricore::Machine::start()
+{
     m_cpu.start();
 }
