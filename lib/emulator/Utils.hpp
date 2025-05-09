@@ -4,16 +4,127 @@
 #include "Types.hpp"
 
 #include <gsl/assert>
+#include <gsl/narrow>
 #include <gsl/span>
 #include <gsl/span_ext>
-
-#include <cstddef>
 
 #include <concepts>
 
 namespace Tricore::Utils {
 
 // Integer utils
+
+class Offset32 {
+    uint32_t m_offset;
+
+public:
+    template<std::integral I>
+    constexpr explicit Offset32(I value)
+    {
+        auto narrowed = gsl::narrow<uint32_t>(value);
+        if (value >= 32) {
+            throw std::runtime_error { "32 bit offset out of range" };
+        }
+        m_offset = narrowed;
+    }
+
+    [[nodiscard]] constexpr uint32_t value() const noexcept
+    {
+        return m_offset;
+    }
+};
+
+class RegValue {
+    uint32_t m_value;
+
+public:
+    template<std::integral I>
+    constexpr explicit RegValue(I value)
+        : m_value(gsl::narrow<uint32_t>(value))
+    {
+    }
+
+    constexpr uint32_t value() const noexcept { return m_value; }
+
+    // Operators
+
+    /// Add that it's allowed to wrap-around
+    [[nodiscard]] constexpr RegValue wrapping_add(const RegValue& other) const
+    {
+        return RegValue { m_value + other.value() };
+    }
+
+    /// Add that it's allowed to wrap-around
+    [[nodiscard]] constexpr RegValue safe_add(const RegValue& other) const
+    {
+        auto result = m_value + other.value();
+        if (result < m_value) {
+            throw std::runtime_error { "RegValue: safe_add wrap-around detected" };
+        }
+        return RegValue { result };
+    }
+
+    /// Sub that it's allowed to wrap-around
+    [[nodiscard]] constexpr RegValue wrapping_sub(const RegValue& other) const
+    {
+        return RegValue { m_value - other.value() };
+    }
+
+    /// Sub that it's allowed to wrap-around
+    [[nodiscard]] constexpr RegValue safe_sub(const RegValue& other) const
+    {
+        auto result = m_value - other.value();
+        if (result > m_value) {
+            throw std::runtime_error { "RegValue: safe_sub wrap-around detected" };
+        }
+        return RegValue { result };
+    }
+
+    /// Mul that it's allowed to wrap-around
+    [[nodiscard]] constexpr RegValue wrapping_mul(const RegValue& other) const
+    {
+        return RegValue { m_value * other.value() };
+    }
+
+    /// Mul that it's allowed to wrap-around
+    [[nodiscard]] constexpr RegValue safe_mul(const RegValue& other) const
+    {
+        auto result = m_value * other.value();
+        if (result < m_value) {
+            throw std::runtime_error { "RegValue: safe_sub wrap-around detected" };
+        }
+        return RegValue { result };
+    }
+
+    // Bit manipulation
+
+    [[nodiscard]] constexpr RegValue extract32(Offset32 offset, std::size_t length) const
+    {
+        if (length > 32 - offset.value()) {
+            throw std::runtime_error { "RegValue: extract parameters out of range" };
+        }
+        return RegValue { (m_value >> offset.value()) & ((~0U) >> (32 - length)) };
+    }
+
+    [[nodiscard]] constexpr RegValue deposit32(const RegValue& value, Offset32 offset, std::size_t length) const
+    {
+        if (length > 32 - offset.value()) {
+            throw std::runtime_error { "RegValue: extract parameters out of range" };
+        }
+        uint32_t mask = (~0U >> (32 - length)) << offset.value();
+        return RegValue { (m_value & ~mask) | ((value.value() << offset.value()) & mask) };
+    }
+};
+
+consteval Offset32 operator""_offset(unsigned long long int value)
+{
+    return Offset32 { value };
+}
+
+consteval RegValue operator""_regval(unsigned long long int value)
+{
+    return RegValue { value };
+}
 
 template<std::unsigned_integral U>
 static constexpr U unsigned_abs_diff(U lhs, U rhs)
@@ -71,5 +182,8 @@ static inline gsl::span<const byte> to_span(const auto* const buffer, usize leng
 }
 
 } // namespace Tricore::Utils
+
+using Tricore::Utils::operator""_offset;
+using Tricore::Utils::operator""_regval;
 
 #endif // ifndef TRICORE_EMU_UTILS_HPP
