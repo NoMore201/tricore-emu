@@ -70,7 +70,6 @@ public:
         return RegValue { value() - other.value() };
     }
 
-    /// Sub that it's allowed to wrap-around
     [[nodiscard]] constexpr RegValue safe_sub(const RegValue& other) const
     {
         auto result = m_value - other.value();
@@ -91,7 +90,6 @@ public:
         return RegValue { value() * other.value() };
     }
 
-    /// Mul that it's allowed to wrap-around
     [[nodiscard]] constexpr RegValue safe_mul(const RegValue& other) const
     {
         auto result = m_value * other.value();
@@ -106,41 +104,76 @@ public:
         return wrapping_mul(other);
     }
 
-    // TODO implement div
-
-    constexpr RegValue operator<<(const RegValue& other) const {
-        if (other.value() >= 32) {
-            throw std::runtime_error { "RegValue: bitwise shift of amount greater than 31" };
+    [[nodiscard]] constexpr RegValue wrapping_div(const RegValue& other) const
+    {
+        if (other.value() == 0) {
+            throw std::runtime_error { "RegValue: attempting to perform division by zero" };
         }
-
-        return RegValue{value() << other.value()};
+        return RegValue { value() / other.value() };
     }
 
-    constexpr RegValue operator>>(const RegValue& other) const {
-        if (other.value() >= 32) {
-            throw std::runtime_error { "RegValue: bitwise shift of amount greater than 31" };
-        }
+    // TODO: implement safe_div
 
-        return RegValue{value() >> other.value()};
+    constexpr RegValue operator/(const RegValue& other) const
+    {
+        return wrapping_div(other);
     }
 
-    constexpr RegValue operator~() const {
-        return RegValue{ ~value() };
+    // Relational
+
+    constexpr bool operator==(const RegValue& other) const
+    {
+        return value() == other.value();
     }
 
-    constexpr RegValue operator&(const RegValue& other) const {
-        return RegValue{ value() & other.value() };
+    constexpr bool operator!=(const RegValue& other) const
+    {
+        return value() != other.value();
     }
 
-    constexpr RegValue operator|(const RegValue& other) const {
-        return RegValue{ value() | other.value() };
+    constexpr bool operator>(const RegValue& other) const
+    {
+        return value() > other.value();
     }
 
-    constexpr RegValue operator^(const RegValue& other) const {
-        return RegValue{ value() ^ other.value() };
+    constexpr bool operator<(const RegValue& other) const
+    {
+        return value() < other.value();
     }
 
-    // Bit manipulation
+    // Bit operations
+
+    constexpr RegValue operator<<(const RegValue& other) const
+    {
+        Offset32 offset { other.value() };
+        return RegValue { value() << offset.value() };
+    }
+
+    constexpr RegValue operator>>(const RegValue& other) const
+    {
+        Offset32 offset { other.value() };
+        return RegValue { value() >> offset.value() };
+    }
+
+    constexpr RegValue operator~() const
+    {
+        return RegValue { ~value() };
+    }
+
+    constexpr RegValue operator&(const RegValue& other) const
+    {
+        return RegValue { value() & other.value() };
+    }
+
+    constexpr RegValue operator|(const RegValue& other) const
+    {
+        return RegValue { value() | other.value() };
+    }
+
+    constexpr RegValue operator^(const RegValue& other) const
+    {
+        return RegValue { value() ^ other.value() };
+    }
 
     [[nodiscard]] constexpr RegValue extract32(Offset32 offset, std::size_t length) const
     {
@@ -185,5 +218,8 @@ namespace InstructionFormat {
 } // namespace InstructionFormat
 
 } // namespace Tricore
+
+using Tricore::operator""_regval;
+using Tricore::operator""_offset;
 
 #endif // TRICORE_EMU_REGISTERS_HPP
