@@ -203,23 +203,16 @@ public:
     }
 };
 
-consteval Offset32 operator""_offset(unsigned long long int value)
-{
-    return Offset32 { value };
-}
-
-consteval RegValue operator""_regval(unsigned long long int value)
-{
-    return RegValue { value };
-}
-
-namespace InstructionFormat {
-
-} // namespace InstructionFormat
-
 } // namespace Tricore
 
-using Tricore::operator""_regval;
-using Tricore::operator""_offset;
+consteval Tricore::Offset32 operator""_offset(unsigned long long int value)
+{
+    return Tricore::Offset32 { value };
+}
+
+consteval Tricore::RegValue operator""_regval(unsigned long long int value)
+{
+    return Tricore::RegValue { value };
+}
 
 #endif // TRICORE_EMU_REGISTERS_HPP
