@@ -1,5 +1,7 @@
 #include "Cpu.hpp"
 #include "Error.hpp"
+#include "InstructionFormat.hpp"
+#include "Registers.hpp"
 #include "Types.hpp"
 #include "Utils.hpp"
 
@@ -64,23 +66,6 @@ constexpr byte bytecode_not_sr = byte { 0x46 };
 constexpr byte bytecode_4b = byte { 0x4B };
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
-
-struct BolFormatParser {
-    u32 insn {};
-
-    template<std::invocable<u32, u32, u32> F>
-    void parse(F&& callback)
-    {
-        namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract32(insn, 8, 4);
-        const auto index_b = Utils::extract32(insn, 12, 4);
-        u32 off16 = Utils::extract32(insn, 16, 6);
-        off16 |= Utils::extract32(insn, 28, 4) << 6U;
-        off16 |= Utils::extract32(insn, 22, 6) << 10U;
-        u32 sign_extended_off16 = Utils::sign_extend32<16>(off16);
-        callback(index_a, index_b, sign_extended_off16);
-    }
-};
 
 struct RrFormatParser {
     u32 insn {};
@@ -652,15 +637,14 @@ void Tricore::Cpu::insn_lea_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: LEA 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse(
-        [this](u32 addr_index_a, u32 addr_index_b, u32 off16) {
-            // EA = A[b] + sign_ext(off16)
-            const u32 effective_address = m_address_registers.at(addr_index_b) + static_cast<u32>(off16);
-            // A[a] = EA[31:0]
-            m_address_registers.at(addr_index_a) = effective_address;
-            spdlog::trace("==> Cpu: LEA final address 0x{:08X} to A[{}]",
-                effective_address, addr_index_a);
-        });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // A[a] = EA[31:0]
+    m_address_registers.at(format.a.value()) = effective_address;
+    spdlog::trace("==> Cpu: LEA final address 0x{:08X} to A[{}]",
+        effective_address, format.a.value());
+
     m_core_registers.pc += 4;
 }
 
@@ -740,15 +724,13 @@ void Tricore::Cpu::insn_ldw_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: LD.W 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse(
-        [this](u32 data_index_a, u32 addr_index_b, u32 off16) {
-            // EA = A[b] + sign_ext(off16)
-            const u32 effective_address = m_address_registers.at(addr_index_b) + off16;
-            // D[a] = M(EA, word)
-            m_data_registers.at(data_index_a) = m_bus->read32(effective_address);
-            spdlog::trace("==> Cpu: LD.W final value 0x{:08X} to D[{}]",
-                effective_address, data_index_a);
-        });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // D[a] = M(EA, word)
+    m_data_registers.at(format.a.value()) = m_bus->read32(effective_address);
+    spdlog::trace("==> Cpu: LD.W final value 0x{:08X} to D[{}]",
+        effective_address, format.a.value());
 
     m_core_registers.pc += 4;
 }
@@ -886,15 +868,14 @@ void Tricore::Cpu::insn_stw_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: ST.W 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 off16) {
-        // EA = A[b] + sign_ext(off16)
-        const u32 effective_address = m_address_registers.at(index_b) + off16;
-        // M(EA, word) = D[a]
-        const u32 data = m_data_registers.at(index_a);
-        m_bus->write32(data, effective_address);
-        spdlog::trace("==> Cpu: ST.W store word 0x{:08X} to address 0x{:08X}",
-            data, effective_address);
-    });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // M(EA, word) = D[a]
+    u32 data = m_data_registers.at(format.a.value());
+    m_bus->write32(data, effective_address);
+    spdlog::trace("==> Cpu: ST.W store word 0x{:08X} to address 0x{:08X}",
+        data, effective_address);
 
     m_core_registers.pc += 4;
 }
@@ -938,14 +919,13 @@ void Tricore::Cpu::insn_ldbu_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: LD.BU 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 off16) {
-        // EA = A[b] + sign_ext(off16)
-        const u32 effective_address = m_address_registers.at(index_b) + off16;
-        // D[a] = zero_ext(M(EA, byte))
-        m_data_registers.at(index_a) = m_bus->read32(effective_address) & 0xFFU;
-        spdlog::trace("==> Cpu: LD.BU load value 0x{:08X} into D[{}]",
-            m_data_registers.at(index_a), index_a);
-    });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // D[a] = zero_ext(M(EA, byte))
+    m_data_registers.at(format.a.value()) = m_bus->read32(effective_address) & 0xFFU;
+    spdlog::trace("==> Cpu: LD.BU load value 0x{:08X} into D[{}]",
+        m_data_registers.at(format.a.value()), format.a.value());
 
     m_core_registers.pc += 4;
 }
@@ -1000,15 +980,14 @@ void Tricore::Cpu::insn_stb_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: ST.B 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 off16) {
-        // EA = A[b] + sign_ext(off16)
-        const u32 effective_address = m_address_registers.at(index_b) + off16;
-        // M(EA, byte) = D[a][7:0]
-        const u32 data = m_data_registers.at(index_a) & 0xFFU;
-        m_bus->write8(static_cast<u8>(data), effective_address);
-        spdlog::trace("==> Cpu: ST.B store byte 0x{:02X} to address 0x{:08X}",
-            data, effective_address);
-    });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // M(EA, byte) = D[a][7:0]
+    const u32 data = m_data_registers.at(format.a.value()) & 0xFFU;
+    m_bus->write8(static_cast<u8>(data), effective_address);
+    spdlog::trace("==> Cpu: ST.B store byte 0x{:02X} to address 0x{:08X}",
+        data, effective_address);
 
     m_core_registers.pc += 4;
 }
@@ -1740,16 +1719,16 @@ void Tricore::Cpu::insn_sth_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: ST.H 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 off16) {
-        // EA = A[b] + sign_ext(off16);
-        // M(EA, halfword) = D[a][15:0];
-        const u32 effective_address = m_address_registers.at(index_b) + off16;
-        const u16 value = static_cast<u16>(m_data_registers.at(index_a) & 0xFFFFU);
-        m_bus->write16(value, effective_address);
-        spdlog::trace(
-            "==> Cpu: ST.H store value 0x{:04X} to memory address 0x{:08X}",
-            value, effective_address);
-    });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // M(EA, halfword) = D[a][15:0];
+    const u16 value = static_cast<u16>(m_data_registers.at(format.a.value()) & 0xFFFFU);
+    m_bus->write16(value, effective_address);
+    spdlog::trace(
+        "==> Cpu: ST.H store value 0x{:04X} to memory address 0x{:08X}",
+        value, effective_address);
+
     m_core_registers.pc += 4;
 }
 
@@ -1758,15 +1737,15 @@ void Tricore::Cpu::insn_sta_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: ST.A 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 off16) {
-        // EA = A[b] + sign_ext(off16);
-        // M(EA, word) = A[a];
-        const u32 effective_address = m_address_registers.at(index_b) + off16;
-        m_bus->write32(m_address_registers.at(index_a), effective_address);
-        spdlog::trace(
-            "==> Cpu: ST.A store value 0x{:08X} to memory address 0x{:08X}",
-            m_address_registers.at(index_a), effective_address);
-    });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // M(EA, word) = A[a];
+    m_bus->write32(m_address_registers.at(format.a.value()), effective_address);
+    spdlog::trace(
+        "==> Cpu: ST.A store value 0x{:08X} to memory address 0x{:08X}",
+        m_address_registers.at(format.a.value()), effective_address);
+
     m_core_registers.pc += 4;
 }
 
@@ -1775,16 +1754,15 @@ void Tricore::Cpu::insn_ldhu_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: LD.HU 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 off16) {
-        // EA = A[b] + sign_ext(off16);
-        // D[a] = zero_ext(M(EA, halfword));
-        const u32 effective_address = m_address_registers.at(index_b) + off16;
-        const u16 value = m_bus->read16(effective_address);
-        m_data_registers.at(index_a) = static_cast<u32>(value);
-        spdlog::trace("==> Cpu: LD.HU loaded value 0x{:08X} from memory "
-                      "address 0x{:08X} to D[{}]",
-            m_data_registers.at(index_a), effective_address, index_a);
-    });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // D[a] = zero_ext(M(EA, halfword));
+    const u16 value = m_bus->read16(effective_address);
+    m_data_registers.at(format.a.value()) = static_cast<u32>(value);
+    spdlog::trace("==> Cpu: LD.HU loaded value 0x{:08X} from memory address 0x{:08X} to D[{}]",
+        m_data_registers.at(format.a.value()), effective_address, format.a.value());
+
     m_core_registers.pc += 4;
 }
 
@@ -1793,17 +1771,16 @@ void Tricore::Cpu::insn_lda_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: LD.A 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 off16) {
-        // EA = A[b] + sign_ext(off16);
-        // A[a] = M(EA, word);
-        const u32 effective_address = m_address_registers.at(index_b) + off16;
-        const u32 value = m_bus->read32(effective_address);
-        m_address_registers.at(index_a) = value;
-        spdlog::trace("==> Cpu: LD.A loaded value 0x{:08X} from memory address "
-                      "0x{:08X} to A[{}]",
-            m_address_registers.at(index_a), effective_address,
-            index_a);
-    });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // A[a] = M(EA, word);
+    const u32 value = m_bus->read32(effective_address);
+    m_address_registers.at(format.a.value()) = value;
+    spdlog::trace("==> Cpu: LD.A loaded value 0x{:08X} from memory address 0x{:08X} to A[{}]",
+        m_address_registers.at(format.a.value()), effective_address,
+        format.a.value());
+
     m_core_registers.pc += 4;
 }
 
@@ -1812,16 +1789,15 @@ void Tricore::Cpu::insn_ldh_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: LD.H 0x{:08X}", insn);
 
-    BolFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 off16) {
-        // EA = A[b] + sign_ext(off16);
-        // D[a] = sign_ext(M(EA, halfword));
-        const u32 effective_address = m_address_registers.at(index_b) + off16;
-        const u16 value = m_bus->read16(effective_address);
-        m_data_registers.at(index_a) = Utils::sign_extend32<16>(static_cast<u32>(value));
-        spdlog::trace("==> Cpu: LD.H loaded value 0x{:08X} from memory address "
-                      "0x{:08X} to D[{}]",
-            m_data_registers.at(index_a), effective_address, index_a);
-    });
+    InstructionFormat::Bol format { RegValue { insn } };
+    // EA = A[b] + sign_ext(off16)
+    u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
+    // D[a] = sign_ext(M(EA, halfword));
+    const u16 value = m_bus->read16(effective_address);
+    m_data_registers.at(format.a.value()) = Utils::sign_extend32<16>(static_cast<u32>(value));
+    spdlog::trace("==> Cpu: LD.H loaded value 0x{:08X} from memory address 0x{:08X} to D[{}]",
+        m_data_registers.at(format.a.value()), effective_address, format.a.value());
+
     m_core_registers.pc += 4;
 }
 
