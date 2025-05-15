@@ -4,10 +4,16 @@
   },
 
   // Uncomment the following lines to make Dev Container compatible with Podman
-  //"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z",
+  //"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
 	//"workspaceFolder": "/workspace",
   //"runArgs": ["--userns=keep-id"],
 	//"containerUser": "vscode",
+
+  // Uncomment the following lines to make it work under SElinux configure distros
+  //"workspaceMount": "",
+  //"runArgs": [
+  //  "--volume=${localWorkspaceFolder}:/workspaces/${localWorkspaceFolderBasename}:Z"
+  //],
 
   "postCreateCommand": "./setupVcpkg.sh"
 }
