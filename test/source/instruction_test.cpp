@@ -5,10 +5,10 @@
 
 TEST(InstructionTest, BolTest)
 {
-    using namespace Tricore;
+    using Bol = Tricore::InstructionFormat::Bol;
 
     // TODO: use a real instruction
-    InstructionFormat::Bol insn{0xFFFF_regval};
+    Bol insn{0xFFFF_regval};
 
     ASSERT_EQ(insn.a, 0xF_regval);
     ASSERT_EQ(insn.b, 0xF_regval);
