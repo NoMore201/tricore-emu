@@ -67,20 +67,6 @@ constexpr byte bytecode_4b = byte { 0x4B };
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
-struct RrFormatParser {
-    u32 insn {};
-
-    template<std::invocable<u32, u32, u32> F>
-    void parse(F&& callback)
-    {
-        namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract32(insn, 8, 4);
-        const auto index_b = Utils::extract32(insn, 12, 4);
-        const auto index_c = Utils::extract32(insn, 28, 4);
-        callback(index_a, index_b, index_c);
-    }
-};
-
 struct BrnFormatParser {
     u32 insn {};
 
@@ -820,12 +806,12 @@ void Tricore::Cpu::insn_suba_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: SUB.A 0x{:08X}", insn);
 
-    RrFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 index_c) {
-        // A[c] = A[a] - A[b]
-        m_address_registers.at(index_c) = m_address_registers.at(index_a) - m_address_registers.at(index_b);
-        spdlog::trace("==> Cpu: SUB.A writing value 0x{:08X} in A[{}]",
-            m_address_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rr parser { RegValue { insn } };
+    // A[c] = A[a] - A[b]
+    m_address_registers.at(parser.c.value()) = m_address_registers.at(parser.a.value()) - m_address_registers.at(parser.b.value());
+    spdlog::trace("==> Cpu: SUB.A writing value 0x{:08X} in A[{}]",
+        m_address_registers.at(parser.c.value()), parser.c.value());
+
     m_core_registers.pc += 4;
 }
 
@@ -834,16 +820,15 @@ void Tricore::Cpu::insn_addsca_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: ADDSC.A 0x{:08X}", insn);
 
-    const u32 n_value = Utils::extract32(insn, 16, 2);
+    RegValue insn_value { insn };
+    const auto n_value = insn_value.extract32(16_offset, 2);
+    InstructionFormat::Rr parser { insn_value };
 
-    RrFormatParser { insn }.parse(
-        [this, n_value](u32 index_a, u32 index_b, u32 index_c) {
-            // A[c] = A[b] + (D[a] << n);
-            const u32 shifted_data = m_data_registers.at(index_a) << n_value;
-            m_address_registers.at(index_c) = m_address_registers.at(index_b) + shifted_data;
-            spdlog::trace("==> Cpu: ADDSC.A writing value 0x{:08X} in A[{}]",
-                m_address_registers.at(index_c), index_c);
-        });
+    // A[c] = A[b] + (D[a] << n);
+    const u32 shifted_data = m_data_registers.at(parser.a.value()) << n_value.value();
+    m_address_registers.at(parser.c.value()) = m_address_registers.at(parser.b.value()) + shifted_data;
+    spdlog::trace("==> Cpu: ADDSC.A writing value 0x{:08X} in A[{}]",
+        m_address_registers.at(parser.c.value()), parser.c.value());
 
     m_core_registers.pc += 4;
 }
@@ -885,14 +870,14 @@ void Tricore::Cpu::insn_jli()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: JLI 0x{:08X}", insn);
 
-    RrFormatParser { insn }.parse([this](u32 index_a, u32, u32) {
-        // A[11] = PC + 4
-        m_address_registers.at(11) = m_core_registers.pc + 4;
-        // PC = {A[a][31:1], 1b0}
-        m_core_registers.pc = m_address_registers.at(index_a) & ~0x1U;
-        spdlog::trace("==> Cpu: JLI jump to address 0x{:08X}",
-            m_core_registers.pc);
-    });
+    InstructionFormat::Rr parser { RegValue { insn } };
+
+    // A[11] = PC + 4
+    m_address_registers.at(11) = m_core_registers.pc + 4;
+    // PC = {A[a][31:1], 1b0}
+    m_core_registers.pc = m_address_registers.at(parser.a.value()) & ~0x1U;
+    spdlog::trace("==> Cpu: JLI jump to address 0x{:08X}",
+        m_core_registers.pc);
 }
 
 void Tricore::Cpu::insn_jnzt_brn()
@@ -1245,16 +1230,17 @@ void Tricore::Cpu::insn_andne_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: AND.NE 0x{:08X}", insn);
 
-    RrFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 index_c) {
-        // D[c] = {D[c][31:1], D[c][0] AND (D[a] != D[b])};
-        if (m_data_registers.at(index_a) != m_data_registers.at(index_b)) {
-            m_data_registers.at(index_c) |= 0x1U;
-        } else {
-            m_data_registers.at(index_c) &= ~1U;
-        }
-        spdlog::trace("==> Cpu: AND.NE writing value 0x{:08X} in D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rr parser { RegValue { insn } };
+
+    // D[c] = {D[c][31:1], D[c][0] AND (D[a] != D[b])};
+    if (m_data_registers.at(parser.a.value()) != m_data_registers.at(parser.b.value())) {
+        m_data_registers.at(parser.c.value()) |= 0x1U;
+    } else {
+        m_data_registers.at(parser.c.value()) &= ~1U;
+    }
+    spdlog::trace("==> Cpu: AND.NE writing value 0x{:08X} in D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
+
     m_core_registers.pc += 4;
 }
 
@@ -1280,17 +1266,18 @@ void Tricore::Cpu::insn_ne_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: NE 0x{:08X}", insn);
 
-    RrFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 index_c) {
-        // result = (D[a] != D[b]);
-        // D[c] = zero_ext(result);
-        if (m_data_registers.at(index_a) != m_data_registers.at(index_b)) {
-            m_data_registers.at(index_c) = 1U;
-        } else {
-            m_data_registers.at(index_c) = 0U;
-        }
-        spdlog::trace("==> Cpu: NE writing value 0x{:08X} in D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rr parser { RegValue { insn } };
+
+    // result = (D[a] != D[b]);
+    // D[c] = zero_ext(result);
+    if (m_data_registers.at(parser.a.value()) != m_data_registers.at(parser.b.value())) {
+        m_data_registers.at(parser.c.value()) = 1U;
+    } else {
+        m_data_registers.at(parser.c.value()) = 0U;
+    }
+    spdlog::trace("==> Cpu: NE writing value 0x{:08X} in D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
+
     m_core_registers.pc += 4;
 }
 
@@ -1299,16 +1286,17 @@ void Tricore::Cpu::insn_minu_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: MIN.U 0x{:08X}", insn);
 
-    RrFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 index_c) {
-        // D[c] = (D[a] < D[b]) ? D[a] : D[b]; // unsigned
-        if (m_data_registers.at(index_a) < m_data_registers.at(index_b)) {
-            m_data_registers.at(index_c) = m_data_registers.at(index_a);
-        } else {
-            m_data_registers.at(index_c) = m_data_registers.at(index_b);
-        }
-        spdlog::trace("==> Cpu: MIN.U writing value 0x{:08X} in D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rr parser { RegValue { insn } };
+
+    // D[c] = (D[a] < D[b]) ? D[a] : D[b]; // unsigned
+    if (m_data_registers.at(parser.a.value()) < m_data_registers.at(parser.b.value())) {
+        m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value());
+    } else {
+        m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.b.value());
+    }
+    spdlog::trace("==> Cpu: MIN.U writing value 0x{:08X} in D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
+
     m_core_registers.pc += 4;
 }
 
@@ -1317,34 +1305,35 @@ void Tricore::Cpu::insn_divu_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: DIV.U 0x{:08X}", insn);
 
-    RrFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 index_c) {
-        const u32 dividend = m_data_registers.at(index_a);
-        const u32 divisor = m_data_registers.at(index_b);
-        u32 quotient {};
-        u32 remainder {};
-        bool overflow {};
+    InstructionFormat::Rr parser { RegValue { insn } };
 
-        if (divisor == 0) {
-            quotient = 0xFFFFFFFFU;
-            remainder = 0;
-        } else {
-            remainder = dividend % divisor;
-            quotient = (dividend - remainder) / divisor;
-        }
+    const u32 dividend = m_data_registers.at(parser.a.value());
+    const u32 divisor = m_data_registers.at(parser.b.value());
+    u32 quotient {};
+    u32 remainder {};
+    bool overflow {};
 
-        if (divisor == 0 || (divisor == 0xFFFFFFFFU && dividend == 0x80000000U)) {
-            overflow = true;
-        }
+    if (divisor == 0) {
+        quotient = 0xFFFFFFFFU;
+        remainder = 0;
+    } else {
+        remainder = dividend % divisor;
+        quotient = (dividend - remainder) / divisor;
+    }
 
-        m_data_registers.at(index_c) = quotient;
-        m_data_registers.at(index_c + 1ULL) = remainder;
+    if (divisor == 0 || (divisor == 0xFFFFFFFFU && dividend == 0x80000000U)) {
+        overflow = true;
+    }
 
-        // TODO: update status register
+    m_data_registers.at(parser.c.value()) = quotient;
+    m_data_registers.at(parser.c.value() + 1ULL) = remainder;
 
-        const u64 final_value = quotient | (static_cast<u64>(remainder) << 32ULL);
-        spdlog::trace("==> Cpu: DIV.U writing value 0x{:016X} in E[{}]",
-            final_value, index_c);
-    });
+    // TODO: update status register
+
+    const u64 final_value = quotient | (static_cast<u64>(remainder) << 32ULL);
+    spdlog::trace("==> Cpu: DIV.U writing value 0x{:016X} in E[{}]",
+        final_value, parser.c.value());
+
     m_core_registers.pc += 4;
 }
 
@@ -1353,12 +1342,13 @@ void Tricore::Cpu::insn_sub_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: SUB 0x{:08X}", insn);
 
-    RrFormatParser { insn }.parse([this](u32 index_a, u32 index_b, u32 index_c) {
-        // D[c] = D[a] - D[b]
-        m_data_registers.at(index_c) = m_data_registers.at(index_a) - m_data_registers.at(index_b);
-        spdlog::trace("==> Cpu: SUB writing value 0x{:08X} in D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rr parser { RegValue { insn } };
+
+    // D[c] = D[a] - D[b]
+    m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) - m_data_registers.at(parser.b.value());
+    spdlog::trace("==> Cpu: SUB writing value 0x{:08X} in D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
+
     m_core_registers.pc += 4;
 }
 
@@ -1367,14 +1357,15 @@ void Tricore::Cpu::insn_utof_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: UTOF 0x{:08X}", insn);
 
-    RrFormatParser { insn }.parse([this](u32 index_a, u32, u32 index_c) {
-        // Default rounding mode is nearest. TODO: check which rounding x86 performs
-        f32 converted = static_cast<f32>(m_data_registers.at(index_a));
-        spdlog::trace("==> Cpu: UTOF extracted float {}", converted);
-        m_data_registers.at(index_c) = static_cast<u32>(converted);
-        spdlog::trace("==> Cpu: UTOF writing value 0x{:08X} in D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rr parser { RegValue { insn } };
+
+    // Default rounding mode is nearest. TODO: check which rounding x86 performs
+    f32 converted = static_cast<f32>(m_data_registers.at(parser.a.value()));
+    spdlog::trace("==> Cpu: UTOF extracted float {}", converted);
+    m_data_registers.at(parser.c.value()) = static_cast<u32>(converted);
+    spdlog::trace("==> Cpu: UTOF writing value 0x{:08X} in D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
+
     m_core_registers.pc += 4;
 }
 
