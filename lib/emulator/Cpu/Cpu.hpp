@@ -9,10 +9,8 @@
 #include <gsl/pointers>
 
 #include <array>
-#include <concepts>
 #include <stdexcept>
 #include <string>
-#include <vector>
 
 namespace Tricore {
 

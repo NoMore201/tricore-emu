@@ -1,7 +1,7 @@
 #ifndef TRICORE_EMU_INSTRUCTION_FORMAT_HPP
 #define TRICORE_EMU_INSTRUCTION_FORMAT_HPP
 
-#include "Registers.hpp"
+#include "Cpu/Registers.hpp"
 
 namespace Tricore::InstructionFormat {
 
