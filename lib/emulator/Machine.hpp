@@ -2,7 +2,7 @@
 #define TRICORE_EMU_MACHINE_HPP
 
 #include "Bus.hpp"
-#include "Cpu.hpp"
+#include "Cpu/Cpu.hpp"
 #include "Memory.hpp"
 #include "Tricore.hpp"
 

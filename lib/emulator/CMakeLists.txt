@@ -1,6 +1,6 @@
 add_library(
   emulator STATIC
-  Bus.cpp BusClient.cpp Cpu.cpp Elf.cpp Machine.cpp Memory.cpp
+  Bus.cpp BusClient.cpp Cpu/Cpu.cpp Elf.cpp Machine.cpp Memory.cpp
   # Peripherals/Asclin.cpp
   # Peripherals/Can.cpp
   # Peripherals/Cbs.cpp

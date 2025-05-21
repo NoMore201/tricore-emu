@@ -1,4 +1,4 @@
-#include <InstructionFormat.hpp>
+#include <Cpu/InstructionFormat.hpp>
 #include <Types.hpp>
 
 #include <gtest/gtest.h>

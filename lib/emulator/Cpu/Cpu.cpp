@@ -1,7 +1,7 @@
-#include "Cpu.hpp"
+#include "Cpu/Cpu.hpp"
+#include "Cpu/InstructionFormat.hpp"
+#include "Cpu/Registers.hpp"
 #include "Error.hpp"
-#include "InstructionFormat.hpp"
-#include "Registers.hpp"
 #include "Types.hpp"
 #include "Utils.hpp"
 
