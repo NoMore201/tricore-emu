@@ -15,3 +15,10 @@ Tricore::InstructionFormat::Rr::Rr(const RegValue& value)
     , c(value.extract32(28_offset, 4))
 {
 }
+
+Tricore::InstructionFormat::Brn::Brn(const RegValue& value)
+    : a(value.extract32(8_offset, 4))
+    , n(value.extract32(12_offset, 4))
+    , disp15(value.extract32(16_offset, 15))
+{
+}

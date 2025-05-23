@@ -67,21 +67,6 @@ constexpr byte bytecode_4b = byte { 0x4B };
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
-struct BrnFormatParser {
-    u32 insn {};
-
-    template<std::invocable<u32, u32, u32> F>
-    void parse(F&& callback)
-    {
-        namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract32(insn, 8, 4);
-        const auto bit_n = Utils::extract32(insn, 12, 4);
-        const auto disp15 = Utils::extract32(insn, 16, 15);
-        u32 sign_extended_disp15 = Utils::sign_extend32<15>(disp15);
-        callback(index_a, sign_extended_disp15, bit_n);
-    }
-};
-
 struct RcFormatParser {
     u32 insn {};
 
@@ -885,18 +870,18 @@ void Tricore::Cpu::insn_jnzt_brn()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: JNZ.T 0x{:08X}", insn);
 
-    BrnFormatParser { insn }.parse([this](u32 index_a, u32 disp15, u32 bit_n) {
-        const u32 data = m_data_registers.at(index_a);
-        if ((data & (1U << bit_n)) != 0U) {
-            m_core_registers.pc += disp15 * 2U;
-            spdlog::trace("==> Cpu: JNZ.T branch taken PC=0x{:08X}",
-                m_core_registers.pc);
-        } else {
-            spdlog::trace("==> Cpu: JNZ.T branch NOT taken PC=0x{:08X}",
-                m_core_registers.pc);
-            m_core_registers.pc += 4;
-        }
-    });
+    InstructionFormat::Brn parser { RegValue { insn } };
+
+    const u32 data = m_data_registers.at(parser.a.value());
+    if ((data & (1U << parser.n.value())) != 0U) {
+        m_core_registers.pc += parser.disp15.sign_extend32<15>().value() * 2U;
+        spdlog::trace("==> Cpu: JNZ.T branch taken PC=0x{:08X}",
+            m_core_registers.pc);
+    } else {
+        spdlog::trace("==> Cpu: JNZ.T branch NOT taken PC=0x{:08X}",
+            m_core_registers.pc);
+        m_core_registers.pc += 4;
+    }
 }
 
 void Tricore::Cpu::insn_ldbu_bol()
