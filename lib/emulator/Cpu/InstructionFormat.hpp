@@ -21,6 +21,14 @@ struct Rr {
     explicit Rr(const RegValue& value);
 };
 
+struct Brn {
+    RegValue a;
+    RegValue n;
+    RegValue disp15;
+
+    explicit Brn(const RegValue& value);
+};
+
 } // namespace Tricore::InstructionFormat
 
 #endif // ifndef TRICORE_EMU_TYPES_HPP
