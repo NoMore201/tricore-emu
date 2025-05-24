@@ -46,6 +46,19 @@ struct Brn {
     }
 };
 
+struct Rc {
+    RegValue a;
+    RegValue c;
+    RegValue const9;
+
+    constexpr explicit Rc(const RegValue& value)
+        : a(value.extract32(8_offset, 4))
+        , c(value.extract32(28_offset, 4))
+        , const9(value.extract32(12_offset, 9))
+    {
+    }
+};
+
 } // namespace Tricore::InstructionFormat
 
 #endif // ifndef TRICORE_EMU_TYPES_HPP
