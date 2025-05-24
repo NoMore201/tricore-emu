@@ -41,6 +41,8 @@ public:
 
     constexpr u32 value() const noexcept { return m_value; }
 
+    constexpr i32 value_signed() const noexcept { return static_cast<i32>(m_value); }
+
     // Operators
 
     /// Add that it's allowed to wrap-around
@@ -193,7 +195,7 @@ public:
     }
 
     template<usize B>
-    [[nodiscard]] constexpr RegValue sign_extend32()
+    [[nodiscard]] constexpr RegValue sign_extend32() const
     {
         static_assert(B != 0 && B < 32);
         // clear uppermost bits

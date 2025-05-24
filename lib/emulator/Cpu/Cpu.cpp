@@ -67,20 +67,6 @@ constexpr byte bytecode_4b = byte { 0x4B };
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
-struct RcFormatParser {
-    u32 insn {};
-
-    template<std::invocable<u32, u32, u32> F>
-    void parse(F&& callback)
-    {
-        namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract32(insn, 8, 4);
-        const auto index_c = Utils::extract32(insn, 28, 4);
-        const auto const9 = Utils::extract32(insn, 12, 9);
-        callback(index_a, index_c, const9);
-    }
-};
-
 struct SrrFormatParser {
     u16 insn {};
 
@@ -905,12 +891,12 @@ void Tricore::Cpu::insn_or_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: OR 0x{:08X}", insn);
 
-    RcFormatParser { insn }.parse([this](u32 index_a, u32 index_c, u32 const9) {
-        // D[c] = D[a] | zero_ext(const9)
-        m_data_registers.at(index_c) = m_data_registers.at(index_a) | const9;
-        spdlog::trace("==> Cpu: OR store result 0x{:08X} into D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rc parser { RegValue { insn } };
+
+    // D[c] = D[a] | zero_ext(const9)
+    m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) | parser.const9.value();
+    spdlog::trace("==> Cpu: OR store result 0x{:08X} into D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
 
     m_core_registers.pc += 4;
 }
@@ -920,12 +906,12 @@ void Tricore::Cpu::insn_and_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: AND 0x{:08X}", insn);
 
-    RcFormatParser { insn }.parse([this](u32 index_a, u32 index_c, u32 const9) {
-        // D[c] = D[a] & zero_ext(const9);
-        m_data_registers.at(index_c) = m_data_registers.at(index_a) & const9;
-        spdlog::trace("==> Cpu: AND store result 0x{:08X} into D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rc parser { RegValue { insn } };
+
+    // D[c] = D[a] & zero_ext(const9);
+    m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) & parser.const9.value();
+    spdlog::trace("==> Cpu: AND store result 0x{:08X} into D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
 
     m_core_registers.pc += 4;
 }
@@ -935,12 +921,12 @@ void Tricore::Cpu::insn_andn_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: ANDN 0x{:08X}", insn);
 
-    RcFormatParser { insn }.parse([this](u32 index_a, u32 index_c, u32 const9) {
-        // D[c] = D[a] & ~zero_ext(const9);
-        m_data_registers.at(index_c) = m_data_registers.at(index_a) & ~const9;
-        spdlog::trace("==> Cpu: ANDN store result 0x{:08X} into D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rc parser { RegValue { insn } };
+
+    // D[c] = D[a] & ~zero_ext(const9);
+    m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) & ~parser.const9.value();
+    spdlog::trace("==> Cpu: ANDN store result 0x{:08X} into D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
 
     m_core_registers.pc += 4;
 }
@@ -1109,12 +1095,12 @@ void Tricore::Cpu::insn_xor_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: XOR 0x{:08X}", insn);
 
-    RcFormatParser { insn }.parse([this](u32 index_a, u32 index_c, u32 const9) {
-        // D[c] = D[a] ^ zero_ext(const9)
-        m_data_registers.at(index_c) = m_data_registers.at(index_a) ^ const9;
-        spdlog::trace("==> Cpu: XOR store result 0x{:08X} into D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rc parser { RegValue { insn } };
+
+    // D[c] = D[a] ^ zero_ext(const9)
+    m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) ^ parser.const9.value();
+    spdlog::trace("==> Cpu: XOR store result 0x{:08X} into D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
 
     m_core_registers.pc += 4;
 }
@@ -1193,19 +1179,19 @@ void Tricore::Cpu::insn_ne_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: NE 0x{:08X}", insn);
 
-    RcFormatParser { insn }.parse([this](u32 index_a, u32 index_c, u32 const9) {
-        // result = (D[a] != sign_ext(const9));
-        // D[c] = zero_ext(result);
-        m_data_registers.at(index_c) = m_data_registers.at(index_a) | const9;
-        const u32 sign_extended_const9 = Utils::sign_extend32<9>(const9);
-        if (m_data_registers.at(index_a) != sign_extended_const9) {
-            m_data_registers.at(index_c) = 0x1U;
-        } else {
-            m_data_registers.at(index_c) = 0;
-        }
-        spdlog::trace("==> Cpu: NE store result 0x{:08X} into D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rc parser { RegValue { insn } };
+
+    // result = (D[a] != sign_ext(const9));
+    // D[c] = zero_ext(result);
+    m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) | parser.const9.value();
+    const u32 sign_extended_const9 = parser.const9.sign_extend32<9>().value();
+    if (m_data_registers.at(parser.a.value()) != sign_extended_const9) {
+        m_data_registers.at(parser.c.value()) = 0x1U;
+    } else {
+        m_data_registers.at(parser.c.value()) = 0;
+    }
+    spdlog::trace("==> Cpu: NE store result 0x{:08X} into D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
 
     m_core_registers.pc += 4;
 }
@@ -1359,17 +1345,17 @@ void Tricore::Cpu::insn_andne_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: AND.NE 0x{:08X}", insn);
 
-    RcFormatParser { insn }.parse([this](u32 index_a, u32 index_c, u32 const9) {
-        // D[c] = {D[c][31:1], D[c][0] AND (D[a] != sign_ext(const9))};
-        const u32 sign_extended_const9 = Utils::sign_extend32<9>(const9);
-        if (m_data_registers.at(index_a) != sign_extended_const9) {
-            m_data_registers.at(index_c) |= 0x1U;
-        } else {
-            m_data_registers.at(index_c) &= ~1U;
-        }
-        spdlog::trace("==> Cpu: AND.NE store result 0x{:08X} into D[{}]",
-            m_data_registers.at(index_c), index_c);
-    });
+    InstructionFormat::Rc parser { RegValue { insn } };
+
+    // D[c] = {D[c][31:1], D[c][0] AND (D[a] != sign_ext(const9))};
+    const u32 sign_extended_const9 = parser.const9.sign_extend32<9>().value();
+    if (m_data_registers.at(parser.a.value()) != sign_extended_const9) {
+        m_data_registers.at(parser.c.value()) |= 0x1U;
+    } else {
+        m_data_registers.at(parser.c.value()) &= ~1U;
+    }
+    spdlog::trace("==> Cpu: AND.NE store result 0x{:08X} into D[{}]",
+        m_data_registers.at(parser.c.value()), parser.c.value());
 
     m_core_registers.pc += 4;
 }
@@ -1395,24 +1381,24 @@ void Tricore::Cpu::insn_sh_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: SH 0x{:08X}", insn);
 
-    RcFormatParser { insn }.parse([this](u32 index_a, u32 index_c, u32 const9) {
-        // D[c] = (const9[5:0] >= 0) ? D[a] << const9[5:0] : D[a] >>
-        // (-const9[5:0]);
-        const u32 const9_subset = Utils::extract32(const9, 0, 6);
-        const i32 sign_extended_const9 = static_cast<i32>(Utils::sign_extend32<6>(const9_subset));
-        if (sign_extended_const9 >= 0) {
-            spdlog::trace(
-                "==> Cpu: SH shift left value 0x{:08X} of {} positions",
-                m_data_registers.at(index_a), sign_extended_const9);
-            m_data_registers.at(index_c) = m_data_registers.at(index_a)
-                << static_cast<u32>(sign_extended_const9);
-        } else {
-            spdlog::trace(
-                "==> Cpu: SH shift right value 0x{:08X} of {} positions",
-                m_data_registers.at(index_a), -sign_extended_const9);
-            m_data_registers.at(index_c) = m_data_registers.at(index_a) >> static_cast<u32>(-sign_extended_const9);
-        }
-    });
+    InstructionFormat::Rc parser { RegValue { insn } };
+
+    // D[c] = (const9[5:0] >= 0) ? D[a] << const9[5:0] : D[a] >>
+    // (-const9[5:0]);
+    const auto const9_subset = parser.const9.extract32(0_offset, 6);
+    const i32 sign_extended_const9 = const9_subset.sign_extend32<6>().value_signed();
+    if (sign_extended_const9 >= 0) {
+        spdlog::trace(
+            "==> Cpu: SH shift left value 0x{:08X} of {} positions",
+            m_data_registers.at(parser.a.value()), sign_extended_const9);
+        m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value())
+            << static_cast<u32>(sign_extended_const9);
+    } else {
+        spdlog::trace(
+            "==> Cpu: SH shift right value 0x{:08X} of {} positions",
+            m_data_registers.at(parser.a.value()), -sign_extended_const9);
+        m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) >> static_cast<u32>(-sign_extended_const9);
+    }
 
     m_core_registers.pc += 4;
 }
