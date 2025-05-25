@@ -20,15 +20,8 @@ find_package(spdlog CONFIG REQUIRED)
 find_package(Microsoft.GSL CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 
-add_subdirectory(lib/emulator)
-
-# ---- Declare executable ----
-
-add_executable(tricore-emu source/main.cpp)
-
-target_compile_features(tricore-emu PRIVATE cxx_std_20)
-
-target_link_libraries(tricore-emu PRIVATE emulator spdlog::spdlog)
+add_subdirectory(lib)
+add_subdirectory(source)
 
 include(CTest)
 if(BUILD_TESTING)
