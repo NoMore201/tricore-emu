@@ -10,20 +10,30 @@ struct Bol {
     RegValue b;
     RegValue off16;
 
+    constexpr explicit Bol(u32 insn)
+        : Bol(RegValue { insn })
+    {
+    }
+
     constexpr explicit Bol(const RegValue& value)
-    : a(value.extract32(8_offset, 4))
-    , b(value.extract32(12_offset, 4))
-    , off16(value.extract32(16_offset, 6)
-          | (value.extract32(28_offset, 4) << 6_regval)
-          | (value.extract32(22_offset, 6) << 10_regval))
-{
-}
+        : a(value.extract32(8_offset, 4))
+        , b(value.extract32(12_offset, 4))
+        , off16(value.extract32(16_offset, 6)
+              | (value.extract32(28_offset, 4) << 6_regval)
+              | (value.extract32(22_offset, 6) << 10_regval))
+    {
+    }
 };
 
 struct Rr {
     RegValue a;
     RegValue b;
     RegValue c;
+
+    constexpr explicit Rr(u32 insn)
+        : Rr(RegValue { insn })
+    {
+    }
 
     constexpr explicit Rr(const RegValue& value)
         : a(value.extract32(8_offset, 4))
@@ -38,6 +48,11 @@ struct Brn {
     RegValue n;
     RegValue disp15;
 
+    constexpr explicit Brn(u32 insn)
+        : Brn(RegValue { insn })
+    {
+    }
+
     constexpr explicit Brn(const RegValue& value)
         : a(value.extract32(8_offset, 4))
         , n(value.extract32(12_offset, 4))
@@ -50,6 +65,11 @@ struct Rc {
     RegValue a;
     RegValue c;
     RegValue const9;
+
+    constexpr explicit Rc(u32 insn)
+        : Rc(RegValue { insn })
+    {
+    }
 
     constexpr explicit Rc(const RegValue& value)
         : a(value.extract32(8_offset, 4))

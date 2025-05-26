@@ -777,7 +777,7 @@ void Tricore::Cpu::insn_suba_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: SUB.A 0x{:08X}", insn);
 
-    InstructionFormat::Rr parser { RegValue { insn } };
+    InstructionFormat::Rr parser { insn };
     // A[c] = A[a] - A[b]
     m_address_registers.at(parser.c.value()) = m_address_registers.at(parser.a.value()) - m_address_registers.at(parser.b.value());
     spdlog::trace("==> Cpu: SUB.A writing value 0x{:08X} in A[{}]",
@@ -824,7 +824,7 @@ void Tricore::Cpu::insn_stw_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: ST.W 0x{:08X}", insn);
 
-    InstructionFormat::Bol format { RegValue { insn } };
+    InstructionFormat::Bol format { insn };
     // EA = A[b] + sign_ext(off16)
     u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
     // M(EA, word) = D[a]
@@ -841,7 +841,7 @@ void Tricore::Cpu::insn_jli()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: JLI 0x{:08X}", insn);
 
-    InstructionFormat::Rr parser { RegValue { insn } };
+    InstructionFormat::Rr parser { insn };
 
     // A[11] = PC + 4
     m_address_registers.at(11) = m_core_registers.pc + 4;
@@ -856,7 +856,7 @@ void Tricore::Cpu::insn_jnzt_brn()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: JNZ.T 0x{:08X}", insn);
 
-    InstructionFormat::Brn parser { RegValue { insn } };
+    InstructionFormat::Brn parser { insn };
 
     const u32 data = m_data_registers.at(parser.a.value());
     if ((data & (1U << parser.n.value())) != 0U) {
@@ -875,7 +875,7 @@ void Tricore::Cpu::insn_ldbu_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: LD.BU 0x{:08X}", insn);
 
-    InstructionFormat::Bol format { RegValue { insn } };
+    InstructionFormat::Bol format { insn };
     // EA = A[b] + sign_ext(off16)
     u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
     // D[a] = zero_ext(M(EA, byte))
@@ -891,7 +891,7 @@ void Tricore::Cpu::insn_or_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: OR 0x{:08X}", insn);
 
-    InstructionFormat::Rc parser { RegValue { insn } };
+    InstructionFormat::Rc parser { insn };
 
     // D[c] = D[a] | zero_ext(const9)
     m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) | parser.const9.value();
@@ -906,7 +906,7 @@ void Tricore::Cpu::insn_and_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: AND 0x{:08X}", insn);
 
-    InstructionFormat::Rc parser { RegValue { insn } };
+    InstructionFormat::Rc parser { insn };
 
     // D[c] = D[a] & zero_ext(const9);
     m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) & parser.const9.value();
@@ -921,7 +921,7 @@ void Tricore::Cpu::insn_andn_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: ANDN 0x{:08X}", insn);
 
-    InstructionFormat::Rc parser { RegValue { insn } };
+    InstructionFormat::Rc parser { insn };
 
     // D[c] = D[a] & ~zero_ext(const9);
     m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) & ~parser.const9.value();
@@ -936,7 +936,7 @@ void Tricore::Cpu::insn_stb_bol()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: ST.B 0x{:08X}", insn);
 
-    InstructionFormat::Bol format { RegValue { insn } };
+    InstructionFormat::Bol format { insn };
     // EA = A[b] + sign_ext(off16)
     u32 effective_address = m_address_registers.at(format.b.value()) + format.off16.sign_extend32<16>().value();
     // M(EA, byte) = D[a][7:0]
@@ -1095,7 +1095,7 @@ void Tricore::Cpu::insn_xor_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: XOR 0x{:08X}", insn);
 
-    InstructionFormat::Rc parser { RegValue { insn } };
+    InstructionFormat::Rc parser { insn };
 
     // D[c] = D[a] ^ zero_ext(const9)
     m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) ^ parser.const9.value();
@@ -1179,7 +1179,7 @@ void Tricore::Cpu::insn_ne_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: NE 0x{:08X}", insn);
 
-    InstructionFormat::Rc parser { RegValue { insn } };
+    InstructionFormat::Rc parser { insn };
 
     // result = (D[a] != sign_ext(const9));
     // D[c] = zero_ext(result);
@@ -1201,7 +1201,7 @@ void Tricore::Cpu::insn_andne_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: AND.NE 0x{:08X}", insn);
 
-    InstructionFormat::Rr parser { RegValue { insn } };
+    InstructionFormat::Rr parser { insn };
 
     // D[c] = {D[c][31:1], D[c][0] AND (D[a] != D[b])};
     if (m_data_registers.at(parser.a.value()) != m_data_registers.at(parser.b.value())) {
@@ -1237,7 +1237,7 @@ void Tricore::Cpu::insn_ne_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: NE 0x{:08X}", insn);
 
-    InstructionFormat::Rr parser { RegValue { insn } };
+    InstructionFormat::Rr parser { insn };
 
     // result = (D[a] != D[b]);
     // D[c] = zero_ext(result);
@@ -1257,7 +1257,7 @@ void Tricore::Cpu::insn_minu_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: MIN.U 0x{:08X}", insn);
 
-    InstructionFormat::Rr parser { RegValue { insn } };
+    InstructionFormat::Rr parser { insn };
 
     // D[c] = (D[a] < D[b]) ? D[a] : D[b]; // unsigned
     if (m_data_registers.at(parser.a.value()) < m_data_registers.at(parser.b.value())) {
@@ -1276,7 +1276,7 @@ void Tricore::Cpu::insn_divu_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: DIV.U 0x{:08X}", insn);
 
-    InstructionFormat::Rr parser { RegValue { insn } };
+    InstructionFormat::Rr parser { insn };
 
     const u32 dividend = m_data_registers.at(parser.a.value());
     const u32 divisor = m_data_registers.at(parser.b.value());
@@ -1313,7 +1313,7 @@ void Tricore::Cpu::insn_sub_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: SUB 0x{:08X}", insn);
 
-    InstructionFormat::Rr parser { RegValue { insn } };
+    InstructionFormat::Rr parser { insn };
 
     // D[c] = D[a] - D[b]
     m_data_registers.at(parser.c.value()) = m_data_registers.at(parser.a.value()) - m_data_registers.at(parser.b.value());
@@ -1328,7 +1328,7 @@ void Tricore::Cpu::insn_utof_rr()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: UTOF 0x{:08X}", insn);
 
-    InstructionFormat::Rr parser { RegValue { insn } };
+    InstructionFormat::Rr parser { insn };
 
     // Default rounding mode is nearest. TODO: check which rounding x86 performs
     f32 converted = static_cast<f32>(m_data_registers.at(parser.a.value()));
@@ -1345,7 +1345,7 @@ void Tricore::Cpu::insn_andne_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: AND.NE 0x{:08X}", insn);
 
-    InstructionFormat::Rc parser { RegValue { insn } };
+    InstructionFormat::Rc parser { insn };
 
     // D[c] = {D[c][31:1], D[c][0] AND (D[a] != sign_ext(const9))};
     const u32 sign_extended_const9 = parser.const9.sign_extend32<9>().value();
@@ -1381,7 +1381,7 @@ void Tricore::Cpu::insn_sh_rc()
     u32 insn = m_bus->read32(m_core_registers.pc);
     spdlog::trace("Cpu: SH 0x{:08X}", insn);
 
-    InstructionFormat::Rc parser { RegValue { insn } };
+    InstructionFormat::Rc parser { insn };
 
     // D[c] = (const9[5:0] >= 0) ? D[a] << const9[5:0] : D[a] >>
     // (-const9[5:0]);
