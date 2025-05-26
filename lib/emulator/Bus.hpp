@@ -1,4 +1,3 @@
-
 #ifndef TRICORE_EMU_BUS_HPP
 #define TRICORE_EMU_BUS_HPP
 
