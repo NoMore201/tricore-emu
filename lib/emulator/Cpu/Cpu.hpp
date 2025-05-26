@@ -8,13 +8,12 @@
 #include <fmt/format.h>
 #include <gsl/pointers>
 
-#include <array>
 #include <stdexcept>
 #include <string>
 
 namespace Tricore {
 
-struct InvalidCoreRegisterOffset : public std::runtime_error {
+struct InvalidRegisterOffset : public std::runtime_error {
     using std::runtime_error::runtime_error;
 };
 
@@ -107,8 +106,48 @@ private:
     void print_cpu_status();
 
     // CPU registers
-    std::array<u32, register_count> m_data_registers {};
-    std::array<u32, register_count> m_address_registers {};
+    struct DataRegisters {
+        u32 d0 {};
+        u32 d1 {};
+        u32 d2 {};
+        u32 d3 {};
+        u32 d4 {};
+        u32 d5 {};
+        u32 d6 {};
+        u32 d7 {};
+        u32 d8 {};
+        u32 d9 {};
+        u32 d10 {};
+        u32 d11 {};
+        u32 d12 {};
+        u32 d13 {};
+        u32 d14 {};
+        u32 d15 {};
+
+        u32& operator[](usize offset);
+    } m_data_reg;
+
+    struct AddressRegisters {
+        u32 a0 {};
+        u32 a1 {};
+        u32 a2 {};
+        u32 a3 {};
+        u32 a4 {};
+        u32 a5 {};
+        u32 a6 {};
+        u32 a7 {};
+        u32 a8 {};
+        u32 a9 {};
+        u32 a10 {};
+        u32 a11 {};
+        u32 a12 {};
+        u32 a13 {};
+        u32 a14 {};
+        u32 a15 {};
+
+        u32& operator[](usize offset);
+    } m_addr_reg;
+
     struct CoreRegisters {
         u32 pcxi { 0 };
         u32 psw { 0xB80U };
