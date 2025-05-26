@@ -48,8 +48,7 @@ static constexpr u16 extract16(u16 data, u32 offset, u32 length)
     return static_cast<u16>(extract32(data, offset, length));
 }
 
-static constexpr u32 deposit32(u32 field, u32 offset, u32 length,
-    u32 destination)
+static constexpr u32 deposit32(u32 field, u32 offset, u32 length, u32 destination)
 {
     constexpr u32 num_of_bits = 32;
     Expects(offset < num_of_bits && length <= num_of_bits - offset);
@@ -59,12 +58,12 @@ static constexpr u32 deposit32(u32 field, u32 offset, u32 length,
 
 // Span helpers
 
-static inline gsl::span<byte> to_span(auto* const buffer, usize length)
+static constexpr gsl::span<byte> to_span(auto* const buffer, usize length)
 {
     return gsl::make_span(reinterpret_cast<byte*>(buffer), length);
 }
 
-static inline gsl::span<const byte> to_span(const auto* const buffer, usize length)
+static constexpr gsl::span<const byte> to_span(const auto* const buffer, usize length)
 {
     return gsl::make_span(reinterpret_cast<const byte*>(buffer), length);
 }
