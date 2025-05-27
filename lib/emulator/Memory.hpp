@@ -1,7 +1,7 @@
 #ifndef TRICORE_EMU_MEMORY_HPP
 #define TRICORE_EMU_MEMORY_HPP
 
-#include "BusClient.hpp"
+#include "IBusClient.hpp"
 #include "Tricore.hpp"
 #include "Types.hpp"
 
@@ -11,7 +11,7 @@
 
 namespace Tricore {
 
-class Memory : public BusClient {
+class Memory : public IBusClient {
 
 public:
     struct Layout {
