@@ -1,5 +1,5 @@
-
 #include "Memory.hpp"
+#include "Error.hpp"
 #include "Tricore.hpp"
 #include "Types.hpp"
 #include "Utils.hpp"

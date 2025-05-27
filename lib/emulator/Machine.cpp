@@ -4,7 +4,6 @@
 
 Tricore::Machine::Machine(Tricore::CpuVariant variant)
     : m_memory(variant)
-    , m_memory_registration(m_bus.register_device(m_memory))
     , m_cpu(m_bus)
 {
 }

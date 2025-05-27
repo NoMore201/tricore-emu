@@ -1,11 +1,10 @@
 #include <gmock/gmock.h>
-#include <gsl/span_ext>
 #include <gtest/gtest.h>
 
 #include <Bus.hpp>
-#include <BusClient.hpp>
+#include <IBusClient.hpp>
 
-class MockClient : public Tricore::BusClient {
+class MockClient : public Tricore::IBusClient {
 
 public:
     MOCK_METHOD(void, read, (gsl::span<byte>, u32), (override));
@@ -25,13 +24,8 @@ TEST_F(BusTestFixture, RegisterClient)
 
     EXPECT_CALL(sample_client, read(::testing::_, 0xABBADEDE)).Times(1);
 
-    {
-        auto handler = main_bus.register_device(sample_client);
-        main_bus.read(gsl::make_span(buffer), 0xABBADEDE);
+    main_bus.register_device(sample_client);
+    auto request_handler = main_bus.create_request_handler();
 
-        // destructor called, device is unregistered
-    }
-
-    // this will thr
-    EXPECT_ANY_THROW(main_bus.read(gsl::make_span(buffer), 0xABBADEDE));
+    EXPECT_NO_THROW(request_handler.read(gsl::make_span(buffer), 0xABBADEDE));
 }

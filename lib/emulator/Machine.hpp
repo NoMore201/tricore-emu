@@ -22,7 +22,6 @@ public:
 private:
     Bus m_bus;
     Memory m_memory;
-    Bus::BusRegistrationHandler m_memory_registration;
     Cpu m_cpu;
 };
 

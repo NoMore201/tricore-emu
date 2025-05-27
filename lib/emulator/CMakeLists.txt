@@ -1,7 +1,7 @@
 add_library(
   emulator STATIC
   Bus.cpp
-  BusClient.cpp
+  IBusClient.cpp
   Cpu/Cpu.cpp
   Cpu/InstructionFormat.cpp
   Elf.cpp

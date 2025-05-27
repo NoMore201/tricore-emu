@@ -5,18 +5,12 @@
 
 #include <gsl/span>
 
-#include <stdexcept>
-
 namespace Tricore {
 
-struct InvalidMemoryAccess : public std::runtime_error {
-    using std::runtime_error::runtime_error;
-};
-
-class BusClient {
+class IBusClient {
 
 public:
-    virtual ~BusClient() = default;
+    virtual ~IBusClient() = default;
 
     virtual void read(gsl::span<byte> buffer_out, u32 address) = 0;
 

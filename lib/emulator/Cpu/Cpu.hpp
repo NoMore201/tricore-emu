@@ -166,7 +166,7 @@ private:
 
     } m_core_registers;
 
-    gsl::not_null<Bus*> m_bus;
+    Bus::RequestHandler m_bus;
 };
 
 } // namespace Tricore
