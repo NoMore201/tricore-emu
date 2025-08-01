@@ -2,20 +2,33 @@
 # Enable ALL the things! Except not really
 # misc-non-private-member-variables-in-classes: the options don't do anything
 # modernize-use-nodiscard: too aggressive, attribute is situationally useful
-Checks: "*,\
-  -google-readability-todo,\
-  -altera-*,\
-  -fuchsia-*,\
-  fuchsia-multiple-inheritance,\
-  -cppcoreguidelines-avoid-magic-numbers,\
-  -readability-magic-numbers,\
-  -llvm-header-guard,\
-  -llvm-include-order,\
-  -llvmlibc-*,\
-  -modernize-use-nodiscard,\
-  -modernize-use-trailing-return-type,\
-  -misc-include-cleaner,\
-  -misc-non-private-member-variables-in-classes"
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  concurrency-*,
+  misc-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-macro-parentheses,
+  -bugprone-reserved-identifier,
+  -misc-const-correctness,
+  -misc-non-private-member-variables-in-classes,
+  -misc-use-anonymous-namespace,
+  -modernize-use-trailing-return-type,
+  -performance-no-int-to-ptr,
+  -readability-braces-around-statements,
+  -readability-function-cognitive-complexity,
+  -readability-identifier-length,
+  -readability-magic-numbers,
+  -readability-named-parameter,
+  -readability-uppercase-literal-suffix,
+  -readability-use-anyofallof,
+  -readability-implicit-bool-conversion,
 WarningsAsErrors: ''
 CheckOptions:
   bugprone-argument-comment.StrictMode: true
@@ -26,8 +39,6 @@ CheckOptions:
   readability-simplify-boolean-expr.ChainedConditionalReturn: true
   readability-simplify-boolean-expr.ChainedConditionalAssignment: true
   readability-uniqueptr-delete-release.PreferResetCall: true
-  cppcoreguidelines-init-variables.MathHeader: '<cmath>'
-  cppcoreguidelines-narrowing-conversions.PedanticMode: true
   readability-else-after-return.WarnOnUnfixable: true
   readability-else-after-return.WarnOnConditionVariables: true
   readability-inconsistent-declaration-parameter-name.Strict: true
