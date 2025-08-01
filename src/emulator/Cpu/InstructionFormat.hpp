@@ -70,8 +70,18 @@ struct Srr {
     }
 };
 
-using Src = Srr;
 using Ssr = Srr;
+
+struct Src {
+    u32 a;
+    u32 const4;
+
+    constexpr explicit Src(u32 insn)
+        : a(Utils::extract32(insn, 8, 4))
+        , const4(Utils::extract32(insn, 12, 4))
+    {
+    }
+};
 
 } // namespace Tricore::InstructionFormat
 
