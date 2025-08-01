@@ -2,18 +2,26 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-
   // Uncomment the following lines to make Dev Container compatible with Podman
   //"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-	//"workspaceFolder": "/workspace",
+  //"workspaceFolder": "/workspace",
   //"runArgs": ["--userns=keep-id"],
-	//"containerUser": "vscode",
+  //"containerUser": "vscode",
 
   // Uncomment the following lines to make it work under SElinux configure distros
   //"workspaceMount": "",
   //"runArgs": [
   //  "--volume=${localWorkspaceFolder}:/workspaces/${localWorkspaceFolderBasename}:Z"
   //],
-
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "clangd.path": "/usr/bin/clangd",
+        "clangd.arguments": [
+          "--header-insertion=never" // See https://github.com/clangd/clangd/issues/1247
+        ]
+      }
+    }
+  },
   "postCreateCommand": "./setupVcpkg.sh"
 }
