@@ -15,20 +15,17 @@ namespace Tricore {
 class Fsi : public BusClient {
 
 public:
-
     Fsi();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_fsi_comm_1;
     u32 m_fsi_comm_2;
     u32 m_fsi_hsmcomm_1;
     u32 m_fsi_hsmcomm_2;
-
 };
 
 } // namespace Tricore

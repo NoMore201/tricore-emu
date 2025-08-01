@@ -15,15 +15,13 @@ namespace Tricore::Peripherals {
 class Mtu : public BusClient {
 
 public:
-
     Mtu();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_mtu_clc;
     u32 m_mtu_id;
     u32 m_mtu_memtest0;
@@ -41,7 +39,6 @@ private:
     u32 m_mtu_memfda2;
     u32 m_mtu_accen1;
     u32 m_mtu_accen0;
-
 };
 
 } // namespace Tricore

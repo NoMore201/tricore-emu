@@ -15,15 +15,13 @@ namespace Tricore {
 class Sent : public BusClient {
 
 public:
-
     Sent();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_sent_clc;
     u32 m_sent_id;
     u32 m_sent_fdr;
@@ -36,7 +34,6 @@ private:
     u32 m_sent_krst0;
     u32 m_sent_accen1;
     u32 m_sent_accen0;
-
 };
 
 } // namespace Tricore

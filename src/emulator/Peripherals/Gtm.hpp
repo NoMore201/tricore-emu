@@ -15,15 +15,13 @@ namespace Tricore {
 class Gtm : public BusClient {
 
 public:
-
     Gtm();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_gtm_rev;
     u32 m_gtm_rst;
     u32 m_gtm_ctrl;
@@ -60,7 +58,6 @@ private:
     u32 m_gtm_lcdcdcoutsel;
     u32 m_gtm_dtmauxinsel;
     u32 m_gtm_canoutsel0;
-
 };
 
 } // namespace Tricore

@@ -15,15 +15,13 @@ namespace Tricore {
 class Gpt12 : public BusClient {
 
 public:
-
     Gpt12();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_gpt120_clc;
     u32 m_gpt120_pisel;
     u32 m_gpt120_id;
@@ -43,7 +41,6 @@ private:
     u32 m_gpt120_krst1;
     u32 m_gpt120_krst0;
     u32 m_gpt120_accen0;
-
 };
 
 } // namespace Tricore

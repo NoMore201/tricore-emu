@@ -15,15 +15,13 @@ namespace Tricore {
 class Can : public BusClient {
 
 public:
-
     Can();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_can0_clc;
     u32 m_can0_id;
     u32 m_can0_mcr;
@@ -45,7 +43,6 @@ private:
     u32 m_can1_krst1;
     u32 m_can1_krst0;
     u32 m_can1_accen0;
-
 };
 
 } // namespace Tricore

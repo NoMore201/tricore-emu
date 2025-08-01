@@ -15,7 +15,6 @@ namespace Tricore::Peripherals {
 class Cpu : public BusClient {
 
 public:
-
     Cpu();
 
     void read(gsl::span<byte> buffer_out, u32 address) override;
@@ -23,7 +22,6 @@ public:
     void write(gsl::span<const byte> buffer_in, u32 address) override;
 
 private:
-
     u32 m_cpu0_flashcon0;
     u32 m_cpu0_flashcon1;
     u32 m_cpu0_flashcon2;
@@ -81,7 +79,6 @@ private:
     u32 m_cpu0_fcx;
     u32 m_cpu0_lcx;
     u32 m_cpu0_cus_id;
-
 };
 
 } // namespace Tricore

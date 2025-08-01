@@ -306,7 +306,6 @@ constexpr u32 reg_qspi3_accen0_offset = reg_qspi3_accen0_address - qspi_memory_s
 
 } // anonymous namespace
 
-
 Tricore::Qspi::Qspi()
     : m_qspi0_clc(qspi0_clc_reset_value)
     , m_qspi0_pisel(qspi0_pisel_reset_value)
@@ -402,967 +401,970 @@ Tricore::Qspi::Qspi()
     , m_qspi3_krst0(qspi3_krst0_reset_value)
     , m_qspi3_accen1(qspi3_accen1_reset_value)
     , m_qspi3_accen0(qspi3_accen0_reset_value)
-{}
+{
+}
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Qspi::read(byte *buffer_out, u32 address, usize length) {
+void Tricore::Qspi::read(byte* buffer_out, u32 address, usize length)
+{
     const u32 offset = address - qspi_memory_start_address;
     switch (offset) {
     case reg_qspi0_clc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_pisel_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_PISEL in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_pisel);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_PISEL in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_pisel);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_id_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_globalcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_GLOBALCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_globalcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_GLOBALCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_globalcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_globalcon1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_GLOBALCON1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_globalcon1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_GLOBALCON1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_globalcon1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_bacon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_BACON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_bacon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_BACON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_bacon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_status_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_STATUS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_status);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_STATUS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_status);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_status1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_STATUS1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_status1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_STATUS1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_status1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_ssoc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_SSOC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_ssoc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_SSOC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_ssoc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_flagsclear_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_xxlcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_XXLCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_xxlcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_XXLCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_xxlcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_mixentry_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_MIXENTRY in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_mixentry);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_MIXENTRY in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_mixentry);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_baconentry_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_BACONENTRY in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_baconentry);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_BACONENTRY in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_baconentry);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_rxexit_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_RXEXIT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_rxexit);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_RXEXIT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_rxexit);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_rxexitd_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_RXEXITD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_rxexitd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_RXEXITD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_rxexitd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_mc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_MC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_mc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_MC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_mc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_mccon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_MCCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_mccon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_MCCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_mccon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_ocs_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_krstclr_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_krst1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_krst0_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_accen1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi0_accen0_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI0_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi0_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI0_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi0_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_clc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_pisel_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_PISEL in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_pisel);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_PISEL in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_pisel);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_id_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_globalcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_GLOBALCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_globalcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_GLOBALCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_globalcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_globalcon1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_GLOBALCON1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_globalcon1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_GLOBALCON1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_globalcon1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_bacon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_BACON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_bacon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_BACON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_bacon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_status_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_STATUS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_status);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_STATUS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_status);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_status1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_STATUS1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_status1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_STATUS1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_status1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_ssoc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_SSOC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_ssoc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_SSOC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_ssoc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_flagsclear_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_xxlcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_XXLCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_xxlcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_XXLCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_xxlcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_mixentry_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_MIXENTRY in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_mixentry);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_MIXENTRY in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_mixentry);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_baconentry_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_BACONENTRY in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_baconentry);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_BACONENTRY in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_baconentry);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_rxexit_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_RXEXIT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_rxexit);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_RXEXIT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_rxexit);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_rxexitd_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_RXEXITD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_rxexitd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_RXEXITD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_rxexitd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_mc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_MC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_mc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_MC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_mc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_mccon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_MCCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_mccon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_MCCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_mccon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_ocs_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_krstclr_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_krst1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_krst0_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_accen1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi1_accen0_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI1_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi1_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI1_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi1_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_clc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_pisel_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_PISEL in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_pisel);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_PISEL in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_pisel);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_id_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_globalcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_GLOBALCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_globalcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_GLOBALCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_globalcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_globalcon1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_GLOBALCON1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_globalcon1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_GLOBALCON1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_globalcon1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_bacon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_BACON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_bacon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_BACON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_bacon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_status_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_STATUS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_status);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_STATUS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_status);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_status1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_STATUS1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_status1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_STATUS1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_status1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_ssoc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_SSOC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_ssoc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_SSOC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_ssoc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_flagsclear_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_xxlcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_XXLCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_xxlcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_XXLCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_xxlcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_mixentry_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_MIXENTRY in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_mixentry);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_MIXENTRY in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_mixentry);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_baconentry_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_BACONENTRY in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_baconentry);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_BACONENTRY in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_baconentry);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_rxexit_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_RXEXIT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_rxexit);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_RXEXIT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_rxexit);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_rxexitd_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_RXEXITD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_rxexitd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_RXEXITD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_rxexitd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_capcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_CAPCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_capcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_CAPCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_capcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_mc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_MC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_mc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_MC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_mc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_mccon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_MCCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_mccon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_MCCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_mccon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_ocs_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_krstclr_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_krst1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_krst0_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_accen1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi2_accen0_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI2_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi2_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI2_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi2_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_clc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_pisel_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_PISEL in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_pisel);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_PISEL in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_pisel);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_id_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_globalcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_GLOBALCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_globalcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_GLOBALCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_globalcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_globalcon1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_GLOBALCON1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_globalcon1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_GLOBALCON1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_globalcon1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_bacon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_BACON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_bacon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_BACON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_bacon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_status_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_STATUS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_status);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_STATUS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_status);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_status1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_STATUS1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_status1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_STATUS1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_status1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_ssoc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_SSOC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_ssoc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_SSOC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_ssoc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_flagsclear_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_xxlcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_XXLCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_xxlcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_XXLCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_xxlcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_mixentry_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_MIXENTRY in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_mixentry);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_MIXENTRY in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_mixentry);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_baconentry_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_BACONENTRY in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_baconentry);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_BACONENTRY in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_baconentry);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_rxexit_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_RXEXIT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_rxexit);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_RXEXIT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_rxexit);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_rxexitd_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_RXEXITD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_rxexitd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_RXEXITD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_rxexitd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_capcon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_CAPCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_capcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_CAPCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_capcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_mc_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_MC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_mc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_MC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_mc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_mccon_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_MCCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_mccon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_MCCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_mccon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_ocs_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_krstclr_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_krst1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_krst0_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_accen1_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_qspi3_accen0_offset: {
-            spdlog::debug("QSPI: accessing QSPI.QSPI3_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_qspi3_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("QSPI: accessing QSPI.QSPI3_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_qspi3_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Qspi peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Qspi peripheral", address) };
         break;
     }
 }
 
-void Tricore::Qspi::write(const byte *buffer_in, u32 address,
-                         usize length) {
+void Tricore::Qspi::write(const byte* buffer_in, u32 address,
+    usize length)
+{
     const u32 offset = address - qspi_memory_start_address;
     switch (offset) {
     case reg_qspi0_clc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_clc));
+            reinterpret_cast<byte*>(&m_qspi0_clc));
     } break;
     case reg_qspi0_pisel_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_PISEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_pisel));
+            reinterpret_cast<byte*>(&m_qspi0_pisel));
     } break;
     case reg_qspi0_id_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_id));
+            reinterpret_cast<byte*>(&m_qspi0_id));
     } break;
     case reg_qspi0_globalcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_GLOBALCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_globalcon));
+            reinterpret_cast<byte*>(&m_qspi0_globalcon));
     } break;
     case reg_qspi0_globalcon1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_GLOBALCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_globalcon1));
+            reinterpret_cast<byte*>(&m_qspi0_globalcon1));
     } break;
     case reg_qspi0_bacon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_BACON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_bacon));
+            reinterpret_cast<byte*>(&m_qspi0_bacon));
     } break;
     case reg_qspi0_status_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_STATUS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_status));
+            reinterpret_cast<byte*>(&m_qspi0_status));
     } break;
     case reg_qspi0_status1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_STATUS1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_status1));
+            reinterpret_cast<byte*>(&m_qspi0_status1));
     } break;
     case reg_qspi0_ssoc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_SSOC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_ssoc));
+            reinterpret_cast<byte*>(&m_qspi0_ssoc));
     } break;
     case reg_qspi0_flagsclear_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_flagsclear));
+            reinterpret_cast<byte*>(&m_qspi0_flagsclear));
     } break;
     case reg_qspi0_xxlcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_XXLCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_xxlcon));
+            reinterpret_cast<byte*>(&m_qspi0_xxlcon));
     } break;
     case reg_qspi0_mixentry_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_MIXENTRY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_mixentry));
+            reinterpret_cast<byte*>(&m_qspi0_mixentry));
     } break;
     case reg_qspi0_baconentry_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_BACONENTRY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_baconentry));
+            reinterpret_cast<byte*>(&m_qspi0_baconentry));
     } break;
     case reg_qspi0_rxexit_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_RXEXIT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_rxexit));
+            reinterpret_cast<byte*>(&m_qspi0_rxexit));
     } break;
     case reg_qspi0_rxexitd_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_RXEXITD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_rxexitd));
+            reinterpret_cast<byte*>(&m_qspi0_rxexitd));
     } break;
     case reg_qspi0_mc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_MC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_mc));
+            reinterpret_cast<byte*>(&m_qspi0_mc));
     } break;
     case reg_qspi0_mccon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_MCCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_mccon));
+            reinterpret_cast<byte*>(&m_qspi0_mccon));
     } break;
     case reg_qspi0_ocs_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_ocs));
+            reinterpret_cast<byte*>(&m_qspi0_ocs));
     } break;
     case reg_qspi0_krstclr_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_krstclr));
+            reinterpret_cast<byte*>(&m_qspi0_krstclr));
     } break;
     case reg_qspi0_krst1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_krst1));
+            reinterpret_cast<byte*>(&m_qspi0_krst1));
     } break;
     case reg_qspi0_krst0_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_krst0));
+            reinterpret_cast<byte*>(&m_qspi0_krst0));
     } break;
     case reg_qspi0_accen1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_accen1));
+            reinterpret_cast<byte*>(&m_qspi0_accen1));
     } break;
     case reg_qspi0_accen0_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI0_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi0_accen0));
+            reinterpret_cast<byte*>(&m_qspi0_accen0));
     } break;
     case reg_qspi1_clc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_clc));
+            reinterpret_cast<byte*>(&m_qspi1_clc));
     } break;
     case reg_qspi1_pisel_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_PISEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_pisel));
+            reinterpret_cast<byte*>(&m_qspi1_pisel));
     } break;
     case reg_qspi1_id_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_id));
+            reinterpret_cast<byte*>(&m_qspi1_id));
     } break;
     case reg_qspi1_globalcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_GLOBALCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_globalcon));
+            reinterpret_cast<byte*>(&m_qspi1_globalcon));
     } break;
     case reg_qspi1_globalcon1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_GLOBALCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_globalcon1));
+            reinterpret_cast<byte*>(&m_qspi1_globalcon1));
     } break;
     case reg_qspi1_bacon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_BACON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_bacon));
+            reinterpret_cast<byte*>(&m_qspi1_bacon));
     } break;
     case reg_qspi1_status_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_STATUS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_status));
+            reinterpret_cast<byte*>(&m_qspi1_status));
     } break;
     case reg_qspi1_status1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_STATUS1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_status1));
+            reinterpret_cast<byte*>(&m_qspi1_status1));
     } break;
     case reg_qspi1_ssoc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_SSOC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_ssoc));
+            reinterpret_cast<byte*>(&m_qspi1_ssoc));
     } break;
     case reg_qspi1_flagsclear_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_flagsclear));
+            reinterpret_cast<byte*>(&m_qspi1_flagsclear));
     } break;
     case reg_qspi1_xxlcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_XXLCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_xxlcon));
+            reinterpret_cast<byte*>(&m_qspi1_xxlcon));
     } break;
     case reg_qspi1_mixentry_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_MIXENTRY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_mixentry));
+            reinterpret_cast<byte*>(&m_qspi1_mixentry));
     } break;
     case reg_qspi1_baconentry_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_BACONENTRY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_baconentry));
+            reinterpret_cast<byte*>(&m_qspi1_baconentry));
     } break;
     case reg_qspi1_rxexit_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_RXEXIT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_rxexit));
+            reinterpret_cast<byte*>(&m_qspi1_rxexit));
     } break;
     case reg_qspi1_rxexitd_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_RXEXITD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_rxexitd));
+            reinterpret_cast<byte*>(&m_qspi1_rxexitd));
     } break;
     case reg_qspi1_mc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_MC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_mc));
+            reinterpret_cast<byte*>(&m_qspi1_mc));
     } break;
     case reg_qspi1_mccon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_MCCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_mccon));
+            reinterpret_cast<byte*>(&m_qspi1_mccon));
     } break;
     case reg_qspi1_ocs_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_ocs));
+            reinterpret_cast<byte*>(&m_qspi1_ocs));
     } break;
     case reg_qspi1_krstclr_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_krstclr));
+            reinterpret_cast<byte*>(&m_qspi1_krstclr));
     } break;
     case reg_qspi1_krst1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_krst1));
+            reinterpret_cast<byte*>(&m_qspi1_krst1));
     } break;
     case reg_qspi1_krst0_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_krst0));
+            reinterpret_cast<byte*>(&m_qspi1_krst0));
     } break;
     case reg_qspi1_accen1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_accen1));
+            reinterpret_cast<byte*>(&m_qspi1_accen1));
     } break;
     case reg_qspi1_accen0_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI1_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi1_accen0));
+            reinterpret_cast<byte*>(&m_qspi1_accen0));
     } break;
     case reg_qspi2_clc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_clc));
+            reinterpret_cast<byte*>(&m_qspi2_clc));
     } break;
     case reg_qspi2_pisel_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_PISEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_pisel));
+            reinterpret_cast<byte*>(&m_qspi2_pisel));
     } break;
     case reg_qspi2_id_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_id));
+            reinterpret_cast<byte*>(&m_qspi2_id));
     } break;
     case reg_qspi2_globalcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_GLOBALCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_globalcon));
+            reinterpret_cast<byte*>(&m_qspi2_globalcon));
     } break;
     case reg_qspi2_globalcon1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_GLOBALCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_globalcon1));
+            reinterpret_cast<byte*>(&m_qspi2_globalcon1));
     } break;
     case reg_qspi2_bacon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_BACON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_bacon));
+            reinterpret_cast<byte*>(&m_qspi2_bacon));
     } break;
     case reg_qspi2_status_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_STATUS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_status));
+            reinterpret_cast<byte*>(&m_qspi2_status));
     } break;
     case reg_qspi2_status1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_STATUS1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_status1));
+            reinterpret_cast<byte*>(&m_qspi2_status1));
     } break;
     case reg_qspi2_ssoc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_SSOC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_ssoc));
+            reinterpret_cast<byte*>(&m_qspi2_ssoc));
     } break;
     case reg_qspi2_flagsclear_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_flagsclear));
+            reinterpret_cast<byte*>(&m_qspi2_flagsclear));
     } break;
     case reg_qspi2_xxlcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_XXLCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_xxlcon));
+            reinterpret_cast<byte*>(&m_qspi2_xxlcon));
     } break;
     case reg_qspi2_mixentry_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_MIXENTRY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_mixentry));
+            reinterpret_cast<byte*>(&m_qspi2_mixentry));
     } break;
     case reg_qspi2_baconentry_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_BACONENTRY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_baconentry));
+            reinterpret_cast<byte*>(&m_qspi2_baconentry));
     } break;
     case reg_qspi2_rxexit_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_RXEXIT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_rxexit));
+            reinterpret_cast<byte*>(&m_qspi2_rxexit));
     } break;
     case reg_qspi2_rxexitd_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_RXEXITD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_rxexitd));
+            reinterpret_cast<byte*>(&m_qspi2_rxexitd));
     } break;
     case reg_qspi2_capcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_CAPCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_capcon));
+            reinterpret_cast<byte*>(&m_qspi2_capcon));
     } break;
     case reg_qspi2_mc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_MC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_mc));
+            reinterpret_cast<byte*>(&m_qspi2_mc));
     } break;
     case reg_qspi2_mccon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_MCCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_mccon));
+            reinterpret_cast<byte*>(&m_qspi2_mccon));
     } break;
     case reg_qspi2_ocs_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_ocs));
+            reinterpret_cast<byte*>(&m_qspi2_ocs));
     } break;
     case reg_qspi2_krstclr_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_krstclr));
+            reinterpret_cast<byte*>(&m_qspi2_krstclr));
     } break;
     case reg_qspi2_krst1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_krst1));
+            reinterpret_cast<byte*>(&m_qspi2_krst1));
     } break;
     case reg_qspi2_krst0_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_krst0));
+            reinterpret_cast<byte*>(&m_qspi2_krst0));
     } break;
     case reg_qspi2_accen1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_accen1));
+            reinterpret_cast<byte*>(&m_qspi2_accen1));
     } break;
     case reg_qspi2_accen0_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI2_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi2_accen0));
+            reinterpret_cast<byte*>(&m_qspi2_accen0));
     } break;
     case reg_qspi3_clc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_clc));
+            reinterpret_cast<byte*>(&m_qspi3_clc));
     } break;
     case reg_qspi3_pisel_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_PISEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_pisel));
+            reinterpret_cast<byte*>(&m_qspi3_pisel));
     } break;
     case reg_qspi3_id_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_id));
+            reinterpret_cast<byte*>(&m_qspi3_id));
     } break;
     case reg_qspi3_globalcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_GLOBALCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_globalcon));
+            reinterpret_cast<byte*>(&m_qspi3_globalcon));
     } break;
     case reg_qspi3_globalcon1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_GLOBALCON1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_globalcon1));
+            reinterpret_cast<byte*>(&m_qspi3_globalcon1));
     } break;
     case reg_qspi3_bacon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_BACON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_bacon));
+            reinterpret_cast<byte*>(&m_qspi3_bacon));
     } break;
     case reg_qspi3_status_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_STATUS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_status));
+            reinterpret_cast<byte*>(&m_qspi3_status));
     } break;
     case reg_qspi3_status1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_STATUS1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_status1));
+            reinterpret_cast<byte*>(&m_qspi3_status1));
     } break;
     case reg_qspi3_ssoc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_SSOC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_ssoc));
+            reinterpret_cast<byte*>(&m_qspi3_ssoc));
     } break;
     case reg_qspi3_flagsclear_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_flagsclear));
+            reinterpret_cast<byte*>(&m_qspi3_flagsclear));
     } break;
     case reg_qspi3_xxlcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_XXLCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_xxlcon));
+            reinterpret_cast<byte*>(&m_qspi3_xxlcon));
     } break;
     case reg_qspi3_mixentry_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_MIXENTRY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_mixentry));
+            reinterpret_cast<byte*>(&m_qspi3_mixentry));
     } break;
     case reg_qspi3_baconentry_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_BACONENTRY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_baconentry));
+            reinterpret_cast<byte*>(&m_qspi3_baconentry));
     } break;
     case reg_qspi3_rxexit_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_RXEXIT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_rxexit));
+            reinterpret_cast<byte*>(&m_qspi3_rxexit));
     } break;
     case reg_qspi3_rxexitd_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_RXEXITD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_rxexitd));
+            reinterpret_cast<byte*>(&m_qspi3_rxexitd));
     } break;
     case reg_qspi3_capcon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_CAPCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_capcon));
+            reinterpret_cast<byte*>(&m_qspi3_capcon));
     } break;
     case reg_qspi3_mc_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_MC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_mc));
+            reinterpret_cast<byte*>(&m_qspi3_mc));
     } break;
     case reg_qspi3_mccon_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_MCCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_mccon));
+            reinterpret_cast<byte*>(&m_qspi3_mccon));
     } break;
     case reg_qspi3_ocs_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_ocs));
+            reinterpret_cast<byte*>(&m_qspi3_ocs));
     } break;
     case reg_qspi3_krstclr_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_krstclr));
+            reinterpret_cast<byte*>(&m_qspi3_krstclr));
     } break;
     case reg_qspi3_krst1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_krst1));
+            reinterpret_cast<byte*>(&m_qspi3_krst1));
     } break;
     case reg_qspi3_krst0_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_krst0));
+            reinterpret_cast<byte*>(&m_qspi3_krst0));
     } break;
     case reg_qspi3_accen1_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_accen1));
+            reinterpret_cast<byte*>(&m_qspi3_accen1));
     } break;
     case reg_qspi3_accen0_offset: {
         spdlog::debug("QSPI: accessing QSPI.QSPI3_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_qspi3_accen0));
+            reinterpret_cast<byte*>(&m_qspi3_accen0));
     } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Qspi peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Qspi peripheral", address) };
         break;
     }
 }

@@ -201,7 +201,6 @@ constexpr u32 reg_pms_accen1_offset = reg_pms_accen1_address - pms_memory_start_
 
 } // anonymous namespace
 
-
 Tricore::Peripherals::Pms::Pms()
     : m_pms_id(pms_id_reset_value)
     , m_pms_evrstat(pms_evrstat_reset_value)
@@ -262,617 +261,620 @@ Tricore::Peripherals::Pms::Pms()
     , m_pms_otsc1(pms_otsc1_reset_value)
     , m_pms_accen0(pms_accen0_reset_value)
     , m_pms_accen1(pms_accen1_reset_value)
-{}
+{
+}
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Peripherals::Pms::read(byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Pms::read(byte* buffer_out, u32 address, usize length)
+{
     const u32 offset = address - pms_memory_start_address;
     switch (offset) {
     case reg_pms_id_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrstat_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSTAT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrstat);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSTAT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrstat);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evradcstat_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRADCSTAT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evradcstat);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRADCSTAT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evradcstat);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrrstcon_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRRSTCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrrstcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRRSTCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrrstcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrrststat_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRRSTSTAT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrrststat);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRRSTSTAT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrrststat);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrtrim_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRTRIM in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrtrim);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRTRIM in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrtrim);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrtrimstat_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRTRIMSTAT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrtrimstat);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRTRIMSTAT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrtrimstat);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_monstat1_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_MONSTAT1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_monstat1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_MONSTAT1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_monstat1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_monstat2_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_MONSTAT2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_monstat2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_MONSTAT2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_monstat2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_monctrl_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_MONCTRL in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_monctrl);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_MONCTRL in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_monctrl);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_monfilt_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_MONFILT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_monfilt);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_MONFILT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_monfilt);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmsien_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSIEN in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmsien);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSIEN in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmsien);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_uvmon_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_UVMON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_uvmon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_UVMON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_uvmon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_ovmon_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_OVMON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_ovmon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_OVMON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_ovmon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_uvmon2_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_UVMON2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_uvmon2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_UVMON2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_uvmon2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_ovmon2_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_OVMON2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_ovmon2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_OVMON2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_ovmon2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_hsmuvmon_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_HSMUVMON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_hsmuvmon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_HSMUVMON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_hsmuvmon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_hsmovmon_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_HSMOVMON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_hsmovmon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_HSMOVMON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_hsmovmon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evr33con_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVR33CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evr33con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVR33CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evr33con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evroscctrl_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVROSCCTRL in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evroscctrl);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVROSCCTRL in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evroscctrl);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmswcr0_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSWCR0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmswcr0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSWCR0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmswcr0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmswcr2_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSWCR2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmswcr2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSWCR2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmswcr2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmswcr3_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSWCR3 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmswcr3);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSWCR3 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmswcr3);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmswcr4_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSWCR4 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmswcr4);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSWCR4 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmswcr4);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmswcr5_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSWCR5 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmswcr5);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSWCR5 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmswcr5);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmswstat_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSWSTAT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmswstat);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSWSTAT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmswstat);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmswstat2_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSWSTAT2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmswstat2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSWSTAT2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmswstat2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmswutcnt_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSWUTCNT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmswutcnt);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSWUTCNT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmswutcnt);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_pmswstatclr_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_PMSWSTATCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_pmswstatclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_PMSWSTATCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_pmswstatclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdstat0_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDSTAT0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdstat0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDSTAT0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdstat0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl0_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl1_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl2_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl3_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL3 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl3);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL3 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl3);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl4_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL4 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl4);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL4 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl4);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl5_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL5 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl5);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL5 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl5);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl6_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL6 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl6);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL6 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl6);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl7_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL7 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl7);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL7 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl7);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl8_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL8 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl8);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL8 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl8);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl9_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL9 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl9);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL9 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl9);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdctrl10_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL10 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdctrl10);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL10 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdctrl10);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdcoeff0_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdcoeff0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdcoeff0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdcoeff1_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdcoeff1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdcoeff1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdcoeff2_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdcoeff2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdcoeff2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_evrsdcoeff3_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF3 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_evrsdcoeff3);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF3 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_evrsdcoeff3);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_ag_stdby0_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_AG_STDBY0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_ag_stdby0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_AG_STDBY0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_ag_stdby0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_ag_stdby1_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_AG_STDBY1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_ag_stdby1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_AG_STDBY1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_ag_stdby1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_monbiststat_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_MONBISTSTAT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_monbiststat);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_MONBISTSTAT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_monbiststat);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_monbistctrl_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_MONBISTCTRL in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_monbistctrl);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_MONBISTCTRL in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_monbistctrl);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_cmd_stdby_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_CMD_STDBY in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_cmd_stdby);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_CMD_STDBY in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_cmd_stdby);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_agfsp_stdby0_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_AGFSP_STDBY0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_agfsp_stdby0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_AGFSP_STDBY0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_agfsp_stdby0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_agfsp_stdby1_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_AGFSP_STDBY1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_agfsp_stdby1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_AGFSP_STDBY1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_agfsp_stdby1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_dtsstat_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_DTSSTAT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_dtsstat);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_DTSSTAT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_dtsstat);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_dtslim_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_DTSLIM in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_dtslim);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_DTSLIM in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_dtslim);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_otss_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_OTSS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_otss);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_OTSS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_otss);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_otsc0_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_OTSC0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_otsc0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_OTSC0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_otsc0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_otsc1_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_OTSC1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_otsc1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_OTSC1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_otsc1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_accen0_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_pms_accen1_offset: {
-            spdlog::debug("PMS: accessing PMS.PMS_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_pms_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("PMS: accessing PMS.PMS_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_pms_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Pms peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Pms peripheral", address) };
         break;
     }
 }
 
-void Tricore::Peripherals::Pms::write(const byte *buffer_in, u32 address,
-                         usize length) {
+void Tricore::Peripherals::Pms::write(const byte* buffer_in, u32 address,
+    usize length)
+{
     const u32 offset = address - pms_memory_start_address;
     switch (offset) {
     case reg_pms_id_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_id));
+            reinterpret_cast<byte*>(&m_pms_id));
     } break;
     case reg_pms_evrstat_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrstat));
+            reinterpret_cast<byte*>(&m_pms_evrstat));
     } break;
     case reg_pms_evradcstat_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRADCSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evradcstat));
+            reinterpret_cast<byte*>(&m_pms_evradcstat));
     } break;
     case reg_pms_evrrstcon_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRRSTCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrrstcon));
+            reinterpret_cast<byte*>(&m_pms_evrrstcon));
     } break;
     case reg_pms_evrrststat_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRRSTSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrrststat));
+            reinterpret_cast<byte*>(&m_pms_evrrststat));
     } break;
     case reg_pms_evrtrim_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRTRIM in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrtrim));
+            reinterpret_cast<byte*>(&m_pms_evrtrim));
     } break;
     case reg_pms_evrtrimstat_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRTRIMSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrtrimstat));
+            reinterpret_cast<byte*>(&m_pms_evrtrimstat));
     } break;
     case reg_pms_monstat1_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_MONSTAT1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_monstat1));
+            reinterpret_cast<byte*>(&m_pms_monstat1));
     } break;
     case reg_pms_monstat2_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_MONSTAT2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_monstat2));
+            reinterpret_cast<byte*>(&m_pms_monstat2));
     } break;
     case reg_pms_monctrl_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_MONCTRL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_monctrl));
+            reinterpret_cast<byte*>(&m_pms_monctrl));
     } break;
     case reg_pms_monfilt_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_MONFILT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_monfilt));
+            reinterpret_cast<byte*>(&m_pms_monfilt));
     } break;
     case reg_pms_pmsien_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSIEN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmsien));
+            reinterpret_cast<byte*>(&m_pms_pmsien));
     } break;
     case reg_pms_uvmon_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_UVMON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_uvmon));
+            reinterpret_cast<byte*>(&m_pms_uvmon));
     } break;
     case reg_pms_ovmon_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_OVMON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_ovmon));
+            reinterpret_cast<byte*>(&m_pms_ovmon));
     } break;
     case reg_pms_uvmon2_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_UVMON2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_uvmon2));
+            reinterpret_cast<byte*>(&m_pms_uvmon2));
     } break;
     case reg_pms_ovmon2_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_OVMON2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_ovmon2));
+            reinterpret_cast<byte*>(&m_pms_ovmon2));
     } break;
     case reg_pms_hsmuvmon_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_HSMUVMON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_hsmuvmon));
+            reinterpret_cast<byte*>(&m_pms_hsmuvmon));
     } break;
     case reg_pms_hsmovmon_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_HSMOVMON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_hsmovmon));
+            reinterpret_cast<byte*>(&m_pms_hsmovmon));
     } break;
     case reg_pms_evr33con_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVR33CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evr33con));
+            reinterpret_cast<byte*>(&m_pms_evr33con));
     } break;
     case reg_pms_evroscctrl_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVROSCCTRL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evroscctrl));
+            reinterpret_cast<byte*>(&m_pms_evroscctrl));
     } break;
     case reg_pms_pmswcr0_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSWCR0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmswcr0));
+            reinterpret_cast<byte*>(&m_pms_pmswcr0));
     } break;
     case reg_pms_pmswcr2_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSWCR2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmswcr2));
+            reinterpret_cast<byte*>(&m_pms_pmswcr2));
     } break;
     case reg_pms_pmswcr3_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSWCR3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmswcr3));
+            reinterpret_cast<byte*>(&m_pms_pmswcr3));
     } break;
     case reg_pms_pmswcr4_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSWCR4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmswcr4));
+            reinterpret_cast<byte*>(&m_pms_pmswcr4));
     } break;
     case reg_pms_pmswcr5_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSWCR5 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmswcr5));
+            reinterpret_cast<byte*>(&m_pms_pmswcr5));
     } break;
     case reg_pms_pmswstat_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSWSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmswstat));
+            reinterpret_cast<byte*>(&m_pms_pmswstat));
     } break;
     case reg_pms_pmswstat2_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSWSTAT2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmswstat2));
+            reinterpret_cast<byte*>(&m_pms_pmswstat2));
     } break;
     case reg_pms_pmswutcnt_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSWUTCNT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmswutcnt));
+            reinterpret_cast<byte*>(&m_pms_pmswutcnt));
     } break;
     case reg_pms_pmswstatclr_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_PMSWSTATCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_pmswstatclr));
+            reinterpret_cast<byte*>(&m_pms_pmswstatclr));
     } break;
     case reg_pms_evrsdstat0_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDSTAT0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdstat0));
+            reinterpret_cast<byte*>(&m_pms_evrsdstat0));
     } break;
     case reg_pms_evrsdctrl0_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl0));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl0));
     } break;
     case reg_pms_evrsdctrl1_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl1));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl1));
     } break;
     case reg_pms_evrsdctrl2_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl2));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl2));
     } break;
     case reg_pms_evrsdctrl3_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl3));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl3));
     } break;
     case reg_pms_evrsdctrl4_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL4 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl4));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl4));
     } break;
     case reg_pms_evrsdctrl5_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL5 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl5));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl5));
     } break;
     case reg_pms_evrsdctrl6_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL6 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl6));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl6));
     } break;
     case reg_pms_evrsdctrl7_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL7 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl7));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl7));
     } break;
     case reg_pms_evrsdctrl8_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL8 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl8));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl8));
     } break;
     case reg_pms_evrsdctrl9_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL9 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl9));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl9));
     } break;
     case reg_pms_evrsdctrl10_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCTRL10 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdctrl10));
+            reinterpret_cast<byte*>(&m_pms_evrsdctrl10));
     } break;
     case reg_pms_evrsdcoeff0_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdcoeff0));
+            reinterpret_cast<byte*>(&m_pms_evrsdcoeff0));
     } break;
     case reg_pms_evrsdcoeff1_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdcoeff1));
+            reinterpret_cast<byte*>(&m_pms_evrsdcoeff1));
     } break;
     case reg_pms_evrsdcoeff2_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdcoeff2));
+            reinterpret_cast<byte*>(&m_pms_evrsdcoeff2));
     } break;
     case reg_pms_evrsdcoeff3_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_EVRSDCOEFF3 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_evrsdcoeff3));
+            reinterpret_cast<byte*>(&m_pms_evrsdcoeff3));
     } break;
     case reg_pms_ag_stdby0_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_AG_STDBY0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_ag_stdby0));
+            reinterpret_cast<byte*>(&m_pms_ag_stdby0));
     } break;
     case reg_pms_ag_stdby1_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_AG_STDBY1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_ag_stdby1));
+            reinterpret_cast<byte*>(&m_pms_ag_stdby1));
     } break;
     case reg_pms_monbiststat_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_MONBISTSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_monbiststat));
+            reinterpret_cast<byte*>(&m_pms_monbiststat));
     } break;
     case reg_pms_monbistctrl_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_MONBISTCTRL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_monbistctrl));
+            reinterpret_cast<byte*>(&m_pms_monbistctrl));
     } break;
     case reg_pms_cmd_stdby_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_CMD_STDBY in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_cmd_stdby));
+            reinterpret_cast<byte*>(&m_pms_cmd_stdby));
     } break;
     case reg_pms_agfsp_stdby0_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_AGFSP_STDBY0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_agfsp_stdby0));
+            reinterpret_cast<byte*>(&m_pms_agfsp_stdby0));
     } break;
     case reg_pms_agfsp_stdby1_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_AGFSP_STDBY1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_agfsp_stdby1));
+            reinterpret_cast<byte*>(&m_pms_agfsp_stdby1));
     } break;
     case reg_pms_dtsstat_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_DTSSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_dtsstat));
+            reinterpret_cast<byte*>(&m_pms_dtsstat));
     } break;
     case reg_pms_dtslim_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_DTSLIM in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_dtslim));
+            reinterpret_cast<byte*>(&m_pms_dtslim));
     } break;
     case reg_pms_otss_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_OTSS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_otss));
+            reinterpret_cast<byte*>(&m_pms_otss));
     } break;
     case reg_pms_otsc0_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_OTSC0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_otsc0));
+            reinterpret_cast<byte*>(&m_pms_otsc0));
     } break;
     case reg_pms_otsc1_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_OTSC1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_otsc1));
+            reinterpret_cast<byte*>(&m_pms_otsc1));
     } break;
     case reg_pms_accen0_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_accen0));
+            reinterpret_cast<byte*>(&m_pms_accen0));
     } break;
     case reg_pms_accen1_offset: {
         spdlog::debug("PMS: accessing PMS.PMS_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_pms_accen1));
+            reinterpret_cast<byte*>(&m_pms_accen1));
     } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Pms peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Pms peripheral", address) };
         break;
     }
 }

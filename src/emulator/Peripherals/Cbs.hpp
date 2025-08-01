@@ -15,15 +15,13 @@ namespace Tricore {
 class Cbs : public BusClient {
 
 public:
-
     Cbs();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_cbs_jdpid;
     u32 m_cbs_oifm;
     u32 m_cbs_tipr;
@@ -61,7 +59,6 @@ private:
     u32 m_cbs_ifsc;
     u32 m_cbs_accen1;
     u32 m_cbs_accen0;
-
 };
 
 } // namespace Tricore

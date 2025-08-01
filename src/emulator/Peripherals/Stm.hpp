@@ -15,15 +15,13 @@ namespace Tricore::Peripherals {
 class Stm : public BusClient {
 
 public:
-
     Stm();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_stm0_clc;
     u32 m_stm0_id;
     u32 m_stm0_tim0;
@@ -45,7 +43,6 @@ private:
     u32 m_stm0_krst0;
     u32 m_stm0_accen1;
     u32 m_stm0_accen0;
-
 };
 
 } // namespace Tricore

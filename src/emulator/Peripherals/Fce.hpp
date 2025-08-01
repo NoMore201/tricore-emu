@@ -15,15 +15,13 @@ namespace Tricore {
 class Fce : public BusClient {
 
 public:
-
     Fce();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_fce_clc;
     u32 m_fce_id;
     u32 m_fce_chsts;
@@ -32,7 +30,6 @@ private:
     u32 m_fce_krst0;
     u32 m_fce_accen1;
     u32 m_fce_accen0;
-
 };
 
 } // namespace Tricore

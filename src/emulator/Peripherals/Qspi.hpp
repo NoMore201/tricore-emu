@@ -15,15 +15,13 @@ namespace Tricore {
 class Qspi : public BusClient {
 
 public:
-
     Qspi();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_qspi0_clc;
     u32 m_qspi0_pisel;
     u32 m_qspi0_id;
@@ -118,7 +116,6 @@ private:
     u32 m_qspi3_krst0;
     u32 m_qspi3_accen1;
     u32 m_qspi3_accen0;
-
 };
 
 } // namespace Tricore

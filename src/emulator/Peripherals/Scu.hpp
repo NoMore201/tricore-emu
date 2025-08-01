@@ -15,15 +15,13 @@ namespace Tricore::Peripherals {
 class Scu : public BusClient {
 
 public:
-
     Scu();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_scu_id;
     u32 m_scu_osccon;
     u32 m_scu_syspllstat;
@@ -116,7 +114,6 @@ private:
     u32 m_scu_accen10;
     u32 m_scu_accen01;
     u32 m_scu_accen00;
-
 };
 
 } // namespace Tricore

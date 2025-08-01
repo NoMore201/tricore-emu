@@ -834,7 +834,6 @@ constexpr u32 reg_asclin9_accen0_offset = reg_asclin9_accen0_address - asclin_me
 
 } // anonymous namespace
 
-
 Tricore::Asclin::Asclin()
     : m_asclin0_clc(asclin0_clc_reset_value)
     , m_asclin0_iocr(asclin0_iocr_reset_value)
@@ -1106,2727 +1105,2730 @@ Tricore::Asclin::Asclin()
     , m_asclin9_krst0(asclin9_krst0_reset_value)
     , m_asclin9_accen1(asclin9_accen1_reset_value)
     , m_asclin9_accen0(asclin9_accen0_reset_value)
-{}
+{
+}
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Asclin::read(byte *buffer_out, u32 address, usize length) {
+void Tricore::Asclin::read(byte* buffer_out, u32 address, usize length)
+{
     const u32 offset = address - asclin_memory_start_address;
     switch (offset) {
     case reg_asclin0_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin0_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin0_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin0_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin1_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin1_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin1_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin2_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin2_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin2_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin3_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin3_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin3_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin4_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin4_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin4_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin5_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin5_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin5_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin6_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin6_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin6_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin7_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin7_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin7_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin8_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin8_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin8_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_clc_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_iocr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_IOCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_iocr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_IOCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_iocr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_id_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_txfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_TXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_txfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_TXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_txfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_rxfifocon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_RXFIFOCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_rxfifocon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_RXFIFOCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_rxfifocon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_bitcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_BITCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_bitcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_BITCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_bitcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_framecon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FRAMECON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_framecon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FRAMECON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_framecon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_datcon_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_DATCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_datcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_DATCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_datcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_brg_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_BRG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_brg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_BRG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_brg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_brd_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_BRD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_brd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_BRD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_brd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_lin_con_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_LIN_CON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_lin_con);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_LIN_CON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_lin_con);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_lin_btimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_LIN_BTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_lin_btimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_LIN_BTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_lin_btimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_lin_htimer_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_LIN_HTIMER in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_lin_htimer);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_LIN_HTIMER in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_lin_htimer);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_flags_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_flags);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_flags);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_flagsset_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGSSET in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_flagsset);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGSSET in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_flagsset);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_flagsclear_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGSCLEAR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_flagsclear);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGSCLEAR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_flagsclear);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_flagsenable_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGSENABLE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_flagsenable);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGSENABLE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_flagsenable);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_txdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_TXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_txdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_TXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_txdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_rxdata_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_RXDATA in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_rxdata);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_RXDATA in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_rxdata);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_csr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_CSR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_csr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_CSR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_csr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_rxdatad_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_RXDATAD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_rxdatad);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_RXDATAD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_rxdatad);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_ocs_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_krstclr_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_krst1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_krst0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_accen1_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_asclin9_accen0_offset: {
-            spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_asclin9_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_asclin9_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Asclin peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Asclin peripheral", address) };
         break;
     }
 }
 
-void Tricore::Asclin::write(const byte *buffer_in, u32 address,
-                         usize length) {
+void Tricore::Asclin::write(const byte* buffer_in, u32 address,
+    usize length)
+{
     const u32 offset = address - asclin_memory_start_address;
     switch (offset) {
     case reg_asclin0_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_clc));
+            reinterpret_cast<byte*>(&m_asclin0_clc));
     } break;
     case reg_asclin0_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_iocr));
+            reinterpret_cast<byte*>(&m_asclin0_iocr));
     } break;
     case reg_asclin0_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_id));
+            reinterpret_cast<byte*>(&m_asclin0_id));
     } break;
     case reg_asclin0_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin0_txfifocon));
     } break;
     case reg_asclin0_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin0_rxfifocon));
     } break;
     case reg_asclin0_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_bitcon));
+            reinterpret_cast<byte*>(&m_asclin0_bitcon));
     } break;
     case reg_asclin0_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_framecon));
+            reinterpret_cast<byte*>(&m_asclin0_framecon));
     } break;
     case reg_asclin0_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_datcon));
+            reinterpret_cast<byte*>(&m_asclin0_datcon));
     } break;
     case reg_asclin0_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_brg));
+            reinterpret_cast<byte*>(&m_asclin0_brg));
     } break;
     case reg_asclin0_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_brd));
+            reinterpret_cast<byte*>(&m_asclin0_brd));
     } break;
     case reg_asclin0_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_lin_con));
+            reinterpret_cast<byte*>(&m_asclin0_lin_con));
     } break;
     case reg_asclin0_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin0_lin_btimer));
     } break;
     case reg_asclin0_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin0_lin_htimer));
     } break;
     case reg_asclin0_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_flags));
+            reinterpret_cast<byte*>(&m_asclin0_flags));
     } break;
     case reg_asclin0_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_flagsset));
+            reinterpret_cast<byte*>(&m_asclin0_flagsset));
     } break;
     case reg_asclin0_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin0_flagsclear));
     } break;
     case reg_asclin0_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin0_flagsenable));
     } break;
     case reg_asclin0_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_txdata));
+            reinterpret_cast<byte*>(&m_asclin0_txdata));
     } break;
     case reg_asclin0_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_rxdata));
+            reinterpret_cast<byte*>(&m_asclin0_rxdata));
     } break;
     case reg_asclin0_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_csr));
+            reinterpret_cast<byte*>(&m_asclin0_csr));
     } break;
     case reg_asclin0_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin0_rxdatad));
     } break;
     case reg_asclin0_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_ocs));
+            reinterpret_cast<byte*>(&m_asclin0_ocs));
     } break;
     case reg_asclin0_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_krstclr));
+            reinterpret_cast<byte*>(&m_asclin0_krstclr));
     } break;
     case reg_asclin0_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_krst1));
+            reinterpret_cast<byte*>(&m_asclin0_krst1));
     } break;
     case reg_asclin0_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_krst0));
+            reinterpret_cast<byte*>(&m_asclin0_krst0));
     } break;
     case reg_asclin0_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_accen1));
+            reinterpret_cast<byte*>(&m_asclin0_accen1));
     } break;
     case reg_asclin0_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN0_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin0_accen0));
+            reinterpret_cast<byte*>(&m_asclin0_accen0));
     } break;
     case reg_asclin1_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_clc));
+            reinterpret_cast<byte*>(&m_asclin1_clc));
     } break;
     case reg_asclin1_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_iocr));
+            reinterpret_cast<byte*>(&m_asclin1_iocr));
     } break;
     case reg_asclin1_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_id));
+            reinterpret_cast<byte*>(&m_asclin1_id));
     } break;
     case reg_asclin1_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin1_txfifocon));
     } break;
     case reg_asclin1_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin1_rxfifocon));
     } break;
     case reg_asclin1_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_bitcon));
+            reinterpret_cast<byte*>(&m_asclin1_bitcon));
     } break;
     case reg_asclin1_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_framecon));
+            reinterpret_cast<byte*>(&m_asclin1_framecon));
     } break;
     case reg_asclin1_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_datcon));
+            reinterpret_cast<byte*>(&m_asclin1_datcon));
     } break;
     case reg_asclin1_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_brg));
+            reinterpret_cast<byte*>(&m_asclin1_brg));
     } break;
     case reg_asclin1_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_brd));
+            reinterpret_cast<byte*>(&m_asclin1_brd));
     } break;
     case reg_asclin1_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_lin_con));
+            reinterpret_cast<byte*>(&m_asclin1_lin_con));
     } break;
     case reg_asclin1_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin1_lin_btimer));
     } break;
     case reg_asclin1_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin1_lin_htimer));
     } break;
     case reg_asclin1_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_flags));
+            reinterpret_cast<byte*>(&m_asclin1_flags));
     } break;
     case reg_asclin1_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_flagsset));
+            reinterpret_cast<byte*>(&m_asclin1_flagsset));
     } break;
     case reg_asclin1_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin1_flagsclear));
     } break;
     case reg_asclin1_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin1_flagsenable));
     } break;
     case reg_asclin1_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_txdata));
+            reinterpret_cast<byte*>(&m_asclin1_txdata));
     } break;
     case reg_asclin1_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_rxdata));
+            reinterpret_cast<byte*>(&m_asclin1_rxdata));
     } break;
     case reg_asclin1_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_csr));
+            reinterpret_cast<byte*>(&m_asclin1_csr));
     } break;
     case reg_asclin1_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin1_rxdatad));
     } break;
     case reg_asclin1_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_ocs));
+            reinterpret_cast<byte*>(&m_asclin1_ocs));
     } break;
     case reg_asclin1_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_krstclr));
+            reinterpret_cast<byte*>(&m_asclin1_krstclr));
     } break;
     case reg_asclin1_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_krst1));
+            reinterpret_cast<byte*>(&m_asclin1_krst1));
     } break;
     case reg_asclin1_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_krst0));
+            reinterpret_cast<byte*>(&m_asclin1_krst0));
     } break;
     case reg_asclin1_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_accen1));
+            reinterpret_cast<byte*>(&m_asclin1_accen1));
     } break;
     case reg_asclin1_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN1_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin1_accen0));
+            reinterpret_cast<byte*>(&m_asclin1_accen0));
     } break;
     case reg_asclin2_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_clc));
+            reinterpret_cast<byte*>(&m_asclin2_clc));
     } break;
     case reg_asclin2_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_iocr));
+            reinterpret_cast<byte*>(&m_asclin2_iocr));
     } break;
     case reg_asclin2_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_id));
+            reinterpret_cast<byte*>(&m_asclin2_id));
     } break;
     case reg_asclin2_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin2_txfifocon));
     } break;
     case reg_asclin2_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin2_rxfifocon));
     } break;
     case reg_asclin2_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_bitcon));
+            reinterpret_cast<byte*>(&m_asclin2_bitcon));
     } break;
     case reg_asclin2_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_framecon));
+            reinterpret_cast<byte*>(&m_asclin2_framecon));
     } break;
     case reg_asclin2_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_datcon));
+            reinterpret_cast<byte*>(&m_asclin2_datcon));
     } break;
     case reg_asclin2_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_brg));
+            reinterpret_cast<byte*>(&m_asclin2_brg));
     } break;
     case reg_asclin2_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_brd));
+            reinterpret_cast<byte*>(&m_asclin2_brd));
     } break;
     case reg_asclin2_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_lin_con));
+            reinterpret_cast<byte*>(&m_asclin2_lin_con));
     } break;
     case reg_asclin2_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin2_lin_btimer));
     } break;
     case reg_asclin2_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin2_lin_htimer));
     } break;
     case reg_asclin2_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_flags));
+            reinterpret_cast<byte*>(&m_asclin2_flags));
     } break;
     case reg_asclin2_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_flagsset));
+            reinterpret_cast<byte*>(&m_asclin2_flagsset));
     } break;
     case reg_asclin2_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin2_flagsclear));
     } break;
     case reg_asclin2_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin2_flagsenable));
     } break;
     case reg_asclin2_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_txdata));
+            reinterpret_cast<byte*>(&m_asclin2_txdata));
     } break;
     case reg_asclin2_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_rxdata));
+            reinterpret_cast<byte*>(&m_asclin2_rxdata));
     } break;
     case reg_asclin2_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_csr));
+            reinterpret_cast<byte*>(&m_asclin2_csr));
     } break;
     case reg_asclin2_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin2_rxdatad));
     } break;
     case reg_asclin2_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_ocs));
+            reinterpret_cast<byte*>(&m_asclin2_ocs));
     } break;
     case reg_asclin2_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_krstclr));
+            reinterpret_cast<byte*>(&m_asclin2_krstclr));
     } break;
     case reg_asclin2_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_krst1));
+            reinterpret_cast<byte*>(&m_asclin2_krst1));
     } break;
     case reg_asclin2_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_krst0));
+            reinterpret_cast<byte*>(&m_asclin2_krst0));
     } break;
     case reg_asclin2_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_accen1));
+            reinterpret_cast<byte*>(&m_asclin2_accen1));
     } break;
     case reg_asclin2_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN2_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin2_accen0));
+            reinterpret_cast<byte*>(&m_asclin2_accen0));
     } break;
     case reg_asclin3_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_clc));
+            reinterpret_cast<byte*>(&m_asclin3_clc));
     } break;
     case reg_asclin3_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_iocr));
+            reinterpret_cast<byte*>(&m_asclin3_iocr));
     } break;
     case reg_asclin3_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_id));
+            reinterpret_cast<byte*>(&m_asclin3_id));
     } break;
     case reg_asclin3_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin3_txfifocon));
     } break;
     case reg_asclin3_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin3_rxfifocon));
     } break;
     case reg_asclin3_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_bitcon));
+            reinterpret_cast<byte*>(&m_asclin3_bitcon));
     } break;
     case reg_asclin3_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_framecon));
+            reinterpret_cast<byte*>(&m_asclin3_framecon));
     } break;
     case reg_asclin3_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_datcon));
+            reinterpret_cast<byte*>(&m_asclin3_datcon));
     } break;
     case reg_asclin3_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_brg));
+            reinterpret_cast<byte*>(&m_asclin3_brg));
     } break;
     case reg_asclin3_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_brd));
+            reinterpret_cast<byte*>(&m_asclin3_brd));
     } break;
     case reg_asclin3_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_lin_con));
+            reinterpret_cast<byte*>(&m_asclin3_lin_con));
     } break;
     case reg_asclin3_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin3_lin_btimer));
     } break;
     case reg_asclin3_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin3_lin_htimer));
     } break;
     case reg_asclin3_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_flags));
+            reinterpret_cast<byte*>(&m_asclin3_flags));
     } break;
     case reg_asclin3_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_flagsset));
+            reinterpret_cast<byte*>(&m_asclin3_flagsset));
     } break;
     case reg_asclin3_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin3_flagsclear));
     } break;
     case reg_asclin3_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin3_flagsenable));
     } break;
     case reg_asclin3_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_txdata));
+            reinterpret_cast<byte*>(&m_asclin3_txdata));
     } break;
     case reg_asclin3_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_rxdata));
+            reinterpret_cast<byte*>(&m_asclin3_rxdata));
     } break;
     case reg_asclin3_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_csr));
+            reinterpret_cast<byte*>(&m_asclin3_csr));
     } break;
     case reg_asclin3_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin3_rxdatad));
     } break;
     case reg_asclin3_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_ocs));
+            reinterpret_cast<byte*>(&m_asclin3_ocs));
     } break;
     case reg_asclin3_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_krstclr));
+            reinterpret_cast<byte*>(&m_asclin3_krstclr));
     } break;
     case reg_asclin3_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_krst1));
+            reinterpret_cast<byte*>(&m_asclin3_krst1));
     } break;
     case reg_asclin3_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_krst0));
+            reinterpret_cast<byte*>(&m_asclin3_krst0));
     } break;
     case reg_asclin3_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_accen1));
+            reinterpret_cast<byte*>(&m_asclin3_accen1));
     } break;
     case reg_asclin3_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN3_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin3_accen0));
+            reinterpret_cast<byte*>(&m_asclin3_accen0));
     } break;
     case reg_asclin4_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_clc));
+            reinterpret_cast<byte*>(&m_asclin4_clc));
     } break;
     case reg_asclin4_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_iocr));
+            reinterpret_cast<byte*>(&m_asclin4_iocr));
     } break;
     case reg_asclin4_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_id));
+            reinterpret_cast<byte*>(&m_asclin4_id));
     } break;
     case reg_asclin4_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin4_txfifocon));
     } break;
     case reg_asclin4_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin4_rxfifocon));
     } break;
     case reg_asclin4_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_bitcon));
+            reinterpret_cast<byte*>(&m_asclin4_bitcon));
     } break;
     case reg_asclin4_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_framecon));
+            reinterpret_cast<byte*>(&m_asclin4_framecon));
     } break;
     case reg_asclin4_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_datcon));
+            reinterpret_cast<byte*>(&m_asclin4_datcon));
     } break;
     case reg_asclin4_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_brg));
+            reinterpret_cast<byte*>(&m_asclin4_brg));
     } break;
     case reg_asclin4_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_brd));
+            reinterpret_cast<byte*>(&m_asclin4_brd));
     } break;
     case reg_asclin4_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_lin_con));
+            reinterpret_cast<byte*>(&m_asclin4_lin_con));
     } break;
     case reg_asclin4_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin4_lin_btimer));
     } break;
     case reg_asclin4_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin4_lin_htimer));
     } break;
     case reg_asclin4_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_flags));
+            reinterpret_cast<byte*>(&m_asclin4_flags));
     } break;
     case reg_asclin4_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_flagsset));
+            reinterpret_cast<byte*>(&m_asclin4_flagsset));
     } break;
     case reg_asclin4_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin4_flagsclear));
     } break;
     case reg_asclin4_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin4_flagsenable));
     } break;
     case reg_asclin4_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_txdata));
+            reinterpret_cast<byte*>(&m_asclin4_txdata));
     } break;
     case reg_asclin4_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_rxdata));
+            reinterpret_cast<byte*>(&m_asclin4_rxdata));
     } break;
     case reg_asclin4_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_csr));
+            reinterpret_cast<byte*>(&m_asclin4_csr));
     } break;
     case reg_asclin4_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin4_rxdatad));
     } break;
     case reg_asclin4_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_ocs));
+            reinterpret_cast<byte*>(&m_asclin4_ocs));
     } break;
     case reg_asclin4_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_krstclr));
+            reinterpret_cast<byte*>(&m_asclin4_krstclr));
     } break;
     case reg_asclin4_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_krst1));
+            reinterpret_cast<byte*>(&m_asclin4_krst1));
     } break;
     case reg_asclin4_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_krst0));
+            reinterpret_cast<byte*>(&m_asclin4_krst0));
     } break;
     case reg_asclin4_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_accen1));
+            reinterpret_cast<byte*>(&m_asclin4_accen1));
     } break;
     case reg_asclin4_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN4_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin4_accen0));
+            reinterpret_cast<byte*>(&m_asclin4_accen0));
     } break;
     case reg_asclin5_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_clc));
+            reinterpret_cast<byte*>(&m_asclin5_clc));
     } break;
     case reg_asclin5_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_iocr));
+            reinterpret_cast<byte*>(&m_asclin5_iocr));
     } break;
     case reg_asclin5_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_id));
+            reinterpret_cast<byte*>(&m_asclin5_id));
     } break;
     case reg_asclin5_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin5_txfifocon));
     } break;
     case reg_asclin5_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin5_rxfifocon));
     } break;
     case reg_asclin5_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_bitcon));
+            reinterpret_cast<byte*>(&m_asclin5_bitcon));
     } break;
     case reg_asclin5_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_framecon));
+            reinterpret_cast<byte*>(&m_asclin5_framecon));
     } break;
     case reg_asclin5_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_datcon));
+            reinterpret_cast<byte*>(&m_asclin5_datcon));
     } break;
     case reg_asclin5_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_brg));
+            reinterpret_cast<byte*>(&m_asclin5_brg));
     } break;
     case reg_asclin5_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_brd));
+            reinterpret_cast<byte*>(&m_asclin5_brd));
     } break;
     case reg_asclin5_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_lin_con));
+            reinterpret_cast<byte*>(&m_asclin5_lin_con));
     } break;
     case reg_asclin5_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin5_lin_btimer));
     } break;
     case reg_asclin5_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin5_lin_htimer));
     } break;
     case reg_asclin5_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_flags));
+            reinterpret_cast<byte*>(&m_asclin5_flags));
     } break;
     case reg_asclin5_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_flagsset));
+            reinterpret_cast<byte*>(&m_asclin5_flagsset));
     } break;
     case reg_asclin5_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin5_flagsclear));
     } break;
     case reg_asclin5_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin5_flagsenable));
     } break;
     case reg_asclin5_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_txdata));
+            reinterpret_cast<byte*>(&m_asclin5_txdata));
     } break;
     case reg_asclin5_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_rxdata));
+            reinterpret_cast<byte*>(&m_asclin5_rxdata));
     } break;
     case reg_asclin5_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_csr));
+            reinterpret_cast<byte*>(&m_asclin5_csr));
     } break;
     case reg_asclin5_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin5_rxdatad));
     } break;
     case reg_asclin5_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_ocs));
+            reinterpret_cast<byte*>(&m_asclin5_ocs));
     } break;
     case reg_asclin5_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_krstclr));
+            reinterpret_cast<byte*>(&m_asclin5_krstclr));
     } break;
     case reg_asclin5_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_krst1));
+            reinterpret_cast<byte*>(&m_asclin5_krst1));
     } break;
     case reg_asclin5_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_krst0));
+            reinterpret_cast<byte*>(&m_asclin5_krst0));
     } break;
     case reg_asclin5_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_accen1));
+            reinterpret_cast<byte*>(&m_asclin5_accen1));
     } break;
     case reg_asclin5_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN5_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin5_accen0));
+            reinterpret_cast<byte*>(&m_asclin5_accen0));
     } break;
     case reg_asclin6_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_clc));
+            reinterpret_cast<byte*>(&m_asclin6_clc));
     } break;
     case reg_asclin6_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_iocr));
+            reinterpret_cast<byte*>(&m_asclin6_iocr));
     } break;
     case reg_asclin6_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_id));
+            reinterpret_cast<byte*>(&m_asclin6_id));
     } break;
     case reg_asclin6_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin6_txfifocon));
     } break;
     case reg_asclin6_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin6_rxfifocon));
     } break;
     case reg_asclin6_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_bitcon));
+            reinterpret_cast<byte*>(&m_asclin6_bitcon));
     } break;
     case reg_asclin6_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_framecon));
+            reinterpret_cast<byte*>(&m_asclin6_framecon));
     } break;
     case reg_asclin6_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_datcon));
+            reinterpret_cast<byte*>(&m_asclin6_datcon));
     } break;
     case reg_asclin6_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_brg));
+            reinterpret_cast<byte*>(&m_asclin6_brg));
     } break;
     case reg_asclin6_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_brd));
+            reinterpret_cast<byte*>(&m_asclin6_brd));
     } break;
     case reg_asclin6_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_lin_con));
+            reinterpret_cast<byte*>(&m_asclin6_lin_con));
     } break;
     case reg_asclin6_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin6_lin_btimer));
     } break;
     case reg_asclin6_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin6_lin_htimer));
     } break;
     case reg_asclin6_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_flags));
+            reinterpret_cast<byte*>(&m_asclin6_flags));
     } break;
     case reg_asclin6_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_flagsset));
+            reinterpret_cast<byte*>(&m_asclin6_flagsset));
     } break;
     case reg_asclin6_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin6_flagsclear));
     } break;
     case reg_asclin6_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin6_flagsenable));
     } break;
     case reg_asclin6_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_txdata));
+            reinterpret_cast<byte*>(&m_asclin6_txdata));
     } break;
     case reg_asclin6_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_rxdata));
+            reinterpret_cast<byte*>(&m_asclin6_rxdata));
     } break;
     case reg_asclin6_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_csr));
+            reinterpret_cast<byte*>(&m_asclin6_csr));
     } break;
     case reg_asclin6_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin6_rxdatad));
     } break;
     case reg_asclin6_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_ocs));
+            reinterpret_cast<byte*>(&m_asclin6_ocs));
     } break;
     case reg_asclin6_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_krstclr));
+            reinterpret_cast<byte*>(&m_asclin6_krstclr));
     } break;
     case reg_asclin6_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_krst1));
+            reinterpret_cast<byte*>(&m_asclin6_krst1));
     } break;
     case reg_asclin6_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_krst0));
+            reinterpret_cast<byte*>(&m_asclin6_krst0));
     } break;
     case reg_asclin6_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_accen1));
+            reinterpret_cast<byte*>(&m_asclin6_accen1));
     } break;
     case reg_asclin6_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN6_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin6_accen0));
+            reinterpret_cast<byte*>(&m_asclin6_accen0));
     } break;
     case reg_asclin7_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_clc));
+            reinterpret_cast<byte*>(&m_asclin7_clc));
     } break;
     case reg_asclin7_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_iocr));
+            reinterpret_cast<byte*>(&m_asclin7_iocr));
     } break;
     case reg_asclin7_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_id));
+            reinterpret_cast<byte*>(&m_asclin7_id));
     } break;
     case reg_asclin7_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin7_txfifocon));
     } break;
     case reg_asclin7_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin7_rxfifocon));
     } break;
     case reg_asclin7_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_bitcon));
+            reinterpret_cast<byte*>(&m_asclin7_bitcon));
     } break;
     case reg_asclin7_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_framecon));
+            reinterpret_cast<byte*>(&m_asclin7_framecon));
     } break;
     case reg_asclin7_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_datcon));
+            reinterpret_cast<byte*>(&m_asclin7_datcon));
     } break;
     case reg_asclin7_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_brg));
+            reinterpret_cast<byte*>(&m_asclin7_brg));
     } break;
     case reg_asclin7_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_brd));
+            reinterpret_cast<byte*>(&m_asclin7_brd));
     } break;
     case reg_asclin7_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_lin_con));
+            reinterpret_cast<byte*>(&m_asclin7_lin_con));
     } break;
     case reg_asclin7_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin7_lin_btimer));
     } break;
     case reg_asclin7_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin7_lin_htimer));
     } break;
     case reg_asclin7_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_flags));
+            reinterpret_cast<byte*>(&m_asclin7_flags));
     } break;
     case reg_asclin7_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_flagsset));
+            reinterpret_cast<byte*>(&m_asclin7_flagsset));
     } break;
     case reg_asclin7_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin7_flagsclear));
     } break;
     case reg_asclin7_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin7_flagsenable));
     } break;
     case reg_asclin7_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_txdata));
+            reinterpret_cast<byte*>(&m_asclin7_txdata));
     } break;
     case reg_asclin7_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_rxdata));
+            reinterpret_cast<byte*>(&m_asclin7_rxdata));
     } break;
     case reg_asclin7_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_csr));
+            reinterpret_cast<byte*>(&m_asclin7_csr));
     } break;
     case reg_asclin7_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin7_rxdatad));
     } break;
     case reg_asclin7_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_ocs));
+            reinterpret_cast<byte*>(&m_asclin7_ocs));
     } break;
     case reg_asclin7_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_krstclr));
+            reinterpret_cast<byte*>(&m_asclin7_krstclr));
     } break;
     case reg_asclin7_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_krst1));
+            reinterpret_cast<byte*>(&m_asclin7_krst1));
     } break;
     case reg_asclin7_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_krst0));
+            reinterpret_cast<byte*>(&m_asclin7_krst0));
     } break;
     case reg_asclin7_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_accen1));
+            reinterpret_cast<byte*>(&m_asclin7_accen1));
     } break;
     case reg_asclin7_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN7_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin7_accen0));
+            reinterpret_cast<byte*>(&m_asclin7_accen0));
     } break;
     case reg_asclin8_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_clc));
+            reinterpret_cast<byte*>(&m_asclin8_clc));
     } break;
     case reg_asclin8_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_iocr));
+            reinterpret_cast<byte*>(&m_asclin8_iocr));
     } break;
     case reg_asclin8_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_id));
+            reinterpret_cast<byte*>(&m_asclin8_id));
     } break;
     case reg_asclin8_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin8_txfifocon));
     } break;
     case reg_asclin8_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin8_rxfifocon));
     } break;
     case reg_asclin8_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_bitcon));
+            reinterpret_cast<byte*>(&m_asclin8_bitcon));
     } break;
     case reg_asclin8_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_framecon));
+            reinterpret_cast<byte*>(&m_asclin8_framecon));
     } break;
     case reg_asclin8_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_datcon));
+            reinterpret_cast<byte*>(&m_asclin8_datcon));
     } break;
     case reg_asclin8_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_brg));
+            reinterpret_cast<byte*>(&m_asclin8_brg));
     } break;
     case reg_asclin8_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_brd));
+            reinterpret_cast<byte*>(&m_asclin8_brd));
     } break;
     case reg_asclin8_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_lin_con));
+            reinterpret_cast<byte*>(&m_asclin8_lin_con));
     } break;
     case reg_asclin8_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin8_lin_btimer));
     } break;
     case reg_asclin8_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin8_lin_htimer));
     } break;
     case reg_asclin8_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_flags));
+            reinterpret_cast<byte*>(&m_asclin8_flags));
     } break;
     case reg_asclin8_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_flagsset));
+            reinterpret_cast<byte*>(&m_asclin8_flagsset));
     } break;
     case reg_asclin8_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin8_flagsclear));
     } break;
     case reg_asclin8_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin8_flagsenable));
     } break;
     case reg_asclin8_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_txdata));
+            reinterpret_cast<byte*>(&m_asclin8_txdata));
     } break;
     case reg_asclin8_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_rxdata));
+            reinterpret_cast<byte*>(&m_asclin8_rxdata));
     } break;
     case reg_asclin8_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_csr));
+            reinterpret_cast<byte*>(&m_asclin8_csr));
     } break;
     case reg_asclin8_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin8_rxdatad));
     } break;
     case reg_asclin8_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_ocs));
+            reinterpret_cast<byte*>(&m_asclin8_ocs));
     } break;
     case reg_asclin8_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_krstclr));
+            reinterpret_cast<byte*>(&m_asclin8_krstclr));
     } break;
     case reg_asclin8_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_krst1));
+            reinterpret_cast<byte*>(&m_asclin8_krst1));
     } break;
     case reg_asclin8_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_krst0));
+            reinterpret_cast<byte*>(&m_asclin8_krst0));
     } break;
     case reg_asclin8_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_accen1));
+            reinterpret_cast<byte*>(&m_asclin8_accen1));
     } break;
     case reg_asclin8_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN8_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin8_accen0));
+            reinterpret_cast<byte*>(&m_asclin8_accen0));
     } break;
     case reg_asclin9_clc_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_clc));
+            reinterpret_cast<byte*>(&m_asclin9_clc));
     } break;
     case reg_asclin9_iocr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_IOCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_iocr));
+            reinterpret_cast<byte*>(&m_asclin9_iocr));
     } break;
     case reg_asclin9_id_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_id));
+            reinterpret_cast<byte*>(&m_asclin9_id));
     } break;
     case reg_asclin9_txfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_TXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_txfifocon));
+            reinterpret_cast<byte*>(&m_asclin9_txfifocon));
     } break;
     case reg_asclin9_rxfifocon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_RXFIFOCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_rxfifocon));
+            reinterpret_cast<byte*>(&m_asclin9_rxfifocon));
     } break;
     case reg_asclin9_bitcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_BITCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_bitcon));
+            reinterpret_cast<byte*>(&m_asclin9_bitcon));
     } break;
     case reg_asclin9_framecon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FRAMECON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_framecon));
+            reinterpret_cast<byte*>(&m_asclin9_framecon));
     } break;
     case reg_asclin9_datcon_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_DATCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_datcon));
+            reinterpret_cast<byte*>(&m_asclin9_datcon));
     } break;
     case reg_asclin9_brg_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_BRG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_brg));
+            reinterpret_cast<byte*>(&m_asclin9_brg));
     } break;
     case reg_asclin9_brd_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_BRD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_brd));
+            reinterpret_cast<byte*>(&m_asclin9_brd));
     } break;
     case reg_asclin9_lin_con_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_LIN_CON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_lin_con));
+            reinterpret_cast<byte*>(&m_asclin9_lin_con));
     } break;
     case reg_asclin9_lin_btimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_LIN_BTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_lin_btimer));
+            reinterpret_cast<byte*>(&m_asclin9_lin_btimer));
     } break;
     case reg_asclin9_lin_htimer_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_LIN_HTIMER in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_lin_htimer));
+            reinterpret_cast<byte*>(&m_asclin9_lin_htimer));
     } break;
     case reg_asclin9_flags_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_flags));
+            reinterpret_cast<byte*>(&m_asclin9_flags));
     } break;
     case reg_asclin9_flagsset_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGSSET in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_flagsset));
+            reinterpret_cast<byte*>(&m_asclin9_flagsset));
     } break;
     case reg_asclin9_flagsclear_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGSCLEAR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_flagsclear));
+            reinterpret_cast<byte*>(&m_asclin9_flagsclear));
     } break;
     case reg_asclin9_flagsenable_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_FLAGSENABLE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_flagsenable));
+            reinterpret_cast<byte*>(&m_asclin9_flagsenable));
     } break;
     case reg_asclin9_txdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_TXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_txdata));
+            reinterpret_cast<byte*>(&m_asclin9_txdata));
     } break;
     case reg_asclin9_rxdata_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_RXDATA in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_rxdata));
+            reinterpret_cast<byte*>(&m_asclin9_rxdata));
     } break;
     case reg_asclin9_csr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_CSR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_csr));
+            reinterpret_cast<byte*>(&m_asclin9_csr));
     } break;
     case reg_asclin9_rxdatad_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_RXDATAD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_rxdatad));
+            reinterpret_cast<byte*>(&m_asclin9_rxdatad));
     } break;
     case reg_asclin9_ocs_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_ocs));
+            reinterpret_cast<byte*>(&m_asclin9_ocs));
     } break;
     case reg_asclin9_krstclr_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_krstclr));
+            reinterpret_cast<byte*>(&m_asclin9_krstclr));
     } break;
     case reg_asclin9_krst1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_krst1));
+            reinterpret_cast<byte*>(&m_asclin9_krst1));
     } break;
     case reg_asclin9_krst0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_krst0));
+            reinterpret_cast<byte*>(&m_asclin9_krst0));
     } break;
     case reg_asclin9_accen1_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_accen1));
+            reinterpret_cast<byte*>(&m_asclin9_accen1));
     } break;
     case reg_asclin9_accen0_offset: {
         spdlog::debug("ASCLIN: accessing ASCLIN.ASCLIN9_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_asclin9_accen0));
+            reinterpret_cast<byte*>(&m_asclin9_accen0));
     } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Asclin peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Asclin peripheral", address) };
         break;
     }
 }

@@ -15,15 +15,13 @@ namespace Tricore {
 class Eray : public BusClient {
 
 public:
-
     Eray();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_eray0_clc;
     u32 m_eray0_cust1;
     u32 m_eray0_id;
@@ -118,7 +116,6 @@ private:
     u32 m_eray0_krst1;
     u32 m_eray0_krst0;
     u32 m_eray0_accen0;
-
 };
 
 } // namespace Tricore

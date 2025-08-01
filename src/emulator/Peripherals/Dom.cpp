@@ -45,7 +45,6 @@ constexpr u32 reg_dom0_accen1_offset = reg_dom0_accen1_address - dom_memory_star
 
 } // anonymous namespace
 
-
 Tricore::Dom::Dom()
     : m_dom0_id(dom0_id_reset_value)
     , m_dom0_pestat(dom0_pestat_reset_value)
@@ -54,97 +53,100 @@ Tricore::Dom::Dom()
     , m_dom0_brcon(dom0_brcon_reset_value)
     , m_dom0_accen0(dom0_accen0_reset_value)
     , m_dom0_accen1(dom0_accen1_reset_value)
-{}
+{
+}
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Dom::read(byte *buffer_out, u32 address, usize length) {
+void Tricore::Dom::read(byte* buffer_out, u32 address, usize length)
+{
     const u32 offset = address - dom_memory_start_address;
     switch (offset) {
     case reg_dom0_id_offset: {
-            spdlog::debug("DOM: accessing DOM.DOM0_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_dom0_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("DOM: accessing DOM.DOM0_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_dom0_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_dom0_pestat_offset: {
-            spdlog::debug("DOM: accessing DOM.DOM0_PESTAT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_dom0_pestat);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("DOM: accessing DOM.DOM0_PESTAT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_dom0_pestat);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_dom0_tidstat_offset: {
-            spdlog::debug("DOM: accessing DOM.DOM0_TIDSTAT in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_dom0_tidstat);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("DOM: accessing DOM.DOM0_TIDSTAT in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_dom0_tidstat);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_dom0_tiden_offset: {
-            spdlog::debug("DOM: accessing DOM.DOM0_TIDEN in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_dom0_tiden);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("DOM: accessing DOM.DOM0_TIDEN in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_dom0_tiden);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_dom0_brcon_offset: {
-            spdlog::debug("DOM: accessing DOM.DOM0_BRCON in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_dom0_brcon);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("DOM: accessing DOM.DOM0_BRCON in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_dom0_brcon);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_dom0_accen0_offset: {
-            spdlog::debug("DOM: accessing DOM.DOM0_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_dom0_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("DOM: accessing DOM.DOM0_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_dom0_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_dom0_accen1_offset: {
-            spdlog::debug("DOM: accessing DOM.DOM0_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_dom0_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("DOM: accessing DOM.DOM0_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_dom0_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Dom peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Dom peripheral", address) };
         break;
     }
 }
 
-void Tricore::Dom::write(const byte *buffer_in, u32 address,
-                         usize length) {
+void Tricore::Dom::write(const byte* buffer_in, u32 address,
+    usize length)
+{
     const u32 offset = address - dom_memory_start_address;
     switch (offset) {
     case reg_dom0_id_offset: {
         spdlog::debug("DOM: accessing DOM.DOM0_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_dom0_id));
+            reinterpret_cast<byte*>(&m_dom0_id));
     } break;
     case reg_dom0_pestat_offset: {
         spdlog::debug("DOM: accessing DOM.DOM0_PESTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_dom0_pestat));
+            reinterpret_cast<byte*>(&m_dom0_pestat));
     } break;
     case reg_dom0_tidstat_offset: {
         spdlog::debug("DOM: accessing DOM.DOM0_TIDSTAT in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_dom0_tidstat));
+            reinterpret_cast<byte*>(&m_dom0_tidstat));
     } break;
     case reg_dom0_tiden_offset: {
         spdlog::debug("DOM: accessing DOM.DOM0_TIDEN in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_dom0_tiden));
+            reinterpret_cast<byte*>(&m_dom0_tiden));
     } break;
     case reg_dom0_brcon_offset: {
         spdlog::debug("DOM: accessing DOM.DOM0_BRCON in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_dom0_brcon));
+            reinterpret_cast<byte*>(&m_dom0_brcon));
     } break;
     case reg_dom0_accen0_offset: {
         spdlog::debug("DOM: accessing DOM.DOM0_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_dom0_accen0));
+            reinterpret_cast<byte*>(&m_dom0_accen0));
     } break;
     case reg_dom0_accen1_offset: {
         spdlog::debug("DOM: accessing DOM.DOM0_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_dom0_accen1));
+            reinterpret_cast<byte*>(&m_dom0_accen1));
     } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Dom peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Dom peripheral", address) };
         break;
     }
 }

@@ -15,15 +15,13 @@ namespace Tricore {
 class Converter : public BusClient {
 
 public:
-
     Converter();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_converter_clc;
     u32 m_converter_id;
     u32 m_converter_ocs;
@@ -34,7 +32,6 @@ private:
     u32 m_converter_ccctrl;
     u32 m_converter_phscfg;
     u32 m_converter_phssfty;
-
 };
 
 } // namespace Tricore

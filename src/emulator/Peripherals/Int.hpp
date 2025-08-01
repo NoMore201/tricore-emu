@@ -15,15 +15,13 @@ namespace Tricore {
 class Int : public BusClient {
 
 public:
-
     Int();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_int_id;
     u32 m_int_oobs;
     u32 m_int_ossic;
@@ -36,7 +34,6 @@ private:
     u32 m_int_omisn;
     u32 m_int_accen_config0;
     u32 m_int_accen_config1;
-
 };
 
 } // namespace Tricore

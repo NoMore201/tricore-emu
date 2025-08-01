@@ -53,14 +53,14 @@ Tricore::Memory::Memory(Tricore::CpuVariant variant)
         m_data.push_back(MemBuffer {
             0x70000000U, { 0xD0000000U }, std::vector(192ULL * KiB, byte {}) });
         // psram0
-        m_data.push_back(MemBuffer {
-            0x70100000U, { 0xC0000000U }, std::vector(8ULL * KiB, byte {}) });
+        m_data.push_back(
+            MemBuffer { 0x70100000U, { 0xC0000000U }, std::vector(8ULL * KiB, byte {}) });
         // ucb
-        m_data.push_back(MemBuffer { 0xAF400000U, std::nullopt,
-            std::vector(24ULL * KiB, byte {}) });
+        m_data.push_back(
+            MemBuffer { 0xAF400000U, std::nullopt, std::vector(24ULL * KiB, byte {}) });
         // xram
-        m_data.push_back(MemBuffer { 0xF0240000U, std::nullopt,
-            std::vector(8ULL * KiB, byte {}) });
+        m_data.push_back(
+            MemBuffer { 0xF0240000U, std::nullopt, std::vector(8ULL * KiB, byte {}) });
     } break;
     }
 }

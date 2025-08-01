@@ -15,15 +15,13 @@ namespace Tricore {
 class Evadc : public BusClient {
 
 public:
-
     Evadc();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_evadc_clc;
     u32 m_evadc_id;
     u32 m_evadc_ocs;
@@ -44,7 +42,6 @@ private:
     u32 m_evadc_glob_res;
     u32 m_evadc_glob_resd;
     u32 m_evadc_emuxsel;
-
 };
 
 } // namespace Tricore

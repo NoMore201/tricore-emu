@@ -75,7 +75,6 @@ constexpr u32 reg_mtu_accen0_offset = reg_mtu_accen0_address - mtu_memory_start_
 
 } // anonymous namespace
 
-
 Tricore::Peripherals::Mtu::Mtu()
     : m_mtu_clc(mtu_clc_reset_value)
     , m_mtu_id(mtu_id_reset_value)
@@ -94,197 +93,200 @@ Tricore::Peripherals::Mtu::Mtu()
     , m_mtu_memfda2(mtu_memfda2_reset_value)
     , m_mtu_accen1(mtu_accen1_reset_value)
     , m_mtu_accen0(mtu_accen0_reset_value)
-{}
+{
+}
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Peripherals::Mtu::read(byte *buffer_out, u32 address, usize length) {
+void Tricore::Peripherals::Mtu::read(byte* buffer_out, u32 address, usize length)
+{
     const u32 offset = address - mtu_memory_start_address;
     switch (offset) {
     case reg_mtu_clc_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_id_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memtest0_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMTEST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memtest0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMTEST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memtest0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memtest1_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMTEST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memtest1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMTEST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memtest1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memtest2_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMTEST2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memtest2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMTEST2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memtest2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memmap_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMMAP in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memmap);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMMAP in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memmap);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memstat0_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMSTAT0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memstat0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMSTAT0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memstat0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memstat1_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMSTAT1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memstat1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMSTAT1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memstat1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memstat2_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMSTAT2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memstat2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMSTAT2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memstat2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memdone0_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMDONE0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memdone0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMDONE0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memdone0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memdone1_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMDONE1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memdone1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMDONE1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memdone1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memdone2_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMDONE2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memdone2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMDONE2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memdone2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memfda0_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMFDA0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memfda0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMFDA0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memfda0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memfda1_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMFDA1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memfda1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMFDA1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memfda1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_memfda2_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_MEMFDA2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_memfda2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_MEMFDA2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_memfda2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_accen1_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_mtu_accen0_offset: {
-            spdlog::debug("MTU: accessing MTU.MTU_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_mtu_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("MTU: accessing MTU.MTU_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_mtu_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Mtu peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Mtu peripheral", address) };
         break;
     }
 }
 
-void Tricore::Peripherals::Mtu::write(const byte *buffer_in, u32 address,
-                         usize length) {
+void Tricore::Peripherals::Mtu::write(const byte* buffer_in, u32 address,
+    usize length)
+{
     const u32 offset = address - mtu_memory_start_address;
     switch (offset) {
     case reg_mtu_clc_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_clc));
+            reinterpret_cast<byte*>(&m_mtu_clc));
     } break;
     case reg_mtu_id_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_id));
+            reinterpret_cast<byte*>(&m_mtu_id));
     } break;
     case reg_mtu_memtest0_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMTEST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memtest0));
+            reinterpret_cast<byte*>(&m_mtu_memtest0));
     } break;
     case reg_mtu_memtest1_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMTEST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memtest1));
+            reinterpret_cast<byte*>(&m_mtu_memtest1));
     } break;
     case reg_mtu_memtest2_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMTEST2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memtest2));
+            reinterpret_cast<byte*>(&m_mtu_memtest2));
     } break;
     case reg_mtu_memmap_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMMAP in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memmap));
+            reinterpret_cast<byte*>(&m_mtu_memmap));
     } break;
     case reg_mtu_memstat0_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMSTAT0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memstat0));
+            reinterpret_cast<byte*>(&m_mtu_memstat0));
     } break;
     case reg_mtu_memstat1_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMSTAT1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memstat1));
+            reinterpret_cast<byte*>(&m_mtu_memstat1));
     } break;
     case reg_mtu_memstat2_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMSTAT2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memstat2));
+            reinterpret_cast<byte*>(&m_mtu_memstat2));
     } break;
     case reg_mtu_memdone0_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMDONE0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memdone0));
+            reinterpret_cast<byte*>(&m_mtu_memdone0));
     } break;
     case reg_mtu_memdone1_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMDONE1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memdone1));
+            reinterpret_cast<byte*>(&m_mtu_memdone1));
     } break;
     case reg_mtu_memdone2_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMDONE2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memdone2));
+            reinterpret_cast<byte*>(&m_mtu_memdone2));
     } break;
     case reg_mtu_memfda0_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMFDA0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memfda0));
+            reinterpret_cast<byte*>(&m_mtu_memfda0));
     } break;
     case reg_mtu_memfda1_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMFDA1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memfda1));
+            reinterpret_cast<byte*>(&m_mtu_memfda1));
     } break;
     case reg_mtu_memfda2_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_MEMFDA2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_memfda2));
+            reinterpret_cast<byte*>(&m_mtu_memfda2));
     } break;
     case reg_mtu_accen1_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_accen1));
+            reinterpret_cast<byte*>(&m_mtu_accen1));
     } break;
     case reg_mtu_accen0_offset: {
         spdlog::debug("MTU: accessing MTU.MTU_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_mtu_accen0));
+            reinterpret_cast<byte*>(&m_mtu_accen0));
     } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Mtu peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Mtu peripheral", address) };
         break;
     }
 }

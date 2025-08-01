@@ -15,15 +15,13 @@ namespace Tricore {
 class Ccu6 : public BusClient {
 
 public:
-
     Ccu6();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_ccu60_clc;
     u32 m_ccu60_mcfg;
     u32 m_ccu60_id;
@@ -99,7 +97,6 @@ private:
     u32 m_ccu61_krst1;
     u32 m_ccu61_krst0;
     u32 m_ccu61_accen0;
-
 };
 
 } // namespace Tricore

@@ -15,15 +15,13 @@ namespace Tricore {
 class Dom : public BusClient {
 
 public:
-
     Dom();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_dom0_id;
     u32 m_dom0_pestat;
     u32 m_dom0_tidstat;
@@ -31,7 +29,6 @@ private:
     u32 m_dom0_brcon;
     u32 m_dom0_accen0;
     u32 m_dom0_accen1;
-
 };
 
 } // namespace Tricore

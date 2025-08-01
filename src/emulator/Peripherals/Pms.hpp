@@ -15,15 +15,13 @@ namespace Tricore::Peripherals {
 class Pms : public BusClient {
 
 public:
-
     Pms();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_pms_id;
     u32 m_pms_evrstat;
     u32 m_pms_evradcstat;
@@ -83,7 +81,6 @@ private:
     u32 m_pms_otsc1;
     u32 m_pms_accen0;
     u32 m_pms_accen1;
-
 };
 
 } // namespace Tricore

@@ -84,7 +84,6 @@ constexpr u32 reg_evadc_emuxsel_offset = reg_evadc_emuxsel_address - evadc_memor
 
 } // anonymous namespace
 
-
 Tricore::Evadc::Evadc()
     : m_evadc_clc(evadc_clc_reset_value)
     , m_evadc_id(evadc_id_reset_value)
@@ -106,227 +105,230 @@ Tricore::Evadc::Evadc()
     , m_evadc_glob_res(evadc_glob_res_reset_value)
     , m_evadc_glob_resd(evadc_glob_resd_reset_value)
     , m_evadc_emuxsel(evadc_emuxsel_reset_value)
-{}
+{
+}
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Evadc::read(byte *buffer_out, u32 address, usize length) {
+void Tricore::Evadc::read(byte* buffer_out, u32 address, usize length)
+{
     const u32 offset = address - evadc_memory_start_address;
     switch (offset) {
     case reg_evadc_clc_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_id_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_ocs_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_OCS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_ocs);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_OCS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_ocs);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_krstclr_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_krst1_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_krst0_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_accen0_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_globcfg_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_GLOBCFG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_globcfg);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_GLOBCFG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_globcfg);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_accprot0_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_ACCPROT0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_accprot0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_ACCPROT0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_accprot0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_accprot1_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_ACCPROT1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_accprot1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_ACCPROT1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_accprot1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_accprot2_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_ACCPROT2 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_accprot2);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_ACCPROT2 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_accprot2);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_glob_bound_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_BOUND in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_glob_bound);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_BOUND in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_glob_bound);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_glob_eflag_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_EFLAG in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_glob_eflag);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_EFLAG in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_glob_eflag);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_glob_evnp_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_EVNP in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_glob_evnp);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_EVNP in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_glob_evnp);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_glob_tf_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_TF in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_glob_tf);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_TF in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_glob_tf);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_glob_te_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_TE in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_glob_te);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_TE in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_glob_te);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_glob_rcr_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_RCR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_glob_rcr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_RCR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_glob_rcr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_glob_res_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_RES in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_glob_res);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_RES in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_glob_res);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_glob_resd_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_RESD in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_glob_resd);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_RESD in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_glob_resd);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_evadc_emuxsel_offset: {
-            spdlog::debug("EVADC: accessing EVADC.EVADC_EMUXSEL in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_evadc_emuxsel);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("EVADC: accessing EVADC.EVADC_EMUXSEL in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_evadc_emuxsel);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Evadc peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Evadc peripheral", address) };
         break;
     }
 }
 
-void Tricore::Evadc::write(const byte *buffer_in, u32 address,
-                         usize length) {
+void Tricore::Evadc::write(const byte* buffer_in, u32 address,
+    usize length)
+{
     const u32 offset = address - evadc_memory_start_address;
     switch (offset) {
     case reg_evadc_clc_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_clc));
+            reinterpret_cast<byte*>(&m_evadc_clc));
     } break;
     case reg_evadc_id_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_id));
+            reinterpret_cast<byte*>(&m_evadc_id));
     } break;
     case reg_evadc_ocs_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_OCS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_ocs));
+            reinterpret_cast<byte*>(&m_evadc_ocs));
     } break;
     case reg_evadc_krstclr_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_krstclr));
+            reinterpret_cast<byte*>(&m_evadc_krstclr));
     } break;
     case reg_evadc_krst1_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_krst1));
+            reinterpret_cast<byte*>(&m_evadc_krst1));
     } break;
     case reg_evadc_krst0_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_krst0));
+            reinterpret_cast<byte*>(&m_evadc_krst0));
     } break;
     case reg_evadc_accen0_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_accen0));
+            reinterpret_cast<byte*>(&m_evadc_accen0));
     } break;
     case reg_evadc_globcfg_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_GLOBCFG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_globcfg));
+            reinterpret_cast<byte*>(&m_evadc_globcfg));
     } break;
     case reg_evadc_accprot0_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_ACCPROT0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_accprot0));
+            reinterpret_cast<byte*>(&m_evadc_accprot0));
     } break;
     case reg_evadc_accprot1_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_ACCPROT1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_accprot1));
+            reinterpret_cast<byte*>(&m_evadc_accprot1));
     } break;
     case reg_evadc_accprot2_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_ACCPROT2 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_accprot2));
+            reinterpret_cast<byte*>(&m_evadc_accprot2));
     } break;
     case reg_evadc_glob_bound_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_BOUND in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_glob_bound));
+            reinterpret_cast<byte*>(&m_evadc_glob_bound));
     } break;
     case reg_evadc_glob_eflag_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_EFLAG in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_glob_eflag));
+            reinterpret_cast<byte*>(&m_evadc_glob_eflag));
     } break;
     case reg_evadc_glob_evnp_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_EVNP in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_glob_evnp));
+            reinterpret_cast<byte*>(&m_evadc_glob_evnp));
     } break;
     case reg_evadc_glob_tf_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_TF in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_glob_tf));
+            reinterpret_cast<byte*>(&m_evadc_glob_tf));
     } break;
     case reg_evadc_glob_te_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_TE in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_glob_te));
+            reinterpret_cast<byte*>(&m_evadc_glob_te));
     } break;
     case reg_evadc_glob_rcr_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_RCR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_glob_rcr));
+            reinterpret_cast<byte*>(&m_evadc_glob_rcr));
     } break;
     case reg_evadc_glob_res_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_RES in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_glob_res));
+            reinterpret_cast<byte*>(&m_evadc_glob_res));
     } break;
     case reg_evadc_glob_resd_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_GLOB_RESD in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_glob_resd));
+            reinterpret_cast<byte*>(&m_evadc_glob_resd));
     } break;
     case reg_evadc_emuxsel_offset: {
         spdlog::debug("EVADC: accessing EVADC.EVADC_EMUXSEL in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_evadc_emuxsel));
+            reinterpret_cast<byte*>(&m_evadc_emuxsel));
     } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Evadc peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Evadc peripheral", address) };
         break;
     }
 }

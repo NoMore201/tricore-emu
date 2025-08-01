@@ -13,6 +13,5 @@ SpaceAfterTemplateKeyword: false
 SortIncludes: Never
 SpacesInParens: Custom
 SpacesInParensOptions:
-  ExceptDoubleParentheses: false
-  InConditionalStatements: true
-  Other: false
+  InConditionalStatements: false
+  InEmptyParentheses: false

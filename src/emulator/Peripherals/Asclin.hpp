@@ -15,15 +15,13 @@ namespace Tricore {
 class Asclin : public BusClient {
 
 public:
-
     Asclin();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_asclin0_clc;
     u32 m_asclin0_iocr;
     u32 m_asclin0_id;
@@ -294,7 +292,6 @@ private:
     u32 m_asclin9_krst0;
     u32 m_asclin9_accen1;
     u32 m_asclin9_accen0;
-
 };
 
 } // namespace Tricore

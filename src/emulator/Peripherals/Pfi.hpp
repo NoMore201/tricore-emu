@@ -15,18 +15,15 @@ namespace Tricore {
 class Pfi : public BusClient {
 
 public:
-
     Pfi();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_pfi0_eccr;
     u32 m_pfi0_eccs;
-
 };
 
 } // namespace Tricore

@@ -15,17 +15,13 @@ namespace Tricore {
 class Src : public BusClient {
 
 public:
-
     Src();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
-
-
 };
 
 } // namespace Tricore

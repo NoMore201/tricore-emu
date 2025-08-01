@@ -48,7 +48,6 @@ constexpr u32 reg_fce_accen0_offset = reg_fce_accen0_address - fce_memory_start_
 
 } // anonymous namespace
 
-
 Tricore::Fce::Fce()
     : m_fce_clc(fce_clc_reset_value)
     , m_fce_id(fce_id_reset_value)
@@ -58,107 +57,110 @@ Tricore::Fce::Fce()
     , m_fce_krst0(fce_krst0_reset_value)
     , m_fce_accen1(fce_accen1_reset_value)
     , m_fce_accen0(fce_accen0_reset_value)
-{}
+{
+}
 
 // NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-void Tricore::Fce::read(byte *buffer_out, u32 address, usize length) {
+void Tricore::Fce::read(byte* buffer_out, u32 address, usize length)
+{
     const u32 offset = address - fce_memory_start_address;
     switch (offset) {
     case reg_fce_clc_offset: {
-            spdlog::debug("FCE: accessing FCE.FCE_CLC in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_fce_clc);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("FCE: accessing FCE.FCE_CLC in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_fce_clc);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_fce_id_offset: {
-            spdlog::debug("FCE: accessing FCE.FCE_ID in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_fce_id);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("FCE: accessing FCE.FCE_ID in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_fce_id);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_fce_chsts_offset: {
-            spdlog::debug("FCE: accessing FCE.FCE_CHSTS in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_fce_chsts);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("FCE: accessing FCE.FCE_CHSTS in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_fce_chsts);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_fce_krstclr_offset: {
-            spdlog::debug("FCE: accessing FCE.FCE_KRSTCLR in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_fce_krstclr);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("FCE: accessing FCE.FCE_KRSTCLR in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_fce_krstclr);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_fce_krst1_offset: {
-            spdlog::debug("FCE: accessing FCE.FCE_KRST1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_fce_krst1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("FCE: accessing FCE.FCE_KRST1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_fce_krst1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_fce_krst0_offset: {
-            spdlog::debug("FCE: accessing FCE.FCE_KRST0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_fce_krst0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("FCE: accessing FCE.FCE_KRST0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_fce_krst0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_fce_accen1_offset: {
-            spdlog::debug("FCE: accessing FCE.FCE_ACCEN1 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_fce_accen1);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("FCE: accessing FCE.FCE_ACCEN1 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_fce_accen1);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     case reg_fce_accen0_offset: {
-            spdlog::debug("FCE: accessing FCE.FCE_ACCEN0 in read mode");
-            const auto *range_start = reinterpret_cast<byte *>(&m_fce_accen0);
-            std::ranges::copy(range_start, range_start + length, buffer_out);
-        } break;
+        spdlog::debug("FCE: accessing FCE.FCE_ACCEN0 in read mode");
+        const auto* range_start = reinterpret_cast<byte*>(&m_fce_accen0);
+        std::ranges::copy(range_start, range_start + length, buffer_out);
+    } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Fce peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Fce peripheral", address) };
         break;
     }
 }
 
-void Tricore::Fce::write(const byte *buffer_in, u32 address,
-                         usize length) {
+void Tricore::Fce::write(const byte* buffer_in, u32 address,
+    usize length)
+{
     const u32 offset = address - fce_memory_start_address;
     switch (offset) {
     case reg_fce_clc_offset: {
         spdlog::debug("FCE: accessing FCE.FCE_CLC in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_fce_clc));
+            reinterpret_cast<byte*>(&m_fce_clc));
     } break;
     case reg_fce_id_offset: {
         spdlog::debug("FCE: accessing FCE.FCE_ID in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_fce_id));
+            reinterpret_cast<byte*>(&m_fce_id));
     } break;
     case reg_fce_chsts_offset: {
         spdlog::debug("FCE: accessing FCE.FCE_CHSTS in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_fce_chsts));
+            reinterpret_cast<byte*>(&m_fce_chsts));
     } break;
     case reg_fce_krstclr_offset: {
         spdlog::debug("FCE: accessing FCE.FCE_KRSTCLR in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_fce_krstclr));
+            reinterpret_cast<byte*>(&m_fce_krstclr));
     } break;
     case reg_fce_krst1_offset: {
         spdlog::debug("FCE: accessing FCE.FCE_KRST1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_fce_krst1));
+            reinterpret_cast<byte*>(&m_fce_krst1));
     } break;
     case reg_fce_krst0_offset: {
         spdlog::debug("FCE: accessing FCE.FCE_KRST0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_fce_krst0));
+            reinterpret_cast<byte*>(&m_fce_krst0));
     } break;
     case reg_fce_accen1_offset: {
         spdlog::debug("FCE: accessing FCE.FCE_ACCEN1 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_fce_accen1));
+            reinterpret_cast<byte*>(&m_fce_accen1));
     } break;
     case reg_fce_accen0_offset: {
         spdlog::debug("FCE: accessing FCE.FCE_ACCEN0 in write mode");
         std::ranges::copy(buffer_in, buffer_in + length,
-                          reinterpret_cast<byte *>(&m_fce_accen0));
+            reinterpret_cast<byte*>(&m_fce_accen0));
     } break;
     default:
-        throw InvalidMemoryAccess{fmt::format(
-            "Address 0x{:08X} not handled by Fce peripheral", address)};
+        throw InvalidMemoryAccess { fmt::format(
+            "Address 0x{:08X} not handled by Fce peripheral", address) };
         break;
     }
 }

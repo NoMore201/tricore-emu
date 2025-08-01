@@ -15,17 +15,14 @@ namespace Tricore {
 class Pmu : public BusClient {
 
 public:
-
     Pmu();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_pmu_id;
-
 };
 
 } // namespace Tricore

@@ -15,17 +15,15 @@ namespace Tricore::Peripherals {
 class Smu : public BusClient {
 
 public:
-
     static constexpr usize AlarmConfigRegisterNumber = 12;
 
     Smu();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_smu_clc;
     u32 m_smu_id;
     u32 m_smu_cmd;
@@ -50,8 +48,6 @@ private:
     u32 m_smu_accen1;
     u32 m_smu_accen0;
     u32 m_smu_agcf[AlarmConfigRegisterNumber][3];
-
-
 };
 
 } // namespace Tricore::Peripherals

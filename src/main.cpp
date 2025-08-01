@@ -5,7 +5,8 @@
 #include <spdlog/common.h>
 #include <spdlog/spdlog.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[])
+{
 
     // TODO: handle with parameters
     spdlog::set_level(spdlog::level::trace);
@@ -24,7 +25,7 @@ int main(int argc, char *argv[]) {
                 break;
             }
         } else {
-            Tricore::Machine machine{Tricore::CpuVariant::TC33X};
+            Tricore::Machine machine { Tricore::CpuVariant::TC33X };
             machine.init(elf_file);
             machine.start();
         }

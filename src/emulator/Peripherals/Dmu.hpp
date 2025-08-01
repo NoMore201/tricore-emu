@@ -15,15 +15,13 @@ namespace Tricore {
 class Dmu : public BusClient {
 
 public:
-
     Dmu();
 
-    void read(byte *buffer_out, u32 address, usize length) override;
+    void read(byte* buffer_out, u32 address, usize length) override;
 
-    void write(const byte *buffer_in, u32 address, usize length) override;
+    void write(const byte* buffer_in, u32 address, usize length) override;
 
 private:
-
     u32 m_dmu_hf_id;
     u32 m_dmu_hf_status;
     u32 m_dmu_hf_control;
@@ -74,7 +72,6 @@ private:
     u32 m_dmu_sp_proconhsmcotp0;
     u32 m_dmu_sp_proconhsmcotp1;
     u32 m_dmu_sp_proconhsm;
-
 };
 
 } // namespace Tricore
