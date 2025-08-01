@@ -59,6 +59,20 @@ struct Rc {
     }
 };
 
+struct Srr {
+    u32 a;
+    u32 b;
+
+    constexpr explicit Srr(u32 insn)
+        : a(Utils::extract32(insn, 8, 4))
+        , b(Utils::extract32(insn, 12, 4))
+    {
+    }
+};
+
+using Src = Srr;
+using Ssr = Srr;
+
 } // namespace Tricore::InstructionFormat
 
 #endif // ifndef TRICORE_EMU_TYPES_HPP

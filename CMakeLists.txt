@@ -20,8 +20,7 @@ find_package(spdlog CONFIG REQUIRED)
 find_package(Microsoft.GSL CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 
-add_subdirectory(lib)
-add_subdirectory(source)
+add_subdirectory(src)
 
 include(CTest)
 if(BUILD_TESTING)

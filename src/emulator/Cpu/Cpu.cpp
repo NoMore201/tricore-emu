@@ -66,22 +66,6 @@ constexpr byte bytecode_4b = byte { 0x4B };
 
 constexpr u32 cpu_psw_cde_mask = (1U << 7U);
 
-struct SrrFormatParser {
-    u16 insn {};
-
-    template<std::invocable<u32, u32> F>
-    void parse(F&& callback)
-    {
-        namespace Utils = Tricore::Utils;
-        const auto index_a = Utils::extract16(insn, 8, 4);
-        const auto index_b = Utils::extract16(insn, 12, 4);
-        callback(index_a, index_b);
-    }
-};
-
-using SrcFormatParser = SrrFormatParser;
-using SsrFormatParser = SrrFormatParser;
-
 struct ScFormatParser {
     u16 insn {};
 
@@ -807,12 +791,12 @@ void Tricore::Cpu::insn_and_srr()
     const auto insn = m_bus.read16(m_core_registers.pc);
     spdlog::trace("Cpu: AND 0x{:04X}", insn);
 
-    SrrFormatParser { insn }.parse([this](u32 index_a, u32 index_b) {
-        // D[a] = D[a] & D[b]
-        m_data_reg[index_a] &= m_data_reg[index_b];
-        spdlog::trace("==> Cpu: AND write value 0x{:08X} in D[{}]",
-            m_data_reg[index_a], index_a);
-    });
+    InstructionFormat::Srr format { insn };
+
+    // D[a] = D[a] & D[b]
+    m_data_reg[format.a] &= m_data_reg[format.b];
+    spdlog::trace("==> Cpu: AND write value 0x{:08X} in D[{}]",
+        m_data_reg[format.a], format.a);
 
     m_core_registers.pc += 2;
 }
@@ -892,11 +876,11 @@ void Tricore::Cpu::insn_movd_srr()
     const auto insn = m_bus.read16(m_core_registers.pc);
     spdlog::trace("Cpu: MOV.D 0x{:04X}", insn);
 
-    SrrFormatParser { insn }.parse([this](u32 index_a, u32 index_b) {
-        m_data_reg[index_a] = m_addr_reg[index_b];
-        spdlog::trace("==> Cpu: MOV.D write value 0x{:08X} in D[{}]",
-            m_data_reg[index_a], index_a);
-    });
+    InstructionFormat::Srr format { insn };
+
+    m_data_reg[format.a] = m_addr_reg[format.b];
+    spdlog::trace("==> Cpu: MOV.D write value 0x{:08X} in D[{}]",
+        m_data_reg[format.a], format.a);
 
     m_core_registers.pc += 2;
 }
@@ -1152,22 +1136,22 @@ void Tricore::Cpu::insn_sh_src()
     u16 insn = m_bus.read16(m_core_registers.pc);
     spdlog::trace("Cpu: SH 0x{:04X}", insn);
 
-    SrcFormatParser { insn }.parse([this](u32 index_a, u32 const4) {
-        // shift_count = sign_ext(const4[3:0]);
-        // D[a] = (shift_count >= 0) ? D[a] << shift_count : D[a] >>
-        // (-shift_count);
-        const i32 sign_extended_const4 = static_cast<i32>(Utils::sign_extend32<4>(const4));
-        if (sign_extended_const4 >= 0) {
-            spdlog::trace("==> Cpu: SH shift left by {} value 0x{:08X}",
-                sign_extended_const4, m_data_reg[index_a]);
-            m_data_reg[index_a] = m_data_reg[index_a]
-                << static_cast<u32>(sign_extended_const4);
-        } else {
-            spdlog::trace("==> Cpu: SH shift right by {} value 0x{:08X}",
-                -sign_extended_const4, m_data_reg[index_a]);
-            m_data_reg[index_a] = m_data_reg[index_a] >> static_cast<u32>(-sign_extended_const4);
-        }
-    });
+    InstructionFormat::Src format { insn };
+
+    // shift_count = sign_ext(const4[3:0]);
+    // D[a] = (shift_count >= 0) ? D[a] << shift_count : D[a] >>
+    // (-shift_count);
+    const i32 sign_extended_const4 = static_cast<i32>(Utils::sign_extend32<4>(format.b));
+    if (sign_extended_const4 >= 0) {
+        spdlog::trace("==> Cpu: SH shift left by {} value 0x{:08X}",
+            sign_extended_const4, m_data_reg[format.a]);
+        m_data_reg[format.a] = m_data_reg[format.a]
+            << static_cast<u32>(sign_extended_const4);
+    } else {
+        spdlog::trace("==> Cpu: SH shift right by {} value 0x{:08X}",
+            -sign_extended_const4, m_data_reg[format.a]);
+        m_data_reg[format.a] = m_data_reg[format.a] >> static_cast<u32>(-sign_extended_const4);
+    }
 
     m_core_registers.pc += 2;
 }
