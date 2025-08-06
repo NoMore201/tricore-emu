@@ -1,8 +1,8 @@
 #ifndef TRICORE_EMU_CPU_HPP
 #define TRICORE_EMU_CPU_HPP
 
-#include "Bus.hpp"
 #include "Elf.hpp"
+#include "Memory.hpp"
 #include "Types.hpp"
 
 #include <fmt/format.h>
@@ -20,7 +20,7 @@ struct InvalidRegisterOffset : public std::runtime_error {
 class Cpu {
 
 public:
-    explicit Cpu(Bus& bus);
+    explicit Cpu(Memory& memory);
 
     void initialize_program(Elf& elf_file);
 
@@ -166,7 +166,7 @@ private:
 
     } m_core_registers;
 
-    Bus::RequestHandler m_bus;
+    gsl::not_null<Memory*> m_memory;
 };
 
 } // namespace Tricore

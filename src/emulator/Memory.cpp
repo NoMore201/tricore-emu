@@ -38,6 +38,48 @@ void Tricore::Memory::write(gsl::span<const byte> buffer_in, u32 address)
     std::ranges::copy(buffer_in.begin(), buffer_in.end(), range_start);
 }
 
+u8 Tricore::Memory::read8(u32 address)
+{
+    u8 result {};
+    auto buffer = Utils::to_span(&result, 1);
+    read(buffer, address);
+    return result;
+}
+
+u16 Tricore::Memory::read16(u32 address)
+{
+    u16 result {};
+    auto buffer = Utils::to_span(&result, 2);
+    read(buffer, address);
+    return result;
+}
+
+u32 Tricore::Memory::read32(u32 address)
+{
+    u32 result {};
+    auto buffer = Utils::to_span(&result, 4);
+    read(buffer, address);
+    return result;
+}
+
+void Tricore::Memory::write8(u8 value, u32 address)
+{
+    auto buffer = Utils::to_span(&value, 1);
+    write(buffer, address);
+}
+
+void Tricore::Memory::write16(u16 value, u32 address)
+{
+    auto buffer = Utils::to_span(&value, 2);
+    write(buffer, address);
+}
+
+void Tricore::Memory::write32(u32 value, u32 address)
+{
+    auto buffer = Utils::to_span(&value, 4);
+    write(buffer, address);
+}
+
 Tricore::Memory::Memory(Tricore::CpuVariant variant)
 {
 

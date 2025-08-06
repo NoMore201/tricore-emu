@@ -1,7 +1,6 @@
 #ifndef TRICORE_EMU_MACHINE_HPP
 #define TRICORE_EMU_MACHINE_HPP
 
-#include "Bus.hpp"
 #include "Cpu/Cpu.hpp"
 #include "Memory.hpp"
 #include "Tricore.hpp"
@@ -20,7 +19,6 @@ public:
     void start();
 
 private:
-    Bus m_bus;
     Memory m_memory;
     Cpu m_cpu;
 };

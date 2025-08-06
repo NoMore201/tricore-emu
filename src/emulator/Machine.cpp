@@ -4,7 +4,7 @@
 
 Tricore::Machine::Machine(Tricore::CpuVariant variant)
     : m_memory(variant)
-    , m_cpu(m_bus)
+    , m_cpu(m_memory)
 {
 }
 

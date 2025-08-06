@@ -1,7 +1,6 @@
 #ifndef TRICORE_EMU_MEMORY_HPP
 #define TRICORE_EMU_MEMORY_HPP
 
-#include "IBusClient.hpp"
 #include "Tricore.hpp"
 #include "Types.hpp"
 
@@ -11,19 +10,22 @@
 
 namespace Tricore {
 
-class Memory : public IBusClient {
+class Memory {
 
 public:
-    struct Layout {
-        usize size;
-        u32 address;
-    };
-
     explicit Memory(CpuVariant variant);
 
-    void read(gsl::span<byte> buffer_out, u32 address) override;
+    void read(gsl::span<byte> buffer_out, u32 address);
 
-    void write(gsl::span<const byte> buffer_in, u32 address) override;
+    void write(gsl::span<const byte> buffer_in, u32 address);
+
+    u8 read8(u32 address);
+    u16 read16(u32 address);
+    u32 read32(u32 address);
+
+    void write8(u8 value, u32 address);
+    void write16(u16 value, u32 address);
+    void write32(u32 value, u32 address);
 
 private:
     struct MemBuffer {
