@@ -1,6 +1,6 @@
 #include "IBusClient.hpp"
 
-#include "Utils.hpp"
+#include <Span.hpp>
 
 u8 Tricore::IBusClient::read8(u32 address)
 {

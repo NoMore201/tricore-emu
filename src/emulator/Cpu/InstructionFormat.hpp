@@ -1,7 +1,7 @@
 #ifndef TRICORE_EMU_INSTRUCTION_FORMAT_HPP
 #define TRICORE_EMU_INSTRUCTION_FORMAT_HPP
 
-#include "Utils.hpp"
+#include "Types.hpp"
 
 namespace Tricore::InstructionFormat {
 
@@ -10,14 +10,7 @@ struct Bol {
     u32 b;
     u32 off16;
 
-    constexpr explicit Bol(u32 insn)
-        : a(Utils::extract32(insn, 8, 4))
-        , b(Utils::extract32(insn, 12, 4))
-        , off16(Utils::extract32(insn, 16, 6)
-              | (Utils::extract32(insn, 28, 4) << 6)
-              | (Utils::extract32(insn, 22, 6) << 10))
-    {
-    }
+    explicit Bol(u32 insn);
 };
 
 struct Rr {
@@ -25,12 +18,7 @@ struct Rr {
     u32 b;
     u32 c;
 
-    constexpr explicit Rr(u32 insn)
-        : a(Utils::extract32(insn, 8, 4))
-        , b(Utils::extract32(insn, 12, 4))
-        , c(Utils::extract32(insn, 28, 4))
-    {
-    }
+    explicit Rr(u32 insn);
 };
 
 struct Brn {
@@ -38,12 +26,7 @@ struct Brn {
     u32 n;
     u32 disp15;
 
-    constexpr explicit Brn(u32 insn)
-        : a(Utils::extract32(insn, 8, 4))
-        , n(Utils::extract32(insn, 12, 4))
-        , disp15(Utils::extract32(insn, 16, 15))
-    {
-    }
+    explicit Brn(u32 insn);
 };
 
 struct Rc {
@@ -51,23 +34,14 @@ struct Rc {
     u32 c;
     u32 const9;
 
-    constexpr explicit Rc(u32 insn)
-        : a(Utils::extract32(insn, 8, 4))
-        , c(Utils::extract32(insn, 28, 4))
-        , const9(Utils::extract32(insn, 12, 9))
-    {
-    }
+    explicit Rc(u32 insn);
 };
 
 struct Srr {
     u32 a;
     u32 b;
 
-    constexpr explicit Srr(u32 insn)
-        : a(Utils::extract32(insn, 8, 4))
-        , b(Utils::extract32(insn, 12, 4))
-    {
-    }
+    explicit Srr(u32 insn);
 };
 
 using Ssr = Srr;
@@ -76,11 +50,7 @@ struct Src {
     u32 a;
     u32 const4;
 
-    constexpr explicit Src(u32 insn)
-        : a(Utils::extract32(insn, 8, 4))
-        , const4(Utils::extract32(insn, 12, 4))
-    {
-    }
+    explicit Src(u32 insn);
 };
 
 } // namespace Tricore::InstructionFormat

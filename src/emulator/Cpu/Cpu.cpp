@@ -2,11 +2,11 @@
 #include "Cpu/InstructionFormat.hpp"
 #include "Error.hpp"
 #include "Types.hpp"
-#include "Utils.hpp"
 
 #include <fmt/base.h>
 #include <gsl/assert>
 #include <spdlog/spdlog.h>
+#include <BitOps.hpp>
 
 #include <concepts>
 
@@ -72,7 +72,6 @@ struct ScFormatParser {
     template<std::invocable<u32> F>
     void parse(F&& callback)
     {
-        namespace Utils = Tricore::Utils;
         const auto const8 = Utils::extract16(insn, 8, 8);
         callback(const8);
     }
@@ -84,7 +83,6 @@ struct BrrFormatParser {
     template<std::invocable<u32, u32, u32> F>
     void parse(F&& callback)
     {
-        namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto index_b = Utils::extract32(insn, 12, 4);
         const auto disp15 = Utils::extract32(insn, 16, 15);
@@ -101,7 +99,6 @@ struct BFormatParser {
     template<std::invocable<u32> F>
     void parse(F&& callback)
     {
-        namespace Utils = Tricore::Utils;
         u32 disp24 = Utils::extract32(insn, 16, 16);
         disp24 |= Utils::extract32(insn, 8, 8) << 16U;
         u32 sign_extended_disp24 = Utils::sign_extend32<24>(disp24);
@@ -115,7 +112,6 @@ struct RrpwFormatParser {
     template<std::invocable<u32, u32, u32, u32> F>
     void parse(F&& callback)
     {
-        namespace Utils = Tricore::Utils;
         u32 index_a = Utils::extract32(insn, 8, 4);
         u32 width = Utils::extract32(insn, 16, 5);
         u32 pos = Utils::extract32(insn, 23, 5);
@@ -130,7 +126,6 @@ struct RcpwFormatParser {
     template<std::invocable<u32, u32, u32, u32, u32> F>
     void parse(F&& callback)
     {
-        namespace Utils = Tricore::Utils;
         u32 index_a = Utils::extract32(insn, 8, 4);
         u32 const4 = Utils::extract32(insn, 12, 4);
         u32 width = Utils::extract32(insn, 16, 5);
@@ -146,7 +141,6 @@ struct AbsFormatParser {
     template<std::invocable<u32, u32> F>
     void parse(F&& callback)
     {
-        namespace Utils = Tricore::Utils;
         u32 index_a = Utils::extract32(insn, 8, 4);
         u32 offset = Utils::extract32(insn, 16, 6);
         offset |= Utils::extract32(insn, 28, 4) << 6U;
@@ -162,7 +156,6 @@ struct RlcFormatParser {
     template<std::invocable<u32, u32, u32> F>
     void parse(F&& callback)
     {
-        namespace Utils = Tricore::Utils;
         const auto index_a = Utils::extract32(insn, 8, 4);
         const auto index_c = Utils::extract32(insn, 28, 4);
         const auto const16 = Utils::extract32(insn, 12, 16);

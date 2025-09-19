@@ -1,21 +1,21 @@
 #include "Memory.hpp"
-#include "Error.hpp"
-#include "Tricore.hpp"
-#include "Types.hpp"
-#include "Utils.hpp"
+
+#include <algorithm>
 
 #include <fmt/format.h>
 #include <gsl/assert>
 
-#include <algorithm>
+#include "Error.hpp"
+#include "Tricore.hpp"
+#include "Types.hpp"
 
 u32 Tricore::Memory::MemBuffer::offset_into_buffer(u32 address)
 {
     if (address >= start_address && address < start_address + static_cast<u32>(buffer.size())) {
-        return Utils::unsigned_abs_diff(address, start_address);
+        return address - start_address;
     }
     if (mirror_start_address && address >= mirror_start_address.value() && address < mirror_start_address.value() + static_cast<u32>(buffer.size())) {
-        return Utils::unsigned_abs_diff(address, mirror_start_address.value());
+        return address - mirror_start_address.value();
     }
     throw InvalidMemoryAccess { "Address not in range" };
 }
