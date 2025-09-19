@@ -1,5 +1,9 @@
 # ---- Setup compiler flags ----
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 if(MSVC)
   add_compile_options(/sdl /guard:cf /utf-8 /diagnostics:caret /w14165)
   add_compile_options(/w44242 /w44254 /w44263 /w34265 /w34287 /w44296)
