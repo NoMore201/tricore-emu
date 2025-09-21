@@ -7,9 +7,13 @@ bool ParsedOptions::contains(std::string_view name) const
 
 std::optional<ParsedOptions::Value> ParsedOptions::get(std::string_view name) const
 {
-    auto it = m_options.find(name);
-    if (it != m_options.end()) {
-        return Value { it->second };
+    if (auto it = m_options.find(name); it != m_options.end()) {
+        return it->second;
     }
     return std::nullopt;
+}
+
+void ParsedOptions::add_option(std::string_view name, std::string value)
+{
+    m_options.emplace(name, Value { std::move(value) });
 }

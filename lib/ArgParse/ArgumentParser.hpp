@@ -4,12 +4,14 @@
 #include <string_view>
 #include <vector>
 
+#include "ParsedOptions.hpp"
+
 class ArgumentParser {
 
 public:
     void add_option(char short_name, std::string_view long_name, std::string_view description);
 
-    void parse(int argc, char** argv);
+    ParsedOptions parse(int argc, char** argv);
 
 private:
     struct Option {
@@ -17,6 +19,8 @@ private:
         std::string_view long_name;
         std::string_view description;
     };
+
+    void find_and_add_short(ParsedOptions& output, std::string_view short_opt, std::string value);
 
     std::vector<Option> m_options;
 };
