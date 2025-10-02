@@ -11,7 +11,7 @@ namespace {
 enum class MatchType : uint8_t {
     Short,
     Long,
-    None
+    Positional
 };
 
 struct MatchOption {
@@ -22,60 +22,121 @@ struct MatchOption {
 
 MatchOption parse_option(std::string_view arg_str)
 {
+    using enum MatchType;
     if (arg_str.starts_with("--")) {
-        return { true, MatchType::Long, arg_str.substr(2) };
+        return { .success = true, .type = Long, .identifier = arg_str.substr(2) };
     }
     if (arg_str.starts_with('-')) {
-        return { true, MatchType::Short, arg_str.substr(1, 1) };
+        return { .success = true, .type = Short, .identifier = arg_str.substr(1, 1) };
     }
 
-    return { false, MatchType::None, {} };
+    return { .success = true, .type = Positional, .identifier = arg_str };
 }
 
 }
 
-void ArgumentParser::add_option(char short_name, std::string_view long_name, std::string_view description)
+OptionBuilder::OptionBuilder(ArgumentParser& parser)
+    : m_parser(&parser)
 {
-    m_options.emplace_back(short_name, long_name, description);
+}
+
+OptionBuilder& OptionBuilder::with_short_name(char short_name)
+{
+    m_option.short_name = short_name;
+    return *this;
+}
+
+OptionBuilder& OptionBuilder::with_long_name(std::string_view long_name)
+{
+    m_option.long_name = long_name;
+    return *this;
+}
+
+OptionBuilder& OptionBuilder::with_description(std::string_view description)
+{
+    m_option.description = description;
+    return *this;
+}
+
+OptionBuilder& OptionBuilder::with_type(Option::Type type)
+{
+    m_option.type = type;
+    return *this;
+}
+
+void OptionBuilder::build()
+{
+    m_parser->m_options.push_back(m_option);
+}
+
+OptionBuilder ArgumentParser::add_option()
+{
+    return OptionBuilder { *this };
 }
 
 ParsedOptions ArgumentParser::parse(int argc, char** argv)
 {
     ParsedOptions parsed_options;
+    int positional_index = 0;
 
-    for (int index = 0; index < argc; index++) {
+    // TODO: validate input in case we have some option with '=' like --build=missing
+
+    for (int index = 1; index < argc;) {
         std::string_view argument_str { argv[index] };
         bool has_next_argument = index + 1 < argc;
+        int next_index_increment = 1;
 
-        printf("arg: %s\n", argument_str.data());
-        auto match = parse_option(argument_str);
-        if (match.success) {
-
-            if (!has_next_argument) {
-                printf("Option %s is missing an argument\n", argument_str.data());
-                continue;
-            }
+        if (auto match = parse_option(argument_str); match.success) {
 
             switch (match.type) {
             case MatchType::Short: {
-                find_and_add_short(parsed_options, match.identifier, std::string{argv[index + 1]});
+                if (!has_next_argument) {
+                    printf("Option %s is missing an argument\n", argument_str.data());
+                    break;
+                }
+                find_and_add_short(parsed_options, match.identifier, argv[index + 1]);
+                next_index_increment = 2;
             } break;
             case MatchType::Long:
-            case MatchType::None:
-                continue;
+                throw std::runtime_error { "not implemented" };
+            case MatchType::Positional: {
+                find_and_add_positional(parsed_options, match.identifier, positional_index);
+                positional_index += 1;
+                break;
+            }
             }
         }
+        index += next_index_increment;
     }
 
     return parsed_options;
 }
 
-void ArgumentParser::find_and_add_short(ParsedOptions& output, std::string_view short_opt, std::string value)
+void ArgumentParser::find_and_add_short(ParsedOptions& output, std::string_view name, std::string_view value)
 {
-    auto it = std::ranges::find_if(m_options, [&short_opt](const Option& opt) {
-        return short_opt[0] == opt.short_name;
+    auto it = std::ranges::find_if(m_options, [&name](const Option& opt) {
+        return name[0] == opt.short_name;
     });
     if (it != m_options.end()) {
-        output.add_option(short_opt, std::move(value));
+        output.add_option(name, std::string { value });
+    }
+}
+
+void ArgumentParser::find_and_add_positional(ParsedOptions& output, std::string_view value, int index)
+{
+    std::vector<Option>::iterator it;
+    {
+        int current_index = 0;
+        it = std::ranges::find_if(m_options, [&current_index, index](const Option& opt) {
+            auto is_positional = opt.type == Option::Type::Positional;
+            auto index_matches = current_index == index;
+            if (is_positional) {
+                current_index += 1;
+            }
+            return is_positional && index_matches;
+        });
+    }
+    if (it != m_options.end()) {
+        output.add_option(it->long_name, std::string { value });
     }
 }

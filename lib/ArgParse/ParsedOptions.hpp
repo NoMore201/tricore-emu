@@ -8,7 +8,6 @@
 #include <type_traits>
 #include <unordered_map>
 
-class ArgumentParser;
 
 class ParsedOptions {
 public:
