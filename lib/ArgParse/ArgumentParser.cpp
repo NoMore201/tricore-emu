@@ -1,10 +1,12 @@
 #include "ArgumentParser.hpp"
-#include "ParsedOptions.hpp"
 
 #include <algorithm>
 #include <cstdint>
-#include <cstdio>
 #include <string_view>
+
+#include <fmt/format.h>
+
+#include "ParsedOptions.hpp"
 
 namespace {
 
@@ -40,7 +42,7 @@ OptionBuilder::OptionBuilder(ArgumentParser& parser)
 {
 }
 
-OptionBuilder& OptionBuilder::with_short_name(char short_name)
+OptionBuilder& OptionBuilder::with_short_name(std::string_view short_name)
 {
     m_option.short_name = short_name;
     return *this;
@@ -80,25 +82,32 @@ ParsedOptions ArgumentParser::parse(int argc, char** argv)
     int positional_index = 0;
 
     // TODO: validate input in case we have some option with '=' like --build=missing
+    // TODO 2: fix boolean arguments
 
     for (int index = 1; index < argc;) {
         std::string_view argument_str { argv[index] };
-        bool has_next_argument = index + 1 < argc;
         int next_index_increment = 1;
 
         if (auto match = parse_option(argument_str); match.success) {
+            bool has_next_argument = index + 1 < argc;
 
             switch (match.type) {
             case MatchType::Short: {
                 if (!has_next_argument) {
-                    printf("Option %s is missing an argument\n", argument_str.data());
+                    fmt::print("Option {} is missing an argument\n", argument_str);
                     break;
                 }
                 find_and_add_short(parsed_options, match.identifier, argv[index + 1]);
                 next_index_increment = 2;
             } break;
             case MatchType::Long:
-                throw std::runtime_error { "not implemented" };
+                if (!has_next_argument) {
+                    fmt::print("Option {} is missing an argument\n", argument_str);
+                    break;
+                }
+                find_and_add_long(parsed_options, match.identifier, argv[index + 1]);
+                next_index_increment = 2;
+                break;
             case MatchType::Positional: {
                 find_and_add_positional(parsed_options, match.identifier, positional_index);
                 positional_index += 1;
@@ -115,10 +124,20 @@ ParsedOptions ArgumentParser::parse(int argc, char** argv)
 void ArgumentParser::find_and_add_short(ParsedOptions& output, std::string_view name, std::string_view value)
 {
     auto it = std::ranges::find_if(m_options, [&name](const Option& opt) {
-        return name[0] == opt.short_name;
+        return name == opt.short_name;
     });
     if (it != m_options.end()) {
-        output.add_option(name, std::string { value });
+        output.add_option(std::string { it->get_name() }, std::string { value });
+    }
+}
+
+void ArgumentParser::find_and_add_long(ParsedOptions& output, std::string_view name, std::string_view value)
+{
+    auto it = std::ranges::find_if(m_options, [&name](const Option& opt) {
+        return name == opt.long_name;
+    });
+    if (it != m_options.end()) {
+        output.add_option(std::string { it->get_name() }, std::string { value });
     }
 }
 
@@ -137,6 +156,6 @@ void ArgumentParser::find_and_add_positional(ParsedOptions& output, std::string_
         });
     }
     if (it != m_options.end()) {
-        output.add_option(it->long_name, std::string { value });
+        output.add_option(std::string { it->long_name }, std::string { value });
     }
 }

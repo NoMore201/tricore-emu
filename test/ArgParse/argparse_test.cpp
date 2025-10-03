@@ -15,13 +15,13 @@ TEST(ArgumentParserTest, ShortOption) {
         arg3
     };
     parser.add_option()
-        .with_short_name('c')
+        .with_short_name("c")
         .with_long_name("command")
         .with_description("Command to execute")
         .with_type(Option::Type::Argument)
         .build();
     auto arguments = parser.parse(3, str_list);
-    auto cmd = arguments.get("c");
+    auto cmd = arguments.get("command");
     ASSERT_TRUE(cmd.has_value());
     ASSERT_EQ(cmd.value().raw, "cmd");
 }
