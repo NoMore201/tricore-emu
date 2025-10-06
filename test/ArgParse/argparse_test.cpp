@@ -21,9 +21,8 @@ TEST(ArgumentParserTest, ShortOption) {
         .with_type(Option::Type::Argument)
         .build();
     auto arguments = parser.parse(3, str_list);
-    auto cmd = arguments.get("command");
-    ASSERT_TRUE(cmd.has_value());
-    ASSERT_EQ(cmd.value().raw, "cmd");
+    auto cmd = arguments.at("command");
+    ASSERT_EQ(cmd.raw, "cmd");
 }
 
 TEST(ArgumentParserTest, PositionalArgument) {
@@ -49,10 +48,8 @@ TEST(ArgumentParserTest, PositionalArgument) {
         .with_type(Option::Type::Positional)
         .build();
     auto arguments = parser.parse(3, str_list);
-    auto cmd = arguments.get("command");
-    auto when = arguments.get("time");
-    ASSERT_TRUE(cmd.has_value());
-    ASSERT_EQ(cmd.value().raw, "reboot");
-    ASSERT_TRUE(when.has_value());
-    ASSERT_EQ(when.value().raw, "now");
+    auto cmd = arguments.at("command");
+    auto when = arguments.at("time");
+    ASSERT_EQ(cmd.raw, "reboot");
+    ASSERT_EQ(when.raw, "now");
 }

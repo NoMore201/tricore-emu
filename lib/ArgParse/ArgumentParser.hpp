@@ -1,12 +1,13 @@
 #ifndef ARGPARSE_ARGUMENT_PARSER_HPP_
 #define ARGPARSE_ARGUMENT_PARSER_HPP_
 
+#include <charconv>
+#include <optional>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
 #include <gsl/pointers>
-
-#include "ParsedOptions.hpp"
 
 class ArgumentParser;
 
@@ -35,6 +36,25 @@ struct Option {
     }
 };
 
+struct OptionValue {
+    std::string raw;
+
+    template<typename T>
+    std::optional<T> parse_as() const
+    {
+        if constexpr (std::is_same_v<T, std::string> || std::is_same_v<T, std::string_view>) {
+            return raw;
+        } else if constexpr (std::is_integral_v<T> || std::is_floating_point_v<T>) {
+            T result {};
+            auto [ptr, ec] = std::from_chars(raw.data(), raw.data() + raw.size(), result);
+            if (ec == std::errc {}) {
+                return result;
+            }
+        }
+        return std::nullopt;
+    }
+};
+
 class OptionBuilder {
 
 public:
@@ -55,15 +75,24 @@ private:
 class ArgumentParser {
 
 public:
+    struct StringHash {
+        using is_transparent = void;
+
+        std::size_t operator()(std::string_view sv) const
+        {
+            std::hash<std::string_view> hasher;
+            return hasher(sv);
+        }
+    };
+
+    using ResultMap = std::unordered_map<std::string, OptionValue, StringHash, std::equal_to<>>;
+
     OptionBuilder add_option();
 
-    ParsedOptions parse(int argc, char** argv);
+    ResultMap parse(int argc, char** argv);
 
 private:
     friend OptionBuilder;
-    void find_and_add_short(ParsedOptions& output, std::string_view name, std::string_view value);
-    void find_and_add_long(ParsedOptions& output, std::string_view name, std::string_view value);
-    void find_and_add_positional(ParsedOptions& output, std::string_view value, int index);
 
     std::vector<Option> m_options;
 };
