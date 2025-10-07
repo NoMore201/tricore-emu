@@ -15,3 +15,6 @@ SpacesInParens: Custom
 SpacesInParensOptions:
   InConditionalStatements: false
   InEmptyParentheses: false
+SpacesInSquareBrackets: false
+SpacesInAngles: false
+Cpp11BracedListStyle: true
