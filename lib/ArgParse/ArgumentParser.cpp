@@ -44,8 +44,8 @@ struct InternalParser {
 
     ArgumentParser::ResultMap parsed_opt;
 
-    int current_index { 1 };
-    int current_positional_index { 0 };
+    int current_index {1};
+    int current_positional_index {0};
 
     InternalParser(const std::vector<Option>& opts, int argc, char** argv)
         : registered_options(opts)
@@ -82,7 +82,7 @@ struct InternalParser {
                 return current_str.substr(pos + 1);
             }
             if (!has_next_argument()) {
-                throw Error { fmt::format("Option {} specified without an argument", current_str) };
+                throw Error {fmt::format("Option {} specified without an argument", current_str)};
             }
             next();
             return get();
@@ -91,7 +91,7 @@ struct InternalParser {
             return "1"sv;
         case Positional:
         default:
-            throw Error { "Argument cannot be of type positional" };
+            throw Error {"Argument cannot be of type positional"};
         }
     }
 
@@ -110,19 +110,13 @@ struct InternalParser {
         });
         if (it != registered_options.end()) {
             auto value = get_argument_value_for(*it);
-            auto [_, success] = parsed_opt.try_emplace(std::string { it->get_name() }, std::string { value });
-            if (!success) {
-                throw Error { fmt::format("Option {} specified multiple times", it->long_name) };
-            }
+            parsed_opt[std::string {it->get_name()}] = OptionValue {std::string {value}};
         }
     }
 
     void parse_single_dash_argument(std::string_view arg)
     {
         auto stripped = arg.substr(1);
-        if (!has_next_argument()) {
-            throw Error { fmt::format("Option {} specified without an argument", arg) };
-        }
         auto name = stripped;
 
         auto it = std::ranges::find_if(registered_options, [&name](const Option& opt) {
@@ -130,11 +124,7 @@ struct InternalParser {
         });
         if (it != registered_options.end()) {
             auto value = get_argument_value_for(*it);
-
-            auto [_, success] = parsed_opt.try_emplace(std::string { it->get_name() }, std::string { value });
-            if (!success) {
-                throw Error { fmt::format("Option {} specified multiple times", it->long_name) };
-            }
+            parsed_opt[std::string {it->get_name()}] = OptionValue {std::string {value}};
         }
     }
 
@@ -153,16 +143,22 @@ struct InternalParser {
             });
         }
         if (it != registered_options.end()) {
-            auto [_, success] = parsed_opt.try_emplace(std::string { it->get_name() }, std::string { arg });
-            if (!success) {
-                throw Error { fmt::format("Option {} specified multiple times", it->long_name) };
-            }
+            parsed_opt[std::string {it->get_name()}] = OptionValue {std::string {arg}};
             current_positional_index += 1;
         }
     }
 
     void parse()
     {
+
+        // first iterate over option to assign default values
+        for (const auto& opt : registered_options) {
+            if (opt.type == Option::Type::Boolean) {
+                // TODO: implement default value
+                parsed_opt[std::string {opt.get_name()}] = OptionValue {std::string {"0"}};
+            }
+        }
+
         while (static_cast<std::size_t>(current_index) < arguments.size()) {
             if (auto current = get(); current.starts_with("--")) {
                 parse_double_dash_argument(current);
@@ -214,12 +210,12 @@ void OptionBuilder::build()
 
 OptionBuilder ArgumentParser::add_option()
 {
-    return OptionBuilder { *this };
+    return OptionBuilder {*this};
 }
 
 ArgumentParser::ResultMap ArgumentParser::parse(int argc, char** argv)
 {
-    InternalParser parser { m_options, argc, argv };
+    InternalParser parser {m_options, argc, argv};
     parser.parse();
 
     return std::move(parser.parsed_opt);

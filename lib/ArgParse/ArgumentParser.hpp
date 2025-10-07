@@ -19,7 +19,7 @@ struct Option {
     };
 
     std::string_view short_name;
-    Type type { Type::Positional };
+    Type type {Type::Positional};
     std::string_view long_name;
     std::string_view description;
 
@@ -44,6 +44,8 @@ struct OptionValue {
     {
         if constexpr (std::is_same_v<T, std::string> || std::is_same_v<T, std::string_view>) {
             return raw;
+        } else if constexpr (std::is_same_v<T, bool>) {
+            return raw == "1";
         } else if constexpr (std::is_integral_v<T> || std::is_floating_point_v<T>) {
             T result {};
             auto [ptr, ec] = std::from_chars(raw.data(), raw.data() + raw.size(), result);
