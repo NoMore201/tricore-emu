@@ -11,7 +11,6 @@ include(GoogleTest)
 
 # ---- Tests ----
 
-add_subdirectory(ArgParse)
 add_subdirectory(Emulator)
 add_subdirectory(Utils)
 

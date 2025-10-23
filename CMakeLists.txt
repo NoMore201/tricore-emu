@@ -11,6 +11,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 endif()
 
 option(ENABLE_SANITIZERS "Enable compiler sanitizers" OFF)
+option(ENABLE_TESTS "Enable unit tests" ON)
 
 # ---- Declare dependencies ----
 
@@ -23,7 +24,7 @@ find_package(fmt CONFIG REQUIRED)
 add_subdirectory(lib)
 add_subdirectory(src)
 
-include(CTest)
-if(BUILD_TESTING)
+if(ENABLE_TESTS)
+  include(CTest)
   add_subdirectory(test)
 endif()
