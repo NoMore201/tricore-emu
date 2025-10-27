@@ -12,5 +12,4 @@ include(GoogleTest)
 # ---- Tests ----
 
 add_subdirectory(Emulator)
-add_subdirectory(Utils)
 

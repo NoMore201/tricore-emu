@@ -1,5 +1,6 @@
 add_executable(
   tricore_emu_test
+  bit_ops_test.cpp
   bus_test.cpp
   elf_test.cpp
   instruction_test.cpp
