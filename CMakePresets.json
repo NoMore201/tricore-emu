@@ -1,0 +1,194 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "_default",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_MANIFEST_FEATURES": "test",
+        "BUILD_TESTING": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "_windows",
+      "hidden": true,
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Windows"
+          ]
+        }
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "_unix",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "_debug_base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_SANITIZERS": "OFF"
+      }
+    },
+    {
+      "name": "_release_base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "windows-clang-cl-debug",
+      "description": "Develop in Visual Studio with Clang compiler in debug mode",
+      "inherits": [
+        "_default",
+        "_windows",
+        "_debug_base"
+      ],
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "intelliSenseMode": "windows-clang-x64"
+        }
+      }
+    },
+    {
+      "name": "windows-clang-cl-release",
+      "description": "Develop in Visual Studio with Clang compiler in release mode",
+      "inherits": [
+        "_default",
+        "_windows",
+        "_release_base"
+      ],
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "intelliSenseMode": "windows-clang-x64"
+        }
+      }
+    },
+    {
+      "name": "windows-msvc-debug",
+      "description": "Develop in Visual Studio with MSVC compiler in release mode",
+      "inherits": [
+        "_default",
+        "_windows",
+        "_debug_base"
+      ],
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+      }
+    },
+    {
+      "name": "windows-msvc-release",
+      "description": "Develop in Visual Studio with MSVC compiler in debug mode",
+      "inherits": [
+        "_default",
+        "_windows",
+        "_release_base"
+      ],
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+      }
+    },
+    {
+      "name": "unix-gcc-debug",
+      "description": "Develop on linux with gcc compiler in debug mode",
+      "inherits": [
+        "_default",
+        "_debug_base",
+        "_unix"
+      ],
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "VCPKG_HOST_TRIPLET": "x64-linux",
+        "VCPKG_TARGET_TRIPLET": "x64-linux"
+      },
+      "environment": {
+        "VCPKG_ROOT": "${sourceDir}/third_party/vcpkg"
+      }
+    },
+    {
+      "name": "unix-gcc-release",
+      "description": "Develop on linux with gcc compiler in release mode",
+      "inherits": [
+        "_default",
+        "_release_base",
+        "_unix"
+      ],
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "VCPKG_HOST_TRIPLET": "x64-linux",
+        "VCPKG_TARGET_TRIPLET": "x64-linux"
+      },
+      "environment": {
+        "VCPKG_ROOT": "${sourceDir}/third_party/vcpkg"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "windows-clang-debug",
+      "configurePreset": "windows-clang-cl-debug"
+    },
+    {
+      "name": "windows-clang-release",
+      "configurePreset": "windows-clang-cl-release"
+    },
+    {
+      "name": "windows-msvc-debug",
+      "configurePreset": "windows-msvc-debug"
+    },
+    {
+      "name": "windows-msvc-release",
+      "configurePreset": "windows-msvc-release"
+    },
+    {
+      "name": "unix-gcc-debug",
+      "configurePreset": "unix-gcc-debug"
+    },
+    {
+      "name": "unix-gcc-release",
+      "configurePreset": "unix-gcc-release"
+    }
+  ]
+}
