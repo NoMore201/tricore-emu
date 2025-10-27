@@ -1,23 +1,25 @@
-#ifndef UTILS_SPAN_HPP_
-#define UTILS_SPAN_HPP_
+#ifndef TRICORE_EMU_SPAN_HPP_
+#define TRICORE_EMU_SPAN_HPP_
 
 #include <cstdint>
 
 #include <gsl/span>
 
+template<typename T>
+using Span = gsl::span<T>;
+
 namespace Utils {
 
-static constexpr gsl::span<uint8_t> to_span(auto* const buffer, std::size_t length)
+static constexpr Span<uint8_t> to_byte_span(auto* const buffer, std::size_t length)
 {
     return gsl::make_span(reinterpret_cast<uint8_t*>(buffer), length);
 }
 
-static constexpr gsl::span<const uint8_t> to_span(const auto* const buffer, std::size_t length)
+static constexpr Span<const uint8_t> to_byte_span(const auto* const buffer, std::size_t length)
 {
     return gsl::make_span(reinterpret_cast<const uint8_t*>(buffer), length);
 }
 
 } // namespace Utils
 
-
-#endif // UTILS_SPAN_HPP_
+#endif // TRICORE_EMU_SPAN_HPP_
