@@ -17,9 +17,9 @@ class Cpu : public BusClient {
 public:
     Cpu();
 
-    void read(gsl::span<byte> buffer_out, u32 address) override;
+    void read(Span<byte> buffer_out, u32 address) override;
 
-    void write(gsl::span<const byte> buffer_in, u32 address) override;
+    void write(Span<const byte> buffer_in, u32 address) override;
 
 private:
     u32 m_cpu0_flashcon0;

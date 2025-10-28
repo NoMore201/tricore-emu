@@ -1,8 +1,8 @@
 #ifndef TRICORE_EMU_MEMORY_HPP
 #define TRICORE_EMU_MEMORY_HPP
 
-#include "IBusClient.hpp"
-#include "Tricore.hpp"
+#include "BusOps.hpp"
+#include "Span.hpp"
 #include "Types.hpp"
 
 #include <gsl/span>
@@ -11,32 +11,26 @@
 
 namespace Tricore {
 
-class Memory : public IBusClient {
+class MemoryRegion : public BusOps {
 
 public:
-    struct Layout {
-        usize size;
-        u32 address;
+    struct AddressRange {
+        u32 start;
+        u32 end;
     };
 
-    explicit Memory(CpuVariant variant);
+    explicit MemoryRegion(u32 start_address, usize size, std::optional<u32> mirror_address = std::nullopt);
 
-    void read(gsl::span<byte> buffer_out, u32 address) override;
+    void read(Span<byte> buffer_out, u32 address) override;
 
-    void write(gsl::span<const byte> buffer_in, u32 address) override;
+    void write(Span<const byte> buffer_in, u32 address) override;
 
 private:
-    struct MemBuffer {
-        u32 start_address;
-        std::optional<u32> mirror_start_address;
-        std::vector<byte> buffer;
+    u32 get_offset_into_buffer(u32 address);
 
-        u32 offset_into_buffer(u32 address);
-    };
-
-    MemBuffer& get_corresponding_buffer(u32 address);
-
-    std::vector<MemBuffer> m_data;
+    u32 m_start_address;
+    std::optional<u32> m_mirror_start_address;
+    std::vector<byte> m_buffer;
 };
 
 } // namespace Tricore

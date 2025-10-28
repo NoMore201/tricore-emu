@@ -141,7 +141,7 @@ void Tricore::Peripherals::Smu::read(byte* buffer_out, u32 address,
         const u32 alarm_reg_index = (alarm_offset / 4U) % 3U;
 
         Ensures(alarm_group_index < AlarmConfigRegisterNumber && alarm_reg_index < 3);
-        gsl::span agcf_view { m_smu_agcf };
+        Span agcf_view { m_smu_agcf };
 
         spdlog::debug("SMU: accessing SMU.AGCF[{}][{}] in read mode",
             alarm_group_index, alarm_reg_index);
@@ -287,7 +287,7 @@ void Tricore::Peripherals::Smu::write(const byte* buffer_in, u32 address,
         const u32 alarm_reg_index = (alarm_offset / 4U) % 3U;
 
         Ensures(alarm_group_index < AlarmConfigRegisterNumber && alarm_reg_index < 3);
-        gsl::span agcf_view { m_smu_agcf };
+        Span agcf_view { m_smu_agcf };
 
         spdlog::debug("SMU: accessing SMU.AGCF[{}][{}] in write mode",
             alarm_group_index, alarm_reg_index);

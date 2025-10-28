@@ -4,11 +4,11 @@
 #include <Bus.hpp>
 #include <IBusClient.hpp>
 
-class MockClient : public Tricore::IBusClient {
+class MockClient : public Tricore::BusOps {
 
 public:
-    MOCK_METHOD(void, read, (gsl::span<byte>, u32), (override));
-    MOCK_METHOD(void, write, (gsl::span<const byte>, u32), (override));
+    MOCK_METHOD(void, read, (Span<byte>, u32), (override));
+    MOCK_METHOD(void, write, (Span<const byte>, u32), (override));
 };
 
 class BusTestFixture : public ::testing::Test {

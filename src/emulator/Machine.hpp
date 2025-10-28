@@ -21,8 +21,8 @@ public:
 
 private:
     Bus m_bus;
-    Memory m_memory;
     Cpu m_cpu;
+    std::vector<MemoryRegion> m_flash_layout;
 };
 
 } // namespace Tricore
