@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <Bus.hpp>
-#include <IBusClient.hpp>
+#include <BusOps.hpp>
 
 class MockClient : public Tricore::BusOps {
 
@@ -25,7 +25,6 @@ TEST_F(BusTestFixture, RegisterClient)
     EXPECT_CALL(sample_client, read(::testing::_, 0xABBADEDE)).Times(1);
 
     main_bus.register_device(sample_client);
-    auto request_handler = main_bus.create_request_handler();
 
-    EXPECT_NO_THROW(request_handler.read(gsl::make_span(buffer), 0xABBADEDE));
+    EXPECT_NO_THROW(main_bus.read(gsl::make_span(buffer), 0xABBADEDE));
 }

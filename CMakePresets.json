@@ -15,7 +15,11 @@
         "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
         "VCPKG_MANIFEST_FEATURES": "test",
         "BUILD_TESTING": "ON",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "environment": {
+        "VCPKG_ROOT": "${sourceDir}/third_party/vcpkg"
       }
     },
     {
@@ -72,8 +76,7 @@
       ],
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang-cl",
-        "CMAKE_CXX_COMPILER": "clang-cl",
-        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+        "CMAKE_CXX_COMPILER": "clang-cl"
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
@@ -91,8 +94,7 @@
       ],
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang-cl",
-        "CMAKE_CXX_COMPILER": "clang-cl",
-        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+        "CMAKE_CXX_COMPILER": "clang-cl"
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
@@ -110,8 +112,7 @@
       ],
       "cacheVariables": {
         "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+        "CMAKE_CXX_COMPILER": "cl"
       }
     },
     {
@@ -124,8 +125,7 @@
       ],
       "cacheVariables": {
         "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
-        "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+        "CMAKE_CXX_COMPILER": "cl"
       }
     },
     {
@@ -138,12 +138,7 @@
       ],
       "cacheVariables": {
         "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++",
-        "VCPKG_HOST_TRIPLET": "x64-linux",
-        "VCPKG_TARGET_TRIPLET": "x64-linux"
-      },
-      "environment": {
-        "VCPKG_ROOT": "${sourceDir}/third_party/vcpkg"
+        "CMAKE_CXX_COMPILER": "g++"
       }
     },
     {
@@ -156,12 +151,33 @@
       ],
       "cacheVariables": {
         "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++",
-        "VCPKG_HOST_TRIPLET": "x64-linux",
-        "VCPKG_TARGET_TRIPLET": "x64-linux"
-      },
-      "environment": {
-        "VCPKG_ROOT": "${sourceDir}/third_party/vcpkg"
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "unix-clang-debug",
+      "description": "Develop on linux with gcc compiler in debug mode",
+      "inherits": [
+        "_default",
+        "_debug_base",
+        "_unix"
+      ],
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "unix-clang-release",
+      "description": "Develop on linux with gcc compiler in release mode",
+      "inherits": [
+        "_default",
+        "_release_base",
+        "_unix"
+      ],
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
       }
     }
   ],
@@ -189,6 +205,14 @@
     {
       "name": "unix-gcc-release",
       "configurePreset": "unix-gcc-release"
+    },
+    {
+      "name": "unix-clang-debug",
+      "configurePreset": "unix-clang-debug"
+    },
+    {
+      "name": "unix-clang-release",
+      "configurePreset": "unix-clang-release"
     }
   ]
 }
